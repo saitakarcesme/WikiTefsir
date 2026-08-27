@@ -12,7 +12,17 @@
 
 ## Açık kapsam
 
-- Alfa arayüzündeki dinî içeriklerin bir bölümü açıkça örnek/ilmî kontrolde olarak işaretlidir.
-- Kur’an’ın tamamı, Kütüb-i Sitte hadis metinlerinin tamamı ve klasik tefsir külliyatı henüz içe aktarılmadı.
+- Alfa arayüzündeki hadis, meal ve tefsir içeriklerinin bir bölümü açıkça örnek/ilmî kontrolde olarak işaretlidir.
+- Kütüb-i Sitte hadis metinlerinin tamamı ve klasik tefsir külliyatı henüz içe aktarılmadı.
 - Toplu veri aktarımından önce her neşir ve tercüme için lisans/kullanım hakkı ile kesin baskı künyesi belirlenmelidir.
 - Editör onay iş akışı, kalıcı veri tabanı ve gerçek kaynak revizyon sistemi sonraki ana aşamadır.
+
+## 2026-08-27 — Eksiksiz Kur’an külliyatı
+
+- Tanzil Uthmani 1.1 metni, CC BY 3.0 şartlarına uygun biçimde ve değiştirilmeden depoya alındı.
+- 114 sure, 6.236 ayet, kaynak metni ve metadata dosyaları SHA-256 özetleriyle doğrulandı.
+- Taşınabilir ayet kataloğundaki her metin, kaynak dosyasındaki Unicode dizesiyle birebir karşılaştırılıyor.
+- Bütün sureler kalıcı URL, bilgi kutusu, ayet çapaları ve komşu sure navigasyonuyla yayıma hazırlandı.
+- Ana arama; sure adı, Arapça ayet metni ve `2:255` biçimindeki doğrudan referanslarda tam külliyatı tarıyor.
+- Türkçe meal, kullanım lisansı ve baskı künyesi doğrulanana kadar Kur’an maddelerine eklenmedi.
+- Yerel doğrulamada ESLint, TypeScript, veri bütünlüğü, 123 sayfalık production build ve temsili HTTP rotaları başarılıdır.
