@@ -1,0 +1,25 @@
+{
+  "corpus": "quran",
+  "verseCount": 6236,
+  "surahCount": 114,
+  "license": {
+    "name": "Creative Commons Attribution 3.0",
+    "url": "https://tanzil.net/docs/Text_License",
+    "attribution": "Tanzil Project — https://tanzil.net",
+    "verbatimOnly": true
+  },
+  "sources": [
+    {
+      "id": "tanzil-uthmani-1.1",
+      "url": "https://tanzil.net/pub/download/index.php?quranType=uthmani&outType=txt-2&marks=true&sajdah=true&tatweel=true&agree=true",
+      "filename": "tanzil-uthmani-1.1.txt",
+      "sha256": "6933e133dd56db778c801bf738848454e43648105a151e8d84d86a7cae39ec5f"
+    },
+    {
+      "id": "tanzil-quran-metadata-1.0",
+      "url": "https://tanzil.net/res/text/metadata/quran-data.xml",
+      "filename": "tanzil-quran-data-1.0.xml",
+      "sha256": "8867c1d88191472adec9db694b3cd9f135b1a2ef580574d32cf888dcb22c5c7a"
+    }
+  ]
+}
