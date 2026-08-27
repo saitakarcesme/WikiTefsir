@@ -1,3 +1,5 @@
+import { SearchExplorer } from './components/search-explorer';
+
 const collections = [
   { name: 'Kur’an-ı Kerîm', detail: '114 sure · 6.236 ayet', tone: 'green' },
   { name: 'Kütüb-i Sitte', detail: '6 temel hadis külliyatı', tone: 'amber' },
@@ -124,4 +126,3 @@ export default function Home() {
     </main>
   );
 }
-import { SearchExplorer } from './components/search-explorer';
