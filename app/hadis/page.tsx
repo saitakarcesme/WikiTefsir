@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { SiteHeader } from '../components/site-header';
 
 export const metadata: Metadata = {
@@ -20,7 +21,7 @@ export default function HadithPage() {
     <main>
       <SiteHeader />
       <div className="library-page">
-        <nav className="breadcrumbs" aria-label="İçerik yolu"><a href="/">Ana sayfa</a><span>›</span>Hadisler</nav>
+        <nav className="breadcrumbs" aria-label="İçerik yolu"><Link href="/">Ana sayfa</Link><span>›</span>Hadisler</nav>
         <header className="library-hero">
           <span className="section-kicker">Hadis kütüphanesi</span>
           <h1>Kütüb-i Sitte</h1>
