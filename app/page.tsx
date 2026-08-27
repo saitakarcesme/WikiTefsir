@@ -6,7 +6,7 @@ import { getTurkishMeal, getVerse, turkishMealMetadata } from '@/lib/quran';
 
 const collections = [
   { name: 'Kur’an-ı Kerîm', detail: '114 sure · 6.236 ayet ve Türkçe meal', tone: 'green', href: '/sureler' },
-  { name: 'Kütüb-i Sitte', detail: '6 temel hadis külliyatı', tone: 'amber', href: '/hadis' },
+  { name: 'Sahih Hadisler', detail: '1.993 doğrulanmış kayıt', tone: 'amber', href: '/hadis' },
   { name: 'Klasik Tefsirler', detail: 'Kaynaklı açıklamalar', tone: 'blue', href: '/alim/taberi' },
 ];
 
