@@ -1,0 +1,44 @@
+{
+  "corpus": "classical-sunni-tafsirs",
+  "publisher": "Quran Lab",
+  "dataset": "quranlab/quran-tafsir",
+  "release": "1.40.0",
+  "revision": "86e676b432463b100254d63309bf62b0c6578b53",
+  "upstreamRevision": "spa5k/tafsir_api@5bbe0895543219f9ec3fe4ee808acce701a7bb4a",
+  "termsUrl": "https://huggingface.co/datasets/quranlab/quran-tafsir/blob/86e676b432463b100254d63309bf62b0c6578b53/LICENSES.md",
+  "rowApi": "https://datasets-server.huggingface.co/rows",
+  "recordsPerSource": 6236,
+  "sources": [
+    {
+      "id": "tafsir-ibnkathir-ar",
+      "author": "İbn Kesîr",
+      "work": "Tefsîrü'l-Kur'âni'l-Azîm",
+      "school": "Eserî (Şâfiî)",
+      "terms": "public-domain",
+      "commentaryCount": 6236,
+      "parquetBytes": 20517073,
+      "parquetSha256": "b64120b8038e2096a87b6a656b77955888304ec89f64890008c74a64a723ed81"
+    },
+    {
+      "id": "tafsir-tabari-ar",
+      "author": "İmam Taberî",
+      "work": "Câmiu'l-beyân an te'vîli âyi'l-Kur'ân",
+      "school": "Klasik Sünnî",
+      "terms": "public-domain",
+      "commentaryCount": 6236,
+      "parquetBytes": 18519892,
+      "parquetSha256": "afc10efc0fc7a3740fd74973f7a100284d3571dfcdd9b38f9166b9cff3623bcd"
+    },
+    {
+      "id": "tafsir-qurtubi-ar",
+      "author": "İmam Kurtubî",
+      "work": "el-Câmi' li-ahkâmi'l-Kur'ân",
+      "school": "Mâlikî",
+      "terms": "public-domain",
+      "commentaryCount": 6234,
+      "sourceUnavailableCount": 2,
+      "parquetBytes": 23369262,
+      "parquetSha256": "42ba48945b842beea08616a8d7f1951efaf8154ec4d33421e91e46dc894af925"
+    }
+  ]
+}
