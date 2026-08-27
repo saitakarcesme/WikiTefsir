@@ -44,7 +44,7 @@ export function VerseTafsirs({ surah, ayah }: { surah: number; ayah: number }) {
             <span>Bir tefsirde rivayet aktarılması, o rivayete otomatik olarak “sahih hadis” hükmü vermez.</span>
           </div>
           {payload.records.map((record) => (
-            <details key={record.source.id} open>
+            <details key={record.source.id}>
               <summary><span>{record.source.author}</span><small>{record.source.work} · {record.source.school}</small></summary>
               {record.hasCommentary
                 ? <p lang="ar" dir="rtl">{record.text}</p>
