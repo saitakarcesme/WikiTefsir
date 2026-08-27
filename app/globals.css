@@ -74,7 +74,7 @@ button { cursor: pointer; }
 
 .header-actions { display: flex; justify-content: flex-end; align-items: center; gap: 12px; }
 .icon-button, .plain-button { border: 1px solid var(--line); background: rgba(255,255,255,.75); color: var(--ink); height: 36px; border-radius: 10px; }
-.icon-button { width: 36px; font-size: 18px; }
+.icon-button { width: 36px; display: grid; place-items: center; font-size: 18px; }
 .plain-button { padding: 0 16px; font-size: 12px; font-weight: 650; }
 
 .hero {
