@@ -1,7 +1,7 @@
 {
   "project": "WikiTefsir",
-  "phase": "turkish_meal_deployed",
-  "updated_at": "2026-08-28T00:14:35+02:00",
+  "phase": "verified_hadith_corpus_local",
+  "updated_at": "2026-08-28T00:30:30+02:00",
   "production_url": "https://wikitafsir.vercel.app",
   "repository_url": "https://github.com/saitakarcesme/WikiTefsir",
   "completed": [
@@ -30,13 +30,20 @@
     "turkish_meal_source_integrity_verification",
     "all_surah_pages_with_turkish_meal",
     "turkish_meal_full_corpus_search",
-    "turkish_meal_production_deployment_verified"
+    "turkish_meal_production_deployment_verified",
+    "hadeethenc_terms_and_version_verified",
+    "explicitly_sahih_hadith_import_1993_records",
+    "hadith_corpus_integrity_verification",
+    "searchable_hadith_directory",
+    "sourced_hadith_detail_pages",
+    "hadith_full_text_search"
   ],
   "next": [
+    "verify_and_deploy_hadith_release",
     "select_licensed_kutub_al_sittah_editions",
     "select_licensed_tafsir_editions",
     "implement_persistent_editorial_database",
-    "import_and_verify_hadith_and_tafsir_corpora"
+    "import_and_verify_kutub_al_sittah_and_tafsir_corpora"
   ],
   "constraints": [
     "no_unverified_religious_claims",
