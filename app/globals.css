@@ -291,6 +291,22 @@ button { cursor: pointer; }
 .wiki-infobox dt { color: #899590; font-size: 9px; }
 .wiki-infobox dd { margin: 0; font-size: 9px; font-weight: 700; text-align: right; }
 .wiki-infobox > a { color: var(--green); font-size: 9px; font-weight: 750; }
+.article-arabic-title { margin: 7px 0 0; color: #315b4e; font-family: 'Noto Naskh Arabic', 'Amiri', Georgia, serif; font-size: 25px; text-align: left; }
+.corpus-verse { scroll-margin-top: 95px; }
+.corpus-verse .round-number { transition: color .18s ease, border-color .18s ease, background .18s ease; }
+.corpus-verse .round-number:hover { color: #fff; background: var(--green); border-color: var(--green); }
+.corpus-verse-meta { margin-top: 11px; display: flex; gap: 7px; flex-wrap: wrap; }
+.corpus-verse-meta span { padding: 5px 7px; color: #7c8a84; background: #f4f7f5; border-radius: 6px; font-size: 8px; }
+.surah-pagination { margin-top: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.surah-pagination a { padding: 16px 18px; display: flex; flex-direction: column; gap: 5px; background: #fff; border: 1px solid var(--line); border-radius: 11px; }
+.surah-pagination a:last-child { align-items: flex-end; text-align: right; }
+.surah-pagination a:hover { border-color: rgba(23,107,77,.38); }
+.surah-pagination small { color: #8b9792; font-size: 8px; font-weight: 700; text-transform: uppercase; }
+.surah-pagination strong { color: var(--green); font-family: Georgia, serif; font-size: 13px; }
+.infobox-source { padding-top: 16px; text-align: left; border-top: 1px solid #edf0ed; }
+.infobox-source strong { display: block; font-size: 10px; }
+.infobox-source p { margin: 4px 0 9px; color: #87938e; font-size: 8px; }
+.infobox-source a { color: var(--green); font-size: 8px; font-weight: 750; }
 
 .profile-page { width: min(1060px, calc(100% - 48px)); margin: 0 auto; padding: 48px 0 80px; }
 .profile-hero { margin-top: 32px; padding: 42px; display: grid; grid-template-columns: auto 1fr; gap: 30px; align-items: center; background: linear-gradient(135deg, #f0f6f2, #f8f4e9); border: 1px solid var(--line); border-radius: 20px; }
