@@ -53,7 +53,7 @@ WikiTefsir; Kur'an ayetlerini, Kütüb-i Sitte hadislerini ve Ehl-i Sünnet çiz
 - [x] Veri şeması ve kaynak politikası
 - [x] Test, erişilebilirlik ve üretim derlemesi kontrolü
 - [x] Public GitHub deposu
-- [ ] Vercel prod dağıtımı ve doğrulama
+- [x] Vercel prod dağıtımı ve doğrulama
 
 ## Mikro commit protokolü
 
