@@ -1,9 +1,11 @@
+import Link from 'next/link';
+
 const nodes = [
-  { className: 'graph-node verse', label: 'Fâtiha 1:5', meta: 'Ayet', position: 'center' },
-  { className: 'graph-node tafsir', label: 'Taberî', meta: 'Tefsir', position: 'top-left' },
-  { className: 'graph-node tafsir', label: 'İbn Kesîr', meta: 'Tefsir', position: 'bottom-left' },
-  { className: 'graph-node hadith', label: 'Sahîh-i Müslim', meta: 'Hadis', position: 'top-right' },
-  { className: 'graph-node concept', label: 'İbadet', meta: 'Kavram', position: 'bottom-right' },
+  { className: 'graph-node verse', label: 'Fâtiha 1:5', meta: 'Ayet', position: 'center', href: '/sure/fatiha#ayet-5' },
+  { className: 'graph-node tafsir', label: 'Taberî', meta: 'Tefsir', position: 'top-left', href: '/alim/taberi' },
+  { className: 'graph-node tafsir', label: 'İbn Kesîr', meta: 'Tefsir', position: 'bottom-left', href: '/alim/ibn-kesir' },
+  { className: 'graph-node tafsir', label: 'Kurtubî', meta: 'Tefsir', position: 'top-right', href: '/alim/kurtubi' },
+  { className: 'graph-node concept', label: 'İbadet', meta: 'Kavram', position: 'bottom-right', href: '/kavram/ibadet' },
 ];
 
 export function KnowledgeGraph() {
@@ -18,8 +20,8 @@ export function KnowledgeGraph() {
         </p>
         <ul>
           <li><span className="legend-dot green" /> Ayet ve sureler</li>
-          <li><span className="legend-dot amber" /> Hadis külliyatı</li>
-          <li><span className="legend-dot blue" /> Tefsir ve kavramlar</li>
+          <li><span className="legend-dot amber" /> Klasik tefsirler</li>
+          <li><span className="legend-dot blue" /> Kavram maddeleri</li>
         </ul>
         <a className="graph-link" href="#fatiha">Örnek ayet kaydını incele <span>→</span></a>
       </div>
@@ -30,10 +32,10 @@ export function KnowledgeGraph() {
         <span className="connector line-three" aria-hidden="true" />
         <span className="connector line-four" aria-hidden="true" />
         {nodes.map((node) => (
-          <div className={`${node.className} ${node.position}`} key={`${node.meta}-${node.label}`}>
+          <Link className={`${node.className} ${node.position}`} href={node.href} key={`${node.meta}-${node.label}`}>
             <small>{node.meta}</small>
             <strong>{node.label}</strong>
-          </div>
+          </Link>
         ))}
       </div>
     </section>
