@@ -209,6 +209,38 @@ button { cursor: pointer; }
 .scholar strong { margin-bottom: 4px; font-size: 12px; }
 .scholar small { color: #87938f; font-family: Georgia, serif; font-size: 10px; }
 
+.graph-section { min-height: 365px; margin-top: 18px; padding: 38px 42px; display: grid; grid-template-columns: .8fr 1.2fr; align-items: center; gap: 48px; background: #fff; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; }
+.graph-copy h2 { max-width: 360px; margin: 0; font-family: Georgia, serif; font-size: clamp(27px, 3vw, 38px); line-height: 1.08; letter-spacing: -.035em; }
+.graph-copy > p { max-width: 440px; margin: 16px 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+.graph-copy ul { margin: 0 0 20px; padding: 0; display: flex; flex-wrap: wrap; gap: 14px; list-style: none; color: #6f7f79; font-size: 9px; }
+.graph-copy li { display: flex; align-items: center; gap: 6px; }
+.legend-dot { width: 7px; height: 7px; border-radius: 50%; }
+.legend-dot.green { background: var(--green); }
+.legend-dot.amber { background: #bd8d38; }
+.legend-dot.blue { background: #5e8295; }
+.graph-link { color: var(--green); font-size: 11px; font-weight: 720; }
+.graph-link span { margin-left: 8px; }
+
+.graph-stage { min-height: 285px; position: relative; border-radius: 50%; background: radial-gradient(circle, rgba(23,107,77,.07) 0 2%, transparent 2.5% 29%, rgba(23,107,77,.055) 29.5% 30%, transparent 30.5% 52%, rgba(23,107,77,.035) 52.5% 53%, transparent 53.5%); }
+.graph-stage::before { content: ''; position: absolute; inset: 18px 13%; border: 1px dashed rgba(23,107,77,.12); border-radius: 50%; }
+.graph-node { width: 108px; min-height: 54px; padding: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; position: absolute; z-index: 2; background: #fff; border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 7px 20px rgba(23,55,46,.08); text-align: center; }
+.graph-node small { margin-bottom: 4px; color: #8b9792; font-size: 8px; font-weight: 750; letter-spacing: .09em; text-transform: uppercase; }
+.graph-node strong { font-family: Georgia, serif; font-size: 12px; }
+.graph-node.verse { width: 125px; min-height: 68px; color: #fff; background: var(--green); border-color: var(--green); box-shadow: 0 10px 26px rgba(23,107,77,.23); }
+.graph-node.verse small { color: #bcd9ce; }
+.graph-node.hadith { border-color: #e9d8b5; }
+.graph-node.concept { border-color: #cddfe6; }
+.graph-node.center { left: 50%; top: 50%; transform: translate(-50%, -50%); }
+.graph-node.top-left { left: 5%; top: 14%; }
+.graph-node.bottom-left { left: 10%; bottom: 9%; }
+.graph-node.top-right { right: 4%; top: 12%; }
+.graph-node.bottom-right { right: 10%; bottom: 8%; }
+.connector { height: 1px; width: 40%; position: absolute; left: 50%; top: 50%; background: rgba(23,107,77,.25); transform-origin: left center; z-index: 1; }
+.line-one { transform: rotate(-151deg); }
+.line-two { transform: rotate(148deg); }
+.line-three { transform: rotate(-29deg); }
+.line-four { transform: rotate(31deg); }
+
 .trust-strip { margin-top: 18px; padding: 19px 24px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 16px; background: #17372e; color: white; border-radius: 15px; box-shadow: 0 12px 30px rgba(23,55,46,.12); }
 .trust-mark { width: 36px; height: 36px; display: grid; place-items: center; color: #17372e; background: #d9b267; border-radius: 50%; font-weight: 900; }
 .trust-strip strong { font-family: Georgia, serif; font-size: 14px; }
@@ -221,6 +253,7 @@ button { cursor: pointer; }
   .main-nav { display: none; }
   .collection-grid { grid-template-columns: 1fr; }
   .workspace-grid { grid-template-columns: 1fr; }
+  .graph-section { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 620px) {
@@ -240,4 +273,6 @@ button { cursor: pointer; }
   .relation-summary a { grid-column: 1 / -1; justify-self: center; margin-top: 5px; }
   .trust-strip { grid-template-columns: auto 1fr; }
   .trust-strip a { grid-column: 2; }
+  .graph-section { padding: 28px 20px; gap: 18px; }
+  .graph-stage { min-height: 260px; transform: scale(.9); margin: -8px -24px; }
 }
