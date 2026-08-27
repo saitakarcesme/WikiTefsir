@@ -11,7 +11,9 @@
     "start": "next start",
     "dev:sites": "vinext dev",
     "build:sites": "vinext build",
-    "lint": "eslint . --ignore-pattern dist --ignore-pattern .next"
+    "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+    "data:import:quran": "node scripts/import-tanzil-quran.mjs",
+    "data:verify:quran": "node scripts/verify-quran-corpus.mjs"
   },
   "dependencies": {
     "next": "16.3.3",
