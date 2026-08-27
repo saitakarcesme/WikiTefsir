@@ -27,3 +27,13 @@
 - Türkçe meal, kullanım lisansı ve baskı künyesi doğrulanana kadar Kur’an maddelerine eklenmedi.
 - Yerel doğrulamada ESLint, TypeScript, veri bütünlüğü, 123 sayfalık production build ve temsili HTTP rotaları başarılıdır.
 - Production dağıtımında ana sayfa, sure dizini, temsili sureler, hadis ve âlim sayfaları HTTP 200; `2:255` API araması ve Tanzil kaynak atfı içerik düzeyinde doğrulandı.
+
+## 2026-08-28 — Eksiksiz Türkçe meal
+
+- QuranEnc Rowwad Tercüme Merkezi Türkçe tercümesinin 1.0.4 sürümü kabul edildi.
+- QuranEnc yeniden yayımlama şartları; içeriği değiştirmeme, kaynak/yayıncı/sürüm belirtme ve güncellemeleri takip etme koşullarıyla kaynak siciline kaydedildi.
+- Kaynak SQLite veritabanındaki 6.236 meal ve dipnot kaydı taşınabilir kataloğa aktarıldı.
+- Her meal ve dipnot dizesi, kaynak SQLite alanıyla birebir karşılaştıran ayrı doğrulayıcıdan geçiyor.
+- Bütün sure maddeleri Arapça ayetle birlikte Türkçe meal, varsa meal dipnotu ve sürüm künyesini gösteriyor.
+- Tam külliyat araması Türkçe meal ve dipnot metinlerini de kapsıyor; `yalnız sana ibadet` sorgusu yerel API ve tarayıcıda Fâtiha 1:5 kaydına bağlandı.
+- Masaüstü ve 390 px mobil tarayıcı kontrollerinde kaynak atfı, meal, dipnot, hata katmanı ve yatay taşma doğrulandı.
