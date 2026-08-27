@@ -55,6 +55,19 @@ WikiTefsir; Kur'an ayetlerini, Kütüb-i Sitte hadislerini ve Ehl-i Sünnet çiz
 - [x] Public GitHub deposu
 - [x] Vercel prod dağıtımı ve doğrulama
 
+## Tam külliyat ilerlemesi
+
+- [x] Lisanslı Tanzil Uthmani 1.1 Kur’an metnini kaynak dosyasıyla içe aktar
+- [x] 114 sure ve 6.236 ayeti SHA-256 ve satır-kayıt eşitliğiyle doğrula
+- [x] Bütün sureleri kalıcı URL ve Wikipedia tipi madde görünümünde yayımla
+- [x] Sure adı, Arapça metin ve `sure:ayet` referansında külliyat araması
+- [ ] Açık lisanslı veya yazılı izinli Türkçe meal seç ve içe aktar
+- [ ] Kütüb-i Sitte için neşir/lisans sicilini kesinleştir
+- [ ] Kütüb-i Sitte metinlerini kitap, bab, isnad ve numaralarıyla içe aktar
+- [ ] Taberî, İbn Kesîr ve Kurtubî başta olmak üzere tefsir neşirlerini doğrula
+- [ ] Ayet-hadis-tefsir bağlarını editör onayıyla yayımla
+- [ ] Sahabe, râvi, âlim, kavram, mekân ve olay maddelerini gerçek veriye bağla
+
 ## Mikro commit protokolü
 
 - Her anlamlı ve küçük değişiklik ayrı commit edilir.
@@ -62,6 +75,10 @@ WikiTefsir; Kur'an ayetlerini, Kütüb-i Sitte hadislerini ve Ehl-i Sünnet çiz
 - Otomatik commit başarısız olduğunda çalışma durmaz; hata `.git/micro-commit.log` içinde tutulur.
 - Push otomatik yapılmaz. Public repo ve deploy yalnızca doğrulanmış commitlerden gerçekleştirilir.
 
-## Tamamlanma ölçütü
+## Alfa tamamlanma ölçütü
 
 Proje; üretim derlemesi başarılı, temel sayfalar kullanılabilir, kaynak/örnek veri ayrımı görünür, public repo erişilebilir ve Vercel URL'si gerçek tarayıcı isteğiyle doğrulanmış olduğunda ilk sürüm tamamlanmış sayılır.
+
+## Nihai tamamlanma ölçütü
+
+Kur’an, seçilen Türkçe meal, Kütüb-i Sitte ve kabul edilen klasik tefsir neşirleri lisans ve sürüm sicilleriyle eksiksiz içe aktarılmış; kayıt sayıları kaynak nüshalarla karşılaştırılmış; ayet-hadis-tefsir ilişkileri ilmî editör onayından geçmiş ve üretim ortamında aranabilir olduğunda ana hedef tamamlanmış sayılır.
