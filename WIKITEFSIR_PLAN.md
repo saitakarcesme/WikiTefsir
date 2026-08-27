@@ -61,8 +61,8 @@ WikiTefsir; Kur'an ayetlerini, Kütüb-i Sitte hadislerini ve Ehl-i Sünnet çiz
 - [x] 114 sure ve 6.236 ayeti SHA-256 ve satır-kayıt eşitliğiyle doğrula
 - [x] Bütün sureleri kalıcı URL ve Wikipedia tipi madde görünümünde yayımla
 - [x] Sure adı, Arapça metin ve `sure:ayet` referansında külliyat araması
-- [x] Yeniden yayımlama şartları açık Türkçe meal seç ve 6.236 kaydı içe aktar
-- [x] HadeethEnc 1.67.0 içinden derecesinde açıkça “sahih” bulunan 1.993 kaydı doğrula ve yayımla
+- [x] QuranEnc Rowwad English 1.0.19 içinden 6.236 İngilizce tercümeyi kaynakla birebir doğrula
+- [x] HadeethEnc English 1.25.0 içinden derecesi “Authentic” başlayan 2.120 kaydı doğrula ve yayımla
 - [ ] Kütüb-i Sitte için neşir/lisans sicilini kesinleştir
 - [ ] Kütüb-i Sitte metinlerini kitap, bab, isnad ve numaralarıyla içe aktar
 - [x] Taberî, İbn Kesîr ve Kurtubî Arapça tefsir kaynaklarını sabit sürüm ve SHA-256 ile doğrula
@@ -73,7 +73,7 @@ WikiTefsir; Kur'an ayetlerini, Kütüb-i Sitte hadislerini ve Ehl-i Sünnet çiz
 ## Mikro commit protokolü
 
 - Her anlamlı ve küçük değişiklik ayrı commit edilir.
-- Otomatik güvenlik ağı iki dakikada bir çalışır; yalnızca izin verilen proje dosyalarını, gizli bilgi taramasından sonra commit eder.
+- İki dakikalık otomatik güvenlik ağı kullanıcının isteğiyle şimdilik durdurulmuştur.
 - Otomatik commit başarısız olduğunda çalışma durmaz; hata `.git/micro-commit.log` içinde tutulur.
 - Push otomatik yapılmaz. Public repo ve deploy yalnızca doğrulanmış commitlerden gerçekleştirilir.
 
@@ -86,10 +86,18 @@ WikiTefsir; Kur'an ayetlerini, Kütüb-i Sitte hadislerini ve Ehl-i Sünnet çiz
 - [x] Birleşik aramada kavram sonuçları
 - [x] Masaüstü ve 390 px mobil görünümde hizalama ve yatay taşma denetimi
 
+## English edition
+
+- [x] Tüm kullanıcı arayüzü, metadata, arama ve hata metinleri İngilizce
+- [x] Kaynaklı İngilizce Kur’an tercümesi ve sahih hadis külliyatı
+- [x] İngilizce canonical sure, hadis, kavram ve âlim rotaları
+- [x] Al-Tabari, Ibn Kathir ve al-Qurtubi için görünür âlim dizini
+- [x] İngilizce sosyal paylaşım kartı
+
 ## Alfa tamamlanma ölçütü
 
 Proje; üretim derlemesi başarılı, temel sayfalar kullanılabilir, kaynak/örnek veri ayrımı görünür, public repo erişilebilir ve Vercel URL'si gerçek tarayıcı isteğiyle doğrulanmış olduğunda ilk sürüm tamamlanmış sayılır.
 
 ## Nihai tamamlanma ölçütü
 
-Kur’an, seçilen Türkçe meal, Kütüb-i Sitte ve kabul edilen klasik tefsir neşirleri lisans ve sürüm sicilleriyle eksiksiz içe aktarılmış; kayıt sayıları kaynak nüshalarla karşılaştırılmış; ayet-hadis-tefsir ilişkileri ilmî editör onayından geçmiş ve üretim ortamında aranabilir olduğunda ana hedef tamamlanmış sayılır.
+Kur’an, seçilen İngilizce tercüme, Kütüb-i Sitte ve kabul edilen klasik tefsir neşirleri lisans ve sürüm sicilleriyle eksiksiz içe aktarılmış; kayıt sayıları kaynak nüshalarla karşılaştırılmış; ayet-hadis-tefsir ilişkileri ilmî editör onayından geçmiş ve üretim ortamında aranabilir olduğunda ana hedef tamamlanmış sayılır.

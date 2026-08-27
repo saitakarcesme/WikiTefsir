@@ -68,3 +68,13 @@
 - Marka işaretindeki düşey hizalama, içerik kutularındaki merkezleme, uzun hadis başlıklarının satır kırılımı ve mobil sütun taşmaları kontrol edilip düzeltildi.
 - Ana sayfa, Fâtiha, hadis dizini, hadis #1751, Taberî, kavram dizini ve Tevhid maddesi 1.440 px masaüstü ile 390 px mobil görünümde yatay taşma ve hata katmanı olmadan doğrulandı.
 - Doğrulanmış sürüm GitHub `main` dalına gönderildi ve `wikitafsir.vercel.app` üzerinde yayımlandı; canlı ana sayfa, Tevhid, Fâtiha, hadis #1751, Taberî ve `tevhid` arama API'si HTTP 200 döndürdü. Son on dakikalık Vercel hata günlüğü boştu.
+
+## 2026-08-28 — Complete English edition and scholar directory
+
+- The user-facing interface, metadata, search labels, API errors, concept taxonomy and social preview were converted to English.
+- QuranEnc Rowwad English 1.0.19 was imported from its official SQLite release; all 6,236 translations and footnotes are checked verbatim against the source database.
+- HadeethEnc English 1.25.0 contains 2,328 source records. The 2,120 records whose English grade begins with “Authentic” are published; 208 other records remain excluded.
+- The English hadith catalog includes 452 topic categories and preserves Arabic text, English translation, attribution, grade, explanation and benefits verbatim.
+- English canonical routes now cover `/surahs`, `/surah/*`, `/hadith/*`, `/concepts`, `/concept/*`, `/scholars` and `/scholars/*`; previous URLs remain available for compatibility.
+- A visible scholar directory now links al-Tabari, Ibn Kathir and al-Qurtubi to the 18,708 pinned Arabic tafsir records already present in WikiTefsir.
+- Data integrity, ESLint, TypeScript, dependency audit, 262-route Next.js production build and the Sites-compatible build completed successfully.
