@@ -65,7 +65,8 @@ WikiTefsir; Kur'an ayetlerini, Kütüb-i Sitte hadislerini ve Ehl-i Sünnet çiz
 - [x] HadeethEnc 1.67.0 içinden derecesinde açıkça “sahih” bulunan 1.993 kaydı doğrula ve yayımla
 - [ ] Kütüb-i Sitte için neşir/lisans sicilini kesinleştir
 - [ ] Kütüb-i Sitte metinlerini kitap, bab, isnad ve numaralarıyla içe aktar
-- [ ] Taberî, İbn Kesîr ve Kurtubî başta olmak üzere tefsir neşirlerini doğrula
+- [x] Taberî, İbn Kesîr ve Kurtubî Arapça tefsir kaynaklarını sabit sürüm ve SHA-256 ile doğrula
+- [x] Üç klasik tefsirin toplam 18.708 ayet satırını bütün sure maddelerinden erişilebilir kıl
 - [ ] Ayet-hadis-tefsir bağlarını editör onayıyla yayımla
 - [ ] Sahabe, râvi, âlim, kavram, mekân ve olay maddelerini gerçek veriye bağla
 
