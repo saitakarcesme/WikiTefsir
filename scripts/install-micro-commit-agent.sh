@@ -3,18 +3,25 @@
 set -eu
 
 repo_dir="${0:A:h:h}"
-label="com.wikitafsir.micro-commit"
-source_plist="$repo_dir/scripts/$label.plist"
-agents_dir="$HOME/Library/LaunchAgents"
-target_plist="$agents_dir/$label.plist"
-user_domain="gui/$(id -u)"
+pid_file="$repo_dir/.git/micro-commit.pid"
+agent_log="$repo_dir/.git/micro-commit-daemon.log"
 
-mkdir -p "$agents_dir"
-launchctl bootout "$user_domain/$label" 2>/dev/null || true
-cp "$source_plist" "$target_plist"
-plutil -lint "$target_plist"
-launchctl bootstrap "$user_domain" "$target_plist"
-launchctl enable "$user_domain/$label"
-launchctl kickstart -k "$user_domain/$label"
+if [[ -f "$pid_file" ]]; then
+  existing_pid="$(<"$pid_file")"
+  if kill -0 "$existing_pid" 2>/dev/null; then
+    print "WikiTefsir micro-commit agent is already active (PID $existing_pid)."
+    exit 0
+  fi
+fi
 
-print "WikiTefsir micro-commit agent is active (120-second interval)."
+nohup "$repo_dir/scripts/micro-commit.sh" daemon >> "$agent_log" 2>&1 &
+agent_pid=$!
+print -r -- "$agent_pid" > "$pid_file"
+sleep 1
+
+if ! kill -0 "$agent_pid" 2>/dev/null; then
+  print -u2 "Micro-commit agent failed to start. See $agent_log"
+  exit 1
+fi
+
+print "WikiTefsir micro-commit agent is active (PID $agent_pid, 120-second interval)."
