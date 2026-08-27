@@ -62,6 +62,7 @@ WikiTefsir; Kur'an ayetlerini, Kütüb-i Sitte hadislerini ve Ehl-i Sünnet çiz
 - [x] Bütün sureleri kalıcı URL ve Wikipedia tipi madde görünümünde yayımla
 - [x] Sure adı, Arapça metin ve `sure:ayet` referansında külliyat araması
 - [x] Yeniden yayımlama şartları açık Türkçe meal seç ve 6.236 kaydı içe aktar
+- [x] HadeethEnc 1.67.0 içinden derecesinde açıkça “sahih” bulunan 1.993 kaydı doğrula ve yayımla
 - [ ] Kütüb-i Sitte için neşir/lisans sicilini kesinleştir
 - [ ] Kütüb-i Sitte metinlerini kitap, bab, isnad ve numaralarıyla içe aktar
 - [ ] Taberî, İbn Kesîr ve Kurtubî başta olmak üzere tefsir neşirlerini doğrula

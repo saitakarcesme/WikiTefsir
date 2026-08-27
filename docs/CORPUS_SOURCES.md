@@ -53,7 +53,7 @@ Altı hadis külliyatı için Arapça metin, isnad, kitap/bab ayrımı, numarala
 | Kullanım şartları | `https://hadeethenc.com/en/home` sayfasındaki “Terms and Policies” bölümü |
 | Karar | İçerik değiştirilmeden; kaynak, yayınlayan ve sürüm belirtilerek yeniden yayımlanabilir |
 
-HadeethEnc kayıtları Arapça hadis metni, Türkçe tercüme, tahric/nispet, derece, açıklama ve konu başlıklarını birlikte sunar. Yeniden yayımlama şartları içeriğin değiştirilmemesini, HadeethEnc kaynağı ile sürümün açıkça belirtilmesini ve güncel sürümün takip edilmesini gerektirir. Bu külliyat Kütüb-i Sitte’nin eksiksiz neşri değildir; güvenilir hadis maddeleri için ilk doğrulanmış katmandır ve Kütüb-i Sitte kaynak kapısının yerine geçmez.
+HadeethEnc kayıtları Arapça hadis metni, Türkçe tercüme, tahric/nispet, derece, açıklama ve konu başlıklarını birlikte sunar. 1.67.0 sürümündeki 2.150 benzersiz Türkçe kayıt taranmış; projenin “yalnız sahih hadis” ilkesi gereği derece alanında büyük/küçük harf ayrımı olmadan açıkça “sahih” geçen 1.993 kayıt yayıma alınmıştır. Yalnız hasen, zayıf veya açık hüküm bulunmayan 157 kayıt yayımlanmamıştır. Yeniden yayımlama şartları içeriğin değiştirilmemesini, HadeethEnc kaynağı ile sürümün açıkça belirtilmesini ve güncel sürümün takip edilmesini gerektirir. Bu külliyat Kütüb-i Sitte’nin eksiksiz neşri değildir; güvenilir hadis maddeleri için ilk doğrulanmış katmandır ve Kütüb-i Sitte kaynak kapısının yerine geçmez.
 
 ## İncelemede: klasik tefsirler
 
