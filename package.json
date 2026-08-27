@@ -13,7 +13,10 @@
     "build:sites": "vinext build",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "data:import:quran": "node scripts/import-tanzil-quran.mjs",
-    "data:verify:quran": "node scripts/verify-quran-corpus.mjs"
+    "data:verify:quran": "node scripts/verify-quran-corpus.mjs",
+    "data:import:meal:tr": "node scripts/import-quranenc-turkish-meal.mjs",
+    "data:verify:meal:tr": "node scripts/verify-quranenc-turkish-meal.mjs",
+    "data:verify": "npm run data:verify:quran && npm run data:verify:meal:tr"
   },
   "dependencies": {
     "next": "16.3.3",
