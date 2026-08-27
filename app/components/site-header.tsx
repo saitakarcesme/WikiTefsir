@@ -12,6 +12,7 @@ export function SiteHeader() {
         <Link href="/">Ana sayfa</Link>
         <Link href="/sureler">Sureler</Link>
         <Link href="/hadis">Hadisler</Link>
+        <Link href="/kavramlar">Kavramlar</Link>
         <Link href="/alim/taberi">Âlimler</Link>
       </nav>
 

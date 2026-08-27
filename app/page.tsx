@@ -26,6 +26,7 @@ export default function Home() {
           <Link className="active" href="/">Ana sayfa</Link>
           <Link href="/sureler">Kur’an sureleri</Link>
           <Link href="/hadis">Sahih hadisler</Link>
+          <Link href="/kavramlar">Kavramlar</Link>
           <Link href="/alim/taberi">Müfessirler</Link>
           <a href="#bilgi-agi">Bilgi ağı</a>
           <a href="#metodoloji">Kaynak politikası</a>
@@ -108,6 +109,7 @@ export default function Home() {
                 <ul>
                   <li><Link href="/sureler">114 sure dizini</Link></li>
                   <li><Link href="/hadis">Sahih hadis dizini</Link></li>
+                  <li><Link href="/kavramlar">Kavram maddeleri dizini</Link></li>
                   <li><Link href="/alim/taberi">İmam Taberî maddesi</Link></li>
                   <li><Link href="/alim/ibn-kesir">İbn Kesîr maddesi</Link></li>
                   <li><Link href="/alim/kurtubi">İmam Kurtubî maddesi</Link></li>
