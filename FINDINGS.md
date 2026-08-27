@@ -48,3 +48,12 @@
 - Aranabilir hadis dizini, kalıcı hadis detay rotaları ve Arapça/Türkçe birleşik külliyat araması uygulamaya bağlandı.
 - Production ortamında hadis dizini, #1751 detay maddesi, Arapça metin, kaynak künyesi ve `h:1751` API araması doğrulandı; Vercel hata günlüklerinde hata kaydı bulunmadı.
 - Bu veri seti Kütüb-i Sitte’nin tamamı değildir; altı eserin neşir, isnad, kitap/bab ve numaralandırma kaynağı hâlâ doğrulama aşamasındadır.
+
+## 2026-08-28 — Üç klasik Arapça tefsir
+
+- Quran Lab `quranlab/quran-tafsir` release 1.40.0, `86e676b432463b100254d63309bf62b0c6578b53` revizyonunda sabitlendi.
+- İbn Kesîr, Taberî ve Kurtubî tefsirlerinin her biri 6.236 ayet satırı taşır; Kurtubî kaynağındaki iki yorum sunulmayan ayet açık boş kayıt olarak korunur.
+- Üç Parquet kaynağının dosya boyutu ve LFS SHA-256 özetleri çevrimiçi HEAD denetimiyle doğrulandı; toplam satır kapsamı 18.708’dir.
+- Her sure maddesindeki her ayet, üç tefsirin Arapça kaynak metnini isteğe bağlı olarak açabilir. Kaynak satırının `verse_key` ve `tafsir_id` alanları API’de kapalı-hata denetlenir.
+- Uygulama çalışma anında upstream revizyonu manifestteki SHA ile eşleşmezse tefsir metni yayımlamaz; böylece sessiz kaynak değişimi engellenir.
+- Tefsir içindeki nakiller otomatik olarak sahih hadis kabul edilmez; arayüz bunları müfessirin eserinden alıntı olarak açıkça ayırır.
