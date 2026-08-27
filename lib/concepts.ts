@@ -57,3 +57,23 @@ export function getConceptsForVerse(surah: number, ayah: number) {
     return concept ? [concept] : [];
   });
 }
+
+const conceptLabelPatterns: Array<[RegExp, string]> = [
+  [/\btevhid\b|allah'ın isimleri/iu, 'tevhid'],
+  [/\bibadet\b|namaz|oruç|zekât|zekat|hac\b/iu, 'ibadet'],
+  [/\bdua\b|duâ/iu, 'dua'],
+  [/hidayet|doğru yol/iu, 'hidayet'],
+  [/rahmet|merhamet/iu, 'rahmet'],
+  [/âhiret|ahiret|kıyamet|cennet|cehennem/iu, 'ahiret'],
+  [/vahiy|kur'an/iu, 'vahiy'],
+  [/nübüvvet|peygamber|resul|rasûl/iu, 'nubuvvet'],
+];
+
+export function getConceptsForLabels(labels: string[]) {
+  const text = labels.join(' ');
+  const slugs = conceptLabelPatterns.flatMap(([pattern, slug]) => pattern.test(text) ? [slug] : []);
+  return [...new Set(slugs)].flatMap((slug) => {
+    const concept = conceptsBySlug.get(slug);
+    return concept ? [concept] : [];
+  });
+}

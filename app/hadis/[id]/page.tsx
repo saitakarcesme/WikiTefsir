@@ -9,6 +9,7 @@ import {
   hadithTerms,
   hadithVersion,
 } from '@/lib/hadith';
+import { getConceptHref, getConceptsForLabels } from '@/lib/concepts';
 
 type HadithPageProps = { params: Promise<{ id: string }> };
 
@@ -31,6 +32,7 @@ export default async function HadithDetailPage({ params }: HadithPageProps) {
   const record = getHadithById(id);
   if (!record) notFound();
   const categories = getCategoriesForHadith(record);
+  const concepts = getConceptsForLabels(categories.map((category) => category.title));
 
   return (
     <main>
@@ -86,6 +88,13 @@ export default async function HadithDetailPage({ params }: HadithPageProps) {
             <div>{categories.map((category) => <span key={category.id}>{category.title}</span>)}</div>
           </section>
         )}
+
+        {concepts.length > 0 ? (
+          <section className="hadith-concepts" aria-labelledby="hadith-concepts-title">
+            <h2 id="hadith-concepts-title">İlgili kavram maddeleri</h2>
+            <p>{concepts.map((concept, index) => <span key={concept.slug}>{index > 0 ? ' · ' : ''}<Link href={getConceptHref(concept)}>{concept.title}</Link></span>)}</p>
+          </section>
+        ) : null}
 
         <section className="notice-card verified-source-notice">
           <strong>Metin bütünlüğü</strong>
