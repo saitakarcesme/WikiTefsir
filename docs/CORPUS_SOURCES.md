@@ -21,9 +21,21 @@ Tanzil şartları Kur’an metninin aynen dağıtılmasına izin verir; metnin d
 
 Quran Foundation Content API, uygulama içinde gösterime izin verse de API içeriğinin bir haftadan uzun saklanmasını yazılı izin olmadan yasaklar. WikiTefsir’in public repoda kalıcı külliyat tutma hedefiyle uyuşmadığından bu API, mevcut aşamada statik kaynak olarak kullanılmaz.
 
-## İncelemede: Türkçe meal
+## Kabul edildi: Türkçe meal
 
-Türkçe meal için mütercim, baskı ve açık yeniden dağıtım lisansı birlikte doğrulanmadan metin içe aktarılmaz. Arayüzdeki mevcut Türkçe ifadeler “örnek/ilmî kontrolde” olarak işaretlenmeye devam eder.
+| Alan | Değer |
+|---|---|
+| Kaynak | QuranEnc — Kur’an-ı Kerîm Meâlleri Ansiklopedisi |
+| Çeviri | Rowwad Tercüme Merkezi Türkçe tercümesi |
+| Sürüm | 1.0.4 |
+| Son güncelleme | 28 Eylül 2025 |
+| Yayınlayan ekip | Rowwad Tercüme Merkezi; Rabwah Davet Derneği, Dillerde İslami İçerik Hizmet Derneği ve IslamHouse iş birliği |
+| Metadata API | `https://quranenc.com/api/v1/translations/list/tr` |
+| Kaynak veritabanı | `https://quranenc.com/downloads/sqlite/turkish_rwwad.sqlite` |
+| Kullanım şartları | `https://quranenc.com/en/home/api` sayfasındaki “Terms and Policies” bölümü |
+| Karar | İçerik değiştirilmeden; kaynak, yayınlayan ve sürüm açıkça belirtilerek yeniden yayımlanabilir |
+
+QuranEnc koşulları çeviri içeriğinin indirilip yeniden yayımlanmasına izin verir. İçerikte değişiklik, ekleme veya silme yapılamaz; kaynak/yayınlayan ve sürüm belirtilmeli, belge içindeki künye korunmalı ve yeni sürümler takip edilmelidir. WikiTefsir içe aktarıcısı meal ile dipnotları kaynak SQLite alanlarındaki Unicode dizeleri olarak aynen saklar; biçimsel sunum veri alanını değiştirmez.
 
 ## İncelemede: Kütüb-i Sitte
 
