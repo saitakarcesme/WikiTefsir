@@ -3,12 +3,12 @@
 import { FormEvent, useMemo, useState } from 'react';
 
 const records = [
-  { type: 'Ayet', title: 'Fâtiha Suresi, 5. Ayet', description: 'İbadet, dua ve yalnız Allah’tan yardım istemek', href: '#fatiha' },
-  { type: 'Sure', title: 'Fâtiha Suresi', description: '1. sure · 7 ayet · Mekkî', href: '#fatiha' },
+  { type: 'Ayet', title: 'Fâtiha Suresi, 5. Ayet', description: 'İbadet, dua ve yalnız Allah’tan yardım istemek', href: '/sure/fatiha#ayetler' },
+  { type: 'Sure', title: 'Fâtiha Suresi', description: '1. sure · 7 ayet · Mekkî', href: '/sure/fatiha' },
   { type: 'Kavram', title: 'Sabır', description: 'İlgili ayet, hadis ve tefsir kayıtları', href: '#iliskiler' },
-  { type: 'Âlim', title: 'İmam Taberî', description: 'Câmiu’l-Beyân müellifi', href: '#alimler' },
-  { type: 'Âlim', title: 'İbn Kesîr', description: 'Tefsîru’l-Kur’âni’l-Azîm müellifi', href: '#alimler' },
-  { type: 'Külliyat', title: 'Sahîh-i Buhârî', description: 'Kütüb-i Sitte hadis koleksiyonu', href: '#hadisler' },
+  { type: 'Âlim', title: 'İmam Taberî', description: 'Câmiu’l-Beyân müellifi', href: '/alim/taberi' },
+  { type: 'Âlim', title: 'İbn Kesîr', description: 'Tefsîru’l-Kur’âni’l-Azîm müellifi', href: '/alim/ibn-kesir' },
+  { type: 'Külliyat', title: 'Sahîh-i Buhârî', description: 'Kütüb-i Sitte hadis koleksiyonu', href: '/hadis' },
 ];
 
 export function SearchExplorer() {
