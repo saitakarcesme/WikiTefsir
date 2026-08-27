@@ -7,6 +7,7 @@ interface SearchResult {
   title: string;
   description: string;
   href: string;
+  language?: 'ar' | 'tr';
 }
 
 export function SearchExplorer() {
@@ -65,7 +66,7 @@ export function SearchExplorer() {
               setStatus('idle');
             }
           }}
-          placeholder="Sure adı, Arapça ayet veya 2:255 ara…"
+          placeholder="Sure, Arapça ayet, Türkçe meal veya 2:255 ara…"
           autoComplete="off"
         />
         <button type="submit" disabled={query.trim().length < 2 || !results.length}>Ara <span aria-hidden="true">→</span></button>
@@ -79,7 +80,7 @@ export function SearchExplorer() {
                 <span className="result-type">{record.type}</span>
                 <span>
                   <strong>{record.title}</strong>
-                  <small lang={record.type === 'Ayet' ? 'ar' : undefined} dir={record.type === 'Ayet' ? 'rtl' : undefined}>{record.description}</small>
+                  <small lang={record.language} dir={record.language === 'ar' ? 'rtl' : undefined}>{record.description}</small>
                 </span>
                 <span aria-hidden="true">→</span>
               </a>
