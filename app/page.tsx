@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { SearchExplorer } from './components/search-explorer';
 import { KnowledgeGraph } from './components/knowledge-graph';
 import { SiteHeader } from './components/site-header';
+import { getTurkishMeal, getVerse, turkishMealMetadata } from '@/lib/quran';
 
 const collections = [
   { name: 'Kur’an-ı Kerîm', detail: '114 sure · 6.236 ayet', tone: 'green', href: '/sureler' },
@@ -16,6 +17,10 @@ const scholars = [
 ];
 
 export default function Home() {
+  const featuredVerse = getVerse(1, 5);
+  const featuredMeaning = getTurkishMeal(1, 5);
+  if (!featuredVerse || !featuredMeaning) throw new Error('Featured Quran record is missing');
+
   return (
     <main>
       <SiteHeader />
@@ -68,16 +73,16 @@ export default function Home() {
             </div>
 
             <div className="verse-panel">
-              <p className="arabic" lang="ar" dir="rtl">إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ</p>
+              <p className="arabic" lang="ar" dir="rtl" translate="no">{featuredVerse.text}</p>
               <span className="verse-number" aria-label="5. ayet">٥</span>
-              <p className="translation">“Yalnız sana ibadet eder ve yalnız senden yardım dileriz.”</p>
-              <p className="translation-note">Anlam odaklı örnek Türkçe karşılık · Yayın öncesi ilmî kontrol gerekir</p>
+              <p className="translation">“{featuredMeaning.text}”</p>
+              <p className="translation-note">QuranEnc · Rowwad Tercüme Merkezi · sürüm {turkishMealMetadata.version}</p>
             </div>
 
             <div className="relation-summary">
-              <div><strong>3</strong><span>Tefsir kaydı</span></div>
-              <div><strong>8</strong><span>İlişkili hadis</span></div>
-              <div><strong>5</strong><span>Kavram</span></div>
+              <div><strong>1:5</strong><span>Sure:ayet</span></div>
+              <div><strong>2</strong><span>Doğrulanmış kaynak</span></div>
+              <div><strong>{turkishMealMetadata.version}</strong><span>Meal sürümü</span></div>
               <Link href="/sure/fatiha#ayetler">Ayet sayfasını aç <span>→</span></Link>
             </div>
           </article>
