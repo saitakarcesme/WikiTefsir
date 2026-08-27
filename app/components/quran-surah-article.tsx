@@ -8,6 +8,7 @@ import {
 } from '@/lib/quran';
 import { SiteHeader } from './site-header';
 import { VerseTafsirs } from './verse-tafsirs';
+import { getConceptHref, getConceptsForVerse } from '@/lib/concepts';
 
 interface QuranSurahArticleProps {
   surah: SurahRecord;
@@ -65,6 +66,7 @@ export function QuranSurahArticle({ surah, verses, meal, previous, next }: Quran
 
             {verses.map((verse, index) => {
               const meaning = meal[index];
+              const concepts = getConceptsForVerse(verse.surah, verse.ayah);
               if (!meaning || meaning.surah !== verse.surah || meaning.ayah !== verse.ayah) {
                 throw new Error(`Turkish meal record mismatch at ${verse.surah}:${verse.ayah}`);
               }
@@ -78,6 +80,12 @@ export function QuranSurahArticle({ surah, verses, meal, previous, next }: Quran
                     <p>{meaning.text}</p>
                   </div>
                   {meaning.footnotes && <aside className="meal-footnote"><strong>Meal dipnotu</strong><p>{meaning.footnotes}</p></aside>}
+                  {concepts.length > 0 ? (
+                    <div className="verse-concepts" aria-label={`${surah.nameTransliterated} ${verse.ayah}. ayetle ilgili kavramlar`}>
+                      <span>İlgili kavramlar:</span>
+                      {concepts.map((concept) => <Link href={getConceptHref(concept)} key={concept.slug}>{concept.title}</Link>)}
+                    </div>
+                  ) : null}
                   <VerseTafsirs surah={verse.surah} ayah={verse.ayah} />
                   <div className="corpus-verse-meta">
                     <span>{surah.number}:{verse.ayah}</span>
