@@ -30,12 +30,21 @@ async function main() {
     assert(sha256(buffer) === source.sha256, `SHA-256 mismatch: ${source.filename}`);
   }
 
+  for (const artifact of manifest.artifacts ?? []) {
+    const buffer = await readFile(join(corpusDir, artifact.filename));
+    assert(sha256(buffer) === artifact.sha256, `SHA-256 mismatch: ${artifact.filename}`);
+  }
+
   const textSource = manifest.sources.find((source) => source.id === 'tanzil-uthmani-1.1');
   assert(textSource, 'Tanzil text source is missing from manifest');
   const rawText = await readFile(join(corpusDir, textSource.filename), 'utf8');
   const verseLines = rawText.split(/\r?\n/u).filter((line) => /^\d+\|\d+\|/u.test(line));
   assert(verseLines.length === 6236, 'Checked-in text must contain 6236 verse lines');
   assert(rawText.includes('PLEASE DO NOT REMOVE OR CHANGE THIS COPYRIGHT BLOCK'), 'Copyright block is missing');
+
+  const verseCatalog = JSON.parse(await readFile(join(corpusDir, 'verses.json'), 'utf8'));
+  assert(verseCatalog.records?.length === 6236, 'Portable verse catalog must contain 6236 records');
+  assert(verseCatalog.copyrightNotice?.includes('Tanzil Quran Text'), 'Portable catalog copyright notice is missing');
 
   let globalOffset = 0;
   for (const surah of catalog.records) {
@@ -46,12 +55,16 @@ async function main() {
       const expectedPrefix = `${surah.number}|${ayah}|`;
       assert(verseLines[globalOffset]?.startsWith(expectedPrefix), `Invalid verse sequence: ${surah.number}:${ayah}`);
       assert(verseLines[globalOffset].length > expectedPrefix.length, `Empty verse text: ${surah.number}:${ayah}`);
+      const sourceText = verseLines[globalOffset].slice(expectedPrefix.length);
+      const catalogVerse = verseCatalog.records[globalOffset];
+      assert(catalogVerse.surah === surah.number && catalogVerse.ayah === ayah, `Catalog key mismatch: ${surah.number}:${ayah}`);
+      assert(catalogVerse.text === sourceText, `Catalog text differs from verbatim source: ${surah.number}:${ayah}`);
       globalOffset += 1;
     }
   }
 
   assert(globalOffset === verseLines.length, 'Surah catalog does not cover every verse');
-  process.stdout.write(`Verified ${verseLines.length} verses, ${catalog.records.length} surahs and ${manifest.sources.length} source hashes.\n`);
+  process.stdout.write(`Verified ${verseLines.length} verses, ${catalog.records.length} surahs, ${manifest.sources.length} sources and ${manifest.artifacts.length} artifacts.\n`);
 }
 
 main().catch((error) => {
