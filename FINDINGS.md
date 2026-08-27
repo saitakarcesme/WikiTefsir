@@ -67,3 +67,4 @@
 - Ayetlerin kavram etiketleri, hadis konu başlıkları, birleşik arama ve bilgi grafiği gerçek madde URL'lerine bağlandı. Tıklanamayan konu etiketleri bağlantılardan ayrı görselleştirildi.
 - Marka işaretindeki düşey hizalama, içerik kutularındaki merkezleme, uzun hadis başlıklarının satır kırılımı ve mobil sütun taşmaları kontrol edilip düzeltildi.
 - Ana sayfa, Fâtiha, hadis dizini, hadis #1751, Taberî, kavram dizini ve Tevhid maddesi 1.440 px masaüstü ile 390 px mobil görünümde yatay taşma ve hata katmanı olmadan doğrulandı.
+- Doğrulanmış sürüm GitHub `main` dalına gönderildi ve `wikitafsir.vercel.app` üzerinde yayımlandı; canlı ana sayfa, Tevhid, Fâtiha, hadis #1751, Taberî ve `tevhid` arama API'si HTTP 200 döndürdü. Son on dakikalık Vercel hata günlüğü boştu.

@@ -1,7 +1,7 @@
 {
   "project": "WikiTefsir",
-  "phase": "wikipedia_redesign_local",
-  "updated_at": "2026-08-28T01:06:29+02:00",
+  "phase": "wikipedia_redesign_deployed",
+  "updated_at": "2026-08-28T01:10:03+02:00",
   "production_url": "https://wikitafsir.vercel.app",
   "repository_url": "https://github.com/saitakarcesme/WikiTefsir",
   "completed": [
@@ -48,11 +48,11 @@
     "concept_index_and_article_pages",
     "concept_aware_combined_search",
     "ayah_hadith_and_graph_concept_links",
-    "desktop_and_mobile_wikipedia_ui_qa"
+    "desktop_and_mobile_wikipedia_ui_qa",
+    "wikipedia_redesign_production_deployment_verified"
   ],
   "next": [
     "select_licensed_kutub_al_sittah_editions",
-    "verify_and_deploy_wikipedia_redesign",
     "implement_persistent_editorial_database",
     "import_and_verify_kutub_al_sittah_corpus"
   ],
