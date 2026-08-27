@@ -1,5 +1,6 @@
 import { SearchExplorer } from './components/search-explorer';
 import { KnowledgeGraph } from './components/knowledge-graph';
+import { SiteHeader } from './components/site-header';
 
 const collections = [
   { name: 'Kur’an-ı Kerîm', detail: '114 sure · 6.236 ayet', tone: 'green' },
@@ -16,24 +17,7 @@ const scholars = [
 export default function Home() {
   return (
     <main>
-      <header className="topbar">
-        <a className="brand" href="#" aria-label="WikiTefsir ana sayfa">
-          <span className="brand-mark" aria-hidden="true">و</span>
-          <span>Wiki<span>Tefsir</span></span>
-        </a>
-
-        <nav className="main-nav" aria-label="Ana menü">
-          <a className="active" href="#kesfet">Keşfet</a>
-          <a href="#sureler">Sureler</a>
-          <a href="#hadisler">Hadisler</a>
-          <a href="#alimler">Âlimler</a>
-        </nav>
-
-        <div className="header-actions">
-          <button className="icon-button" aria-label="Görünümü değiştir">☼</button>
-          <button className="plain-button">Hakkında</button>
-        </div>
-      </header>
+      <SiteHeader />
 
       <section className="hero" id="kesfet">
         <div className="hero-orbit hero-orbit-one" aria-hidden="true" />
