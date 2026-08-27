@@ -61,10 +61,23 @@ export function getTafsirSources() {
   return manifest.sources;
 }
 
+async function verifyPublishedRevision() {
+  const response = await fetch(`https://huggingface.co/api/datasets/${manifest.dataset}`, {
+    next: { revalidate: 3600 },
+    signal: AbortSignal.timeout(10000),
+  });
+  if (!response.ok) throw new Error(`Tafsir revision check returned ${response.status}`);
+  const payload = await response.json() as { sha?: string };
+  if (payload.sha !== manifest.revision) {
+    throw new Error(`Tafsir dataset moved from ${manifest.revision} to ${payload.sha ?? 'unknown'}`);
+  }
+}
+
 export async function getTafsirsForVerse(verseKey: string, globalOffset: number): Promise<TafsirRecord[]> {
   if (!/^\d{1,3}:\d{1,3}$/u.test(verseKey) || !Number.isInteger(globalOffset) || globalOffset < 0 || globalOffset >= 6236) {
     throw new Error(`Invalid tafsir coordinate: ${verseKey} at ${globalOffset}`);
   }
+  await verifyPublishedRevision();
 
   return Promise.all(manifest.sources.map(async (source) => {
     const parameters = new URLSearchParams({
