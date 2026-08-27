@@ -10,7 +10,7 @@ export function SiteHeader() {
 
       <nav className="main-nav" aria-label="Ana menü">
         <Link href="/#kesfet">Keşfet</Link>
-        <Link href="/sure/fatiha">Sureler</Link>
+        <Link href="/sureler">Sureler</Link>
         <Link href="/hadis">Hadisler</Link>
         <Link href="/alim/taberi">Âlimler</Link>
       </nav>
