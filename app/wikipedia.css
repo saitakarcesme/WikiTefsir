@@ -359,7 +359,10 @@ a:hover { color: var(--wiki-blue-dark); text-decoration: underline; }
 .hadith-explanation p { color: var(--wiki-text); font-size: 13px; }
 .hadith-source-box a { color: var(--wiki-blue); }
 .hadith-benefits li { color: var(--wiki-text); font-size: 11px; }
-.hadith-topics > div span { padding: 0; color: var(--wiki-blue); background: transparent; border-radius: 0; }
+.hadith-topics > div span { padding: 3px 6px; color: var(--wiki-muted); background: var(--wiki-surface); border: 1px solid #eaecf0; border-radius: 0; }
+.hadith-concepts { margin-top: 24px; padding-top: 2px; }
+.hadith-concepts h2 { margin: 0; padding-bottom: 5px; font-family: Georgia, 'Times New Roman', serif; font-size: 23px; font-weight: 400; border-bottom: 1px solid var(--wiki-border); }
+.hadith-concepts p { margin: 10px 0 0; }
 
 /* Concept index and article pages */
 .index-article-header { padding: 25px 0 15px; }
@@ -384,10 +387,11 @@ a:hover { color: var(--wiki-blue-dark); text-decoration: underline; }
 .concept-related p { margin: 10px 0 0; }
 
 /* Small alignment repairs found during visual inspection */
-.brand-mark { line-height: 1; }
+.brand-mark { padding-bottom: 4px; line-height: 1; }
 .search-icon { line-height: 1; }
 .graph-stage { justify-self: stretch; }
 .graph-node { text-align: center; }
+.graph-node:hover { text-decoration: none; outline: 2px solid var(--wiki-blue); }
 
 @media (max-width: 1050px) {
   .topbar { grid-template-columns: auto 1fr; }
