@@ -1,16 +1,22 @@
 import Link from 'next/link';
-import type { SurahRecord, VerseRecord } from '@/lib/quran';
-import { getSurahHref, quranLicense } from '@/lib/quran';
+import type { MealRecord, SurahRecord, VerseRecord } from '@/lib/quran';
+import {
+  getSurahHref,
+  quranLicense,
+  turkishMealMetadata,
+  turkishMealTerms,
+} from '@/lib/quran';
 import { SiteHeader } from './site-header';
 
 interface QuranSurahArticleProps {
   surah: SurahRecord;
   verses: VerseRecord[];
+  meal: MealRecord[];
   previous?: SurahRecord;
   next?: SurahRecord;
 }
 
-export function QuranSurahArticle({ surah, verses, previous, next }: QuranSurahArticleProps) {
+export function QuranSurahArticle({ surah, verses, meal, previous, next }: QuranSurahArticleProps) {
   const revelationLabel = surah.revelationType === 'Meccan' ? 'Mekkî' : 'Medenî';
 
   return (
@@ -34,7 +40,7 @@ export function QuranSurahArticle({ surah, verses, previous, next }: QuranSurahA
             <span className="section-kicker">{surah.number}. Sure</span>
             <h1>{surah.nameTransliterated}</h1>
             <p className="article-arabic-title" lang="ar" dir="rtl" translate="no">{surah.nameArabic}</p>
-            <p className="article-lead">Kur’an-ı Kerîm’in {surah.number}. suresi. Bu sayfadaki Arapça metin, Tanzil Uthmani 1.1 kaynağından değiştirilmeden gösterilir.</p>
+            <p className="article-lead">Kur’an-ı Kerîm’in {surah.number}. suresi. Arapça metin Tanzil Uthmani 1.1, Türkçe meal QuranEnc Rowwad {turkishMealMetadata.version} kaynağından değiştirilmeden gösterilir.</p>
             <div className="article-facts">
               <span>{revelationLabel}</span>
               <span>{surah.ayahCount} ayet</span>
@@ -43,9 +49,10 @@ export function QuranSurahArticle({ surah, verses, previous, next }: QuranSurahA
             </div>
           </header>
 
-          <section className="notice-card" id="meal">
-            <strong>Türkçe meal neden henüz yok?</strong>
-            <p>Mütercim, baskı ve açık yeniden dağıtım lisansı birlikte doğrulanmadan meal metni yayımlamıyoruz. Bu tercih, kaynaksız veya izinsiz dinî metin sunmama ilkemizin parçasıdır.</p>
+          <section className="notice-card verified-source-notice" id="meal">
+            <strong>Türkçe meal kaynağı doğrulandı</strong>
+            <p>{turkishMealMetadata.title}, sürüm {turkishMealMetadata.version}. Meal ve dipnotlar QuranEnc kaynağındaki içerik değiştirilmeden yayımlanır.</p>
+            <a href={turkishMealTerms.url} rel="noreferrer" target="_blank">Yeniden yayımlama şartlarını aç ↗</a>
           </section>
 
           <section className="verse-list" id="ayetler" aria-labelledby="verses-title">
@@ -54,19 +61,30 @@ export function QuranSurahArticle({ surah, verses, previous, next }: QuranSurahA
               <span className="verified-badge">✓ {verses.length} ayet doğrulandı</span>
             </div>
 
-            {verses.map((verse) => (
-              <article className="verse-row corpus-verse" id={`ayet-${verse.ayah}`} key={verse.ayah}>
+            {verses.map((verse, index) => {
+              const meaning = meal[index];
+              if (!meaning || meaning.surah !== verse.surah || meaning.ayah !== verse.ayah) {
+                throw new Error(`Turkish meal record mismatch at ${verse.surah}:${verse.ayah}`);
+              }
+
+              return <article className="verse-row corpus-verse" id={`ayet-${verse.ayah}`} key={verse.ayah}>
                 <a className="round-number" href={`#ayet-${verse.ayah}`} aria-label={`${surah.number}. sure ${verse.ayah}. ayet`}>{verse.ayah}</a>
                 <div>
                   <p className="verse-arabic" lang="ar" dir="rtl" translate="no">{verse.text}</p>
+                  <div className="verse-meaning">
+                    <span>Türkçe meal</span>
+                    <p>{meaning.text}</p>
+                  </div>
+                  {meaning.footnotes && <aside className="meal-footnote"><strong>Meal dipnotu</strong><p>{meaning.footnotes}</p></aside>}
                   <div className="corpus-verse-meta">
                     <span>{surah.number}:{verse.ayah}</span>
                     <span>Tanzil Uthmani 1.1</span>
+                    <span>QuranEnc Rowwad {turkishMealMetadata.version}</span>
                     <span>Tefsir ve hadis bağlantıları editör kuyruğunda</span>
                   </div>
                 </div>
-              </article>
-            ))}
+              </article>;
+            })}
           </section>
 
           <nav className="surah-pagination" aria-label="Sureler arasında gezinme">
@@ -86,9 +104,12 @@ export function QuranSurahArticle({ surah, verses, previous, next }: QuranSurahA
             <div><dt>Rükû</dt><dd>{surah.rukuCount}</dd></div>
           </dl>
           <div className="infobox-source" id="kaynak">
-            <strong>Tanzil Project</strong>
+            <strong>Kur’an metni · Tanzil Project</strong>
             <p>{quranLicense.name}</p>
             <a href="https://tanzil.net" rel="noreferrer" target="_blank">Kaynağı aç ↗</a>
+            <strong className="secondary-source">Türkçe meal · QuranEnc</strong>
+            <p>Rowwad Tercüme Merkezi · {turkishMealMetadata.version}</p>
+            <a href="https://quranenc.com/tr" rel="noreferrer" target="_blank">Meal kaynağını aç ↗</a>
           </div>
         </aside>
       </div>
