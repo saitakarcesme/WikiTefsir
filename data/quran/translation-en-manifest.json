@@ -1,0 +1,35 @@
+{
+  "corpus": "quran-english-translation",
+  "translationKey": "english_rwwad",
+  "version": "1.0.19",
+  "recordCount": 6236,
+  "republishingTerms": {
+    "url": "https://quranenc.com/en/home/api",
+    "attribution": "QuranEnc.com — Encyclopedia of the Noble Quran",
+    "publisher": "Rowwad Translation Center and partner organizations",
+    "verbatimOnly": true,
+    "versionRequired": true,
+    "sourceLinkRequired": true
+  },
+  "sources": [
+    {
+      "id": "quranenc-english-translations-list",
+      "url": "https://quranenc.com/api/v1/translations/list/en?localization=en",
+      "filename": "quranenc-english-translations-list.json",
+      "sha256": "2116a75961183351dcb86ca16bd9c1fca4750c8d3958c1578b8129d10eaf0abb"
+    },
+    {
+      "id": "quranenc-english_rwwad-1.0.19",
+      "url": "https://quranenc.com/downloads/sqlite/english_rwwad.sqlite",
+      "filename": "quranenc-english_rwwad-1.0.19.sqlite",
+      "sha256": "77e2ede3d8e6d6b5c6e16ff78eda2d2b6cc0a6b7489c94a5dde4f7481f5fdee8"
+    }
+  ],
+  "artifacts": [
+    {
+      "filename": "translation-en.json",
+      "sha256": "2a8390ff8cd58527f66fb48b027e62509cf7137c70f637c355b205f1d0e05213",
+      "recordCount": 6236
+    }
+  ]
+}

@@ -18,9 +18,9 @@ function assert(condition, message) {
 }
 
 async function main() {
-  const manifest = JSON.parse(await readFile(join(corpusDir, 'meal-tr-manifest.json'), 'utf8'));
-  assert(manifest.translationKey === 'turkish_rwwad', 'Unexpected Turkish translation key');
-  assert(manifest.version === '1.0.4', 'Unexpected Turkish translation version');
+  const manifest = JSON.parse(await readFile(join(corpusDir, 'translation-en-manifest.json'), 'utf8'));
+  assert(manifest.translationKey === 'english_rwwad', 'Unexpected English translation key');
+  assert(manifest.version === '1.0.19', 'Unexpected English translation version');
   assert(manifest.recordCount === 6236, 'Manifest must declare 6236 records');
   assert(manifest.republishingTerms?.verbatimOnly === true, 'Verbatim-only terms flag is missing');
   assert(manifest.republishingTerms?.sourceLinkRequired === true, 'Source-link requirement is missing');
@@ -35,8 +35,8 @@ async function main() {
     assert(sha256(buffer) === artifact.sha256, `SHA-256 mismatch: ${artifact.filename}`);
   }
 
-  const metadataSource = manifest.sources.find((source) => source.id === 'quranenc-turkish-translations-list');
-  const databaseSource = manifest.sources.find((source) => source.id.startsWith('quranenc-turkish_rwwad-'));
+  const metadataSource = manifest.sources.find((source) => source.id === 'quranenc-english-translations-list');
+  const databaseSource = manifest.sources.find((source) => source.id.startsWith('quranenc-english_rwwad-'));
   assert(metadataSource && databaseSource, 'QuranEnc source files are missing from the manifest');
 
   const metadata = JSON.parse(await readFile(join(corpusDir, metadataSource.filename), 'utf8'));
@@ -44,8 +44,8 @@ async function main() {
   assert(translation?.version === manifest.version, 'Metadata and manifest versions differ');
   assert(translation?.database_uncompressed_url === databaseSource.url, 'Metadata and manifest source URLs differ');
 
-  const catalog = JSON.parse(await readFile(join(corpusDir, 'meal-tr.json'), 'utf8'));
-  assert(catalog.records?.length === 6236, 'Portable meal catalog must contain 6236 records');
+  const catalog = JSON.parse(await readFile(join(corpusDir, 'translation-en.json'), 'utf8'));
+  assert(catalog.records?.length === 6236, 'Portable English translation catalog must contain 6236 records');
   assert(catalog.translation?.key === manifest.translationKey, 'Catalog translation key differs');
   assert(catalog.translation?.version === manifest.version, 'Catalog version differs');
 
@@ -62,11 +62,11 @@ async function main() {
     const reference = `${source.sura}:${source.aya}`;
     assert(artifact.id === Number(source.id), `Source id differs: ${reference}`);
     assert(artifact.surah === Number(source.sura) && artifact.ayah === Number(source.aya), `Reference differs: ${reference}`);
-    assert(artifact.text === String(source.translation), `Meal text differs from verbatim source: ${reference}`);
+    assert(artifact.text === String(source.translation), `Translation text differs from verbatim source: ${reference}`);
     assert(artifact.footnotes === String(source.footnotes ?? ''), `Footnotes differ from verbatim source: ${reference}`);
   }
 
-  process.stdout.write(`Verified ${sourceRows.length} verbatim Turkish meal records from QuranEnc ${manifest.version}.\n`);
+  process.stdout.write(`Verified ${sourceRows.length} verbatim English translation records from QuranEnc ${manifest.version}.\n`);
 }
 
 main().catch((error) => {

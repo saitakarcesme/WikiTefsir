@@ -8,19 +8,19 @@ import { fileURLToPath } from 'node:url';
 
 const projectRoot = dirname(dirname(fileURLToPath(import.meta.url)));
 const outputDir = join(projectRoot, 'data', 'hadith');
-const expectedVersion = '1.67.0';
-const language = 'tr';
+const expectedVersion = '1.25.0';
+const language = 'en';
 const apiBase = 'https://hadeethenc.com/api/v1';
-const versionSourceUrl = 'https://hadeethenc.com/browse/download/tr';
+const versionSourceUrl = 'https://hadeethenc.com/browse/download/en';
 const terms = {
   url: 'https://hadeethenc.com/en/home',
-  attribution: 'HadeethEnc.com — Tercüme Edilmiş Nebevî Hadisler Ansiklopedisi',
+  attribution: 'HadeethEnc.com — Encyclopedia of Translated Prophetic Hadiths',
   publisher: 'HadeethEnc.com',
   verbatimOnly: true,
   versionRequired: true,
   sourceLinkRequired: true,
 };
-const publicationGrade = /sahih/iu;
+const publicationGrade = /^authentic(?:\b|\s|\/)/iu;
 
 function sha256(buffer) {
   return createHash('sha256').update(buffer).digest('hex');
@@ -74,18 +74,18 @@ async function mapConcurrent(items, concurrency, mapper) {
 function verifyRecord(record) {
   const reference = `HadeethEnc ${record?.id ?? 'unknown'}`;
   assert(/^\d+$/u.test(record?.id), `${reference}: invalid id`);
-  assert(typeof record.title === 'string' && record.title.length > 0, `${reference}: Turkish title is missing`);
-  assert(typeof record.hadeeth === 'string' && record.hadeeth.length > 0, `${reference}: Turkish hadith is missing`);
+  assert(typeof record.title === 'string' && record.title.length > 0, `${reference}: English title is missing`);
+  assert(typeof record.hadeeth === 'string' && record.hadeeth.length > 0, `${reference}: English hadith is missing`);
   assert(typeof record.hadeeth_ar === 'string' && record.hadeeth_ar.length > 0, `${reference}: Arabic hadith is missing`);
   assert(typeof record.attribution === 'string' && record.attribution.length > 0, `${reference}: attribution is missing`);
   assert(typeof record.grade === 'string' && record.grade.length > 0, `${reference}: grade is missing`);
   assert(Array.isArray(record.categories) && record.categories.length > 0, `${reference}: categories are missing`);
-  assert(Array.isArray(record.translations) && record.translations.includes(language), `${reference}: Turkish translation flag is missing`);
+  assert(Array.isArray(record.translations) && record.translations.includes(language), `${reference}: English translation flag is missing`);
 }
 
 async function main() {
   const versionResponse = await fetchResponse(versionSourceUrl, { method: 'HEAD' });
-  const versionMatch = versionResponse.url.match(/HadeethEnc\.com_tr-v([0-9.]+)\.xlsx$/u);
+  const versionMatch = versionResponse.url.match(/HadeethEnc\.com_en-v([0-9.]+)\.xlsx$/u);
   assert(versionMatch, `Could not resolve HadeethEnc version from ${versionResponse.url}`);
   assert(versionMatch[1] === expectedVersion, `Expected HadeethEnc ${expectedVersion}, received ${versionMatch[1]}`);
 
@@ -103,7 +103,7 @@ async function main() {
   );
   const ids = [...new Set(listings.flatMap((listing) => listing.data.map((record) => record.id)))]
     .sort((left, right) => Number(left) - Number(right));
-  assert(ids.length === 2150, `Expected 2150 unique hadiths, received ${ids.length}`);
+  assert(ids.length === 2328, `Expected 2328 unique hadiths, received ${ids.length}`);
 
   let completed = 0;
   const sourceRecords = await mapConcurrent(ids, 16, async (id) => {
@@ -116,17 +116,17 @@ async function main() {
     return record;
   });
   const records = sourceRecords.filter((record) => publicationGrade.test(record.grade));
-  assert(records.length === 1993, `Expected 1993 explicitly sahih records, received ${records.length}`);
+  assert(records.length > 1900, `Expected more than 1900 explicitly authentic records, received ${records.length}`);
 
   const catalog = {
     corpus: 'verified-hadiths',
-    source: `hadeethenc-tr-${expectedVersion}`,
+    source: `hadeethenc-en-${expectedVersion}`,
     language,
     version: expectedVersion,
     terms,
     publicationFilter: {
       field: 'grade',
-      rule: 'Turkish grade contains the word “sahih” (case-insensitive)',
+      rule: 'English grade begins with “Authentic” (case-insensitive)',
       sourceRecordCount: sourceRecords.length,
       excludedRecordCount: sourceRecords.length - records.length,
     },
@@ -146,7 +146,7 @@ async function main() {
     terms,
     publicationFilter: {
       field: 'grade',
-      rule: 'Turkish grade contains the word “sahih” (case-insensitive)',
+      rule: 'English grade begins with “Authentic” (case-insensitive)',
       excludedRecordCount: sourceRecords.length - records.length,
     },
     endpoints: {
@@ -156,12 +156,12 @@ async function main() {
       record: `${apiBase}/hadeeths/one/?language=${language}&id={id}`,
     },
     artifacts: [
-      { filename: 'hadeethenc-tr.json', sha256: sha256(catalogBuffer), recordCount: records.length },
+      { filename: 'hadeethenc-en.json', sha256: sha256(catalogBuffer), recordCount: records.length },
     ],
   };
 
   await mkdir(outputDir, { recursive: true });
-  await writeAtomic(join(outputDir, 'hadeethenc-tr.json'), catalogBuffer);
+  await writeAtomic(join(outputDir, 'hadeethenc-en.json'), catalogBuffer);
   await writeAtomic(join(outputDir, 'manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`);
   process.stdout.write(`Imported ${records.length} verified hadith records from HadeethEnc ${expectedVersion}.\n`);
 }

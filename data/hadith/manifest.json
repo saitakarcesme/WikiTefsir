@@ -1,14 +1,14 @@
 {
   "corpus": "verified-hadiths",
   "source": "HadeethEnc.com",
-  "language": "tr",
-  "version": "1.67.0",
-  "recordCount": 1993,
-  "sourceRecordCount": 2150,
-  "categoryCount": 433,
+  "language": "en",
+  "version": "1.25.0",
+  "recordCount": 2120,
+  "sourceRecordCount": 2328,
+  "categoryCount": 452,
   "terms": {
     "url": "https://hadeethenc.com/en/home",
-    "attribution": "HadeethEnc.com — Tercüme Edilmiş Nebevî Hadisler Ansiklopedisi",
+    "attribution": "HadeethEnc.com — Encyclopedia of Translated Prophetic Hadiths",
     "publisher": "HadeethEnc.com",
     "verbatimOnly": true,
     "versionRequired": true,
@@ -16,20 +16,20 @@
   },
   "publicationFilter": {
     "field": "grade",
-    "rule": "Turkish grade contains the word “sahih” (case-insensitive)",
-    "excludedRecordCount": 157
+    "rule": "English grade begins with “Authentic” (case-insensitive)",
+    "excludedRecordCount": 208
   },
   "endpoints": {
-    "version": "https://hadeethenc.com/browse/download/tr",
-    "roots": "https://hadeethenc.com/api/v1/categories/roots/?language=tr",
-    "categories": "https://hadeethenc.com/api/v1/categories/list/?language=tr",
-    "record": "https://hadeethenc.com/api/v1/hadeeths/one/?language=tr&id={id}"
+    "version": "https://hadeethenc.com/browse/download/en",
+    "roots": "https://hadeethenc.com/api/v1/categories/roots/?language=en",
+    "categories": "https://hadeethenc.com/api/v1/categories/list/?language=en",
+    "record": "https://hadeethenc.com/api/v1/hadeeths/one/?language=en&id={id}"
   },
   "artifacts": [
     {
-      "filename": "hadeethenc-tr.json",
-      "sha256": "00c0489d93ea02cfb96fef4caa2b966ef90d5e9f1ae0c1f6499bc4f5bb09f660",
-      "recordCount": 1993
+      "filename": "hadeethenc-en.json",
+      "sha256": "985771ba33bb084267e475657f5b3d9c21a03d7151d5dee93f738af641925714",
+      "recordCount": 2120
     }
   ]
 }

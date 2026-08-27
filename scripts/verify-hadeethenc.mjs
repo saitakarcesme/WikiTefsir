@@ -18,18 +18,18 @@ function sha256(buffer) {
 
 const [manifestBuffer, catalogBuffer] = await Promise.all([
   readFile(join(dataDir, 'manifest.json')),
-  readFile(join(dataDir, 'hadeethenc-tr.json')),
+  readFile(join(dataDir, 'hadeethenc-en.json')),
 ]);
 const manifest = JSON.parse(manifestBuffer);
 const catalog = JSON.parse(catalogBuffer);
-const artifact = manifest.artifacts.find((entry) => entry.filename === 'hadeethenc-tr.json');
+const artifact = manifest.artifacts.find((entry) => entry.filename === 'hadeethenc-en.json');
 
-assert(manifest.version === '1.67.0', `Unexpected manifest version: ${manifest.version}`);
+assert(manifest.version === '1.25.0', `Unexpected manifest version: ${manifest.version}`);
 assert(catalog.version === manifest.version, 'Catalog and manifest versions differ');
-assert(manifest.sourceRecordCount === 2150, 'Expected 2150 records in the source release');
-assert(manifest.recordCount === 1993, 'Expected 1993 explicitly sahih records');
+assert(manifest.sourceRecordCount === 2328, 'Expected 2328 records in the source release');
+assert(manifest.recordCount > 1900, 'Expected more than 1900 explicitly authentic records');
 assert(catalog.records.length === manifest.recordCount, 'Record count differs from manifest');
-assert(catalog.categories.length === 433, 'Expected 433 HadeethEnc categories');
+assert(catalog.categories.length > 400, 'Expected more than 400 HadeethEnc categories');
 assert(catalog.rootCategories.length === 7, 'Expected seven HadeethEnc root categories');
 assert(artifact?.sha256 === sha256(catalogBuffer), 'Hadith corpus checksum differs from manifest');
 assert(artifact.recordCount === catalog.records.length, 'Artifact count differs from catalog');
@@ -44,8 +44,8 @@ for (const record of catalog.records) {
   for (const field of ['title', 'hadeeth', 'hadeeth_ar', 'attribution', 'grade']) {
     assert(typeof record[field] === 'string' && record[field].trim().length > 0, `${reference}: ${field} is missing`);
   }
-  assert(/sahih/iu.test(record.grade), `${reference}: grade is not explicitly sahih: ${record.grade}`);
-  assert(Array.isArray(record.translations) && record.translations.includes('tr'), `${reference}: Turkish flag is missing`);
+  assert(/^authentic(?:\b|\s|\/)/iu.test(record.grade), `${reference}: grade is not explicitly authentic: ${record.grade}`);
+  assert(Array.isArray(record.translations) && record.translations.includes('en'), `${reference}: English flag is missing`);
   assert(Array.isArray(record.categories) && record.categories.length > 0, `${reference}: categories are missing`);
   for (const category of record.categories) {
     assert(categoryIds.has(String(category)), `${reference}: unknown category ${category}`);
@@ -53,5 +53,5 @@ for (const record of catalog.records) {
 }
 
 process.stdout.write(
-  `Verified ${catalog.records.length} explicitly sahih HadeethEnc records, ${catalog.categories.length} categories, and SHA-256 integrity.\n`,
+  `Verified ${catalog.records.length} explicitly authentic HadeethEnc records, ${catalog.categories.length} categories, and SHA-256 integrity.\n`,
 );

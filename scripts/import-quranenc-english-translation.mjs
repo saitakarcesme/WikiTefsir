@@ -9,21 +9,21 @@ import { fileURLToPath } from 'node:url';
 
 const projectRoot = dirname(dirname(fileURLToPath(import.meta.url)));
 const outputDir = join(projectRoot, 'data', 'quran');
-const translationKey = 'turkish_rwwad';
-const expectedVersion = '1.0.4';
+const translationKey = 'english_rwwad';
+const expectedVersion = '1.0.19';
 const metadataSource = {
-  id: 'quranenc-turkish-translations-list',
-  url: 'https://quranenc.com/api/v1/translations/list/tr',
-  filename: 'quranenc-turkish-translations-list.json',
+  id: 'quranenc-english-translations-list',
+  url: 'https://quranenc.com/api/v1/translations/list/en?localization=en',
+  filename: 'quranenc-english-translations-list.json',
 };
 const databaseSource = {
   id: `quranenc-${translationKey}-${expectedVersion}`,
-  url: 'https://quranenc.com/downloads/sqlite/turkish_rwwad.sqlite',
+  url: 'https://quranenc.com/downloads/sqlite/english_rwwad.sqlite',
   filename: `quranenc-${translationKey}-${expectedVersion}.sqlite`,
 };
 const republishingTerms = {
   url: 'https://quranenc.com/en/home/api',
-  attribution: 'QuranEnc.com — Kur’an-ı Kerîm Meâlleri Ansiklopedisi',
+  attribution: 'QuranEnc.com — Encyclopedia of the Noble Quran',
   publisher: 'Rowwad Translation Center and partner organizations',
   verbatimOnly: true,
   versionRequired: true,
@@ -105,7 +105,7 @@ async function main() {
     verifySequence(records, surahCatalog.records);
 
     const catalog = {
-      corpus: 'quran-turkish-meaning',
+      corpus: 'quran-english-translation',
       source: databaseSource.id,
       translation,
       republishingTerms,
@@ -113,7 +113,7 @@ async function main() {
     };
     const catalogBuffer = Buffer.from(`${JSON.stringify(catalog)}\n`, 'utf8');
     const manifest = {
-      corpus: 'quran-turkish-meaning',
+      corpus: 'quran-english-translation',
       translationKey,
       version: translation.version,
       recordCount: records.length,
@@ -123,17 +123,17 @@ async function main() {
         { ...databaseSource, sha256: sha256(databaseBuffer) },
       ],
       artifacts: [
-        { filename: 'meal-tr.json', sha256: sha256(catalogBuffer), recordCount: records.length },
+        { filename: 'translation-en.json', sha256: sha256(catalogBuffer), recordCount: records.length },
       ],
     };
 
     await mkdir(outputDir, { recursive: true });
     await writeAtomic(join(outputDir, metadataSource.filename), metadataBuffer);
     await writeAtomic(join(outputDir, databaseSource.filename), databaseBuffer);
-    await writeAtomic(join(outputDir, 'meal-tr.json'), catalogBuffer);
-    await writeAtomic(join(outputDir, 'meal-tr-manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`);
+    await writeAtomic(join(outputDir, 'translation-en.json'), catalogBuffer);
+    await writeAtomic(join(outputDir, 'translation-en-manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`);
 
-    process.stdout.write(`Imported ${records.length} Turkish meal records from QuranEnc ${translation.version}.\n`);
+    process.stdout.write(`Imported ${records.length} English translation records from QuranEnc ${translation.version}.\n`);
   } finally {
     await rm(temporaryDir, { recursive: true, force: true });
   }
