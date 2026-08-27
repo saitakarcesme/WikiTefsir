@@ -1,5 +1,6 @@
 import surahCatalogJson from '@/data/quran/surahs.json';
 import verseCatalogJson from '@/data/quran/verses.json';
+import turkishMealCatalogJson from '@/data/quran/meal-tr.json';
 
 export type RevelationType = 'Meccan' | 'Medinan';
 
@@ -19,6 +20,14 @@ export interface VerseRecord {
   surah: number;
   ayah: number;
   text: string;
+}
+
+export interface MealRecord {
+  id: number;
+  surah: number;
+  ayah: number;
+  text: string;
+  footnotes: string;
 }
 
 export interface QuranLicense {
@@ -43,11 +52,39 @@ interface VerseCatalog {
   records: VerseRecord[];
 }
 
+interface TurkishMealTranslation {
+  key: string;
+  version: string;
+  title: string;
+  description: string;
+  last_update: number;
+}
+
+interface RepublishingTerms {
+  url: string;
+  attribution: string;
+  publisher: string;
+  verbatimOnly: boolean;
+  versionRequired: boolean;
+  sourceLinkRequired: boolean;
+}
+
+interface TurkishMealCatalog {
+  corpus: string;
+  source: string;
+  translation: TurkishMealTranslation;
+  republishingTerms: RepublishingTerms;
+  records: MealRecord[];
+}
+
 const surahCatalog = surahCatalogJson as SurahCatalog;
 const verseCatalog = verseCatalogJson as VerseCatalog;
+const turkishMealCatalog = turkishMealCatalogJson as TurkishMealCatalog;
 
 export const quranLicense = verseCatalog.license;
 export const quranCopyrightNotice = verseCatalog.copyrightNotice;
+export const turkishMealMetadata = turkishMealCatalog.translation;
+export const turkishMealTerms = turkishMealCatalog.republishingTerms;
 
 function normalizeSlug(value: string) {
   return value
@@ -94,6 +131,18 @@ export function getVerse(surahNumber: number, ayahNumber: number) {
   return verseCatalog.records[surah.startOffset + ayahNumber - 1];
 }
 
+export function getTurkishMealForSurah(surahNumber: number) {
+  const surah = getSurahByNumber(surahNumber);
+  if (!surah) return [];
+  return turkishMealCatalog.records.slice(surah.startOffset, surah.startOffset + surah.ayahCount);
+}
+
+export function getTurkishMeal(surahNumber: number, ayahNumber: number) {
+  const surah = getSurahByNumber(surahNumber);
+  if (!surah || ayahNumber < 1 || ayahNumber > surah.ayahCount) return undefined;
+  return turkishMealCatalog.records[surah.startOffset + ayahNumber - 1];
+}
+
 export function getAdjacentSurahs(surahNumber: number) {
   return {
     previous: getSurahByNumber(surahNumber - 1),
@@ -105,6 +154,7 @@ export function getQuranStats() {
   return {
     surahCount: surahCatalog.records.length,
     verseCount: verseCatalog.records.length,
+    turkishMealCount: turkishMealCatalog.records.length,
     source: verseCatalog.source,
   };
 }
