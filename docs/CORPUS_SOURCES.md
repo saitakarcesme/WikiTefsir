@@ -55,9 +55,21 @@ Altı hadis külliyatı için Arapça metin, isnad, kitap/bab ayrımı, numarala
 
 HadeethEnc kayıtları Arapça hadis metni, Türkçe tercüme, tahric/nispet, derece, açıklama ve konu başlıklarını birlikte sunar. 1.67.0 sürümündeki 2.150 benzersiz Türkçe kayıt taranmış; projenin “yalnız sahih hadis” ilkesi gereği derece alanında büyük/küçük harf ayrımı olmadan açıkça “sahih” geçen 1.993 kayıt yayıma alınmıştır. Yalnız hasen, zayıf veya açık hüküm bulunmayan 157 kayıt yayımlanmamıştır. Yeniden yayımlama şartları içeriğin değiştirilmemesini, HadeethEnc kaynağı ile sürümün açıkça belirtilmesini ve güncel sürümün takip edilmesini gerektirir. Bu külliyat Kütüb-i Sitte’nin eksiksiz neşri değildir; güvenilir hadis maddeleri için ilk doğrulanmış katmandır ve Kütüb-i Sitte kaynak kapısının yerine geçmez.
 
-## İncelemede: klasik tefsirler
+## Kabul edildi: üç klasik Arapça tefsir
 
-Taberî, İbn Kesîr ve Kurtubî gibi klasik eserlerin asılları kamu malı olabilir; ancak modern tahkik, dizgi ve dijital veri dosyaları ayrıca korunabilir. Kullanılacak her dijital neşir için tahkik/baskı künyesi ve veri kullanım hakkı ayrı kaydedilecektir.
+| Alan | Değer |
+|---|---|
+| Veri yayımcısı | Quran Lab — `quranlab/quran-tafsir` |
+| Sabit kaynak revizyonu | `86e676b432463b100254d63309bf62b0c6578b53` (release 1.40.0) |
+| Dijital metin kaynağı | `spa5k/tafsir_api@5bbe0895543219f9ec3fe4ee808acce701a7bb4a`, QUL/quran.com üzerinden |
+| Eserler | İbn Kesîr, Taberî ve Kurtubî tefsirlerinin Arapça metinleri |
+| Kapsam | Her config için 6.236 sıralı ayet kaydı |
+| Kullanım şartı | Alttaki klasik eserler kamu malı; dijital paketleme MIT; metinler verbatim |
+| Yayın biçimi | Ayet anahtarına göre kaynak satırı; olmayan yorumlar açıkça boş |
+
+Üç config sırasıyla `tafsir-ibnkathir-ar`, `tafsir-tabari-ar` ve `tafsir-qurtubi-ar` adlarını taşır. İbn Kesîr ve Taberî için 6.236 yorum satırı, Kurtubî için iki açık `source-unavailable` satır dışında 6.234 yorum satırı beklenir. Parquet dosyalarının kaynak LFS SHA-256 değerleri manifestte sabitlenmiştir. Metinler yaklaşık 209 MB açıldığı için uygulama paketine kopyalanmaz; ayet sıra numarasıyla Dataset Viewer üzerinden okunur ve dönen `verse_key` kapalı-hata biçiminde doğrulanır.
+
+Bu eserlerin Ehl-i Sünnet kapsamına alınması, içlerinde aktarılan her rivayetin sahih olduğu anlamına gelmez. Özellikle Taberî rivayet ve isrâiliyyât malzemesi aktarabilir. Tefsir metni “müfessirin eserinden alıntı” olarak gösterilir; içindeki rivayetler ayrıca sahih hadis etiketi almaz ve bağımsız hadis kaydı sayılmaz.
 
 ## Kabul kapısı
 
