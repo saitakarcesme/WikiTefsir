@@ -38,3 +38,12 @@
 - Tam külliyat araması Türkçe meal ve dipnot metinlerini de kapsıyor; `yalnız sana ibadet` sorgusu yerel API ve tarayıcıda Fâtiha 1:5 kaydına bağlandı.
 - Masaüstü ve 390 px mobil tarayıcı kontrollerinde kaynak atfı, meal, dipnot, hata katmanı ve yatay taşma doğrulandı.
 - Production ortamında Türkçe meal araması, Fâtiha meal metni, Bakara meal dipnotu, kaynak atfı ve temsili rotalar içerik/HTTP düzeyinde doğrulandı; Vercel hata taramasında hata kaydı bulunmadı.
+
+## 2026-08-28 — Doğrulanmış sahih hadis başlangıç külliyatı
+
+- HadeethEnc 1.67.0 sürümünün resmî Türkçe API kayıtları ve yeniden yayımlama şartları kaynak siciline alındı.
+- Yedi kök kategorideki 2.150 benzersiz kayıt incelendi; derece alanında açıkça “sahih” geçen 1.993 kayıt yayıma alındı, diğer 157 kayıt kapsam dışında bırakıldı.
+- Arapça metin, Türkçe tercüme, tahric/nispet, derece, açıklama, faydalar ve 433 konu başlığı değiştirilmeden taşınabilir kataloğa aktarıldı.
+- Katalog SHA-256 özeti, kayıt tekilliği, zorunlu alanlar, kategori bağlantıları ve sahih yayın filtresi bağımsız doğrulayıcıyla denetleniyor.
+- Aranabilir hadis dizini, kalıcı hadis detay rotaları ve Arapça/Türkçe birleşik külliyat araması uygulamaya bağlandı.
+- Bu veri seti Kütüb-i Sitte’nin tamamı değildir; altı eserin neşir, isnad, kitap/bab ve numaralandırma kaynağı hâlâ doğrulama aşamasındadır.
