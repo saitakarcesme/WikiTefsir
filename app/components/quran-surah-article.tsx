@@ -7,6 +7,7 @@ import {
   turkishMealTerms,
 } from '@/lib/quran';
 import { SiteHeader } from './site-header';
+import { VerseTafsirs } from './verse-tafsirs';
 
 interface QuranSurahArticleProps {
   surah: SurahRecord;
@@ -27,6 +28,7 @@ export function QuranSurahArticle({ surah, verses, meal, previous, next }: Quran
           <span>Bu sayfada</span>
           <a className="active" href="#genel">Genel bakış</a>
           <a href="#ayetler">Ayetler</a>
+          <a href="#ayetler">Klasik tefsirler</a>
           <a href="#meal">Meal durumu</a>
           <a href="#kaynak">Metin kaynağı</a>
         </aside>
@@ -76,11 +78,13 @@ export function QuranSurahArticle({ surah, verses, meal, previous, next }: Quran
                     <p>{meaning.text}</p>
                   </div>
                   {meaning.footnotes && <aside className="meal-footnote"><strong>Meal dipnotu</strong><p>{meaning.footnotes}</p></aside>}
+                  <VerseTafsirs surah={verse.surah} ayah={verse.ayah} />
                   <div className="corpus-verse-meta">
                     <span>{surah.number}:{verse.ayah}</span>
                     <span>Tanzil Uthmani 1.1</span>
                     <span>QuranEnc Rowwad {turkishMealMetadata.version}</span>
-                    <span>Tefsir ve hadis bağlantıları editör kuyruğunda</span>
+                    <span>3 klasik Arapça tefsir</span>
+                    <span>Hadis bağlantıları editör kuyruğunda</span>
                   </div>
                 </div>
               </article>;
