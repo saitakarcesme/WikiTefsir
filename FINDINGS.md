@@ -37,3 +37,4 @@
 - Bütün sure maddeleri Arapça ayetle birlikte Türkçe meal, varsa meal dipnotu ve sürüm künyesini gösteriyor.
 - Tam külliyat araması Türkçe meal ve dipnot metinlerini de kapsıyor; `yalnız sana ibadet` sorgusu yerel API ve tarayıcıda Fâtiha 1:5 kaydına bağlandı.
 - Masaüstü ve 390 px mobil tarayıcı kontrollerinde kaynak atfı, meal, dipnot, hata katmanı ve yatay taşma doğrulandı.
+- Production ortamında Türkçe meal araması, Fâtiha meal metni, Bakara meal dipnotu, kaynak atfı ve temsili rotalar içerik/HTTP düzeyinde doğrulandı; Vercel hata taramasında hata kaydı bulunmadı.
