@@ -46,4 +46,5 @@
 - Arapça metin, Türkçe tercüme, tahric/nispet, derece, açıklama, faydalar ve 433 konu başlığı değiştirilmeden taşınabilir kataloğa aktarıldı.
 - Katalog SHA-256 özeti, kayıt tekilliği, zorunlu alanlar, kategori bağlantıları ve sahih yayın filtresi bağımsız doğrulayıcıyla denetleniyor.
 - Aranabilir hadis dizini, kalıcı hadis detay rotaları ve Arapça/Türkçe birleşik külliyat araması uygulamaya bağlandı.
+- Production ortamında hadis dizini, #1751 detay maddesi, Arapça metin, kaynak künyesi ve `h:1751` API araması doğrulandı; Vercel hata günlüklerinde hata kaydı bulunmadı.
 - Bu veri seti Kütüb-i Sitte’nin tamamı değildir; altı eserin neşir, isnad, kitap/bab ve numaralandırma kaynağı hâlâ doğrulama aşamasındadır.
