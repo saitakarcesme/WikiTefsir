@@ -3,7 +3,7 @@ import { KnowledgeGraph } from './components/knowledge-graph';
 import { SiteHeader } from './components/site-header';
 
 const collections = [
-  { name: 'Kur’an-ı Kerîm', detail: '114 sure · ayet ağı', tone: 'green', href: '/sure/fatiha' },
+  { name: 'Kur’an-ı Kerîm', detail: '114 sure · 6.236 ayet', tone: 'green', href: '/sureler' },
   { name: 'Kütüb-i Sitte', detail: '6 temel hadis külliyatı', tone: 'amber', href: '/hadis' },
   { name: 'Klasik Tefsirler', detail: 'Kaynaklı açıklamalar', tone: 'blue', href: '/alim/taberi' },
 ];
