@@ -1,4 +1,5 @@
 import { SearchExplorer } from './components/search-explorer';
+import { KnowledgeGraph } from './components/knowledge-graph';
 
 const collections = [
   { name: 'Kur’an-ı Kerîm', detail: '114 sure · 6.236 ayet', tone: 'green' },
@@ -117,7 +118,9 @@ export default function Home() {
           </aside>
         </div>
 
-        <div className="trust-strip">
+        <KnowledgeGraph />
+
+        <div className="trust-strip" id="metodoloji">
           <span className="trust-mark" aria-hidden="true">✓</span>
           <div><strong>Kaynak olmadan hüküm yok.</strong><p>Her bilgi, eser ve konum künyesiyle izlenebilir; örnek veriler açıkça işaretlenir.</p></div>
           <a href="#metodoloji">Yayın metodolojisi <span>→</span></a>
