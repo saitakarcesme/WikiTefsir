@@ -68,6 +68,13 @@ function parseVerses(rawText) {
   return verses;
 }
 
+function extractCopyrightNotice(rawText) {
+  const marker = '# PLEASE DO NOT REMOVE OR CHANGE THIS COPYRIGHT BLOCK';
+  const markerIndex = rawText.indexOf(marker);
+  if (markerIndex === -1) throw new Error('Tanzil copyright block is missing');
+  return rawText.slice(markerIndex).trimEnd();
+}
+
 function parseSurahs(metadataXml) {
   const surahs = [...metadataXml.matchAll(/<sura\s+([^>]+?)\s*\/>/gu)].map((match) => {
     const attributes = Object.fromEntries(
@@ -127,6 +134,16 @@ async function main() {
   const surahs = parseSurahs(metadataXml);
   verifyStructure(verses, surahs);
 
+  const verseCatalog = {
+    corpus: 'quran-verses',
+    source: textSource.id,
+    license,
+    copyrightNotice: extractCopyrightNotice(rawText),
+    records: verses,
+  };
+
+  const verseCatalogBuffer = Buffer.from(`${JSON.stringify(verseCatalog)}\n`, 'utf8');
+
   const manifest = {
     corpus: 'quran',
     verseCount: verses.length,
@@ -135,6 +152,9 @@ async function main() {
     sources: [
       { ...textSource, sha256: sha256(textBuffer) },
       { ...metadataSource, sha256: sha256(metadataBuffer) },
+    ],
+    artifacts: [
+      { filename: 'verses.json', sha256: sha256(verseCatalogBuffer), recordCount: verses.length },
     ],
   };
 
@@ -148,6 +168,7 @@ async function main() {
   await mkdir(outputDir, { recursive: true });
   await writeAtomic(join(outputDir, textSource.filename), textBuffer);
   await writeAtomic(join(outputDir, metadataSource.filename), metadataBuffer);
+  await writeAtomic(join(outputDir, 'verses.json'), verseCatalogBuffer);
   await writeAtomic(join(outputDir, 'surahs.json'), `${JSON.stringify(surahCatalog, null, 2)}\n`);
   await writeAtomic(join(outputDir, 'manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`);
 
