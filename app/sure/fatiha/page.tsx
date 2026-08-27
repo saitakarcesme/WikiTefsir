@@ -1,10 +1,15 @@
 import type { Metadata } from 'next';
 import { QuranSurahArticle } from '../../components/quran-surah-article';
-import { getAdjacentSurahs, getSurahByNumber, getVersesForSurah } from '@/lib/quran';
+import {
+  getAdjacentSurahs,
+  getSurahByNumber,
+  getTurkishMealForSurah,
+  getVersesForSurah,
+} from '@/lib/quran';
 
 export const metadata: Metadata = {
   title: 'Fâtiha Suresi',
-  description: 'Fâtiha Suresi’nin doğrulanmış Uthmani Arapça metni ve kaynak bilgileri.',
+  description: 'Fâtiha Suresi’nin doğrulanmış Uthmani Arapça metni, kaynaklı Türkçe meali ve kaynak bilgileri.',
   openGraph: { images: [] },
   twitter: { images: [] },
 };
@@ -14,7 +19,8 @@ export default function FatihaPage() {
   if (!surah) throw new Error('Fâtiha metadata is missing from the Quran corpus');
 
   const verses = getVersesForSurah(surah.number);
+  const meal = getTurkishMealForSurah(surah.number);
   const adjacent = getAdjacentSurahs(surah.number);
 
-  return <QuranSurahArticle surah={surah} verses={verses} {...adjacent} />;
+  return <QuranSurahArticle surah={surah} verses={verses} meal={meal} {...adjacent} />;
 }
