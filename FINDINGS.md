@@ -57,3 +57,13 @@
 - Her sure maddesindeki her ayet, üç tefsirin Arapça kaynak metnini isteğe bağlı olarak açabilir. Kaynak satırının `verse_key` ve `tafsir_id` alanları API’de kapalı-hata denetlenir.
 - Uygulama çalışma anında upstream revizyonu manifestteki SHA ile eşleşmezse tefsir metni yayımlamaz; böylece sessiz kaynak değişimi engellenir.
 - Tefsir içindeki nakiller otomatik olarak sahih hadis kabul edilmez; arayüz bunları müfessirin eserinden alıntı olarak açıkça ayırır.
+- Üretim ortamında Fâtiha 1:1 tefsir API'si, üç müfessir profili ve sabit kaynak sürümü içerik düzeyinde doğrulandı.
+
+## 2026-08-28 — Wikipedia tipi arayüz ve bağlantılı kavram maddeleri
+
+- Açılış sayfasındaki ortalanmış ürün/landing düzeni kaldırılarak Wikipedia benzeri sol gezinme, madde sekmeleri, külliyat panelleri ve kaynak durumu tablosu kuruldu.
+- Sure, hadis, âlim ve kavram sayfaları aynı tipografi, çizgi, renk, içerik sütunu ve bilgi kutusu sisteminde birleştirildi; eski yuvarlak kart ve gölge farklılıkları giderildi.
+- Tevhid, ibadet, dua, hidayet, rahmet, ahiret, vahiy ve nübüvvet için tarafsız kapsam notu, kaynaklı ayetler ve ilişkili madde bağlantıları bulunan kalıcı sayfalar eklendi.
+- Ayetlerin kavram etiketleri, hadis konu başlıkları, birleşik arama ve bilgi grafiği gerçek madde URL'lerine bağlandı. Tıklanamayan konu etiketleri bağlantılardan ayrı görselleştirildi.
+- Marka işaretindeki düşey hizalama, içerik kutularındaki merkezleme, uzun hadis başlıklarının satır kırılımı ve mobil sütun taşmaları kontrol edilip düzeltildi.
+- Ana sayfa, Fâtiha, hadis dizini, hadis #1751, Taberî, kavram dizini ve Tevhid maddesi 1.440 px masaüstü ile 390 px mobil görünümde yatay taşma ve hata katmanı olmadan doğrulandı.

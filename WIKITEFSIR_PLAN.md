@@ -77,6 +77,15 @@ WikiTefsir; Kur'an ayetlerini, Kütüb-i Sitte hadislerini ve Ehl-i Sünnet çiz
 - Otomatik commit başarısız olduğunda çalışma durmaz; hata `.git/micro-commit.log` içinde tutulur.
 - Push otomatik yapılmaz. Public repo ve deploy yalnızca doğrulanmış commitlerden gerçekleştirilir.
 
+## Wikipedia tipi madde deneyimi
+
+- [x] Ortak üst menü, ansiklopedi tipografisi ve üç sütunlu madde düzeni
+- [x] Ana sayfayı kaynak durumu ve külliyatlara açılan Wikipedia tipi portala dönüştürme
+- [x] Kaynaklı sekiz kavram maddesi ve kavram dizini
+- [x] Ayet, hadis, âlim ve bilgi grafiği kayıtlarından gerçek madde bağlantıları
+- [x] Birleşik aramada kavram sonuçları
+- [x] Masaüstü ve 390 px mobil görünümde hizalama ve yatay taşma denetimi
+
 ## Alfa tamamlanma ölçütü
 
 Proje; üretim derlemesi başarılı, temel sayfalar kullanılabilir, kaynak/örnek veri ayrımı görünür, public repo erişilebilir ve Vercel URL'si gerçek tarayıcı isteğiyle doğrulanmış olduğunda ilk sürüm tamamlanmış sayılır.
