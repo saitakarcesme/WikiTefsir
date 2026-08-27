@@ -6,9 +6,10 @@ import {
   getVerse,
   getVersesForSurah,
 } from '@/lib/quran';
+import { getAllHadiths, getHadithById, getHadithHref } from '@/lib/hadith';
 
 export interface QuranSearchResult {
-  type: 'Ayet' | 'Sure';
+  type: 'Ayet' | 'Sure' | 'Hadis';
   title: string;
   description: string;
   href: string;
@@ -29,6 +30,7 @@ function normalize(value: string) {
 }
 
 const referencePattern = /^(\d{1,3})\s*[:/]\s*(\d{1,3})$/u;
+const hadithReferencePattern = /^(?:h|hadis)\s*[:#]?\s*(\d+)$/iu;
 const searchableSurahs = getAllSurahs().map((surah) => ({
   surah,
   normalizedText: normalize(`${surah.number} ${surah.nameArabic} ${surah.nameTransliterated} ${surah.nameEnglish}`),
@@ -50,6 +52,11 @@ const searchableVerses = getAllSurahs().flatMap((surah) => {
     };
   });
 });
+const searchableHadiths = getAllHadiths().map((record) => ({
+  record,
+  normalizedArabic: normalize(`${record.hadeeth_ar} ${record.explanation_ar}`),
+  normalizedTurkish: normalize(`${record.title} ${record.hadeeth} ${record.explanation} ${record.hints.join(' ')} ${record.attribution}`),
+}));
 
 function describeSurah(number: number, ayahCount: number, revelationType: 'Meccan' | 'Medinan') {
   return `${number}. sure · ${ayahCount} ayet · ${revelationType === 'Meccan' ? 'Mekkî' : 'Medenî'}`;
@@ -71,6 +78,17 @@ function verseResult(surahNumber: number, ayahNumber: number): QuranSearchResult
 
 export function searchQuran(rawQuery: string, limit = 12): QuranSearchResult[] {
   const query = rawQuery.trim().slice(0, 160);
+  const hadithReference = query.match(hadithReferencePattern);
+  if (hadithReference) {
+    const record = getHadithById(hadithReference[1]);
+    return record ? [{
+      type: 'Hadis',
+      title: `Sahih Hadis #${record.id}`,
+      description: record.title,
+      href: getHadithHref(record),
+      language: 'tr',
+    }] : [];
+  }
   const reference = query.match(referencePattern);
 
   if (reference) {
@@ -95,6 +113,21 @@ export function searchQuran(rawQuery: string, limit = 12): QuranSearchResult[] {
     }
   }
 
+  const hadithResults: QuranSearchResult[] = [];
+  for (const { record, normalizedArabic, normalizedTurkish } of searchableHadiths) {
+    const matchesArabic = normalizedArabic.includes(normalizedQuery);
+    const matchesTurkish = normalizedTurkish.includes(normalizedQuery);
+    if (!matchesArabic && !matchesTurkish) continue;
+    hadithResults.push({
+      type: 'Hadis',
+      title: `Sahih Hadis #${record.id}`,
+      description: matchesArabic ? record.hadeeth_ar : record.title,
+      href: getHadithHref(record),
+      language: matchesArabic ? 'ar' : 'tr',
+    });
+  }
+  results.push(...hadithResults.slice(0, Math.min(6, limit - results.length)));
+
   for (const { surah, verse, meaning, normalizedArabic, normalizedTurkish } of searchableVerses) {
     const matchesArabic = normalizedArabic.includes(normalizedQuery);
     const matchesTurkish = normalizedTurkish.includes(normalizedQuery);
@@ -108,6 +141,8 @@ export function searchQuran(rawQuery: string, limit = 12): QuranSearchResult[] {
     });
     if (results.length >= limit) return results;
   }
+
+  if (results.length < limit) results.push(...hadithResults.slice(6, 6 + limit - results.length));
 
   return results;
 }
