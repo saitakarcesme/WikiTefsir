@@ -12,6 +12,7 @@ const scholars = {
     field: 'Tefsir, tarih ve fıkıh',
     work: 'Câmiu’l-Beyân an Te’vîli Âyi’l-Kur’ân',
     initials: 'T',
+    commentaryCount: 6236,
     summary: 'Rivayetleri senedleriyle bir araya getiren, dil ve kıraat değerlendirmelerine yer veren erken dönem müfessirlerinden biridir.',
   },
   'ibn-kesir': {
@@ -22,6 +23,7 @@ const scholars = {
     field: 'Tefsir, hadis ve tarih',
     work: 'Tefsîru’l-Kur’âni’l-Azîm',
     initials: 'İK',
+    commentaryCount: 6236,
     summary: 'Kur’an’ı Kur’an, hadis ve selef rivayetleriyle açıklama yöntemiyle tanınan Ehl-i Sünnet müfessiridir.',
   },
   kurtubi: {
@@ -32,6 +34,7 @@ const scholars = {
     field: 'Tefsir ve fıkıh',
     work: 'el-Câmiʿ li-Ahkâmi’l-Kur’ân',
     initials: 'K',
+    commentaryCount: 6234,
     summary: 'Ayetlerden çıkarılan hükümleri, dil açıklamalarını ve rivayetleri geniş biçimde ele alan Endülüslü müfessirdir.',
   },
 } as const;
@@ -74,19 +77,19 @@ export default async function ScholarPage({ params }: { params: Promise<{ slug: 
             <section>
               <span className="section-kicker">Başlıca eser</span>
               <h2>{scholar.work}</h2>
-              <p>WikiTefsir’de eserin ayet bazındaki kayıtları, kullanılan baskı ve sayfa bilgisiyle ilişkilendirilecektir. Alfa sürümünde yalnız veri yapısını gösteren örnek bağlantılar yer alır.</p>
-              <div className="record-stats"><span><strong>114</strong>Sure alanı</span><span><strong>3</strong>Örnek bağlantı</span><span><strong>0</strong>Yayıma hazır alıntı</span></div>
+              <p>Eserin Arapça metni Quran Lab’ın sabitlenmiş 1.40.0 veri yayımından, ayet anahtarına göre ve değiştirilmeden sunulur. Birden çok ayeti kapsayan kaynak pasajları veri kaynağının verdiği koordinatlarla korunur.</p>
+              <div className="record-stats"><span><strong>114</strong>Sure alanı</span><span><strong>{scholar.commentaryCount.toLocaleString('tr-TR')}</strong>Ayet yorumu</span><span><strong>1.40.0</strong>Kaynak sürümü</span></div>
             </section>
             <section>
               <span className="section-kicker">Bağlantılı kayıtlar</span>
-              <div className="linked-record"><span>Fâtiha 1:5</span><strong>İbadet ve istiâne</strong><Link href="/sure/fatiha#tefsir">Kaydı aç →</Link></div>
-              <div className="linked-record muted"><span>Editör kuyruğu</span><strong>Baskı künyesi doğrulaması</strong><small>Yayın öncesi gerekli</small></div>
+              <div className="linked-record"><span>Fâtiha 1:1</span><strong>Kaynaklı Arapça tefsir kaydı</strong><Link href="/sure/fatiha#ayet-1">Kaydı aç →</Link></div>
+              <div className="linked-record"><span>Bakara 2:255</span><strong>Âyetü’l-Kürsî tefsir kaydı</strong><Link href="/sure/al-baqara#ayet-255">Kaydı aç →</Link></div>
             </section>
           </article>
 
           <aside className="profile-facts">
             <h2>Kısa bilgiler</h2>
-            <dl><div><dt>Dönem</dt><dd>{scholar.dates}</dd></div><div><dt>Coğrafya</dt><dd>{scholar.place}</dd></div><div><dt>Alanlar</dt><dd>{scholar.field}</dd></div><div><dt>Kaynak durumu</dt><dd>İlmî kontrolde</dd></div></dl>
+            <dl><div><dt>Dönem</dt><dd>{scholar.dates}</dd></div><div><dt>Coğrafya</dt><dd>{scholar.place}</dd></div><div><dt>Alanlar</dt><dd>{scholar.field}</dd></div><div><dt>Kaynak durumu</dt><dd>Doğrulandı · 1.40.0</dd></div></dl>
             <Link href="/sure/fatiha">Bağlantılı sureyi gör →</Link>
           </aside>
         </div>
