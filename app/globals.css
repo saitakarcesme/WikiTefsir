@@ -282,6 +282,21 @@ button { cursor: pointer; }
 .meal-footnote { margin-top: 9px; padding: 11px 14px; color: #78694f; background: #fbf7ef; border: 1px solid #eee2cc; border-radius: 8px; }
 .meal-footnote strong { font-size: 8px; letter-spacing: .06em; text-transform: uppercase; }
 .meal-footnote p { margin: 4px 0 0; font-size: 9px; line-height: 1.6; white-space: pre-line; }
+.verse-tafsirs { margin-top: 12px; }
+.verse-tafsirs > button { padding: 9px 11px; color: var(--green); background: #fff; border: 1px solid #d9e5de; border-radius: 8px; font-size: 9px; font-weight: 750; }
+.verse-tafsirs > button:disabled { opacity: .65; }
+.tafsir-error { margin: 8px 0 0; color: #9a4d41; font-size: 9px; }
+.tafsir-records { margin-top: 10px; display: flex; flex-direction: column; gap: 8px; }
+.tafsir-caution { padding: 11px 13px; display: flex; flex-direction: column; gap: 3px; color: #7b633c; background: #fbf5e8; border: 1px solid #eadbbd; border-radius: 8px; }
+.tafsir-caution strong { font-size: 9px; }
+.tafsir-caution span { font-size: 8px; line-height: 1.5; }
+.tafsir-records details { background: #fff; border: 1px solid #dfe7e2; border-radius: 9px; overflow: hidden; }
+.tafsir-records summary { padding: 12px 14px; cursor: pointer; list-style-position: inside; }
+.tafsir-records summary span { margin: 0 8px; color: var(--green); font-family: Georgia, serif; font-size: 12px; font-weight: 700; }
+.tafsir-records summary small { color: #87938e; font-size: 8px; }
+.tafsir-records details > p { max-height: 500px; margin: 0; padding: 17px; overflow: auto; color: #274a3e; background: #f8faf8; border-top: 1px solid #e6ebe7; font-family: 'Noto Naskh Arabic', 'Amiri', Georgia, serif; font-size: 17px; line-height: 1.9; white-space: pre-line; }
+.tafsir-records details > .tafsir-unavailable { color: #7d8984; font-family: inherit; font-size: 9px; direction: ltr; }
+.tafsir-release { color: #929d98; font-size: 7px; }
 .verse-tags { margin-top: 12px; display: flex; gap: 7px; }
 .verse-tags a { padding: 5px 8px; color: var(--green); background: #fff; border: 1px solid #dce7e1; border-radius: 7px; font-size: 8px; font-weight: 700; }
 .source-section { padding-top: 10px; scroll-margin-top: 90px; }
