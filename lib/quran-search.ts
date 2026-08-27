@@ -26,6 +26,19 @@ function normalize(value: string) {
     .trim();
 }
 
+const referencePattern = /^(\d{1,3})\s*[:/]\s*(\d{1,3})$/u;
+const searchableSurahs = getAllSurahs().map((surah) => ({
+  surah,
+  normalizedText: normalize(`${surah.number} ${surah.nameArabic} ${surah.nameTransliterated} ${surah.nameEnglish}`),
+}));
+const searchableVerses = getAllSurahs().flatMap((surah) =>
+  getVersesForSurah(surah.number).map((verse) => ({
+    surah,
+    verse,
+    normalizedText: normalize(verse.text),
+  })),
+);
+
 function describeSurah(number: number, ayahCount: number, revelationType: 'Meccan' | 'Medinan') {
   return `${number}. sure · ${ayahCount} ayet · ${revelationType === 'Meccan' ? 'Mekkî' : 'Medenî'}`;
 }
@@ -45,7 +58,7 @@ function verseResult(surahNumber: number, ayahNumber: number): QuranSearchResult
 
 export function searchQuran(rawQuery: string, limit = 12): QuranSearchResult[] {
   const query = rawQuery.trim().slice(0, 160);
-  const reference = query.match(/^(\d{1,3})\s*[:/]\s*(\d{1,3})$/u);
+  const reference = query.match(referencePattern);
 
   if (reference) {
     const result = verseResult(Number(reference[1]), Number(reference[2]));
@@ -57,9 +70,8 @@ export function searchQuran(rawQuery: string, limit = 12): QuranSearchResult[] {
 
   const results: QuranSearchResult[] = [];
 
-  for (const surah of getAllSurahs()) {
-    const haystack = normalize(`${surah.number} ${surah.nameArabic} ${surah.nameTransliterated} ${surah.nameEnglish}`);
-    if (haystack.includes(normalizedQuery)) {
+  for (const { surah, normalizedText } of searchableSurahs) {
+    if (normalizedText.includes(normalizedQuery)) {
       results.push({
         type: 'Sure',
         title: surah.nameTransliterated,
@@ -70,17 +82,15 @@ export function searchQuran(rawQuery: string, limit = 12): QuranSearchResult[] {
     }
   }
 
-  for (const surah of getAllSurahs()) {
-    for (const verse of getVersesForSurah(surah.number)) {
-      if (!normalize(verse.text).includes(normalizedQuery)) continue;
-      results.push({
-        type: 'Ayet',
-        title: `${surah.nameTransliterated}, ${verse.ayah}. Ayet`,
-        description: verse.text,
-        href: `${getSurahHref(surah)}#ayet-${verse.ayah}`,
-      });
-      if (results.length >= limit) return results;
-    }
+  for (const { surah, verse, normalizedText } of searchableVerses) {
+    if (!normalizedText.includes(normalizedQuery)) continue;
+    results.push({
+      type: 'Ayet',
+      title: `${surah.nameTransliterated}, ${verse.ayah}. Ayet`,
+      description: verse.text,
+      href: `${getSurahHref(surah)}#ayet-${verse.ayah}`,
+    });
+    if (results.length >= limit) return results;
   }
 
   return results;
