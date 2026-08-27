@@ -41,6 +41,20 @@ QuranEnc koşulları çeviri içeriğinin indirilip yeniden yayımlanmasına izi
 
 Altı hadis külliyatı için Arapça metin, isnad, kitap/bab ayrımı, numaralandırma sistemi ve yeniden dağıtım hakkı aynı kaynaktan doğrulanmalıdır. Kaynak seçimi kesinleşmeden üçüncü taraf sitelerden scraping yapılmaz ve hadis metni depoya eklenmez.
 
+## Kabul edildi: doğrulanmış hadis başlangıç külliyatı
+
+| Alan | Değer |
+|---|---|
+| Kaynak | HadeethEnc — Tercüme Edilmiş Nebevî Hadisler Ansiklopedisi |
+| Dil | Arapça asıl alanlar ve Türkçe tercüme/açıklama |
+| Sürüm | 1.67.0 |
+| Resmî API | `https://hadeethenc.com/api/v1/` |
+| Sürüm dosyası | `https://hadeethenc.com/browse/download/tr` |
+| Kullanım şartları | `https://hadeethenc.com/en/home` sayfasındaki “Terms and Policies” bölümü |
+| Karar | İçerik değiştirilmeden; kaynak, yayınlayan ve sürüm belirtilerek yeniden yayımlanabilir |
+
+HadeethEnc kayıtları Arapça hadis metni, Türkçe tercüme, tahric/nispet, derece, açıklama ve konu başlıklarını birlikte sunar. Yeniden yayımlama şartları içeriğin değiştirilmemesini, HadeethEnc kaynağı ile sürümün açıkça belirtilmesini ve güncel sürümün takip edilmesini gerektirir. Bu külliyat Kütüb-i Sitte’nin eksiksiz neşri değildir; güvenilir hadis maddeleri için ilk doğrulanmış katmandır ve Kütüb-i Sitte kaynak kapısının yerine geçmez.
+
 ## İncelemede: klasik tefsirler
 
 Taberî, İbn Kesîr ve Kurtubî gibi klasik eserlerin asılları kamu malı olabilir; ancak modern tahkik, dizgi ve dijital veri dosyaları ayrıca korunabilir. Kullanılacak her dijital neşir için tahkik/baskı künyesi ve veri kullanım hakkı ayrı kaydedilecektir.
