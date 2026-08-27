@@ -1,106 +1,130 @@
-const sidebarWidths = [74, 58, 82, 66, 71, 54];
-const articleWidths = [100, 97, 94, 98, 86];
+const collections = [
+  { name: 'Kur’an-ı Kerîm', detail: '114 sure · 6.236 ayet', tone: 'green' },
+  { name: 'Kütüb-i Sitte', detail: '6 temel hadis külliyatı', tone: 'amber' },
+  { name: 'Klasik Tefsirler', detail: 'Kaynaklı açıklamalar', tone: 'blue' },
+];
+
+const scholars = [
+  { initials: 'T', name: 'İmam Taberî', work: 'Câmiu’l-Beyân' },
+  { initials: 'İK', name: 'İbn Kesîr', work: 'Tefsîru’l-Kur’âni’l-Azîm' },
+  { initials: 'K', name: 'İmam Kurtubî', work: 'el-Câmiʿ li-Ahkâmi’l-Kur’ân' },
+];
 
 export default function Home() {
   return (
-    <main className="fixed inset-0 overflow-hidden bg-[#fbfaf8] text-zinc-900">
-      <header
-        aria-hidden="true"
-        className="grid h-[76px] grid-cols-[1fr_auto_1fr] items-center border-b border-stone-200 bg-white/95 px-6 sm:px-14"
-      >
-        <div className="flex items-center gap-3">
-          <span className="h-9 w-9 rounded-full bg-stone-100" />
-          <span className="h-3.5 w-28 rounded-full bg-stone-100" />
-        </div>
-        <span className="hidden h-9 w-[min(30vw,420px)] rounded-xl bg-stone-100 sm:block" />
-        <div className="flex items-center justify-end gap-3">
-          <span className="hidden h-9 w-9 rounded-full bg-stone-100 sm:block" />
-          <span className="h-9 w-24 rounded-xl bg-stone-100" />
+    <main>
+      <header className="topbar">
+        <a className="brand" href="#" aria-label="WikiTefsir ana sayfa">
+          <span className="brand-mark" aria-hidden="true">و</span>
+          <span>Wiki<span>Tefsir</span></span>
+        </a>
+
+        <nav className="main-nav" aria-label="Ana menü">
+          <a className="active" href="#kesfet">Keşfet</a>
+          <a href="#sureler">Sureler</a>
+          <a href="#hadisler">Hadisler</a>
+          <a href="#alimler">Âlimler</a>
+        </nav>
+
+        <div className="header-actions">
+          <button className="icon-button" aria-label="Görünümü değiştir">☼</button>
+          <button className="plain-button">Hakkında</button>
         </div>
       </header>
 
-      <div
-        aria-hidden="true"
-        className="grid h-[calc(100%-76px)] grid-cols-[180px_minmax(0,1fr)_260px] gap-10 px-6 pb-24 pt-10 opacity-55 max-lg:grid-cols-[150px_minmax(0,1fr)] max-sm:grid-cols-1 sm:px-14"
-      >
-        <aside className="hidden border-r border-stone-200 pr-7 sm:block">
-          <div className="mb-6 h-2.5 w-16 rounded-full bg-stone-200" />
-          <div className="space-y-4">
-            {sidebarWidths.map((width) => (
-              <div key={width} className="flex items-center gap-3">
-                <span className="h-4 w-4 rounded bg-stone-200" />
-                <span
-                  className="h-2.5 rounded-full bg-stone-200"
-                  style={{ width: `${width}%` }}
-                />
-              </div>
-            ))}
-          </div>
-          <div className="mb-6 mt-9 h-2.5 w-24 rounded-full bg-stone-200" />
-          <div className="space-y-4">
-            {sidebarWidths.slice(0, 3).map((width) => (
-              <span
-                key={width}
-                className="block h-2.5 rounded-full bg-stone-200"
-                style={{ width: `${width}%` }}
-              />
-            ))}
-          </div>
-        </aside>
+      <section className="hero" id="kesfet">
+        <div className="hero-orbit hero-orbit-one" aria-hidden="true" />
+        <div className="hero-orbit hero-orbit-two" aria-hidden="true" />
+        <div className="eyebrow"><span /> Güvenilir kaynaklar, tek bir bilgi ağı</div>
+        <h1>Kur’an’ı kaynaklarıyla<br /><em>birlikte keşfedin.</em></h1>
+        <p className="hero-copy">
+          Ayetleri, sahih hadisleri ve Ehl-i Sünnet müfessirlerinin açıklamalarını
+          bağlantılı, izlenebilir ve sade bir deneyimde okuyun.
+        </p>
 
-        <article className="mx-auto flex w-full max-w-3xl flex-col gap-6">
-          <div className="space-y-3">
-            <div className="h-2.5 w-28 rounded-full bg-stone-200" />
-            <div className="h-7 w-4/5 rounded-lg bg-stone-200" />
-            <div className="h-7 w-3/5 rounded-lg bg-stone-200" />
-          </div>
-          <div className="min-h-[240px] flex-1 rounded-2xl bg-stone-200" />
-          <div className="flex items-center gap-3">
-            <span className="h-9 w-9 rounded-full bg-stone-200" />
-            <span className="h-2.5 w-28 rounded-full bg-stone-200" />
-          </div>
-          <div className="space-y-2">
-            {articleWidths.map((width) => (
-              <span
-                key={width}
-                className="block h-2.5 rounded-full bg-stone-200"
-                style={{ width: `${width}%` }}
-              />
-            ))}
-          </div>
-        </article>
+        <form className="search-box" action="#arama">
+          <span className="search-icon" aria-hidden="true">⌕</span>
+          <label className="sr-only" htmlFor="main-search">WikiTefsir’de ara</label>
+          <input id="main-search" name="q" placeholder="Ayet, hadis, konu veya âlim ara…" />
+          <button type="submit">Ara <span aria-hidden="true">→</span></button>
+        </form>
 
-        <aside className="space-y-5 max-lg:hidden">
-          {[0, 1].map((card) => (
-            <div
-              key={card}
-              className="space-y-4 rounded-2xl border border-stone-200 bg-white/70 p-6"
-            >
-              <span className="block h-10 w-10 rounded-full bg-stone-200" />
-              <span className="block h-3 w-3/5 rounded-full bg-stone-200" />
-              <span className="block h-2.5 w-full rounded-full bg-stone-200" />
-              <span className="block h-2.5 w-4/5 rounded-full bg-stone-200" />
-              <span className="block h-8 w-24 rounded-lg bg-stone-200" />
-            </div>
+        <div className="quick-searches" aria-label="Örnek aramalar">
+          <span>Popüler:</span>
+          <a href="#fatiha">Fâtiha Suresi</a>
+          <a href="#sabir">Sabır</a>
+          <a href="#ayet-el-kursi">Âyetü’l-Kürsî</a>
+          <a href="#ebu-hureyre">Ebû Hüreyre</a>
+        </div>
+      </section>
+
+      <section className="content-shell" aria-label="WikiTefsir içeriği">
+        <div className="collection-grid" id="sureler">
+          {collections.map((collection) => (
+            <a className={`collection-card ${collection.tone}`} href={`#${collection.name}`} key={collection.name}>
+              <span className="collection-icon" aria-hidden="true">
+                {collection.tone === 'green' ? '۞' : collection.tone === 'amber' ? '≡' : '⌘'}
+              </span>
+              <span>
+                <strong>{collection.name}</strong>
+                <small>{collection.detail}</small>
+              </span>
+              <span className="arrow" aria-hidden="true">→</span>
+            </a>
           ))}
-        </aside>
-      </div>
+        </div>
 
-      <section
-        role="status"
-        aria-live="polite"
-        aria-atomic="true"
-        className="absolute left-1/2 top-[clamp(96px,13vh,122px)] w-[min(620px,calc(100%-40px))] -translate-x-1/2 rounded-[18px] border border-stone-200 bg-white/95 px-5 py-5 shadow-[0_18px_50px_rgb(24_24_27/9%)] backdrop-blur-sm"
-      >
-        <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.09em] text-stone-500">
-          Building your site
-        </p>
-        <h1 className="text-xl font-semibold tracking-tight">
-          Your site is taking shape
-        </h1>
-        <p className="mt-1 text-sm text-stone-500">
-          Your first version will appear here automatically when it’s ready.
-        </p>
+        <div className="workspace-grid">
+          <article className="featured-card" id="fatiha">
+            <div className="card-heading">
+              <div>
+                <span className="section-kicker">Günün ayeti</span>
+                <h2>Fâtiha Suresi, 5. Ayet</h2>
+              </div>
+              <span className="verified-badge">✓ Kaynaklı kayıt</span>
+            </div>
+
+            <div className="verse-panel">
+              <p className="arabic" lang="ar" dir="rtl">إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ</p>
+              <span className="verse-number" aria-label="5. ayet">٥</span>
+              <p className="translation">“Yalnız sana ibadet eder ve yalnız senden yardım dileriz.”</p>
+              <p className="translation-note">Anlam odaklı örnek Türkçe karşılık · Yayın öncesi ilmî kontrol gerekir</p>
+            </div>
+
+            <div className="relation-summary">
+              <div><strong>3</strong><span>Tefsir kaydı</span></div>
+              <div><strong>8</strong><span>İlişkili hadis</span></div>
+              <div><strong>5</strong><span>Kavram</span></div>
+              <a href="#ayet-detayi">Ayet sayfasını aç <span>→</span></a>
+            </div>
+          </article>
+
+          <aside className="scholars-card" id="alimler">
+            <div className="card-heading compact">
+              <div>
+                <span className="section-kicker">Kaynak kütüphanesi</span>
+                <h2>Öne çıkan müfessirler</h2>
+              </div>
+              <a href="#tum-alimler" aria-label="Tüm müfessirleri gör">Tümü</a>
+            </div>
+
+            <div className="scholar-list">
+              {scholars.map((scholar) => (
+                <a className="scholar" href={`#${scholar.name}`} key={scholar.name}>
+                  <span className="avatar">{scholar.initials}</span>
+                  <span><strong>{scholar.name}</strong><small>{scholar.work}</small></span>
+                  <span className="arrow">›</span>
+                </a>
+              ))}
+            </div>
+          </aside>
+        </div>
+
+        <div className="trust-strip">
+          <span className="trust-mark" aria-hidden="true">✓</span>
+          <div><strong>Kaynak olmadan hüküm yok.</strong><p>Her bilgi, eser ve konum künyesiyle izlenebilir; örnek veriler açıkça işaretlenir.</p></div>
+          <a href="#metodoloji">Yayın metodolojisi <span>→</span></a>
+        </div>
       </section>
     </main>
   );
