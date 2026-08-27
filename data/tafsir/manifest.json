@@ -11,9 +11,9 @@
   "sources": [
     {
       "id": "tafsir-ibnkathir-ar",
-      "author": "İbn Kesîr",
-      "work": "Tefsîrü'l-Kur'âni'l-Azîm",
-      "school": "Eserî (Şâfiî)",
+      "author": "Ibn Kathir",
+      "work": "Tafsir al-Quran al-Azim",
+      "school": "Athari (Shafi‘i)",
       "terms": "public-domain",
       "commentaryCount": 6236,
       "parquetBytes": 20517073,
@@ -21,9 +21,9 @@
     },
     {
       "id": "tafsir-tabari-ar",
-      "author": "İmam Taberî",
-      "work": "Câmiu'l-beyân an te'vîli âyi'l-Kur'ân",
-      "school": "Klasik Sünnî",
+      "author": "Al-Tabari",
+      "work": "Jami al-Bayan an Ta’wil Ay al-Quran",
+      "school": "Classical Sunni",
       "terms": "public-domain",
       "commentaryCount": 6236,
       "parquetBytes": 18519892,
@@ -31,9 +31,9 @@
     },
     {
       "id": "tafsir-qurtubi-ar",
-      "author": "İmam Kurtubî",
-      "work": "el-Câmi' li-ahkâmi'l-Kur'ân",
-      "school": "Mâlikî",
+      "author": "Al-Qurtubi",
+      "work": "Al-Jami li-Ahkam al-Quran",
+      "school": "Maliki",
       "terms": "public-domain",
       "commentaryCount": 6234,
       "sourceUnavailableCount": 2,

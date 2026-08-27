@@ -8,35 +8,35 @@ export interface ConceptRecord {
 }
 
 const concepts: ConceptRecord[] = [
-  { slug: 'tevhid', title: 'Tevhid', arabic: 'التوحيد', scope: 'Allah’ın birliğiyle ilgili kaynak kayıtları', verseRefs: [{ surah: 2, ayah: 255 }, { surah: 112, ayah: 1 }, { surah: 112, ayah: 4 }], related: ['ibadet', 'vahiy', 'nubuvvet'] },
-  { slug: 'ibadet', title: 'İbadet', arabic: 'العبادة', scope: 'Kulluk ve ibadetle ilgili kaynak kayıtları', verseRefs: [{ surah: 1, ayah: 5 }, { surah: 51, ayah: 56 }], related: ['tevhid', 'dua', 'hidayet'] },
-  { slug: 'dua', title: 'Dua', arabic: 'الدعاء', scope: 'Dua ve Allah’tan istemeyle ilgili kaynak kayıtları', verseRefs: [{ surah: 1, ayah: 5 }, { surah: 2, ayah: 186 }], related: ['ibadet', 'rahmet', 'hidayet'] },
-  { slug: 'hidayet', title: 'Hidayet', arabic: 'الهداية', scope: 'Doğru yol ve hidayetle ilgili kaynak kayıtları', verseRefs: [{ surah: 1, ayah: 6 }, { surah: 2, ayah: 2 }], related: ['dua', 'vahiy', 'ibadet'] },
-  { slug: 'rahmet', title: 'Rahmet', arabic: 'الرحمة', scope: 'Rahmet kavramıyla ilgili kaynak kayıtları', verseRefs: [{ surah: 1, ayah: 1 }, { surah: 7, ayah: 156 }], related: ['dua', 'ahiret', 'hidayet'] },
-  { slug: 'ahiret', title: 'Âhiret', arabic: 'الآخرة', scope: 'Âhiret ve hesap günüyle ilgili kaynak kayıtları', verseRefs: [{ surah: 1, ayah: 4 }, { surah: 2, ayah: 4 }], related: ['rahmet', 'ibadet', 'hidayet'] },
-  { slug: 'vahiy', title: 'Vahiy', arabic: 'الوحي', scope: 'Vahyin gelişiyle ilgili kaynak kayıtları', verseRefs: [{ surah: 42, ayah: 51 }, { surah: 53, ayah: 3 }, { surah: 53, ayah: 4 }], related: ['nubuvvet', 'hidayet', 'tevhid'] },
-  { slug: 'nubuvvet', title: 'Nübüvvet', arabic: 'النبوة', scope: 'Peygamberlik ve resullerle ilgili kaynak kayıtları', verseRefs: [{ surah: 4, ayah: 165 }, { surah: 33, ayah: 40 }], related: ['vahiy', 'tevhid', 'hidayet'] },
+  { slug: 'tawhid', title: 'Tawhid', arabic: 'التوحيد', scope: 'Source records concerning the oneness of Allah', verseRefs: [{ surah: 2, ayah: 255 }, { surah: 112, ayah: 1 }, { surah: 112, ayah: 4 }], related: ['worship', 'revelation', 'prophethood'] },
+  { slug: 'worship', title: 'Worship', arabic: 'العبادة', scope: 'Source records concerning worship and servitude to Allah', verseRefs: [{ surah: 1, ayah: 5 }, { surah: 51, ayah: 56 }], related: ['tawhid', 'supplication', 'guidance'] },
+  { slug: 'supplication', title: 'Supplication', arabic: 'الدعاء', scope: 'Source records concerning supplication and asking Allah', verseRefs: [{ surah: 1, ayah: 5 }, { surah: 2, ayah: 186 }], related: ['worship', 'mercy', 'guidance'] },
+  { slug: 'guidance', title: 'Guidance', arabic: 'الهداية', scope: 'Source records concerning guidance and the straight path', verseRefs: [{ surah: 1, ayah: 6 }, { surah: 2, ayah: 2 }], related: ['supplication', 'revelation', 'worship'] },
+  { slug: 'mercy', title: 'Mercy', arabic: 'الرحمة', scope: 'Source records concerning mercy', verseRefs: [{ surah: 1, ayah: 1 }, { surah: 7, ayah: 156 }], related: ['supplication', 'hereafter', 'guidance'] },
+  { slug: 'hereafter', title: 'Hereafter', arabic: 'الآخرة', scope: 'Source records concerning the Hereafter and the Day of Judgment', verseRefs: [{ surah: 1, ayah: 4 }, { surah: 2, ayah: 4 }], related: ['mercy', 'worship', 'guidance'] },
+  { slug: 'revelation', title: 'Revelation', arabic: 'الوحي', scope: 'Source records concerning divine revelation', verseRefs: [{ surah: 42, ayah: 51 }, { surah: 53, ayah: 3 }, { surah: 53, ayah: 4 }], related: ['prophethood', 'guidance', 'tawhid'] },
+  { slug: 'prophethood', title: 'Prophethood', arabic: 'النبوة', scope: 'Source records concerning prophets and messengers', verseRefs: [{ surah: 4, ayah: 165 }, { surah: 33, ayah: 40 }], related: ['revelation', 'tawhid', 'guidance'] },
 ];
 
 const conceptsBySlug = new Map(concepts.map((concept) => [concept.slug, concept]));
 const verseConcepts = new Map<string, string[]>([
-  ['1:1', ['rahmet']],
-  ['1:4', ['ahiret']],
-  ['1:5', ['ibadet', 'dua', 'tevhid']],
-  ['1:6', ['hidayet', 'dua']],
-  ['2:2', ['hidayet', 'vahiy']],
-  ['2:4', ['ahiret', 'vahiy']],
-  ['2:186', ['dua', 'rahmet']],
-  ['2:255', ['tevhid']],
-  ['4:165', ['nubuvvet', 'vahiy']],
-  ['7:156', ['rahmet']],
-  ['33:40', ['nubuvvet']],
-  ['42:51', ['vahiy']],
-  ['51:56', ['ibadet']],
-  ['53:3', ['vahiy', 'nubuvvet']],
-  ['53:4', ['vahiy', 'nubuvvet']],
-  ['112:1', ['tevhid']],
-  ['112:4', ['tevhid']],
+  ['1:1', ['mercy']],
+  ['1:4', ['hereafter']],
+  ['1:5', ['worship', 'supplication', 'tawhid']],
+  ['1:6', ['guidance', 'supplication']],
+  ['2:2', ['guidance', 'revelation']],
+  ['2:4', ['hereafter', 'revelation']],
+  ['2:186', ['supplication', 'mercy']],
+  ['2:255', ['tawhid']],
+  ['4:165', ['prophethood', 'revelation']],
+  ['7:156', ['mercy']],
+  ['33:40', ['prophethood']],
+  ['42:51', ['revelation']],
+  ['51:56', ['worship']],
+  ['53:3', ['revelation', 'prophethood']],
+  ['53:4', ['revelation', 'prophethood']],
+  ['112:1', ['tawhid']],
+  ['112:4', ['tawhid']],
 ]);
 
 export function getAllConcepts() {
@@ -48,7 +48,7 @@ export function getConceptBySlug(slug: string) {
 }
 
 export function getConceptHref(concept: Pick<ConceptRecord, 'slug'>) {
-  return `/kavram/${concept.slug}`;
+  return `/concept/${concept.slug}`;
 }
 
 export function getConceptsForVerse(surah: number, ayah: number) {
@@ -59,14 +59,14 @@ export function getConceptsForVerse(surah: number, ayah: number) {
 }
 
 const conceptLabelPatterns: Array<[RegExp, string]> = [
-  [/\btevhid\b|allah'ın isimleri/iu, 'tevhid'],
-  [/\bibadet\b|namaz|oruç|zekât|zekat|hac\b/iu, 'ibadet'],
-  [/\bdua\b|duâ/iu, 'dua'],
-  [/hidayet|doğru yol/iu, 'hidayet'],
-  [/rahmet|merhamet/iu, 'rahmet'],
-  [/âhiret|ahiret|kıyamet|cennet|cehennem/iu, 'ahiret'],
-  [/vahiy|kur'an/iu, 'vahiy'],
-  [/nübüvvet|peygamber|resul|rasûl/iu, 'nubuvvet'],
+  [/\btawh[iī]d\b|oneness of allah|names and attributes/iu, 'tawhid'],
+  [/\bworship\b|prayer|fasting|zak[aā]h|pilgrimage/iu, 'worship'],
+  [/supplication|invocation|remembrance/iu, 'supplication'],
+  [/guidance|straight path/iu, 'guidance'],
+  [/mercy|compassion/iu, 'mercy'],
+  [/hereafter|resurrection|paradise|hellfire/iu, 'hereafter'],
+  [/revelation|qur'an|quran/iu, 'revelation'],
+  [/prophethood|prophet|messenger/iu, 'prophethood'],
 ];
 
 export function getConceptsForLabels(labels: string[]) {

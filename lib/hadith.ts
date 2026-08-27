@@ -1,4 +1,4 @@
-import hadithCatalogJson from '@/data/hadith/hadeethenc-tr.json';
+import hadithCatalogJson from '@/data/hadith/hadeethenc-en.json';
 
 export interface HadithCategory {
   id: string;
@@ -69,7 +69,7 @@ export function getHadithById(id: string) {
 }
 
 export function getHadithHref(record: Pick<HadithRecord, 'id'>) {
-  return `/hadis/${record.id}`;
+  return `/hadith/${record.id}`;
 }
 
 export function getHadithCategories() {

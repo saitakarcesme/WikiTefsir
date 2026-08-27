@@ -1,6 +1,6 @@
 import surahCatalogJson from '@/data/quran/surahs.json';
 import verseCatalogJson from '@/data/quran/verses.json';
-import turkishMealCatalogJson from '@/data/quran/meal-tr.json';
+import englishTranslationCatalogJson from '@/data/quran/translation-en.json';
 
 export type RevelationType = 'Meccan' | 'Medinan';
 
@@ -22,7 +22,7 @@ export interface VerseRecord {
   text: string;
 }
 
-export interface MealRecord {
+export interface TranslationRecord {
   id: number;
   surah: number;
   ayah: number;
@@ -52,7 +52,7 @@ interface VerseCatalog {
   records: VerseRecord[];
 }
 
-interface TurkishMealTranslation {
+interface EnglishTranslationMetadata {
   key: string;
   version: string;
   title: string;
@@ -69,22 +69,22 @@ interface RepublishingTerms {
   sourceLinkRequired: boolean;
 }
 
-interface TurkishMealCatalog {
+interface EnglishTranslationCatalog {
   corpus: string;
   source: string;
-  translation: TurkishMealTranslation;
+  translation: EnglishTranslationMetadata;
   republishingTerms: RepublishingTerms;
-  records: MealRecord[];
+  records: TranslationRecord[];
 }
 
 const surahCatalog = surahCatalogJson as SurahCatalog;
 const verseCatalog = verseCatalogJson as VerseCatalog;
-const turkishMealCatalog = turkishMealCatalogJson as TurkishMealCatalog;
+const englishTranslationCatalog = englishTranslationCatalogJson as EnglishTranslationCatalog;
 
 export const quranLicense = verseCatalog.license;
 export const quranCopyrightNotice = verseCatalog.copyrightNotice;
-export const turkishMealMetadata = turkishMealCatalog.translation;
-export const turkishMealTerms = turkishMealCatalog.republishingTerms;
+export const englishTranslationMetadata = englishTranslationCatalog.translation;
+export const englishTranslationTerms = englishTranslationCatalog.republishingTerms;
 
 function normalizeSlug(value: string) {
   return value
@@ -116,7 +116,7 @@ export function getSurahBySlug(slug: string) {
 }
 
 export function getSurahHref(surah: SurahRecord) {
-  return `/sure/${getSurahSlug(surah)}`;
+  return `/surah/${getSurahSlug(surah)}`;
 }
 
 export function getVersesForSurah(surahNumber: number) {
@@ -131,16 +131,16 @@ export function getVerse(surahNumber: number, ayahNumber: number) {
   return verseCatalog.records[surah.startOffset + ayahNumber - 1];
 }
 
-export function getTurkishMealForSurah(surahNumber: number) {
+export function getEnglishTranslationForSurah(surahNumber: number) {
   const surah = getSurahByNumber(surahNumber);
   if (!surah) return [];
-  return turkishMealCatalog.records.slice(surah.startOffset, surah.startOffset + surah.ayahCount);
+  return englishTranslationCatalog.records.slice(surah.startOffset, surah.startOffset + surah.ayahCount);
 }
 
-export function getTurkishMeal(surahNumber: number, ayahNumber: number) {
+export function getEnglishTranslation(surahNumber: number, ayahNumber: number) {
   const surah = getSurahByNumber(surahNumber);
   if (!surah || ayahNumber < 1 || ayahNumber > surah.ayahCount) return undefined;
-  return turkishMealCatalog.records[surah.startOffset + ayahNumber - 1];
+  return englishTranslationCatalog.records[surah.startOffset + ayahNumber - 1];
 }
 
 export function getAdjacentSurahs(surahNumber: number) {
@@ -154,7 +154,7 @@ export function getQuranStats() {
   return {
     surahCount: surahCatalog.records.length,
     verseCount: verseCatalog.records.length,
-    turkishMealCount: turkishMealCatalog.records.length,
+    englishTranslationCount: englishTranslationCatalog.records.length,
     source: verseCatalog.source,
   };
 }
