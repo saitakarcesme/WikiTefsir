@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { FormEvent, useMemo, useState } from 'react';
 
 export interface HadithDirectoryRecord {
@@ -23,6 +24,7 @@ function normalize(value: string) {
 }
 
 export function HadithDirectory({ records }: { records: HadithDirectoryRecord[] }) {
+  const router = useRouter();
   const [query, setQuery] = useState('');
   const [visibleCount, setVisibleCount] = useState(pageSize);
   const filtered = useMemo(() => {
@@ -37,7 +39,7 @@ export function HadithDirectory({ records }: { records: HadithDirectoryRecord[] 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const first = visible[0];
-    if (first) window.location.assign(`/hadis/${first.id}`);
+    if (first) router.push(`/hadis/${first.id}`);
   }
 
   return (
