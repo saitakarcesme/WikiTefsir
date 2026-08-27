@@ -1,0 +1,36 @@
+{
+  "project": "WikiTefsir",
+  "phase": "alpha_deployed",
+  "updated_at": "2026-08-27T23:30:00+02:00",
+  "production_url": "https://wikitafsir.vercel.app",
+  "repository_url": "https://github.com/saitakarcesme/WikiTefsir",
+  "completed": [
+    "persistent_plan",
+    "micro_commit_script",
+    "two_minute_codex_schedule",
+    "public_repository",
+    "responsive_alpha_interface",
+    "search_experience",
+    "fatiha_sample_page",
+    "hadith_library_structure",
+    "scholar_profiles",
+    "knowledge_graph",
+    "source_policy",
+    "data_model",
+    "production_build",
+    "vercel_deployment"
+  ],
+  "next": [
+    "select_licensed_quran_text_and_translation_editions",
+    "select_licensed_kutub_al_sittah_editions",
+    "select_licensed_tafsir_editions",
+    "implement_persistent_editorial_database",
+    "import_and_verify_full_corpus"
+  ],
+  "constraints": [
+    "no_unverified_religious_claims",
+    "no_unlicensed_text_imports",
+    "no_secrets_in_git",
+    "no_automatic_push"
+  ]
+}
