@@ -20,6 +20,7 @@ const terms = {
   versionRequired: true,
   sourceLinkRequired: true,
 };
+const publicationGrade = /sahih/iu;
 
 function sha256(buffer) {
   return createHash('sha256').update(buffer).digest('hex');
@@ -105,7 +106,7 @@ async function main() {
   assert(ids.length === 2150, `Expected 2150 unique hadiths, received ${ids.length}`);
 
   let completed = 0;
-  const records = await mapConcurrent(ids, 16, async (id) => {
+  const sourceRecords = await mapConcurrent(ids, 16, async (id) => {
     const record = await fetchJson(`${apiBase}/hadeeths/one/?language=${language}&id=${id}`);
     verifyRecord(record);
     completed += 1;
@@ -114,6 +115,8 @@ async function main() {
     }
     return record;
   });
+  const records = sourceRecords.filter((record) => publicationGrade.test(record.grade));
+  assert(records.length === 1993, `Expected 1993 explicitly sahih records, received ${records.length}`);
 
   const catalog = {
     corpus: 'verified-hadiths',
@@ -121,6 +124,12 @@ async function main() {
     language,
     version: expectedVersion,
     terms,
+    publicationFilter: {
+      field: 'grade',
+      rule: 'Turkish grade contains the word “sahih” (case-insensitive)',
+      sourceRecordCount: sourceRecords.length,
+      excludedRecordCount: sourceRecords.length - records.length,
+    },
     rootCategories,
     categories,
     records,
@@ -132,8 +141,14 @@ async function main() {
     language,
     version: expectedVersion,
     recordCount: records.length,
+    sourceRecordCount: sourceRecords.length,
     categoryCount: categories.length,
     terms,
+    publicationFilter: {
+      field: 'grade',
+      rule: 'Turkish grade contains the word “sahih” (case-insensitive)',
+      excludedRecordCount: sourceRecords.length - records.length,
+    },
     endpoints: {
       version: versionSourceUrl,
       roots: `${apiBase}/categories/roots/?language=${language}`,
