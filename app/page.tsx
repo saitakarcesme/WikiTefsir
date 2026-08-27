@@ -3,15 +3,15 @@ import { KnowledgeGraph } from './components/knowledge-graph';
 import { SiteHeader } from './components/site-header';
 
 const collections = [
-  { name: 'Kur’an-ı Kerîm', detail: '114 sure · 6.236 ayet', tone: 'green' },
-  { name: 'Kütüb-i Sitte', detail: '6 temel hadis külliyatı', tone: 'amber' },
-  { name: 'Klasik Tefsirler', detail: 'Kaynaklı açıklamalar', tone: 'blue' },
+  { name: 'Kur’an-ı Kerîm', detail: '114 sure · ayet ağı', tone: 'green', href: '/sure/fatiha' },
+  { name: 'Kütüb-i Sitte', detail: '6 temel hadis külliyatı', tone: 'amber', href: '/hadis' },
+  { name: 'Klasik Tefsirler', detail: 'Kaynaklı açıklamalar', tone: 'blue', href: '/alim/taberi' },
 ];
 
 const scholars = [
-  { initials: 'T', name: 'İmam Taberî', work: 'Câmiu’l-Beyân' },
-  { initials: 'İK', name: 'İbn Kesîr', work: 'Tefsîru’l-Kur’âni’l-Azîm' },
-  { initials: 'K', name: 'İmam Kurtubî', work: 'el-Câmiʿ li-Ahkâmi’l-Kur’ân' },
+  { initials: 'T', name: 'İmam Taberî', work: 'Câmiu’l-Beyân', href: '/alim/taberi' },
+  { initials: 'İK', name: 'İbn Kesîr', work: 'Tefsîru’l-Kur’âni’l-Azîm', href: '/alim/ibn-kesir' },
+  { initials: 'K', name: 'İmam Kurtubî', work: 'el-Câmiʿ li-Ahkâmi’l-Kur’ân', href: '/alim/kurtubi' },
 ];
 
 export default function Home() {
@@ -43,7 +43,7 @@ export default function Home() {
       <section className="content-shell" aria-label="WikiTefsir içeriği">
         <div className="collection-grid" id="sureler">
           {collections.map((collection) => (
-            <a className={`collection-card ${collection.tone}`} href={`#${collection.name}`} key={collection.name}>
+            <a className={`collection-card ${collection.tone}`} href={collection.href} key={collection.name}>
               <span className="collection-icon" aria-hidden="true">
                 {collection.tone === 'green' ? '۞' : collection.tone === 'amber' ? '≡' : '⌘'}
               </span>
@@ -77,7 +77,7 @@ export default function Home() {
               <div><strong>3</strong><span>Tefsir kaydı</span></div>
               <div><strong>8</strong><span>İlişkili hadis</span></div>
               <div><strong>5</strong><span>Kavram</span></div>
-              <a href="#ayet-detayi">Ayet sayfasını aç <span>→</span></a>
+              <a href="/sure/fatiha#ayetler">Ayet sayfasını aç <span>→</span></a>
             </div>
           </article>
 
@@ -92,7 +92,7 @@ export default function Home() {
 
             <div className="scholar-list">
               {scholars.map((scholar) => (
-                <a className="scholar" href={`#${scholar.name}`} key={scholar.name}>
+                <a className="scholar" href={scholar.href} key={scholar.name}>
                   <span className="avatar">{scholar.initials}</span>
                   <span><strong>{scholar.name}</strong><small>{scholar.work}</small></span>
                   <span className="arrow">›</span>
