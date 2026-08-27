@@ -2,11 +2,18 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { SiteHeader } from '../components/site-header';
 import { SurahDirectory } from '../components/surah-directory';
-import { getAllSurahs, getQuranStats, getSurahHref, quranLicense } from '@/lib/quran';
+import {
+  getAllSurahs,
+  getQuranStats,
+  getSurahHref,
+  quranLicense,
+  turkishMealMetadata,
+  turkishMealTerms,
+} from '@/lib/quran';
 
 export const metadata: Metadata = {
   title: 'Kur’an Sureleri',
-  description: 'Kur’an-ı Kerîm’in 114 suresini doğrulanmış Arapça metin ve sure bilgileriyle keşfedin.',
+  description: 'Kur’an-ı Kerîm’in 114 suresini doğrulanmış Arapça metin, kaynaklı Türkçe meal ve sure bilgileriyle keşfedin.',
   openGraph: { images: [] },
   twitter: { images: [] },
 };
@@ -26,12 +33,12 @@ export default function SurahsPage() {
           <div>
             <span className="section-kicker">Kur’an-ı Kerîm</span>
             <h1>Sureler</h1>
-            <p>Doğrulanmış Uthmani Arapça metni, sure sırası ve yapısal bilgilerle Kur’an’ın tamamında gezinin.</p>
+            <p>Doğrulanmış Uthmani Arapça metin ve kaynaklı Türkçe meal ile Kur’an’ın tamamında gezinin.</p>
           </div>
           <dl>
             <div><dt>Sure</dt><dd>{stats.surahCount}</dd></div>
             <div><dt>Ayet</dt><dd>{stats.verseCount.toLocaleString('tr-TR')}</dd></div>
-            <div><dt>Metin</dt><dd>Uthmani</dd></div>
+            <div><dt>Türkçe meal</dt><dd>{stats.turkishMealCount.toLocaleString('tr-TR')}</dd></div>
           </dl>
         </header>
 
@@ -40,10 +47,10 @@ export default function SurahsPage() {
         <footer className="corpus-attribution">
           <span className="trust-mark" aria-hidden="true">✓</span>
           <div>
-            <strong>Metin kaynağı: Tanzil Project</strong>
-            <p>Kur’an metni değiştirilmeden kullanılır. {quranLicense.name} lisansı ve kaynak bağlantısı her sure sayfasında korunur.</p>
+            <strong>Kaynaklar: Tanzil Project ve QuranEnc</strong>
+            <p>Kur’an metni {quranLicense.name}; Türkçe meal Rowwad Tercüme Merkezi {turkishMealMetadata.version}. Her iki içerik de kaynak şartlarına göre değiştirilmeden yayımlanır.</p>
           </div>
-          <a href="https://tanzil.net" rel="noreferrer" target="_blank">Kaynağı aç ↗</a>
+          <a href={turkishMealTerms.url} rel="noreferrer" target="_blank">Kaynak şartları ↗</a>
         </footer>
       </div>
     </main>
