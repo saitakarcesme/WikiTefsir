@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { SearchExplorer } from './components/search-explorer';
 import { KnowledgeGraph } from './components/knowledge-graph';
 import { SiteHeader } from './components/site-header';
@@ -32,11 +33,11 @@ export default function Home() {
         <SearchExplorer />
 
         <div className="quick-searches" aria-label="Örnek aramalar">
-          <span>Popüler:</span>
-          <a href="#fatiha">Fâtiha Suresi</a>
-          <a href="#sabir">Sabır</a>
-          <a href="#ayet-el-kursi">Âyetü’l-Kürsî</a>
-          <a href="#ebu-hureyre">Ebû Hüreyre</a>
+          <span>Örnek:</span>
+          <Link href="/sure/fatiha">Fâtiha</Link>
+          <Link href="/sure/al-baqara#ayet-255">2:255</Link>
+          <Link href="/sure/yasin">Yâsîn</Link>
+          <Link href="/sure/ar-rahman">er-Rahmân</Link>
         </div>
       </section>
 
@@ -77,7 +78,7 @@ export default function Home() {
               <div><strong>3</strong><span>Tefsir kaydı</span></div>
               <div><strong>8</strong><span>İlişkili hadis</span></div>
               <div><strong>5</strong><span>Kavram</span></div>
-              <a href="/sure/fatiha#ayetler">Ayet sayfasını aç <span>→</span></a>
+              <Link href="/sure/fatiha#ayetler">Ayet sayfasını aç <span>→</span></Link>
             </div>
           </article>
 
