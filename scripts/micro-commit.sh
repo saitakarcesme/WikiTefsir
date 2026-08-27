@@ -2,6 +2,8 @@
 
 set -u
 
+export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+
 repo_dir="${0:A:h:h}"
 log_file="$repo_dir/.git/micro-commit.log"
 lock_dir="$repo_dir/.git/micro-commit.lock"
