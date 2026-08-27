@@ -21,5 +21,12 @@
       "filename": "tanzil-quran-data-1.0.xml",
       "sha256": "8867c1d88191472adec9db694b3cd9f135b1a2ef580574d32cf888dcb22c5c7a"
     }
+  ],
+  "artifacts": [
+    {
+      "filename": "verses.json",
+      "sha256": "7bfad49730f0fc020aca281cec60001a54babde102a1eaae8a60d5c8ef66a58d",
+      "recordCount": 6236
+    }
   ]
 }
