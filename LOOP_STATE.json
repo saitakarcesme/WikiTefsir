@@ -1,7 +1,7 @@
 {
   "project": "WikiTefsir",
-  "phase": "verified_hadith_corpus_deployed",
-  "updated_at": "2026-08-28T00:38:00+02:00",
+  "phase": "classical_tafsir_corpus_local",
+  "updated_at": "2026-08-28T00:47:37+02:00",
   "production_url": "https://wikitafsir.vercel.app",
   "repository_url": "https://github.com/saitakarcesme/WikiTefsir",
   "completed": [
@@ -37,13 +37,17 @@
     "searchable_hadith_directory",
     "sourced_hadith_detail_pages",
     "hadith_full_text_search",
-    "hadith_production_deployment_verified"
+    "hadith_production_deployment_verified",
+    "pinned_classical_tafsir_sources",
+    "tafsir_source_integrity_verification",
+    "all_ayahs_linked_to_three_classical_tafsirs",
+    "scholar_profiles_linked_to_real_tafsir_records"
   ],
   "next": [
     "select_licensed_kutub_al_sittah_editions",
-    "select_licensed_tafsir_editions",
+    "verify_and_deploy_classical_tafsir_release",
     "implement_persistent_editorial_database",
-    "import_and_verify_kutub_al_sittah_and_tafsir_corpora"
+    "import_and_verify_kutub_al_sittah_corpus"
   ],
   "constraints": [
     "no_unverified_religious_claims",
