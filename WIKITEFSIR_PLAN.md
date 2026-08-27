@@ -46,12 +46,12 @@ WikiTefsir; Kur'an ayetlerini, Kütüb-i Sitte hadislerini ve Ehl-i Sünnet çiz
 ## Uygulama sırası
 
 - [x] Proje iskeleti
-- [ ] Marka, ana navigasyon ve ana sayfa
-- [ ] Temsili Fâtiha ayet deneyimi
-- [ ] Arama ve filtreleme
-- [ ] İlişki diyagramı
-- [ ] Veri şeması ve kaynak politikası
-- [ ] Test, erişilebilirlik ve performans kontrolü
+- [x] Marka, ana navigasyon ve ana sayfa
+- [x] Temsili Fâtiha ayet deneyimi
+- [x] Arama ve filtreleme
+- [x] İlişki diyagramı
+- [x] Veri şeması ve kaynak politikası
+- [x] Test, erişilebilirlik ve üretim derlemesi kontrolü
 - [ ] Public GitHub deposu
 - [ ] Vercel prod dağıtımı ve doğrulama
 
