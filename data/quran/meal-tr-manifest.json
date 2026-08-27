@@ -1,0 +1,35 @@
+{
+  "corpus": "quran-turkish-meaning",
+  "translationKey": "turkish_rwwad",
+  "version": "1.0.4",
+  "recordCount": 6236,
+  "republishingTerms": {
+    "url": "https://quranenc.com/en/home/api",
+    "attribution": "QuranEnc.com — Kur’an-ı Kerîm Meâlleri Ansiklopedisi",
+    "publisher": "Rowwad Translation Center and partner organizations",
+    "verbatimOnly": true,
+    "versionRequired": true,
+    "sourceLinkRequired": true
+  },
+  "sources": [
+    {
+      "id": "quranenc-turkish-translations-list",
+      "url": "https://quranenc.com/api/v1/translations/list/tr",
+      "filename": "quranenc-turkish-translations-list.json",
+      "sha256": "0fd1ade038c87a2e1bfd92eef88cec753c60482b5bb97e277d491fe31a870993"
+    },
+    {
+      "id": "quranenc-turkish_rwwad-1.0.4",
+      "url": "https://quranenc.com/downloads/sqlite/turkish_rwwad.sqlite",
+      "filename": "quranenc-turkish_rwwad-1.0.4.sqlite",
+      "sha256": "577ab9743a9cfae3235bc2393ed85cf3133c39c29bb32d16c7dc733a4d68d89e"
+    }
+  ],
+  "artifacts": [
+    {
+      "filename": "meal-tr.json",
+      "sha256": "182997967dbc5ff9a854600a735e4d032f0ab5da834e70cc839c7d8a8b42fc82",
+      "recordCount": 6236
+    }
+  ]
+}
