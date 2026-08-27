@@ -7,9 +7,10 @@ import {
   getVersesForSurah,
 } from '@/lib/quran';
 import { getAllHadiths, getHadithById, getHadithHref } from '@/lib/hadith';
+import { getAllConcepts, getConceptHref } from '@/lib/concepts';
 
 export interface QuranSearchResult {
-  type: 'Ayet' | 'Sure' | 'Hadis';
+  type: 'Ayet' | 'Sure' | 'Hadis' | 'Kavram';
   title: string;
   description: string;
   href: string;
@@ -34,6 +35,10 @@ const hadithReferencePattern = /^(?:h|hadis)\s*[:#]?\s*(\d+)$/iu;
 const searchableSurahs = getAllSurahs().map((surah) => ({
   surah,
   normalizedText: normalize(`${surah.number} ${surah.nameArabic} ${surah.nameTransliterated} ${surah.nameEnglish}`),
+}));
+const searchableConcepts = getAllConcepts().map((concept) => ({
+  concept,
+  normalizedText: normalize(`${concept.title} ${concept.arabic} ${concept.scope}`),
 }));
 const searchableVerses = getAllSurahs().flatMap((surah) => {
   const meanings = getTurkishMealForSurah(surah.number);
@@ -100,6 +105,18 @@ export function searchQuran(rawQuery: string, limit = 12): QuranSearchResult[] {
   if (normalizedQuery.length < 2) return [];
 
   const results: QuranSearchResult[] = [];
+
+  for (const { concept, normalizedText } of searchableConcepts) {
+    if (!normalizedText.includes(normalizedQuery)) continue;
+    results.push({
+      type: 'Kavram',
+      title: concept.title,
+      description: concept.scope,
+      href: getConceptHref(concept),
+      language: 'tr',
+    });
+    if (results.length >= limit) return results;
+  }
 
   for (const { surah, normalizedText } of searchableSurahs) {
     if (normalizedText.includes(normalizedQuery)) {
