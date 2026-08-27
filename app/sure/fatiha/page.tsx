@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { SiteHeader } from '../../components/site-header';
 
 export const metadata: Metadata = {
@@ -31,7 +32,7 @@ export default function FatihaPage() {
         </aside>
 
         <article className="wiki-article">
-          <nav className="breadcrumbs" aria-label="İçerik yolu"><a href="/">Ana sayfa</a><span>›</span><a href="/#sureler">Sureler</a><span>›</span>Fâtiha</nav>
+          <nav className="breadcrumbs" aria-label="İçerik yolu"><Link href="/">Ana sayfa</Link><span>›</span><Link href="/#sureler">Sureler</Link><span>›</span>Fâtiha</nav>
           <header className="article-header" id="genel">
             <span className="section-kicker">1. Sure</span>
             <h1>Fâtiha Suresi</h1>
@@ -52,7 +53,7 @@ export default function FatihaPage() {
                 <div>
                   <p className="verse-arabic" lang="ar" dir="rtl">{verse.arabic}</p>
                   <p className="verse-meaning">{verse.meaning}</p>
-                  {verse.number === 5 && <div className="verse-tags"><a href="#tefsir">3 tefsir</a><a href="#hadis">8 hadis</a><a href="/#iliskiler">Bilgi haritası</a></div>}
+                  {verse.number === 5 && <div className="verse-tags"><a href="#tefsir">3 tefsir</a><a href="#hadis">8 hadis</a><Link href="/#iliskiler">Bilgi haritası</Link></div>}
                 </div>
               </article>
             ))}
@@ -72,7 +73,7 @@ export default function FatihaPage() {
           <h2>Fâtiha</h2>
           <p>الفاتحة</p>
           <dl><div><dt>Diğer adı</dt><dd>Ümmü’l-Kitâb</dd></div><div><dt>Sure no.</dt><dd>1</dd></div><div><dt>Ayet sayısı</dt><dd>7</dd></div><div><dt>Nüzul</dt><dd>Mekke · yaygın kabul</dd></div></dl>
-          <a href="/#iliskiler">İlişki haritasını aç →</a>
+          <Link href="/#iliskiler">İlişki haritasını aç →</Link>
         </aside>
       </div>
     </main>
