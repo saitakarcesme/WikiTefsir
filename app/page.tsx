@@ -42,12 +42,7 @@ export default function Home() {
           bağlantılı, izlenebilir ve sade bir deneyimde okuyun.
         </p>
 
-        <form className="search-box" action="#arama">
-          <span className="search-icon" aria-hidden="true">⌕</span>
-          <label className="sr-only" htmlFor="main-search">WikiTefsir’de ara</label>
-          <input id="main-search" name="q" placeholder="Ayet, hadis, konu veya âlim ara…" />
-          <button type="submit">Ara <span aria-hidden="true">→</span></button>
-        </form>
+        <SearchExplorer />
 
         <div className="quick-searches" aria-label="Örnek aramalar">
           <span>Popüler:</span>
@@ -129,3 +124,4 @@ export default function Home() {
     </main>
   );
 }
+import { SearchExplorer } from './components/search-explorer';
