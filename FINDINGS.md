@@ -26,3 +26,4 @@
 - Ana arama; sure adı, Arapça ayet metni ve `2:255` biçimindeki doğrudan referanslarda tam külliyatı tarıyor.
 - Türkçe meal, kullanım lisansı ve baskı künyesi doğrulanana kadar Kur’an maddelerine eklenmedi.
 - Yerel doğrulamada ESLint, TypeScript, veri bütünlüğü, 123 sayfalık production build ve temsili HTTP rotaları başarılıdır.
+- Production dağıtımında ana sayfa, sure dizini, temsili sureler, hadis ve âlim sayfaları HTTP 200; `2:255` API araması ve Tanzil kaynak atfı içerik düzeyinde doğrulandı.
