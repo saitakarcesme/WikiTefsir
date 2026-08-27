@@ -1,66 +1,91 @@
 'use client';
 
-import { FormEvent, useMemo, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 
-const records = [
-  { type: 'Ayet', title: 'Fâtiha Suresi, 5. Ayet', description: 'İbadet, dua ve yalnız Allah’tan yardım istemek', href: '/sure/fatiha#ayetler' },
-  { type: 'Sure', title: 'Fâtiha Suresi', description: '1. sure · 7 ayet · Mekkî', href: '/sure/fatiha' },
-  { type: 'Kavram', title: 'Sabır', description: 'İlgili ayet, hadis ve tefsir kayıtları', href: '#iliskiler' },
-  { type: 'Âlim', title: 'İmam Taberî', description: 'Câmiu’l-Beyân müellifi', href: '/alim/taberi' },
-  { type: 'Âlim', title: 'İbn Kesîr', description: 'Tefsîru’l-Kur’âni’l-Azîm müellifi', href: '/alim/ibn-kesir' },
-  { type: 'Külliyat', title: 'Sahîh-i Buhârî', description: 'Kütüb-i Sitte hadis koleksiyonu', href: '/hadis' },
-];
+interface SearchResult {
+  type: 'Ayet' | 'Sure';
+  title: string;
+  description: string;
+  href: string;
+}
 
 export function SearchExplorer() {
   const [query, setQuery] = useState('');
-  const [submitted, setSubmitted] = useState(false);
+  const [results, setResults] = useState<SearchResult[]>([]);
+  const [status, setStatus] = useState<'idle' | 'loading' | 'ready' | 'error'>('idle');
 
-  const results = useMemo(() => {
-    const normalized = query.trim().toLocaleLowerCase('tr-TR');
-    if (!normalized) return [];
-    return records.filter((record) =>
-      `${record.type} ${record.title} ${record.description}`
-        .toLocaleLowerCase('tr-TR')
-        .includes(normalized),
-    );
+  useEffect(() => {
+    const trimmed = query.trim();
+    if (trimmed.length < 2) return;
+
+    const controller = new AbortController();
+    const timer = window.setTimeout(async () => {
+      setStatus('loading');
+      try {
+        const response = await fetch(`/api/search?q=${encodeURIComponent(trimmed)}`, {
+          signal: controller.signal,
+        });
+        if (!response.ok) throw new Error('Search request failed');
+        const payload = await response.json() as { results: SearchResult[] };
+        setResults(payload.results);
+        setStatus('ready');
+      } catch (error) {
+        if (error instanceof DOMException && error.name === 'AbortError') return;
+        setResults([]);
+        setStatus('error');
+      }
+    }, 180);
+
+    return () => {
+      window.clearTimeout(timer);
+      controller.abort();
+    };
   }, [query]);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setSubmitted(true);
+    const firstResult = results[0];
+    if (firstResult) window.location.assign(firstResult.href);
   }
 
   return (
     <div className="search-area">
       <form className="search-box" onSubmit={handleSubmit} role="search">
         <span className="search-icon" aria-hidden="true">⌕</span>
-        <label className="sr-only" htmlFor="main-search">WikiTefsir’de ara</label>
+        <label className="sr-only" htmlFor="main-search">Kur’an külliyatında ara</label>
         <input
           id="main-search"
           name="q"
           value={query}
           onChange={(event) => {
-            setQuery(event.target.value);
-            setSubmitted(false);
+            const nextQuery = event.target.value;
+            setQuery(nextQuery);
+            if (nextQuery.trim().length < 2) {
+              setResults([]);
+              setStatus('idle');
+            }
           }}
-          placeholder="Ayet, hadis, konu veya âlim ara…"
+          placeholder="Sure adı, Arapça ayet veya 2:255 ara…"
           autoComplete="off"
         />
-        <button type="submit">Ara <span aria-hidden="true">→</span></button>
+        <button type="submit" disabled={query.trim().length < 2 || !results.length}>Ara <span aria-hidden="true">→</span></button>
       </form>
 
-      {query && (
-        <div className="search-results" aria-live="polite">
+      {query.trim().length >= 2 && (
+        <div className="search-results" aria-live="polite" aria-busy={status === 'loading'}>
           {results.length ? (
-            results.slice(0, 5).map((record) => (
-              <a key={`${record.type}-${record.title}`} href={record.href} onClick={() => setQuery('')}>
+            results.map((record) => (
+              <a key={`${record.type}-${record.href}`} href={record.href} onClick={() => setQuery('')}>
                 <span className="result-type">{record.type}</span>
-                <span><strong>{record.title}</strong><small>{record.description}</small></span>
+                <span>
+                  <strong>{record.title}</strong>
+                  <small lang={record.type === 'Ayet' ? 'ar' : undefined} dir={record.type === 'Ayet' ? 'rtl' : undefined}>{record.description}</small>
+                </span>
                 <span aria-hidden="true">→</span>
               </a>
             ))
           ) : (
-            <p>{submitted ? 'Bu ilk sürümde eşleşen doğrulanmış kayıt bulunamadı.' : 'Aramaya devam edin…'}</p>
+            <p>{status === 'loading' ? '6.236 ayet içinde aranıyor…' : status === 'error' ? 'Arama şu anda yanıt veremiyor.' : 'Eşleşen doğrulanmış Kur’an kaydı bulunamadı.'}</p>
           )}
         </div>
       )}
