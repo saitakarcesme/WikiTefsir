@@ -1,0 +1,35 @@
+{
+  "corpus": "verified-hadiths",
+  "source": "HadeethEnc.com",
+  "language": "tr",
+  "version": "1.67.0",
+  "recordCount": 1993,
+  "sourceRecordCount": 2150,
+  "categoryCount": 433,
+  "terms": {
+    "url": "https://hadeethenc.com/en/home",
+    "attribution": "HadeethEnc.com — Tercüme Edilmiş Nebevî Hadisler Ansiklopedisi",
+    "publisher": "HadeethEnc.com",
+    "verbatimOnly": true,
+    "versionRequired": true,
+    "sourceLinkRequired": true
+  },
+  "publicationFilter": {
+    "field": "grade",
+    "rule": "Turkish grade contains the word “sahih” (case-insensitive)",
+    "excludedRecordCount": 157
+  },
+  "endpoints": {
+    "version": "https://hadeethenc.com/browse/download/tr",
+    "roots": "https://hadeethenc.com/api/v1/categories/roots/?language=tr",
+    "categories": "https://hadeethenc.com/api/v1/categories/list/?language=tr",
+    "record": "https://hadeethenc.com/api/v1/hadeeths/one/?language=tr&id={id}"
+  },
+  "artifacts": [
+    {
+      "filename": "hadeethenc-tr.json",
+      "sha256": "00c0489d93ea02cfb96fef4caa2b966ef90d5e9f1ae0c1f6499bc4f5bb09f660",
+      "recordCount": 1993
+    }
+  ]
+}
