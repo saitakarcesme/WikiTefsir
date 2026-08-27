@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { SiteHeader } from '../../components/site-header';
 
@@ -57,7 +58,7 @@ export default async function ScholarPage({ params }: { params: Promise<{ slug: 
     <main>
       <SiteHeader />
       <div className="profile-page">
-        <nav className="breadcrumbs" aria-label="İçerik yolu"><a href="/">Ana sayfa</a><span>›</span><a href="/#alimler">Âlimler</a><span>›</span>{scholar.name}</nav>
+        <nav className="breadcrumbs" aria-label="İçerik yolu"><Link href="/">Ana sayfa</Link><span>›</span><Link href="/#alimler">Âlimler</Link><span>›</span>{scholar.name}</nav>
         <header className="profile-hero">
           <div className="profile-monogram">{scholar.initials}</div>
           <div>
@@ -78,7 +79,7 @@ export default async function ScholarPage({ params }: { params: Promise<{ slug: 
             </section>
             <section>
               <span className="section-kicker">Bağlantılı kayıtlar</span>
-              <div className="linked-record"><span>Fâtiha 1:5</span><strong>İbadet ve istiâne</strong><a href="/sure/fatiha#tefsir">Kaydı aç →</a></div>
+              <div className="linked-record"><span>Fâtiha 1:5</span><strong>İbadet ve istiâne</strong><Link href="/sure/fatiha#tefsir">Kaydı aç →</Link></div>
               <div className="linked-record muted"><span>Editör kuyruğu</span><strong>Baskı künyesi doğrulaması</strong><small>Yayın öncesi gerekli</small></div>
             </section>
           </article>
@@ -86,7 +87,7 @@ export default async function ScholarPage({ params }: { params: Promise<{ slug: 
           <aside className="profile-facts">
             <h2>Kısa bilgiler</h2>
             <dl><div><dt>Dönem</dt><dd>{scholar.dates}</dd></div><div><dt>Coğrafya</dt><dd>{scholar.place}</dd></div><div><dt>Alanlar</dt><dd>{scholar.field}</dd></div><div><dt>Kaynak durumu</dt><dd>İlmî kontrolde</dd></div></dl>
-            <a href="/sure/fatiha">Bağlantılı sureyi gör →</a>
+            <Link href="/sure/fatiha">Bağlantılı sureyi gör →</Link>
           </aside>
         </div>
       </div>
