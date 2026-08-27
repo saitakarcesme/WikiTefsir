@@ -18,7 +18,9 @@
     "data:verify:meal:tr": "node scripts/verify-quranenc-turkish-meal.mjs",
     "data:import:hadith": "node scripts/import-hadeethenc.mjs",
     "data:verify:hadith": "node scripts/verify-hadeethenc.mjs",
-    "data:verify": "npm run data:verify:quran && npm run data:verify:meal:tr && npm run data:verify:hadith"
+    "data:verify:tafsir": "node scripts/verify-tafsir-sources.mjs",
+    "data:verify:tafsir:online": "node scripts/verify-tafsir-sources.mjs --online",
+    "data:verify": "npm run data:verify:quran && npm run data:verify:meal:tr && npm run data:verify:hadith && npm run data:verify:tafsir"
   },
   "dependencies": {
     "next": "16.3.3",
