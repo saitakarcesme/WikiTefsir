@@ -1,7 +1,7 @@
 {
   "project": "WikiTefsir",
-  "phase": "quran_corpus_deployed",
-  "updated_at": "2026-08-27T23:58:18+02:00",
+  "phase": "turkish_meal_ready_for_deployment",
+  "updated_at": "2026-08-28T00:11:46+02:00",
   "production_url": "https://wikitafsir.vercel.app",
   "repository_url": "https://github.com/saitakarcesme/WikiTefsir",
   "completed": [
@@ -24,10 +24,15 @@
     "quran_integrity_verification",
     "all_114_surah_pages",
     "full_quran_search",
-    "quran_production_deployment_verified"
+    "quran_production_deployment_verified",
+    "quranenc_republishing_terms_verified",
+    "full_turkish_meal_import_6236_records",
+    "turkish_meal_source_integrity_verification",
+    "all_surah_pages_with_turkish_meal",
+    "turkish_meal_full_corpus_search"
   ],
   "next": [
-    "select_licensed_quran_translation_edition",
+    "deploy_and_verify_turkish_meal_release",
     "select_licensed_kutub_al_sittah_editions",
     "select_licensed_tafsir_editions",
     "implement_persistent_editorial_database",
