@@ -2,83 +2,83 @@ import Link from 'next/link';
 import { KnowledgeGraph } from './components/knowledge-graph';
 import { SearchExplorer } from './components/search-explorer';
 import { SiteHeader } from './components/site-header';
-import { getTurkishMeal, getVerse, turkishMealMetadata } from '@/lib/quran';
+import { getEnglishTranslation, getVerse, englishTranslationMetadata } from '@/lib/quran';
 
 const collections = [
-  { name: 'Kur’an-ı Kerîm', detail: '114 sure, 6.236 ayet ve kaynaklı Türkçe meal', href: '/sureler' },
-  { name: 'Sahih hadisler', detail: '1.993 doğrulanmış Arapça–Türkçe kayıt', href: '/hadis' },
-  { name: 'İmam Taberî', detail: 'Câmiu’l-Beyân · 6.236 ayet kaydı', href: '/alim/taberi' },
-  { name: 'İbn Kesîr', detail: 'Tefsîru’l-Kur’âni’l-Azîm · 6.236 ayet kaydı', href: '/alim/ibn-kesir' },
-  { name: 'İmam Kurtubî', detail: 'el-Câmiʿ li-Ahkâmi’l-Kur’ân · 6.234 yorum', href: '/alim/kurtubi' },
+  { name: 'The Noble Quran', detail: '114 surahs, 6,236 verses and a sourced English translation', href: '/surahs' },
+  { name: 'Authentic hadiths', detail: '2,120 verified Arabic–English records', href: '/hadith' },
+  { name: 'Al-Tabari', detail: 'Jami al-Bayan · 6,236 verse records', href: '/scholars/taberi' },
+  { name: 'Ibn Kathir', detail: 'Tafsir al-Quran al-Azim · 6,236 verse records', href: '/scholars/ibn-kesir' },
+  { name: 'Al-Qurtubi', detail: 'Al-Jami li-Ahkam al-Quran · 6,234 commentaries', href: '/scholars/kurtubi' },
 ];
 
 export default function Home() {
   const featuredVerse = getVerse(1, 5);
-  const featuredMeaning = getTurkishMeal(1, 5);
+  const featuredMeaning = getEnglishTranslation(1, 5);
   if (!featuredVerse || !featuredMeaning) throw new Error('Featured Quran record is missing');
 
   return (
     <main>
       <SiteHeader />
       <div className="wiki-home-layout">
-        <aside className="portal-sidebar" aria-label="WikiTefsir bölümleri">
-          <strong>İçindekiler</strong>
-          <Link className="active" href="/">Ana sayfa</Link>
-          <Link href="/sureler">Kur’an sureleri</Link>
-          <Link href="/hadis">Sahih hadisler</Link>
-          <Link href="/kavramlar">Kavramlar</Link>
-          <Link href="/alim/taberi">Müfessirler</Link>
-          <a href="#bilgi-agi">Bilgi ağı</a>
-          <a href="#metodoloji">Kaynak politikası</a>
-          <span>Katkı ve kapsam</span>
-          <a href="#kapsam">Mevcut veri</a>
-          <a href="#metodoloji">Doğrulama yöntemi</a>
+        <aside className="portal-sidebar" aria-label="WikiTefsir sections">
+          <strong>Contents</strong>
+          <Link className="active" href="/">Main page</Link>
+          <Link href="/surahs">Quran surahs</Link>
+          <Link href="/hadith">Authentic hadiths</Link>
+          <Link href="/concepts">Concepts</Link>
+          <Link href="/scholars">Scholars</Link>
+          <a href="#knowledge-network">Knowledge network</a>
+          <a href="#methodology">Source policy</a>
+          <span>Scope</span>
+          <a href="#coverage">Current data</a>
+          <a href="#methodology">Verification method</a>
         </aside>
 
         <div className="wiki-home-main">
-          <nav className="page-tabs" aria-label="Sayfa araçları">
-            <span className="active">Ana sayfa</span>
-            <a href="#kapsam">İçerik</a>
-            <a href="#metodoloji">Kaynaklar</a>
+          <nav className="page-tabs" aria-label="Page tools">
+            <span className="active">Main page</span>
+            <a href="#coverage">Contents</a>
+            <a href="#methodology">Sources</a>
           </nav>
 
-          <header className="wiki-welcome" id="kesfet">
+          <header className="wiki-welcome" id="explore">
             <div>
-              <h1>WikiTefsir’e hoş geldiniz</h1>
-              <p>Kur’an, sahih hadis ve klasik Ehl-i Sünnet tefsirlerini kaynaklarıyla buluşturan açık bilgi ansiklopedisi.</p>
+              <h1>Welcome to WikiTefsir</h1>
+              <p>An open knowledge encyclopedia connecting the Quran, authentic hadiths and classical Sunni tafsir works to their sources.</p>
             </div>
-            <dl aria-label="WikiTefsir kapsamı">
-              <div><dt>Sure</dt><dd>114</dd></div>
-              <div><dt>Ayet</dt><dd>6.236</dd></div>
-              <div><dt>Sahih hadis</dt><dd>1.993</dd></div>
-              <div><dt>Tefsir satırı</dt><dd>18.708</dd></div>
+            <dl aria-label="WikiTefsir coverage">
+              <div><dt>Surahs</dt><dd>114</dd></div>
+              <div><dt>Verses</dt><dd>6,236</dd></div>
+              <div><dt>Authentic hadiths</dt><dd>2,120</dd></div>
+              <div><dt>Tafsir records</dt><dd>18,708</dd></div>
             </dl>
           </header>
 
-          <section className="wiki-search-section" id="arama" aria-labelledby="search-title">
-            <h2 id="search-title">Ansiklopedide ara</h2>
+          <section className="wiki-search-section" id="search" aria-labelledby="search-title">
+            <h2 id="search-title">Search the encyclopedia</h2>
             <SearchExplorer />
-            <p>Örnek: <Link href="/sure/fatiha">Fâtiha</Link>, <Link href="/sure/al-baqara#ayet-255">2:255</Link>, <Link href="/hadis/1751">h:1751</Link></p>
+            <p>Examples: <Link href="/surah/fatiha">Al-Fatihah</Link>, <Link href="/surah/al-baqara#verse-255">2:255</Link>, <Link href="/hadith/1751">h:1751</Link></p>
           </section>
 
-          <div className="wiki-home-columns" id="kapsam">
+          <div className="wiki-home-columns" id="coverage">
             <section className="portal-panel portal-featured" aria-labelledby="featured-title">
-              <h2 id="featured-title">Seçkin madde</h2>
+              <h2 id="featured-title">Featured article</h2>
               <div className="portal-panel-body">
                 <p className="portal-arabic" lang="ar" dir="rtl" translate="no">{featuredVerse.text}</p>
                 <p className="portal-translation">“{featuredMeaning.text}”</p>
                 <p>
-                  <Link href="/sure/fatiha"><strong>Fâtiha Suresi</strong></Link>, Kur’an-ı Kerîm’in ilk suresidir.
-                  Bu kayıt <Link href="/sure/fatiha#ayet-5">1:5 ayetini</Link>, Rowwad Türkçe mealini ve
-                  İbn Kesîr, Taberî ve Kurtubî’nin kaynaklı Arapça tefsirlerini birlikte sunar.
+                  <Link href="/surah/fatiha"><strong>Surah Al-Fatihah</strong></Link> is the first surah of the Quran.
+                  This article brings together <Link href="/surah/fatiha#verse-5">verse 1:5</Link>, the Rowwad English translation and
+                  the sourced Arabic tafsirs of Ibn Kathir, al-Tabari and al-Qurtubi.
                 </p>
-                <p className="portal-source">Meal: QuranEnc Rowwad {turkishMealMetadata.version}</p>
-                <Link className="wiki-more-link" href="/sure/fatiha#ayet-5">Maddenin devamını okuyun →</Link>
+                <p className="portal-source">Translation: QuranEnc Rowwad {englishTranslationMetadata.version}</p>
+                <Link className="wiki-more-link" href="/surah/fatiha#verse-5">Read the full article →</Link>
               </div>
             </section>
 
             <section className="portal-panel portal-corpus" aria-labelledby="corpus-title">
-              <h2 id="corpus-title">Külliyatlar ve eserler</h2>
+              <h2 id="corpus-title">Corpora and works</h2>
               <div className="portal-list">
                 {collections.map((collection) => (
                   <Link href={collection.href} key={collection.name}>
@@ -89,40 +89,40 @@ export default function Home() {
               </div>
             </section>
 
-            <section className="portal-panel portal-about" id="metodoloji" aria-labelledby="method-title">
-              <h2 id="method-title">WikiTefsir hakkında</h2>
+            <section className="portal-panel portal-about" id="methodology" aria-labelledby="method-title">
+              <h2 id="method-title">About WikiTefsir</h2>
               <div className="portal-panel-body">
-                <p>WikiTefsir’de dinî metin ile editoryal açıklama birbirinden ayrılır. Her kayıt kaynak, sürüm ve mümkün olduğunda eser içi konum bilgisiyle gösterilir.</p>
+                <p>WikiTefsir separates religious source text from editorial explanation. Every record shows its source, version and, where available, its location within the work.</p>
                 <ul>
-                  <li>Kur’an metni: Tanzil Uthmani 1.1</li>
-                  <li>Türkçe meal: QuranEnc Rowwad {turkishMealMetadata.version}</li>
-                  <li>Hadis başlangıç külliyatı: HadeethEnc 1.67.0</li>
-                  <li>Klasik tefsirler: Quran Lab 1.40.0</li>
+                  <li>Quran text: Tanzil Uthmani 1.1</li>
+                  <li>English translation: QuranEnc Rowwad {englishTranslationMetadata.version}</li>
+                  <li>Hadith corpus: HadeethEnc 1.25.0</li>
+                  <li>Classical tafsirs: Quran Lab 1.40.0</li>
                 </ul>
-                <p>Kütüb-i Sitte’nin tam aktarımı henüz kaynak doğrulamasındadır; mevcut kapsam olduğundan geniş gösterilmez.</p>
+                <p>The complete Six Books corpus is still undergoing edition and source verification; current coverage is never presented as broader than it is.</p>
               </div>
             </section>
 
             <section className="portal-panel portal-navigation" aria-labelledby="navigation-title">
-              <h2 id="navigation-title">Ansiklopedide gezinme</h2>
+              <h2 id="navigation-title">Explore the encyclopedia</h2>
               <div className="portal-panel-body">
                 <ul>
-                  <li><Link href="/sureler">114 sure dizini</Link></li>
-                  <li><Link href="/hadis">Sahih hadis dizini</Link></li>
-                  <li><Link href="/kavramlar">Kavram maddeleri dizini</Link></li>
-                  <li><Link href="/alim/taberi">İmam Taberî maddesi</Link></li>
-                  <li><Link href="/alim/ibn-kesir">İbn Kesîr maddesi</Link></li>
-                  <li><Link href="/alim/kurtubi">İmam Kurtubî maddesi</Link></li>
+                  <li><Link href="/surahs">Index of 114 surahs</Link></li>
+                  <li><Link href="/hadith">Authentic hadith index</Link></li>
+                  <li><Link href="/concepts">Concept article index</Link></li>
+                  <li><Link href="/scholars">Scholar directory</Link></li>
+                  <li><Link href="/scholars/ibn-kesir">Ibn Kathir article</Link></li>
+                  <li><Link href="/scholars/kurtubi">Al-Qurtubi article</Link></li>
                 </ul>
               </div>
             </section>
           </div>
 
-          <div id="bilgi-agi"><KnowledgeGraph /></div>
+          <div id="knowledge-network"><KnowledgeGraph /></div>
 
           <footer className="wiki-footer">
-            <p>WikiTefsir, kaynak bütünlüğünü önceleyen bağımsız bir bilgi projesidir. Metinler kendi kaynak ve kullanım şartlarıyla yayımlanır.</p>
-            <nav><a href="#metodoloji">Kaynak politikası</a><a href="#kapsam">Kapsam</a><Link href="/sureler">Sureler</Link><Link href="/hadis">Hadisler</Link></nav>
+            <p>WikiTefsir is an independent knowledge project that prioritizes source integrity. Texts are published under their respective source and reuse terms.</p>
+            <nav><a href="#methodology">Source policy</a><a href="#coverage">Coverage</a><Link href="/surahs">Surahs</Link><Link href="/hadith">Hadiths</Link></nav>
           </footer>
         </div>
       </div>

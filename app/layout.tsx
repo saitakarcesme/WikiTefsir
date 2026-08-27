@@ -16,23 +16,23 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL('https://wikitafsir.vercel.app'),
   title: {
-    default: 'WikiTefsir — Kur’an, Hadis ve Tefsir Bilgi Ağı',
+    default: 'WikiTefsir — Quran, Hadith and Tafsir Knowledge Network',
     template: '%s | WikiTefsir',
   },
   description:
-    'Kur’an ayetlerini sahih hadisler ve Ehl-i Sünnet tefsirleriyle kaynaklı, bağlantılı ve anlaşılır biçimde keşfedin.',
+    'Explore Quran verses, authentic hadiths and Sunni tafsir works through a sourced, connected knowledge network.',
   openGraph: {
     type: 'website',
-    locale: 'tr_TR',
+    locale: 'en_US',
     siteName: 'WikiTefsir',
-    title: 'WikiTefsir — Kur’an, Hadis ve Tefsir Bilgi Ağı',
-    description: 'Kur’an ayetlerini sahih hadisler ve klasik tefsirlerle kaynaklı bir bilgi ağında keşfedin.',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'WikiTefsir — Kur’an, Hadis ve Tefsir Bilgi Ağı' }],
+    title: 'WikiTefsir — Quran, Hadith and Tafsir Knowledge Network',
+    description: 'Explore Quran verses, authentic hadiths and classical tafsir works in a sourced knowledge network.',
+    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'WikiTefsir — Quran, Hadith and Tafsir Knowledge Network' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'WikiTefsir — Kur’an, Hadis ve Tefsir Bilgi Ağı',
-    description: 'Kur’an ayetlerini sahih hadisler ve klasik tefsirlerle kaynaklı bir bilgi ağında keşfedin.',
+    title: 'WikiTefsir — Quran, Hadith and Tafsir Knowledge Network',
+    description: 'Explore Quran verses, authentic hadiths and classical tafsir works in a sourced knowledge network.',
     images: ['/og.png'],
   },
 };
@@ -43,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="tr">
+    <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

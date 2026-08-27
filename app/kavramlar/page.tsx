@@ -4,8 +4,8 @@ import { SiteHeader } from '../components/site-header';
 import { getAllConcepts, getConceptHref } from '@/lib/concepts';
 
 export const metadata: Metadata = {
-  title: 'Kavramlar',
-  description: 'WikiTefsir’de ayet ve kaynak kayıtlarıyla ilişkilendirilen İslâmî kavramlar dizini.',
+  title: 'Concepts',
+  description: 'An index of Islamic concepts linked to Quran verses and verified source records in WikiTefsir.',
   openGraph: { images: [] },
   twitter: { images: [] },
 };
@@ -17,21 +17,21 @@ export default function ConceptsPage() {
     <main>
       <SiteHeader />
       <div className="encyclopedia-index-page">
-        <nav className="breadcrumbs" aria-label="İçerik yolu"><Link href="/">Ana sayfa</Link><span>›</span>Kavramlar</nav>
+        <nav className="breadcrumbs" aria-label="Breadcrumb"><Link href="/">Main page</Link><span>›</span>Concepts</nav>
         <header className="index-article-header">
-          <h1>Kavramlar</h1>
-          <p>WikiTefsir’de Kur’an ayetleri ve doğrulanmış kaynak kayıtlarıyla ilişkilendirilen kavram maddeleri.</p>
+          <h1>Concepts</h1>
+          <p>Concept articles linked to Quran verses and verified source records in WikiTefsir.</p>
         </header>
-        <nav className="page-tabs compact" aria-label="Kavram dizini araçları"><span className="active">Madde dizini</span><Link href="/sureler">Sureler</Link><Link href="/hadis">Hadisler</Link></nav>
+        <nav className="page-tabs compact" aria-label="Concept index tools"><span className="active">Article index</span><Link href="/surahs">Surahs</Link><Link href="/hadith">Hadiths</Link></nav>
         <section className="concept-index" aria-labelledby="concept-index-title">
-          <h2 id="concept-index-title">Kavram maddeleri</h2>
+          <h2 id="concept-index-title">Concept articles</h2>
           <div>
             {concepts.map((concept) => (
               <article key={concept.slug}>
                 <h3><Link href={getConceptHref(concept)}>{concept.title}</Link></h3>
                 <p className="concept-arabic" lang="ar" dir="rtl">{concept.arabic}</p>
                 <p>{concept.scope}</p>
-                <small>{concept.verseRefs.length} seçilmiş ayet kaydı</small>
+                <small>{concept.verseRefs.length} selected verse records</small>
               </article>
             ))}
           </div>

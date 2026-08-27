@@ -1,32 +1,32 @@
 import Link from 'next/link';
 
 const nodes = [
-  { className: 'graph-node verse', label: 'Fâtiha 1:5', meta: 'Ayet', position: 'center', href: '/sure/fatiha#ayet-5' },
-  { className: 'graph-node tafsir', label: 'Taberî', meta: 'Tefsir', position: 'top-left', href: '/alim/taberi' },
-  { className: 'graph-node tafsir', label: 'İbn Kesîr', meta: 'Tefsir', position: 'bottom-left', href: '/alim/ibn-kesir' },
-  { className: 'graph-node tafsir', label: 'Kurtubî', meta: 'Tefsir', position: 'top-right', href: '/alim/kurtubi' },
-  { className: 'graph-node concept', label: 'İbadet', meta: 'Kavram', position: 'bottom-right', href: '/kavram/ibadet' },
+  { className: 'graph-node verse', label: 'Al-Fatihah 1:5', meta: 'Verse', position: 'center', href: '/surah/fatiha#verse-5' },
+  { className: 'graph-node tafsir', label: 'Al-Tabari', meta: 'Tafsir', position: 'top-left', href: '/scholars/taberi' },
+  { className: 'graph-node tafsir', label: 'Ibn Kathir', meta: 'Tafsir', position: 'bottom-left', href: '/scholars/ibn-kesir' },
+  { className: 'graph-node tafsir', label: 'Al-Qurtubi', meta: 'Tafsir', position: 'top-right', href: '/scholars/kurtubi' },
+  { className: 'graph-node concept', label: 'Worship', meta: 'Concept', position: 'bottom-right', href: '/concept/worship' },
 ];
 
 export function KnowledgeGraph() {
   return (
-    <section className="graph-section" id="iliskiler" aria-labelledby="graph-title">
+    <section className="graph-section" id="relationships" aria-labelledby="graph-title">
       <div className="graph-copy">
-        <span className="section-kicker">Bilgi haritası</span>
-        <h2 id="graph-title">Bir ayetten bütün kaynaklara.</h2>
+        <span className="section-kicker">Knowledge map</span>
+        <h2 id="graph-title">From one verse to every source.</h2>
         <p>
-          Ayet, hadis, tefsir, kavram ve şahıs kayıtları arasındaki ilmî bağları
-          tek bakışta görün. Her çizgi, doğrulanabilir bir kaynak ilişkisini temsil eder.
+          See the scholarly connections between verses, hadiths, tafsirs, concepts and people
+          at a glance. Every line represents a verifiable source relationship.
         </p>
         <ul>
-          <li><span className="legend-dot green" /> Ayet ve sureler</li>
-          <li><span className="legend-dot amber" /> Klasik tefsirler</li>
-          <li><span className="legend-dot blue" /> Kavram maddeleri</li>
+          <li><span className="legend-dot green" /> Verses and surahs</li>
+          <li><span className="legend-dot amber" /> Classical tafsirs</li>
+          <li><span className="legend-dot blue" /> Concept articles</li>
         </ul>
-        <a className="graph-link" href="#fatiha">Örnek ayet kaydını incele <span>→</span></a>
+        <Link className="graph-link" href="/surah/fatiha#verse-5">Explore the sample verse <span>→</span></Link>
       </div>
 
-      <div className="graph-stage" role="img" aria-label="Fâtiha Suresi 5. ayetin tefsir, hadis ve kavramlarla ilişkisi">
+      <div className="graph-stage" role="img" aria-label="Relationships between Al-Fatihah 1:5, tafsirs and concepts">
         <span className="connector line-one" aria-hidden="true" />
         <span className="connector line-two" aria-hidden="true" />
         <span className="connector line-three" aria-hidden="true" />

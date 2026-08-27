@@ -3,24 +3,24 @@ import { QuranSurahArticle } from '../../components/quran-surah-article';
 import {
   getAdjacentSurahs,
   getSurahByNumber,
-  getTurkishMealForSurah,
+  getEnglishTranslationForSurah,
   getVersesForSurah,
 } from '@/lib/quran';
 
 export const metadata: Metadata = {
-  title: 'Fâtiha Suresi',
-  description: 'Fâtiha Suresi’nin doğrulanmış Uthmani Arapça metni, kaynaklı Türkçe meali ve kaynak bilgileri.',
+  title: 'Surah Al-Fatihah',
+  description: 'The verified Uthmani Arabic text, sourced English translation and source details for Surah Al-Fatihah.',
   openGraph: { images: [] },
   twitter: { images: [] },
 };
 
 export default function FatihaPage() {
   const surah = getSurahByNumber(1);
-  if (!surah) throw new Error('Fâtiha metadata is missing from the Quran corpus');
+  if (!surah) throw new Error('Al-Fatihah metadata is missing from the Quran corpus');
 
   const verses = getVersesForSurah(surah.number);
-  const meal = getTurkishMealForSurah(surah.number);
+  const translation = getEnglishTranslationForSurah(surah.number);
   const adjacent = getAdjacentSurahs(surah.number);
 
-  return <QuranSurahArticle surah={surah} verses={verses} meal={meal} {...adjacent} />;
+  return <QuranSurahArticle surah={surah} verses={verses} translation={translation} {...adjacent} />;
 }

@@ -6,7 +6,7 @@ import {
   getAllSurahs,
   getSurahBySlug,
   getSurahSlug,
-  getTurkishMealForSurah,
+  getEnglishTranslationForSurah,
   getVersesForSurah,
 } from '@/lib/quran';
 
@@ -26,8 +26,8 @@ export async function generateMetadata({ params }: SurahPageProps): Promise<Meta
   if (!surah) return {};
 
   return {
-    title: `${surah.nameTransliterated} Suresi`,
-    description: `${surah.nameTransliterated} Suresi’nin ${surah.ayahCount} ayetlik doğrulanmış Uthmani Arapça metni, kaynaklı Türkçe meali ve kaynak bilgileri.`,
+    title: `Surah ${surah.nameTransliterated}`,
+    description: `The verified Uthmani Arabic text, sourced English translation and source details for the ${surah.ayahCount} verses of Surah ${surah.nameTransliterated}.`,
     openGraph: { images: [] },
     twitter: { images: [] },
   };
@@ -39,8 +39,8 @@ export default async function SurahPage({ params }: SurahPageProps) {
   if (!surah) notFound();
 
   const verses = getVersesForSurah(surah.number);
-  const meal = getTurkishMealForSurah(surah.number);
+  const translation = getEnglishTranslationForSurah(surah.number);
   const adjacent = getAdjacentSurahs(surah.number);
 
-  return <QuranSurahArticle surah={surah} verses={verses} meal={meal} {...adjacent} />;
+  return <QuranSurahArticle surah={surah} verses={verses} translation={translation} {...adjacent} />;
 }

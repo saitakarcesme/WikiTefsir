@@ -34,21 +34,21 @@ export function VerseTafsirs({ surah, ayah }: { surah: number; ayah: number }) {
   return (
     <div className="verse-tafsirs">
       <button type="button" onClick={loadTafsirs} disabled={status === 'loading'} aria-expanded={status === 'ready'}>
-        {status === 'loading' ? 'Üç klasik tefsir yükleniyor…' : status === 'ready' ? 'Tefsirler yüklendi' : 'İbn Kesîr, Taberî ve Kurtubî tefsirlerini aç'}
+        {status === 'loading' ? 'Loading three classical tafsirs…' : status === 'ready' ? 'Tafsirs loaded' : 'Open the tafsirs of Ibn Kathir, al-Tabari and al-Qurtubi'}
       </button>
-      {status === 'error' && <p className="tafsir-error">Kaynak doğrulaması şu anda tamamlanamadı. Lütfen yeniden deneyin.</p>}
+      {status === 'error' && <p className="tafsir-error">Source verification could not be completed. Please try again.</p>}
       {payload && (
         <div className="tafsir-records">
           <div className="tafsir-caution">
-            <strong>Klasik eser alıntısı</strong>
-            <span>Bir tefsirde rivayet aktarılması, o rivayete otomatik olarak “sahih hadis” hükmü vermez.</span>
+            <strong>Classical work excerpt</strong>
+            <span>A report quoted inside a tafsir is not automatically graded as an authentic hadith.</span>
           </div>
           {payload.records.map((record) => (
             <details key={record.source.id}>
               <summary><span>{record.source.author}</span><small>{record.source.work} · {record.source.school}</small></summary>
               {record.hasCommentary
                 ? <p lang="ar" dir="rtl">{record.text}</p>
-                : <p className="tafsir-unavailable">Bu ayet için kaynak veri yorum sunmuyor ({record.coverageStatus}).</p>}
+                : <p className="tafsir-unavailable">The source provides no commentary for this verse ({record.coverageStatus}).</p>}
             </details>
           ))}
           <small className="tafsir-release">Quran Lab quran-tafsir {payload.release} · {payload.verseKey} · rev. {payload.revision.slice(0, 12)}</small>

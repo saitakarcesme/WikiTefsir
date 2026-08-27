@@ -7,13 +7,13 @@ import {
   getQuranStats,
   getSurahHref,
   quranLicense,
-  turkishMealMetadata,
-  turkishMealTerms,
+  englishTranslationMetadata,
+  englishTranslationTerms,
 } from '@/lib/quran';
 
 export const metadata: Metadata = {
-  title: 'Kur’an Sureleri',
-  description: 'Kur’an-ı Kerîm’in 114 suresini doğrulanmış Arapça metin, kaynaklı Türkçe meal ve sure bilgileriyle keşfedin.',
+  title: 'Quran Surahs',
+  description: 'Explore all 114 surahs of the Quran with verified Arabic text, a sourced English translation and surah metadata.',
   openGraph: { images: [] },
   twitter: { images: [] },
 };
@@ -27,18 +27,18 @@ export default function SurahsPage() {
     <main>
       <SiteHeader />
       <div className="surahs-page">
-        <nav className="breadcrumbs" aria-label="İçerik yolu"><Link href="/">Ana sayfa</Link><span>›</span>Sureler</nav>
+        <nav className="breadcrumbs" aria-label="Breadcrumb"><Link href="/">Main page</Link><span>›</span>Surahs</nav>
 
         <header className="surahs-hero">
           <div>
-            <span className="section-kicker">Kur’an-ı Kerîm</span>
-            <h1>Sureler</h1>
-            <p>Doğrulanmış Uthmani Arapça metin ve kaynaklı Türkçe meal ile Kur’an’ın tamamında gezinin.</p>
+            <span className="section-kicker">The Noble Quran</span>
+            <h1>Surahs</h1>
+            <p>Browse the complete Quran with verified Uthmani Arabic text and a sourced English translation.</p>
           </div>
           <dl>
-            <div><dt>Sure</dt><dd>{stats.surahCount}</dd></div>
-            <div><dt>Ayet</dt><dd>{stats.verseCount.toLocaleString('tr-TR')}</dd></div>
-            <div><dt>Türkçe meal</dt><dd>{stats.turkishMealCount.toLocaleString('tr-TR')}</dd></div>
+            <div><dt>Surahs</dt><dd>{stats.surahCount}</dd></div>
+            <div><dt>Verses</dt><dd>{stats.verseCount.toLocaleString('en-US')}</dd></div>
+            <div><dt>English translation</dt><dd>{stats.englishTranslationCount.toLocaleString('en-US')}</dd></div>
           </dl>
         </header>
 
@@ -47,10 +47,10 @@ export default function SurahsPage() {
         <footer className="corpus-attribution">
           <span className="trust-mark" aria-hidden="true">✓</span>
           <div>
-            <strong>Kaynaklar: Tanzil Project ve QuranEnc</strong>
-            <p>Kur’an metni {quranLicense.name}; Türkçe meal Rowwad Tercüme Merkezi {turkishMealMetadata.version}. Her iki içerik de kaynak şartlarına göre değiştirilmeden yayımlanır.</p>
+            <strong>Sources: Tanzil Project and QuranEnc</strong>
+            <p>The Quran text is {quranLicense.name}; the English translation is Rowwad Translation Center {englishTranslationMetadata.version}. Both are published verbatim under their source terms.</p>
           </div>
-          <a href={turkishMealTerms.url} rel="noreferrer" target="_blank">Kaynak şartları ↗</a>
+          <a href={englishTranslationTerms.url} rel="noreferrer" target="_blank">Source terms ↗</a>
         </footer>
       </div>
     </main>

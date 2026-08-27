@@ -8,7 +8,7 @@ export async function GET(request: Request) {
   const surah = getSurahByNumber(surahNumber);
 
   if (!surah || !Number.isInteger(ayahNumber) || ayahNumber < 1 || ayahNumber > surah.ayahCount) {
-    return Response.json({ error: 'Geçersiz sure veya ayet numarası.' }, { status: 400 });
+    return Response.json({ error: 'Invalid surah or verse number.' }, { status: 400 });
   }
 
   try {
@@ -20,6 +20,6 @@ export async function GET(request: Request) {
     );
   } catch (error) {
     console.error('Tafsir source request failed', error);
-    return Response.json({ error: 'Tefsir kaynağı şu anda doğrulanamadı.' }, { status: 502 });
+    return Response.json({ error: 'The tafsir source could not be verified.' }, { status: 502 });
   }
 }
