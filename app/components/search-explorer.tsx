@@ -3,7 +3,7 @@
 import { FormEvent, useEffect, useState } from 'react';
 
 interface SearchResult {
-  type: 'Ayet' | 'Sure';
+  type: 'Ayet' | 'Sure' | 'Hadis';
   title: string;
   description: string;
   href: string;
@@ -53,7 +53,7 @@ export function SearchExplorer() {
     <div className="search-area">
       <form className="search-box" onSubmit={handleSubmit} role="search">
         <span className="search-icon" aria-hidden="true">⌕</span>
-        <label className="sr-only" htmlFor="main-search">Kur’an külliyatında ara</label>
+        <label className="sr-only" htmlFor="main-search">Kur’an ve hadis külliyatında ara</label>
         <input
           id="main-search"
           name="q"
@@ -66,7 +66,7 @@ export function SearchExplorer() {
               setStatus('idle');
             }
           }}
-          placeholder="Sure, Arapça ayet, Türkçe meal veya 2:255 ara…"
+          placeholder="Sure, ayet, meal, hadis veya h:1751 ara…"
           autoComplete="off"
         />
         <button type="submit" disabled={query.trim().length < 2 || !results.length}>Ara <span aria-hidden="true">→</span></button>
@@ -86,7 +86,7 @@ export function SearchExplorer() {
               </a>
             ))
           ) : (
-            <p>{status === 'loading' ? '6.236 ayet içinde aranıyor…' : status === 'error' ? 'Arama şu anda yanıt veremiyor.' : 'Eşleşen doğrulanmış Kur’an kaydı bulunamadı.'}</p>
+            <p>{status === 'loading' ? 'Kur’an ve sahih hadis külliyatında aranıyor…' : status === 'error' ? 'Arama şu anda yanıt veremiyor.' : 'Eşleşen doğrulanmış kayıt bulunamadı.'}</p>
           )}
         </div>
       )}
