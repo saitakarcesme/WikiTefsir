@@ -10,6 +10,8 @@ import {
   hadithVersion,
 } from '@/lib/hadith';
 import { getConceptHref, getConceptsForLabels } from '@/lib/concepts';
+import { SourceDrawer } from '@/app/components/source-drawer';
+import { getHadithPdfSource } from '@/lib/sources';
 
 type HadithPageProps = { params: Promise<{ id: string }> };
 
@@ -33,6 +35,7 @@ export default async function HadithDetailPage({ params }: HadithPageProps) {
   if (!record) notFound();
   const categories = getCategoriesForHadith(record);
   const concepts = getConceptsForLabels(categories.map((category) => category.title));
+  const pdfSource = getHadithPdfSource(record.id);
 
   return (
     <main>
@@ -71,6 +74,15 @@ export default async function HadithDetailPage({ params }: HadithPageProps) {
               <div><dt>Version</dt><dd>{hadithVersion}</dd></div>
             </dl>
             <a href={hadithTerms.url} target="_blank" rel="noreferrer">Source and reuse terms ↗</a>
+            <SourceDrawer
+              label={pdfSource ? 'View exact PDF source' : 'View source record'}
+              title={`Authentic Hadith #${record.id}`}
+              description={pdfSource ? `Exact title-aligned location in HadeethEnc English PDF, part ${pdfSource.part}.` : 'This record is verified in the current HadeethEnc dataset, but its wording is not aligned with enough certainty to the older PDF edition.'}
+              pdfUrl={pdfSource?.pdfUrl}
+              page={pdfSource?.page}
+              sourceUrl={`https://hadeethenc.com/en/browse/hadith/${record.id}`}
+              sourceLabel="HadeethEnc record"
+            />
           </aside>
         </div>
 

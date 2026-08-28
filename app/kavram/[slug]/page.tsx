@@ -4,6 +4,9 @@ import { notFound } from 'next/navigation';
 import { SiteHeader } from '../../components/site-header';
 import { getAllConcepts, getConceptBySlug, getConceptHref } from '@/lib/concepts';
 import { getSurahByNumber, getSurahHref, getEnglishTranslation, getVerse } from '@/lib/quran';
+import { SourceDrawer } from '@/app/components/source-drawer';
+import { getPeopleForVerse, getPersonHref } from '@/lib/people';
+import { getQuranPdfSource } from '@/lib/sources';
 
 export const dynamicParams = false;
 
@@ -33,6 +36,7 @@ export default async function ConceptPage({ params }: ConceptPageProps) {
     const record = getConceptBySlug(relatedSlug);
     return record ? [record] : [];
   });
+  const people = [...new Map(concept.verseRefs.flatMap((reference) => getPeopleForVerse(reference.surah, reference.ayah)).map((person) => [person.slug, person])).values()];
 
   return (
     <main>
@@ -46,6 +50,12 @@ export default async function ConceptPage({ params }: ConceptPageProps) {
             <p className="article-arabic-title" lang="ar" dir="rtl">{concept.arabic}</p>
             <p className="article-lead">This article provides unified access to verified Quran records concerning {concept.title.toLocaleLowerCase('en-US')} and to related WikiTefsir articles.</p>
           </header>
+          <section className="concept-at-a-glance" aria-labelledby="glance-title">
+            <span className="reader-overline">At a glance</span>
+            <h2 id="glance-title">A source trail for {concept.title.toLocaleLowerCase('en-US')}</h2>
+            <p>{concept.scope}. This page groups a small, editorially selected set of Quran records so readers can move from the concept to the original verse, its translation, and the classical tafsir layer.</p>
+            <dl><div><dt>Quran records</dt><dd>{concept.verseRefs.length}</dd></div><div><dt>Related concepts</dt><dd>{related.length}</dd></div><div><dt>Connected people</dt><dd>{people.length}</dd></div></dl>
+          </section>
           <section className="concept-verse-list" id="verses" aria-labelledby="concept-verses-title">
             <h2 id="concept-verses-title">Related records in the Quran</h2>
             {concept.verseRefs.map((reference) => {
@@ -53,16 +63,19 @@ export default async function ConceptPage({ params }: ConceptPageProps) {
               const verse = getVerse(reference.surah, reference.ayah);
               const meaning = getEnglishTranslation(reference.surah, reference.ayah);
               if (!surah || !verse || !meaning) throw new Error(`Concept reference is missing: ${reference.surah}:${reference.ayah}`);
+              const source = getQuranPdfSource(surah.startOffset + reference.ayah - 1);
               return (
                 <article key={`${reference.surah}:${reference.ayah}`}>
                   <h3><Link href={`${getSurahHref(surah)}#verse-${reference.ayah}`}>{surah.nameTransliterated} {reference.surah}:{reference.ayah}</Link></h3>
                   <p className="concept-verse-arabic" lang="ar" dir="rtl">{verse.text}</p>
                   <p>{meaning.text}</p>
                   {meaning.footnotes ? <small>{meaning.footnotes}</small> : null}
+                  <div className="concept-source-actions"><SourceDrawer label="View exact source" title={`${surah.nameTransliterated} ${reference.surah}:${reference.ayah}`} description="Exact page in the official QuranEnc Rowwad mushaf PDF." pdfUrl={source?.pdfUrl} page={source?.page} sourceUrl="https://quranenc.com/en/browse/english_rwwad" sourceLabel="QuranEnc" /><Link href={`${getSurahHref(surah)}#verse-${reference.ayah}`}>Open full verse article</Link></div>
                 </article>
               );
             })}
           </section>
+          {people.length > 0 ? <section className="concept-related" aria-labelledby="people-title"><h2 id="people-title">People connected to this concept</h2><p>{people.map((person, index) => <span key={person.slug}>{index > 0 ? ' · ' : ''}<Link href={getPersonHref(person)}>{person.name}</Link></span>)}</p></section> : null}
           <section className="concept-related" id="related" aria-labelledby="related-title">
             <h2 id="related-title">Related concepts</h2>
             <p>{related.map((record, index) => <span key={record.slug}>{index > 0 ? ' · ' : ''}<Link href={getConceptHref(record)}>{record.title}</Link></span>)}</p>
