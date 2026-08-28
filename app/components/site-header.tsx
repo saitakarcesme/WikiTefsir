@@ -4,8 +4,7 @@ export function SiteHeader() {
   return (
     <header className="topbar">
       <Link className="brand" href="/" aria-label="WikiTefsir home page">
-        <span className="brand-mark" aria-hidden="true">و</span>
-        <span className="brand-copy"><strong>WikiTefsir</strong><small>the free Islamic knowledge encyclopedia</small></span>
+        <span className="brand-copy"><strong>WikiTefsir</strong></span>
       </Link>
 
       <nav className="main-nav" aria-label="Main navigation">
@@ -13,6 +12,7 @@ export function SiteHeader() {
         <Link href="/surahs">Surahs</Link>
         <Link href="/hadith">Hadiths</Link>
         <Link href="/concepts">Concepts</Link>
+        <Link href="/people">People</Link>
         <Link href="/scholars">Scholars</Link>
       </nav>
 

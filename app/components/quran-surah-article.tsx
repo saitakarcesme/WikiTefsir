@@ -9,6 +9,8 @@ import {
 import { SiteHeader } from './site-header';
 import { VerseTafsirs } from './verse-tafsirs';
 import { getConceptHref, getConceptsForVerse } from '@/lib/concepts';
+import { getQuranPdfSource } from '@/lib/sources';
+import { SourceDrawer } from './source-drawer';
 
 interface QuranSurahArticleProps {
   surah: SurahRecord;
@@ -67,6 +69,7 @@ export function QuranSurahArticle({ surah, verses, translation, previous, next }
             {verses.map((verse, index) => {
               const meaning = translation[index];
               const concepts = getConceptsForVerse(verse.surah, verse.ayah);
+              const pdfSource = getQuranPdfSource(surah.startOffset + index);
               if (!meaning || meaning.surah !== verse.surah || meaning.ayah !== verse.ayah) {
                 throw new Error(`English translation record mismatch at ${verse.surah}:${verse.ayah}`);
               }
@@ -93,6 +96,17 @@ export function QuranSurahArticle({ surah, verses, translation, previous, next }
                     <span>QuranEnc Rowwad {englishTranslationMetadata.version}</span>
                     <span>3 classical Arabic tafsirs</span>
                     <span>Hadith links await editorial review</span>
+                  </div>
+                  <div className="corpus-verse-actions">
+                    <SourceDrawer
+                      title={`${surah.nameTransliterated} ${verse.surah}:${verse.ayah}`}
+                      description={`Rowwad English translation ${englishTranslationMetadata.version}, aligned to the exact page in QuranEnc's official mushaf PDF.`}
+                      pdfUrl={pdfSource?.pdfUrl}
+                      page={pdfSource?.page}
+                      sourceUrl="https://quranenc.com/en/browse/english_rwwad"
+                      sourceLabel="QuranEnc"
+                    />
+                    <a href={`#verse-${verse.ayah}`}>Copyable verse link</a>
                   </div>
                 </div>
               </article>;
