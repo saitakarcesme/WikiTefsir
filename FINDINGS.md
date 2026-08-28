@@ -91,3 +91,4 @@
 - Concept articles now include at-a-glance scope, source-panel actions and connected people.
 - Visual-source research prioritizes public-domain manuscripts and maps from The Met, Library of Congress and individually licensed Wikimedia Commons files. Prophet depictions and invented sacred scenes are excluded.
 - ESLint, TypeScript, the 266-route Next.js production build and representative local route requests completed successfully.
+- The validated reader release was published to Vercel production and to the owner-only Sites URL. The home page, people index, Moses article, graph, Al-Fatihah, hadith #1751 and Revelation concept returned HTTP 200 in production.

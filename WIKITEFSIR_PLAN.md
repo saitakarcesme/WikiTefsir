@@ -106,6 +106,7 @@ WikiTefsir; Kur'an ayetlerini, Kütüb-i Sitte hadislerini ve Ehl-i Sünnet çiz
 - [x] Sürüklenebilir Obsidian tipi bağlantı grafiği ve klavye erişimli bağlantı listesi
 - [x] Kavram maddelerini kaynak paneli, kısa özet ve kişi bağlantılarıyla genişlet
 - [x] Görsel kaynak ve peygamber tasviri kullanmama politikasını belgele
+- [x] Modern reader sürümünü Vercel production ve owner-only Sites ortamında yayımla
 
 ## Alfa tamamlanma ölçütü
 

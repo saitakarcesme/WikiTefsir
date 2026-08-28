@@ -1,7 +1,7 @@
 {
   "project": "WikiTefsir",
-  "phase": "modern_reader_local_validated",
-  "updated_at": "2026-08-28T02:54:52+02:00",
+  "phase": "modern_reader_deployed",
+  "updated_at": "2026-08-28T02:59:20+02:00",
   "production_url": "https://wikitafsir.vercel.app",
   "repository_url": "https://github.com/saitakarcesme/WikiTefsir",
   "completed": [
@@ -68,7 +68,9 @@
     "interactive_knowledge_graph",
     "expanded_concept_articles",
     "visual_source_policy",
-    "modern_reader_local_build_verified"
+    "modern_reader_local_build_verified",
+    "modern_reader_vercel_production_verified",
+    "modern_reader_sites_private_deployment_verified"
   ],
   "next": [
     "select_licensed_kutub_al_sittah_editions",
