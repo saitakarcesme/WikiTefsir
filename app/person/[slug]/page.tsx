@@ -26,7 +26,7 @@ export default async function PersonPage({ params }: PersonPageProps) {
     <aside className="reader-rail"><span>On this page</span>{person.narrative.map((stage, index) => <a href={`#${stage.id}`} key={stage.id}>{index + 1}. {stage.title}</a>)}</aside>
     <article className="reader-article">
       <nav className="breadcrumbs"><Link href="/">Home</Link><span>›</span><Link href="/people">People</Link><span>›</span>{person.name}</nav>
-      <header className="reader-article-header"><span className="reader-overline">Quran-first person article</span><h1>{person.name}</h1><p className="reader-arabic-title" lang="ar" dir="rtl">{person.arabic}</p><p className="reader-deck">{person.introduction}</p><div className="reader-metadata"><span>{person.role}</span><span>{person.narrative.length} narrative stages</span><span>{person.keyReferences.length} key references</span></div></header>
+      <header className="reader-article-header"><span className="reader-overline">Quran-first {person.kind.toLowerCase()} article</span><h1>{person.name}</h1><p className="reader-arabic-title" lang="ar" dir="rtl">{person.arabic}</p><p className="reader-deck">{person.introduction}</p><div className="reader-metadata"><span>{person.role}</span><span>{person.narrative.length} narrative stages</span><span>{person.keyReferences.length} key references</span></div><p className="quran-naming-note">{person.quranNaming}</p></header>
       <aside className="scope-note"><strong>Reading method</strong><p>{person.quranScope}</p></aside>
       <PersonRelationDiagram person={person} />
       <section className="quran-timeline" aria-labelledby="timeline-title"><div className="reader-section-heading"><span>Across the surahs</span><h2 id="timeline-title">Narrative reading path</h2></div>
