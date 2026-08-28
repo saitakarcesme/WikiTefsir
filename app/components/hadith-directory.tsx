@@ -10,6 +10,7 @@ export interface HadithDirectoryRecord {
   attribution: string;
   grade: string;
   categories: string;
+  themes: string[];
 }
 
 const pageSize = 30;
@@ -23,17 +24,19 @@ function normalize(value: string) {
     .trim();
 }
 
-export function HadithDirectory({ records }: { records: HadithDirectoryRecord[] }) {
+export function HadithDirectory({ records, themes }: { records: HadithDirectoryRecord[]; themes: string[] }) {
   const router = useRouter();
   const [query, setQuery] = useState('');
   const [visibleCount, setVisibleCount] = useState(pageSize);
+  const [activeTheme, setActiveTheme] = useState('All');
   const filtered = useMemo(() => {
     const term = normalize(query);
-    if (term.length < 2) return records;
-    return records.filter((record) =>
-      normalize(`${record.id} ${record.title} ${record.attribution} ${record.grade} ${record.categories}`).includes(term),
-    );
-  }, [query, records]);
+    return records.filter((record) => {
+      if (activeTheme !== 'All' && !record.themes.includes(activeTheme)) return false;
+      if (term.length < 2) return true;
+      return normalize(`${record.id} ${record.title} ${record.attribution} ${record.grade} ${record.categories} ${record.themes.join(' ')}`).includes(term);
+    });
+  }, [activeTheme, query, records]);
   const visible = filtered.slice(0, visibleCount);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -47,6 +50,9 @@ export function HadithDirectory({ records }: { records: HadithDirectoryRecord[] 
       <div className="section-title">
         <div><span className="section-kicker">Verified corpus</span><h2 id="hadith-directory-title">Authentic hadiths</h2></div>
         <span className="review-status">{filtered.length.toLocaleString('en-US')} records</span>
+      </div>
+      <div className="hadith-theme-filter" aria-label="Filter hadiths by life situation">
+        {['All', ...themes].map((theme) => <button className={activeTheme === theme ? 'active' : ''} type="button" aria-pressed={activeTheme === theme} key={theme} onClick={() => { setActiveTheme(theme); setVisibleCount(pageSize); }}>{theme}</button>)}
       </div>
       <form className="library-search" role="search" onSubmit={handleSubmit}>
         <span aria-hidden="true">⌕</span>
@@ -67,7 +73,7 @@ export function HadithDirectory({ records }: { records: HadithDirectoryRecord[] 
         {visible.map((record) => (
           <article key={record.id}>
             <div className="hadith-result-meta">
-              <span>HadeethEnc #{record.id}</span><span>{record.grade}</span><span>{record.attribution}</span>
+              <span>HadeethEnc #{record.id}</span><span>{record.grade}</span><span>{record.themes[0]}</span>
             </div>
             <h3><Link href={`/hadith/${record.id}`}>{record.title}</Link></h3>
             {record.categories && <p>{record.categories}</p>}

@@ -20,6 +20,14 @@ export interface TafsirRecord {
   coverageStatus: string;
 }
 
+export interface EnglishTafsirRecord {
+  author: string;
+  work: string;
+  language: 'English';
+  text: string;
+  sourceUrl: string;
+}
+
 interface TafsirManifest {
   corpus: string;
   publisher: string;
@@ -59,6 +67,43 @@ export const tafsirMetadata = {
 
 export function getTafsirSources() {
   return manifest.sources;
+}
+
+function plainTextFromHtml(html: string) {
+  const withBreaks = html
+    .replace(/<\s*br\s*\/?\s*>/giu, '\n')
+    .replace(/<\s*\/?(?:p|h[1-6]|li|blockquote)[^>]*>/giu, '\n')
+    .replace(/<[^>]+>/gu, ' ');
+  return withBreaks
+    .replace(/&nbsp;/giu, ' ')
+    .replace(/&amp;/giu, '&')
+    .replace(/&quot;/giu, '"')
+    .replace(/&#0?39;|&apos;/giu, "'")
+    .replace(/&lt;/giu, '<')
+    .replace(/&gt;/giu, '>')
+    .replace(/&#(\d+);/gu, (_, code: string) => String.fromCodePoint(Number(code)))
+    .replace(/[ \t]+/gu, ' ')
+    .replace(/\n\s*\n+/gu, '\n\n')
+    .trim();
+}
+
+export async function getEnglishIbnKathirForVerse(verseKey: string): Promise<EnglishTafsirRecord> {
+  if (!/^\d{1,3}:\d{1,3}$/u.test(verseKey)) throw new Error(`Invalid English tafsir coordinate: ${verseKey}`);
+  const response = await fetch(`https://api.quran.com/api/v4/tafsirs/169/by_ayah/${verseKey}?fields=resource_name,language_name`, {
+    next: { revalidate: 86400 },
+    signal: AbortSignal.timeout(15000),
+  });
+  if (!response.ok) throw new Error(`Quran.com English tafsir returned ${response.status}`);
+  const payload = await response.json() as { tafsir?: { resource_name?: string; language_name?: string; text?: string } };
+  const record = payload.tafsir;
+  if (!record?.text || record.language_name !== 'english') throw new Error(`English Ibn Kathir is unavailable for ${verseKey}`);
+  return {
+    author: 'Ibn Kathir',
+    work: record.resource_name ?? 'Ibn Kathir (Abridged)',
+    language: 'English',
+    text: plainTextFromHtml(record.text),
+    sourceUrl: `https://quran.com/${verseKey}/tafsirs/en-tafisr-ibn-kathir`,
+  };
 }
 
 async function verifyPublishedRevision() {

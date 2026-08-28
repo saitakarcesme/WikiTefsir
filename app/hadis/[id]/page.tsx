@@ -6,7 +6,6 @@ import {
   getCategoriesForHadith,
   getHadithById,
   getHadithHref,
-  hadithTerms,
   hadithVersion,
 } from '@/lib/hadith';
 import { getConceptHref, getConceptsForLabels } from '@/lib/concepts';
@@ -73,7 +72,6 @@ export default async function HadithDetailPage({ params }: HadithPageProps) {
               <div><dt>Record</dt><dd>HadeethEnc #{record.id}</dd></div>
               <div><dt>Version</dt><dd>{hadithVersion}</dd></div>
             </dl>
-            <a href={hadithTerms.url} target="_blank" rel="noreferrer">Source and reuse terms ↗</a>
             <SourceDrawer
               label={pdfSource ? 'View exact PDF source' : 'View source record'}
               title={`Authentic Hadith #${record.id}`}
@@ -108,10 +106,6 @@ export default async function HadithDetailPage({ params }: HadithPageProps) {
           </section>
         ) : null}
 
-        <section className="notice-card verified-source-notice">
-          <strong>Text integrity</strong>
-          <p>The Arabic text, English translation, explanation and benefits are published verbatim from HadeethEnc {hadithVersion}.</p>
-        </section>
       </div>
     </main>
   );

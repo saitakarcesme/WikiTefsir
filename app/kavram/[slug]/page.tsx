@@ -42,7 +42,7 @@ export default async function ConceptPage({ params }: ConceptPageProps) {
     <main>
       <SiteHeader />
       <div className="wiki-layout concept-article-layout">
-        <aside className="wiki-toc" aria-label="Page contents"><span>Contents</span><a className="active" href="#introduction">Introduction</a><a href="#verses">Related verses</a><a href="#related">Related concepts</a><a href="#source">Source note</a></aside>
+        <aside className="wiki-toc" aria-label="Page contents"><span>Contents</span><a className="active" href="#introduction">Introduction</a><a href="#verses">Related verses</a><a href="#related">Related concepts</a></aside>
         <article className="wiki-article">
           <nav className="breadcrumbs" aria-label="Breadcrumb"><Link href="/">Main page</Link><span>›</span><Link href="/concepts">Concepts</Link><span>›</span>{concept.title}</nav>
           <header className="article-header" id="introduction">
@@ -79,10 +79,6 @@ export default async function ConceptPage({ params }: ConceptPageProps) {
           <section className="concept-related" id="related" aria-labelledby="related-title">
             <h2 id="related-title">Related concepts</h2>
             <p>{related.map((record, index) => <span key={record.slug}>{index > 0 ? ' · ' : ''}<Link href={getConceptHref(record)}>{record.title}</Link></span>)}</p>
-          </section>
-          <section className="notice-card" id="source">
-            <strong>Source note</strong>
-            <p>Arabic verses are shown verbatim from Tanzil Uthmani 1.1 and English translations from QuranEnc Rowwad 1.0.19. Concept links form an editorial navigation layer.</p>
           </section>
         </article>
         <aside className="wiki-infobox concept-infobox">

@@ -1,5 +1,5 @@
 import { getSurahByNumber } from '@/lib/quran';
-import { getTafsirsForVerse, tafsirMetadata } from '@/lib/tafsir';
+import { getEnglishIbnKathirForVerse, getTafsirsForVerse, tafsirMetadata } from '@/lib/tafsir';
 
 export async function GET(request: Request) {
   const parameters = new URL(request.url).searchParams;
@@ -13,9 +13,19 @@ export async function GET(request: Request) {
 
   try {
     const verseKey = `${surahNumber}:${ayahNumber}`;
-    const records = await getTafsirsForVerse(verseKey, surah.startOffset + ayahNumber - 1);
+    const [arabicResult, englishResult] = await Promise.allSettled([
+      getTafsirsForVerse(verseKey, surah.startOffset + ayahNumber - 1),
+      getEnglishIbnKathirForVerse(verseKey),
+    ]);
+    if (arabicResult.status === 'rejected' && englishResult.status === 'rejected') throw new Error('All tafsir sources failed');
     return Response.json(
-      { verseKey, release: tafsirMetadata.release, revision: tafsirMetadata.revision, records },
+      {
+        verseKey,
+        release: tafsirMetadata.release,
+        revision: tafsirMetadata.revision,
+        records: arabicResult.status === 'fulfilled' ? arabicResult.value : [],
+        englishTafsir: englishResult.status === 'fulfilled' ? englishResult.value : null,
+      },
       { headers: { 'Cache-Control': 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800' } },
     );
   } catch (error) {

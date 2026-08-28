@@ -20,7 +20,8 @@ export default function ScholarsPage() {
         <nav className="breadcrumbs" aria-label="Breadcrumb"><Link href="/">Main page</Link><span>›</span>Scholars</nav>
         <header className="index-article-header">
           <h1>Scholars</h1>
-          <p>Sunni exegetes whose Arabic tafsir records are available by verse in WikiTefsir.</p>
+          <p>A growing index of classical and later Sunni exegetes, their principal works, and the verse records currently connected inside WikiTefsir.</p>
+          <div className="index-summary"><span><strong>{scholarRecords.length}</strong> scholars</span><span><strong>{scholarRecords.filter((scholar) => scholar.linkedCorpus).length}</strong> linked corpora</span><span><strong>{scholarRecords.length}</strong> major works</span></div>
         </header>
         <nav className="page-tabs compact" aria-label="Scholar index tools"><span className="active">Scholar index</span><Link href="/surahs">Surahs</Link><Link href="/concepts">Concepts</Link></nav>
         <section className="concept-index scholar-index" aria-labelledby="scholar-index-title">
@@ -31,7 +32,7 @@ export default function ScholarsPage() {
                 <h3><Link href={getScholarHref(scholar.slug)}>{scholar.name}</Link></h3>
                 <p className="concept-arabic" lang="ar" dir="rtl">{scholar.arabic}</p>
                 <p>{scholar.summary}</p>
-                <small>{scholar.commentaryCount.toLocaleString('en-US')} verse commentaries · {scholar.work}</small>
+                <small>{scholar.linkedCorpus ? `${scholar.commentaryCount.toLocaleString('en-US')} linked verse records · ` : ''}{scholar.work}</small>
               </article>
             ))}
           </div>

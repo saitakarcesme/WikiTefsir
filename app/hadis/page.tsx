@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { HadithDirectory } from '../components/hadith-directory';
 import { SiteHeader } from '../components/site-header';
-import { getAllHadiths, getHadithCategories, getHadithStats, hadithTerms } from '@/lib/hadith';
+import { getAllHadiths, getHadithCategories, getHadithStats, getThemesForHadith, hadithThemes } from '@/lib/hadith';
 
 export const metadata: Metadata = {
   title: 'Authentic Hadith Library',
@@ -27,6 +27,7 @@ export default function HadithPage() {
     attribution: record.attribution,
     grade: record.grade,
     categories: record.categories.flatMap((id) => categoryNames.get(id) ?? []).join(' · '),
+    themes: getThemesForHadith(record),
   }));
 
   return (
@@ -45,13 +46,7 @@ export default function HadithPage() {
           </div>
         </header>
 
-        <section className="notice-card library-notice">
-          <strong>Source and coverage note</strong>
-          <p>These are HadeethEnc records whose English grade explicitly begins with “Authentic”. Texts are published verbatim. This dataset is not a complete edition of the Six Books; full book, chapter, chain and numbering verification remains in progress.</p>
-          <a className="text-link" href={hadithTerms.url} target="_blank" rel="noreferrer">HadeethEnc source and reuse terms <span aria-hidden="true">↗</span></a>
-        </section>
-
-        <HadithDirectory records={records} />
+        <HadithDirectory records={records} themes={[...hadithThemes]} />
 
         <section aria-labelledby="collections-title">
           <div className="section-title"><div><span className="section-kicker">Source work in progress</span><h2 id="collections-title">The Six Books</h2></div><span className="review-status">Verification in progress</span></div>

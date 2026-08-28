@@ -20,7 +20,8 @@ export default function ConceptsPage() {
         <nav className="breadcrumbs" aria-label="Breadcrumb"><Link href="/">Main page</Link><span>›</span>Concepts</nav>
         <header className="index-article-header">
           <h1>Concepts</h1>
-          <p>Concept articles linked to Quran verses and verified source records in WikiTefsir.</p>
+          <p>{concepts.length} focused reading paths connect belief, worship, character, society, revelation, and the Hereafter directly to Quran passages.</p>
+          <div className="index-summary"><span><strong>{concepts.length}</strong> concepts</span><span><strong>{concepts.reduce((total, concept) => total + concept.verseRefs.length, 0)}</strong> selected verse links</span><span><strong>6</strong> reading themes</span></div>
         </header>
         <nav className="page-tabs compact" aria-label="Concept index tools"><span className="active">Article index</span><Link href="/surahs">Surahs</Link><Link href="/hadith">Hadiths</Link></nav>
         <section className="concept-index" aria-labelledby="concept-index-title">

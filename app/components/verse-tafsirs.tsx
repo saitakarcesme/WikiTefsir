@@ -12,6 +12,13 @@ interface TafsirPayload {
     hasCommentary: boolean;
     coverageStatus: string;
   }>;
+  englishTafsir: null | {
+    author: string;
+    work: string;
+    language: 'English';
+    text: string;
+    sourceUrl: string;
+  };
 }
 
 export function VerseTafsirs({ surah, ayah }: { surah: number; ayah: number }) {
@@ -34,24 +41,23 @@ export function VerseTafsirs({ surah, ayah }: { surah: number; ayah: number }) {
   return (
     <div className="verse-tafsirs">
       <button type="button" onClick={loadTafsirs} disabled={status === 'loading'} aria-expanded={status === 'ready'}>
-        {status === 'loading' ? 'Loading three classical tafsirs…' : status === 'ready' ? 'Tafsirs loaded' : 'Open the tafsirs of Ibn Kathir, al-Tabari and al-Qurtubi'}
+        {status === 'loading' ? 'Loading English and Arabic tafsirs…' : status === 'ready' ? 'Tafsirs loaded' : 'Read English and Arabic tafsirs'}
       </button>
       {status === 'error' && <p className="tafsir-error">Source verification could not be completed. Please try again.</p>}
       {payload && (
         <div className="tafsir-records">
-          <div className="tafsir-caution">
-            <strong>Classical work excerpt</strong>
-            <span>A report quoted inside a tafsir is not automatically graded as an authentic hadith.</span>
-          </div>
+          {payload.englishTafsir ? <article className="english-tafsir">
+            <header><div><span>English tafsir</span><h3>{payload.englishTafsir.work}</h3></div><a href={payload.englishTafsir.sourceUrl} target="_blank" rel="noreferrer">Quran.com ↗</a></header>
+            <p>{payload.englishTafsir.text}</p>
+          </article> : null}
           {payload.records.map((record) => (
             <details key={record.source.id}>
-              <summary><span>{record.source.author}</span><small>{record.source.work} · {record.source.school}</small></summary>
+              <summary><span>{record.source.author}</span><small>Arabic · {record.source.work} · {record.source.school}</small></summary>
               {record.hasCommentary
                 ? <p lang="ar" dir="rtl">{record.text}</p>
                 : <p className="tafsir-unavailable">The source provides no commentary for this verse ({record.coverageStatus}).</p>}
             </details>
           ))}
-          <small className="tafsir-release">Quran Lab quran-tafsir {payload.release} · {payload.verseKey} · rev. {payload.revision.slice(0, 12)}</small>
         </div>
       )}
     </div>

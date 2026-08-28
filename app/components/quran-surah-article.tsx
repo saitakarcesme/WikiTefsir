@@ -4,7 +4,6 @@ import {
   getSurahHref,
   quranLicense,
   englishTranslationMetadata,
-  englishTranslationTerms,
 } from '@/lib/quran';
 import { SiteHeader } from './site-header';
 import { VerseTafsirs } from './verse-tafsirs';
@@ -31,8 +30,7 @@ export function QuranSurahArticle({ surah, verses, translation, previous, next }
           <span>Contents</span>
           <a className="active" href="#overview">Overview</a>
           <a href="#verses">Verses</a>
-          <a href="#verses">Classical tafsirs</a>
-          <a href="#translation">Translation</a>
+          <a href="#verses">Translation and tafsir</a>
           <a href="#source">Text sources</a>
         </aside>
 
@@ -54,16 +52,10 @@ export function QuranSurahArticle({ surah, verses, translation, previous, next }
             </div>
           </header>
 
-          <section className="notice-card verified-source-notice" id="translation">
-            <strong>English translation source verified</strong>
-            <p>{englishTranslationMetadata.title}, version {englishTranslationMetadata.version}. Translation and footnotes are published verbatim from QuranEnc.</p>
-            <a href={englishTranslationTerms.url} rel="noreferrer" target="_blank">Open reuse terms ↗</a>
-          </section>
-
           <section className="verse-list" id="verses" aria-labelledby="verses-title">
             <div className="section-title">
-              <div><span className="section-kicker">Verified Uthmani text</span><h2 id="verses-title">Verses</h2></div>
-              <span className="verified-badge">✓ {verses.length} verses verified</span>
+              <div><span className="section-kicker">Arabic · English translation · English and Arabic tafsir</span><h2 id="verses-title">{verses.length === 1 ? 'Verse' : 'Verses'}</h2></div>
+              <span className="verse-count-label">{verses.length} {verses.length === 1 ? 'verse' : 'verses'}</span>
             </div>
 
             {verses.map((verse, index) => {
@@ -92,10 +84,7 @@ export function QuranSurahArticle({ surah, verses, translation, previous, next }
                   <VerseTafsirs surah={verse.surah} ayah={verse.ayah} />
                   <div className="corpus-verse-meta">
                     <span>{surah.number}:{verse.ayah}</span>
-                    <span>Tanzil Uthmani 1.1</span>
                     <span>QuranEnc Rowwad {englishTranslationMetadata.version}</span>
-                    <span>3 classical Arabic tafsirs</span>
-                    <span>Hadith links await editorial review</span>
                   </div>
                   <div className="corpus-verse-actions">
                     <SourceDrawer
@@ -106,7 +95,7 @@ export function QuranSurahArticle({ surah, verses, translation, previous, next }
                       sourceUrl="https://quranenc.com/en/browse/english_rwwad"
                       sourceLabel="QuranEnc"
                     />
-                    <a href={`#verse-${verse.ayah}`}>Copyable verse link</a>
+                    <a href={`#verse-${verse.ayah}`}>Verse link</a>
                   </div>
                 </div>
               </article>;

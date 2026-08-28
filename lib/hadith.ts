@@ -57,6 +57,29 @@ const catalog = hadithCatalogJson as HadithCatalog;
 const recordsById = new Map(catalog.records.map((record) => [record.id, record]));
 const categoriesById = new Map(catalog.categories.map((category) => [category.id, category]));
 
+export const hadithThemes = [
+  'Worship & devotion', 'Character & manners', 'Family & home', 'Companions & community',
+  'Neighbors & society', 'Knowledge & teaching', 'Governance & justice', 'Peace & agreements',
+  'War & defense', 'Trade & wealth', 'Food, health & daily life', 'Hereafter & spiritual life',
+  'General guidance',
+] as const;
+export type HadithTheme = typeof hadithThemes[number];
+
+const themePatterns: Array<[HadithTheme, RegExp]> = [
+  ['Worship & devotion', /prayer|salah|fast|ramadan|zak[aā]h|charity|hajj|pilgrimage|ablution|wudu|supplication|remembrance|mosque/iu],
+  ['Character & manners', /manners|character|truth|lie|anger|humility|mercy|kindness|greeting|smile|patience|forgiv/iu],
+  ['Family & home', /marriage|wife|wives|husband|child|children|parent|mother|father|kinship|relative|household|divorce/iu],
+  ['Companions & community', /companion|ans[aā]r|muh[aā]jir|brother|community|congregation|people of the suffah|delegation/iu],
+  ['Neighbors & society', /neighbor|guest|orphan|poor|needy|rights|society|road|public|sick person|funeral/iu],
+  ['Knowledge & teaching', /knowledge|learn|teach|scholar|student|qur.?an|hadith|recitation|fatwa/iu],
+  ['Governance & justice', /ruler|govern|leader|judge|judgment|justice|authority|obedience|caliph|office/iu],
+  ['Peace & agreements', /peace|truce|treaty|covenant|agreement|protection|reconciliation|safe-conduct/iu],
+  ['War & defense', /battle|war|fight|army|soldier|jihad|martyr|weapon|campaign|enemy/iu],
+  ['Trade & wealth', /trade|sale|buy|wealth|money|debt|loan|usury|inheritance|property|market|wage/iu],
+  ['Food, health & daily life', /food|eat|drink|medicine|illness|health|sleep|clothing|dress|clean|wash|travel|animal/iu],
+  ['Hereafter & spiritual life', /death|grave|resurrection|paradise|hell|day of judgment|faith|belief|creed|destiny|angel/iu],
+];
+
 export const hadithTerms = catalog.terms;
 export const hadithVersion = catalog.version;
 
@@ -85,6 +108,13 @@ export function getCategoriesForHadith(record: HadithRecord) {
     const category = categoriesById.get(id);
     return category ? [category] : [];
   });
+}
+
+export function getThemesForHadith(record: HadithRecord): HadithTheme[] {
+  const categoryTitles = getCategoriesForHadith(record).map((category) => category.title).join(' ');
+  const text = `${record.title} ${record.attribution} ${categoryTitles}`;
+  const matches = themePatterns.flatMap(([theme, pattern]) => pattern.test(text) ? [theme] : []);
+  return matches.length ? matches.slice(0, 3) : ['General guidance'];
 }
 
 export function getHadithStats() {
