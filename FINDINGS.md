@@ -79,3 +79,15 @@
 - A visible scholar directory now links al-Tabari, Ibn Kathir and al-Qurtubi to the 18,708 pinned Arabic tafsir records already present in WikiTefsir.
 - Data integrity, ESLint, TypeScript, dependency audit, 262-route Next.js production build and the Sites-compatible build completed successfully.
 - The English release was deployed to `https://wikitafsir.vercel.app` and to the owner-only Sites URL `https://wikitafsir.ibrahimsait.chatgpt.site`. The main page, surah index, Al-Fatihah, hadith index, hadith #1751, Tawhid, scholar index, Ibn Kathir and English search API all passed live HTTP/content checks; recent Vercel error logs were empty.
+
+## 2026-08-28 — Minimal reader, exact-source drawer and Quranic narratives
+
+- The Wikipedia-style shell was replaced by a restrained black, white and blue reading system with narrower article measure, larger body text, fewer boxes and a shorter-path home page.
+- The decorative logo mark was removed. The text name remains as the minimal home link.
+- Every one of the 6,236 English Quran records was aligned to a physical page in QuranEnc's official Rowwad mushaf PDF. A right-side source drawer opens the verified page without leaving the article.
+- The older eight-part HadeethEnc English PDF set was compared with the current 1.25.0 dataset. Exact full-title alignment is exposed for 537 records; the remaining records link to the verified digital record rather than guessing a PDF page.
+- Quran-first person articles were added for Moses and Muhammad. The Moses article joins eight narrative stages across multiple surahs; it explicitly stops short of narrating his death because the Quran does not do so.
+- A canvas-based, draggable knowledge graph connects people, concepts, surahs, scholars and hadith. A visible link list provides the same navigation without pointer interaction.
+- Concept articles now include at-a-glance scope, source-panel actions and connected people.
+- Visual-source research prioritizes public-domain manuscripts and maps from The Met, Library of Congress and individually licensed Wikimedia Commons files. Prophet depictions and invented sacred scenes are excluded.
+- ESLint, TypeScript, the 266-route Next.js production build and representative local route requests completed successfully.

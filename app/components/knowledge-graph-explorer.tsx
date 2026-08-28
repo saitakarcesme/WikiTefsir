@@ -45,16 +45,18 @@ export function KnowledgeGraphExplorer({ compact = false }: { compact?: boolean 
     if (!canvas) return;
     const context = canvas.getContext('2d');
     if (!context) return;
+    const graphCanvas: HTMLCanvasElement = canvas;
+    const graphContext: CanvasRenderingContext2D = context;
     let width = 0; let height = 0; let disposed = false;
 
     function resize() {
-      const rect = canvas.getBoundingClientRect();
+      const rect = graphCanvas.getBoundingClientRect();
       const ratio = Math.min(window.devicePixelRatio || 1, 2);
       width = rect.width; height = rect.height;
-      canvas.width = Math.round(width * ratio); canvas.height = Math.round(height * ratio);
-      context.setTransform(ratio, 0, 0, ratio, 0, 0);
+      graphCanvas.width = Math.round(width * ratio); graphCanvas.height = Math.round(height * ratio);
+      graphContext.setTransform(ratio, 0, 0, ratio, 0, 0);
     }
-    const observer = new ResizeObserver(resize); observer.observe(canvas); resize();
+    const observer = new ResizeObserver(resize); observer.observe(graphCanvas); resize();
 
     function draw() {
       if (disposed) return;
@@ -66,21 +68,21 @@ export function KnowledgeGraphExplorer({ compact = false }: { compact?: boolean 
         node.vx += (seed.x - node.x) * .00055; node.vy += (seed.y - node.y) * .00055;
         node.vx *= .94; node.vy *= .94; node.x += node.vx; node.y += node.vy;
       }
-      context.clearRect(0, 0, width, height);
-      context.lineWidth = 1;
+      graphContext.clearRect(0, 0, width, height);
+      graphContext.lineWidth = 1;
       for (const edge of edges) {
         const from = byId.get(edge.from); const to = byId.get(edge.to); if (!from || !to) continue;
-        context.strokeStyle = edge.from === activeId || edge.to === activeId ? 'rgba(37,99,235,.56)' : 'rgba(107,114,128,.20)';
-        context.beginPath(); context.moveTo(from.x * width, from.y * height); context.lineTo(to.x * width, to.y * height); context.stroke();
+        graphContext.strokeStyle = edge.from === activeId || edge.to === activeId ? 'rgba(37,99,235,.56)' : 'rgba(107,114,128,.20)';
+        graphContext.beginPath(); graphContext.moveTo(from.x * width, from.y * height); graphContext.lineTo(to.x * width, to.y * height); graphContext.stroke();
       }
-      context.textAlign = 'center'; context.textBaseline = 'middle'; context.font = '500 11px Geist, Arial, sans-serif';
+      graphContext.textAlign = 'center'; graphContext.textBaseline = 'middle'; graphContext.font = '500 11px Geist, Arial, sans-serif';
       for (const node of nodes) {
         const x = node.x * width; const y = node.y * height; const radius = node.type === 'person' ? 26 : 18;
-        context.beginPath(); context.arc(x, y, radius, 0, Math.PI * 2);
-        context.fillStyle = colors[node.type]; context.fill();
-        context.strokeStyle = node.id === activeId ? '#2563eb' : '#d1d5db'; context.lineWidth = node.id === activeId ? 2 : 1; context.stroke();
-        context.fillStyle = node.type === 'person' || node.type === 'concept' ? '#fff' : '#1f2937';
-        const shortLabel = node.label.length > 13 ? `${node.label.slice(0, 12)}…` : node.label; context.fillText(shortLabel, x, y);
+        graphContext.beginPath(); graphContext.arc(x, y, radius, 0, Math.PI * 2);
+        graphContext.fillStyle = colors[node.type]; graphContext.fill();
+        graphContext.strokeStyle = node.id === activeId ? '#2563eb' : '#d1d5db'; graphContext.lineWidth = node.id === activeId ? 2 : 1; graphContext.stroke();
+        graphContext.fillStyle = node.type === 'person' || node.type === 'concept' ? '#fff' : '#1f2937';
+        const shortLabel = node.label.length > 13 ? `${node.label.slice(0, 12)}…` : node.label; graphContext.fillText(shortLabel, x, y);
       }
       frameRef.current = requestAnimationFrame(draw);
     }
@@ -98,7 +100,7 @@ export function KnowledgeGraphExplorer({ compact = false }: { compact?: boolean 
 
   return <section className={`knowledge-explorer${compact ? ' compact' : ''}`} aria-labelledby="knowledge-explorer-title">
     <div className="knowledge-explorer-copy"><span className="reader-overline">Knowledge graph</span><h2 id="knowledge-explorer-title">See how every article connects.</h2><p>Drag a node to explore the network. Select it to open the linked article.</p><Link href={active.href}>Open {active.label} <span aria-hidden="true">→</span></Link></div>
-    <div className="knowledge-canvas-wrap"><canvas ref={canvasRef} onPointerDown={pointerDown} onPointerMove={pointerMove} onPointerUp={pointerUp} onPointerCancel={() => { dragRef.current = null; }} aria-label="Interactive graph connecting people, concepts, surahs, scholars, and hadith" /><div className="graph-key"><span><i className="person" />Person</span><span><i className="concept" />Concept</span><span><i />Source article</span></div></div>
-    <ul className="graph-accessible-list">{seedNodes.map((node) => <li key={node.id}><Link href={node.href}>{node.label} ({node.type})</Link></li>)}</ul>
+    <div className="knowledge-canvas-wrap"><canvas ref={canvasRef} role="img" onPointerDown={pointerDown} onPointerMove={pointerMove} onPointerUp={pointerUp} onPointerCancel={() => { dragRef.current = null; }} aria-label="Interactive graph connecting people, concepts, surahs, scholars, and hadith. The same nodes are available as links below." /><div className="graph-key"><span><i className="person" />Person</span><span><i className="concept" />Concept</span><span><i />Source article</span></div></div>
+    <ul className="graph-node-links" aria-label="All nodes in the graph">{seedNodes.map((node) => <li key={node.id}><Link href={node.href}>{node.label} <small>{node.type}</small></Link></li>)}</ul>
   </section>;
 }

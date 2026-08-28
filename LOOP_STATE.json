@@ -1,7 +1,7 @@
 {
   "project": "WikiTefsir",
-  "phase": "english_localization_deployed",
-  "updated_at": "2026-08-28T02:00:54+02:00",
+  "phase": "modern_reader_local_validated",
+  "updated_at": "2026-08-28T02:54:52+02:00",
   "production_url": "https://wikitafsir.vercel.app",
   "repository_url": "https://github.com/saitakarcesme/WikiTefsir",
   "completed": [
@@ -57,7 +57,18 @@
     "scholar_directory_with_three_verified_exegetes",
     "english_social_preview",
     "english_release_vercel_production_verified",
-    "english_release_sites_private_deployment_verified"
+    "english_release_sites_private_deployment_verified",
+    "minimal_reader_interface",
+    "logo_mark_removed",
+    "quran_pdf_exact_page_map_6236",
+    "right_side_source_drawer",
+    "verified_hadith_pdf_alignment_537",
+    "quranic_people_articles",
+    "moses_quran_chronology",
+    "interactive_knowledge_graph",
+    "expanded_concept_articles",
+    "visual_source_policy",
+    "modern_reader_local_build_verified"
   ],
   "next": [
     "select_licensed_kutub_al_sittah_editions",

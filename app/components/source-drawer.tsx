@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useId, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 
 interface SourceDrawerProps {
   label?: string;
@@ -23,20 +23,30 @@ export function SourceDrawer({
 }: SourceDrawerProps) {
   const [open, setOpen] = useState(false);
   const titleId = useId();
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
   const pdfTarget = pdfUrl && page ? `${pdfUrl}#page=${page}&view=FitH` : undefined;
 
   useEffect(() => {
     if (!open) return;
+    const trigger = triggerRef.current;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    closeRef.current?.focus();
     function closeOnEscape(event: KeyboardEvent) {
       if (event.key === 'Escape') setOpen(false);
     }
     document.addEventListener('keydown', closeOnEscape);
-    return () => document.removeEventListener('keydown', closeOnEscape);
+    return () => {
+      document.removeEventListener('keydown', closeOnEscape);
+      document.body.style.overflow = previousOverflow;
+      trigger?.focus();
+    };
   }, [open]);
 
   return (
     <>
-      <button className="source-trigger" type="button" onClick={() => setOpen(true)}>
+      <button ref={triggerRef} className="source-trigger" type="button" onClick={() => setOpen(true)}>
         <span aria-hidden="true">↗</span>{label}
       </button>
       {open ? (
@@ -45,7 +55,7 @@ export function SourceDrawer({
           <aside className="source-drawer" role="dialog" aria-modal="true" aria-labelledby={titleId}>
             <header className="source-drawer-header">
               <div><span>Primary source</span><h2 id={titleId}>{title}</h2></div>
-              <button type="button" aria-label="Close source panel" onClick={() => setOpen(false)}>×</button>
+              <button ref={closeRef} type="button" aria-label="Close source panel" onClick={() => setOpen(false)}>×</button>
             </header>
             <p className="source-drawer-description">{description}</p>
             {pdfTarget ? (

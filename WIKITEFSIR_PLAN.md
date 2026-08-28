@@ -94,6 +94,19 @@ WikiTefsir; Kur'an ayetlerini, Kütüb-i Sitte hadislerini ve Ehl-i Sünnet çiz
 - [x] Al-Tabari, Ibn Kathir ve al-Qurtubi için görünür âlim dizini
 - [x] İngilizce sosyal paylaşım kartı
 
+## Modern reader and connected stories
+
+- [x] Wikipedia kabuğunu siyah-beyaz-mavi minimal okuma sistemine dönüştür
+- [x] Logo işaretini kaldır ve metin tabanlı başlık kullan
+- [x] 6.236 ayeti resmî QuranEnc PDF sayfasına doğrulanmış biçimde bağla
+- [x] Kaynak tıklamasında sağ panel ve doğrudan PDF görünümü
+- [x] HadeethEnc PDF eşleşmelerini yalnızca kesin başlık hizalamasında yayımla
+- [x] Musa ve Muhammed için Kur’an’la sınırlı kişi maddeleri
+- [x] Musa kıssasını sureler arası, Kur’an referanslı kronolojik okuma yoluna dönüştür
+- [x] Sürüklenebilir Obsidian tipi bağlantı grafiği ve klavye erişimli bağlantı listesi
+- [x] Kavram maddelerini kaynak paneli, kısa özet ve kişi bağlantılarıyla genişlet
+- [x] Görsel kaynak ve peygamber tasviri kullanmama politikasını belgele
+
 ## Alfa tamamlanma ölçütü
 
 Proje; üretim derlemesi başarılı, temel sayfalar kullanılabilir, kaynak/örnek veri ayrımı görünür, public repo erişilebilir ve Vercel URL'si gerçek tarayıcı isteğiyle doğrulanmış olduğunda ilk sürüm tamamlanmış sayılır.

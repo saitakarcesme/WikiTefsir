@@ -43,6 +43,7 @@ export default async function PersonPage({ params }: PersonPageProps) {
         </article>)}
       </section>
       <aside className="scope-note closing-note"><strong>Where this sequence ends</strong><p>{person.closingNote}</p></aside>
+      <aside className="scope-note"><strong>Visual policy</strong><p>WikiTefsir does not depict prophets. Future visual layers for this story will use licensed maps, landscapes, manuscripts, and source-labeled diagrams without presenting disputed geography as Quranic certainty.</p></aside>
       <section className="reader-related"><h2>Related concepts</h2><div>{person.concepts.flatMap((slug) => { const concept = getConceptBySlug(slug); return concept ? [<Link href={getConceptHref(concept)} key={slug}>{concept.title}</Link>] : []; })}</div></section>
     </article>
   </div></main>;
