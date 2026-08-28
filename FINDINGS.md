@@ -92,3 +92,13 @@
 - Visual-source research prioritizes public-domain manuscripts and maps from The Met, Library of Congress and individually licensed Wikimedia Commons files. Prophet depictions and invented sacred scenes are excluded.
 - ESLint, TypeScript, the 266-route Next.js production build and representative local route requests completed successfully.
 - The validated reader release was published to Vercel production and to the owner-only Sites URL. The home page, people index, Moses article, graph, Al-Fatihah, hadith #1751 and Revelation concept returned HTTP 200 in production.
+
+## 2026-08-28 — Complete prophet paths, expanded figures and interface precision
+
+- All 25 prophets named in the Quran now have individual Quran-first articles and event-ordered reading paths. Brief Quranic mentions such as Idris, Elisha and Dhul-Kifl remain explicitly brief instead of being expanded with unsourced biography.
+- The people directory now contains 33 additional Quranic people, rulers, adversaries, angels, groups and unnamed figures. Traditional names absent from the Quran—such as Eve/Hawwa, Bilqis, Asiya, Zulaykha and al-Khidr—are clearly distinguished from Quranic wording.
+- The relationship diagram was rebuilt as an overflow-safe grid, while the interactive knowledge graph now uses collision-aware, text-sized nodes with multiline labels and vertically aligned link tags.
+- The source drawer now has compact top and bottom chrome, a wider default reading area, and an accessible expand/restore control.
+- A black-and-white dark theme was added while preserving blue links, and the header navigation, Source policy action and theme control share one vertical alignment.
+- An intentionally empty Gallery route was added for future source-cleared visual material.
+- ESLint, TypeScript and the 323-route Next.js production build passed. Desktop browser checks covered the people directory, dark theme, graph, Moses diagram, PDF source panel and expanded PDF view.

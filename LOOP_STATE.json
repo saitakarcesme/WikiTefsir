@@ -1,7 +1,7 @@
 {
   "project": "WikiTefsir",
-  "phase": "modern_reader_deployed",
-  "updated_at": "2026-08-28T02:59:20+02:00",
+  "phase": "expanded_quranic_people_ready_to_deploy",
+  "updated_at": "2026-08-28T17:31:00+02:00",
   "production_url": "https://wikitafsir.vercel.app",
   "repository_url": "https://github.com/saitakarcesme/WikiTefsir",
   "completed": [
@@ -70,7 +70,15 @@
     "visual_source_policy",
     "modern_reader_local_build_verified",
     "modern_reader_vercel_production_verified",
-    "modern_reader_sites_private_deployment_verified"
+    "modern_reader_sites_private_deployment_verified",
+    "all_25_quran_named_prophet_articles",
+    "expanded_quranic_figures_directory_33",
+    "overflow_safe_person_diagrams",
+    "collision_aware_knowledge_graph_labels",
+    "expandable_compact_pdf_source_drawer",
+    "black_white_theme_toggle",
+    "gallery_placeholder_route",
+    "expanded_people_local_build_and_browser_qa"
   ],
   "next": [
     "select_licensed_kutub_al_sittah_editions",
