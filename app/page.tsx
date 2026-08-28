@@ -39,7 +39,6 @@ export default function Home() {
 
       <KnowledgeGraphExplorer compact />
 
-      <section className="reader-method" id="methodology"><div><span className="reader-overline">Why this feels different</span><h2>Short paths. Full sources.</h2></div><div><p><strong>Readable first.</strong> Focused articles, plain language, clear sections, and no decorative clutter.</p><p><strong>Source visible.</strong> Quran references open the official PDF on the exact verified page.</p><p><strong>Scope stated.</strong> Editorial links are labeled, and unverified edition or page matches are never guessed.</p></div></section>
     </div>
     <footer className="reader-footer"><span>WikiTefsir</span><p>An independent source-first knowledge project.</p><nav><Link href="/surahs">Quran</Link><Link href="/hadith">Hadith</Link><Link href="/people">People</Link><Link href="/graph">Graph</Link></nav></footer>
   </main>;
