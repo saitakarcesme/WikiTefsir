@@ -1,7 +1,7 @@
 {
   "project": "WikiTefsir",
-  "phase": "english_localization_local",
-  "updated_at": "2026-08-28T01:55:20+02:00",
+  "phase": "english_localization_deployed",
+  "updated_at": "2026-08-28T02:00:54+02:00",
   "production_url": "https://wikitafsir.vercel.app",
   "repository_url": "https://github.com/saitakarcesme/WikiTefsir",
   "completed": [
@@ -55,10 +55,11 @@
     "english_interface_and_metadata",
     "english_canonical_routes",
     "scholar_directory_with_three_verified_exegetes",
-    "english_social_preview"
+    "english_social_preview",
+    "english_release_vercel_production_verified",
+    "english_release_sites_private_deployment_verified"
   ],
   "next": [
-    "deploy_and_verify_english_release",
     "select_licensed_kutub_al_sittah_editions",
     "implement_persistent_editorial_database",
     "import_and_verify_kutub_al_sittah_corpus"

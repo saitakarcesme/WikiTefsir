@@ -78,3 +78,4 @@
 - English canonical routes now cover `/surahs`, `/surah/*`, `/hadith/*`, `/concepts`, `/concept/*`, `/scholars` and `/scholars/*`; previous URLs remain available for compatibility.
 - A visible scholar directory now links al-Tabari, Ibn Kathir and al-Qurtubi to the 18,708 pinned Arabic tafsir records already present in WikiTefsir.
 - Data integrity, ESLint, TypeScript, dependency audit, 262-route Next.js production build and the Sites-compatible build completed successfully.
+- The English release was deployed to `https://wikitafsir.vercel.app` and to the owner-only Sites URL `https://wikitafsir.ibrahimsait.chatgpt.site`. The main page, surah index, Al-Fatihah, hadith index, hadith #1751, Tawhid, scholar index, Ibn Kathir and English search API all passed live HTTP/content checks; recent Vercel error logs were empty.
