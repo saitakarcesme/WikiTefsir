@@ -15,12 +15,11 @@ export function SiteHeader() {
         <Link href="/concepts">Concepts</Link>
         <Link href="/people">People</Link>
         <Link href="/scholars">Scholars</Link>
+        <Link href="/graph">Graph</Link>
         <Link href="/gallery">Gallery</Link>
       </nav>
 
       <div className="header-actions">
-        <Link className="header-search-link" href="/#search"><span>Search WikiTefsir</span><kbd>⌕</kbd></Link>
-        <Link className="plain-button" href="/#methodology">Source policy</Link>
         <ThemeToggle />
       </div>
     </header>
