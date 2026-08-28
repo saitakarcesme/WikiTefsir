@@ -102,3 +102,16 @@
 - A black-and-white dark theme was added while preserving blue links, and the header navigation, Source policy action and theme control share one vertical alignment.
 - An intentionally empty Gallery route was added for future source-cleared visual material.
 - ESLint, TypeScript and the 323-route Next.js production build passed. Desktop browser checks covered the people directory, dark theme, graph, Moses diagram, PDF source panel and expanded PDF view.
+
+## 2026-08-29 — Responsive reader, fuzzy navigation and stable knowledge maps
+
+- The header is now mathematically centered, reduces its right side to one larger theme icon, and preserves every navigation item in a horizontally scrollable mobile row.
+- Combined search accepts tolerant Latin spelling and direct coordinates: `bkara 50`, `2:255`, `musaa` and `tabri` resolve to the expected verse, person or scholar.
+- The concept index now contains 31 reading paths; the scholar index contains 13 Sunni exegetes and exposes al-Tabari's Jami al-Bayan in the split source viewer.
+- Quran pages place the English Rowwad translation and live English Ibn Kathir commentary before the existing pinned Arabic Tabari, Ibn Kathir and Qurtubi records.
+- Hadiths are filterable across 13 reader-facing life situations, and long result titles no longer extend beyond the article measure.
+- Person stories render their Quran passages continuously instead of hiding them behind disclosure controls. The main and person-level graphs use fixed, responsive linked boxes without moving or colliding labels.
+- The source viewer now splits the viewport, has a draggable desktop divider and a single close control; mobile uses the entire viewport.
+- A source-coordinate list of 100 face-free Quran and authentic-hadith visual scenes is recorded in `GALLERY_SCENE_PROMPTS.md`; the public gallery remains intentionally empty.
+- Desktop and iPhone 15 Pro Max visual checks found and fixed a hidden mobile menu, system-dark-theme white cards, low-contrast explanatory copy and concatenated index tabs.
+- ESLint, TypeScript and the 389-page Next.js production build passed. Search and tafsir APIs were also checked locally, including English Ibn Kathir plus all three Arabic records for Al-Ikhlas 112:1.

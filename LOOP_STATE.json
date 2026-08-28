@@ -1,7 +1,7 @@
 {
   "project": "WikiTefsir",
-  "phase": "expanded_quranic_people_ready_to_deploy",
-  "updated_at": "2026-08-28T17:31:00+02:00",
+  "phase": "responsive_reader_ready_to_deploy",
+  "updated_at": "2026-08-29T01:45:00+02:00",
   "production_url": "https://wikitafsir.vercel.app",
   "repository_url": "https://github.com/saitakarcesme/WikiTefsir",
   "completed": [
@@ -78,7 +78,18 @@
     "expandable_compact_pdf_source_drawer",
     "black_white_theme_toggle",
     "gallery_placeholder_route",
-    "expanded_people_local_build_and_browser_qa"
+    "expanded_people_local_build_and_browser_qa",
+    "centered_responsive_navigation",
+    "fuzzy_entity_and_verse_search",
+    "thirty_one_concept_paths",
+    "thirteen_scholar_profiles",
+    "english_ibn_kathir_live_tafsir",
+    "thirteen_hadith_life_situations",
+    "continuous_quranic_person_stories",
+    "static_responsive_knowledge_maps",
+    "resizable_split_source_viewer",
+    "gallery_scene_prompt_list_100",
+    "responsive_reader_local_build_and_browser_qa"
   ],
   "next": [
     "select_licensed_kutub_al_sittah_editions",
