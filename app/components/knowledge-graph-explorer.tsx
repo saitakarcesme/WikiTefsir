@@ -30,7 +30,13 @@ const edges: GraphEdge[] = [
   { from: 'revelation', to: 'tabari' }, { from: 'revelation', to: 'kathir' }, { from: 'prophethood', to: 'qurtubi' }, { from: 'guidance', to: 'worship' }, { from: 'worship', to: 'hadith' },
 ];
 
-const colors: Record<NodeType, string> = { person: '#111827', concept: '#2563eb', surah: '#ffffff', scholar: '#f3f4f6', hadith: '#ffffff' };
+const seedById = new Map(seedNodes.map((node) => [node.id, node]));
+function nodeSize(node: Pick<GraphNode, 'label' | 'type'>) {
+  return { width: Math.max(node.type === 'person' ? 84 : 76, Math.min(118, node.label.length * 6.2 + 24)), height: node.label.length > 13 ? 46 : 38 };
+}
+function roundedRect(context: CanvasRenderingContext2D, x: number, y: number, width: number, height: number, radius: number) {
+  context.beginPath(); context.roundRect(x - width / 2, y - height / 2, width, height, radius);
+}
 
 export function KnowledgeGraphExplorer({ compact = false }: { compact?: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -64,25 +70,36 @@ export function KnowledgeGraphExplorer({ compact = false }: { compact?: boolean 
       const byId = new Map(nodes.map((node) => [node.id, node]));
       for (const node of nodes) {
         if (dragRef.current?.id === node.id) continue;
-        const seed = seedNodes.find((item) => item.id === node.id)!;
+        const seed = seedById.get(node.id)!;
         node.vx += (seed.x - node.x) * .00055; node.vy += (seed.y - node.y) * .00055;
-        node.vx *= .94; node.vy *= .94; node.x += node.vx; node.y += node.vy;
+        for (const other of nodes) {
+          if (other.id === node.id) continue;
+          const dx = (node.x - other.x) * width; const dy = (node.y - other.y) * height;
+          const distance = Math.max(1, Math.hypot(dx, dy));
+          const required = (nodeSize(node).width + nodeSize(other).width) * .55;
+          if (distance < required) { const push = (required - distance) / required * .00075; node.vx += dx / distance * push; node.vy += dy / distance * push; }
+        }
+        node.vx *= .92; node.vy *= .92; node.x = Math.max(.08, Math.min(.92, node.x + node.vx)); node.y = Math.max(.09, Math.min(.91, node.y + node.vy));
       }
+      const dark = document.documentElement.dataset.theme === 'dark';
+      const palette = dark ? { ink:'#f4f4f5', paper:'#111214', soft:'#202124', line:'#4b5563', blue:'#60a5fa', muted:'rgba(156,163,175,.28)' } : { ink:'#111827', paper:'#ffffff', soft:'#f3f4f6', line:'#d1d5db', blue:'#2563eb', muted:'rgba(107,114,128,.20)' };
       graphContext.clearRect(0, 0, width, height);
       graphContext.lineWidth = 1;
       for (const edge of edges) {
         const from = byId.get(edge.from); const to = byId.get(edge.to); if (!from || !to) continue;
-        graphContext.strokeStyle = edge.from === activeId || edge.to === activeId ? 'rgba(37,99,235,.56)' : 'rgba(107,114,128,.20)';
+        graphContext.strokeStyle = edge.from === activeId || edge.to === activeId ? palette.blue : palette.muted;
         graphContext.beginPath(); graphContext.moveTo(from.x * width, from.y * height); graphContext.lineTo(to.x * width, to.y * height); graphContext.stroke();
       }
-      graphContext.textAlign = 'center'; graphContext.textBaseline = 'middle'; graphContext.font = '500 11px Geist, Arial, sans-serif';
+      graphContext.textAlign = 'center'; graphContext.textBaseline = 'middle'; graphContext.font = '600 10px Geist, Arial, sans-serif';
       for (const node of nodes) {
-        const x = node.x * width; const y = node.y * height; const radius = node.type === 'person' ? 26 : 18;
-        graphContext.beginPath(); graphContext.arc(x, y, radius, 0, Math.PI * 2);
-        graphContext.fillStyle = colors[node.type]; graphContext.fill();
-        graphContext.strokeStyle = node.id === activeId ? '#2563eb' : '#d1d5db'; graphContext.lineWidth = node.id === activeId ? 2 : 1; graphContext.stroke();
-        graphContext.fillStyle = node.type === 'person' || node.type === 'concept' ? '#fff' : '#1f2937';
-        const shortLabel = node.label.length > 13 ? `${node.label.slice(0, 12)}…` : node.label; graphContext.fillText(shortLabel, x, y);
+        const x = node.x * width; const y = node.y * height; const size = nodeSize(node);
+        roundedRect(graphContext, x, y, size.width, size.height, 10);
+        graphContext.fillStyle = node.type === 'person' ? palette.ink : node.type === 'concept' ? palette.blue : node.type === 'scholar' ? palette.soft : palette.paper; graphContext.fill();
+        graphContext.strokeStyle = node.id === activeId ? palette.blue : palette.line; graphContext.lineWidth = node.id === activeId ? 2 : 1; graphContext.stroke();
+        graphContext.fillStyle = node.type === 'person' ? palette.paper : node.type === 'concept' ? '#ffffff' : palette.ink;
+        const words = node.label.split(' '); const twoLines = node.label.length > 13 && words.length > 1;
+        if (twoLines) { const split = Math.ceil(words.length / 2); graphContext.fillText(words.slice(0, split).join(' '), x, y - 7); graphContext.fillText(words.slice(split).join(' '), x, y + 7); }
+        else graphContext.fillText(node.label, x, y);
       }
       frameRef.current = requestAnimationFrame(draw);
     }
@@ -92,7 +109,7 @@ export function KnowledgeGraphExplorer({ compact = false }: { compact?: boolean 
 
   function locate(event: PointerEvent<HTMLCanvasElement>) {
     const rect = event.currentTarget.getBoundingClientRect(); const x = (event.clientX - rect.left) / rect.width; const y = (event.clientY - rect.top) / rect.height;
-    return nodesRef.current.find((node) => Math.hypot((node.x - x) * rect.width, (node.y - y) * rect.height) <= (node.type === 'person' ? 30 : 23));
+    return nodesRef.current.find((node) => { const size = nodeSize(node); return Math.abs((node.x - x) * rect.width) <= size.width / 2 + 5 && Math.abs((node.y - y) * rect.height) <= size.height / 2 + 5; });
   }
   function pointerDown(event: PointerEvent<HTMLCanvasElement>) { const node = locate(event); if (!node) return; dragRef.current = { id: node.id, moved: false }; event.currentTarget.setPointerCapture(event.pointerId); setActiveId(node.id); }
   function pointerMove(event: PointerEvent<HTMLCanvasElement>) { if (!dragRef.current) return; const node = nodesRef.current.find((item) => item.id === dragRef.current?.id); if (!node) return; const rect = event.currentTarget.getBoundingClientRect(); node.x = Math.max(.05, Math.min(.95, (event.clientX - rect.left) / rect.width)); node.y = Math.max(.08, Math.min(.92, (event.clientY - rect.top) / rect.height)); node.vx = 0; node.vy = 0; dragRef.current.moved = true; }
