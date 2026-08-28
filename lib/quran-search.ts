@@ -8,9 +8,10 @@ import {
 } from '@/lib/quran';
 import { getAllHadiths, getHadithById, getHadithHref } from '@/lib/hadith';
 import { getAllConcepts, getConceptHref } from '@/lib/concepts';
+import { getAllPeople, getPersonHref } from '@/lib/people';
 
 export interface QuranSearchResult {
-  type: 'Verse' | 'Surah' | 'Hadith' | 'Concept';
+  type: 'Verse' | 'Surah' | 'Hadith' | 'Concept' | 'Person';
   title: string;
   description: string;
   href: string;
@@ -39,6 +40,10 @@ const searchableSurahs = getAllSurahs().map((surah) => ({
 const searchableConcepts = getAllConcepts().map((concept) => ({
   concept,
   normalizedText: normalize(`${concept.title} ${concept.arabic} ${concept.scope}`),
+}));
+const searchablePeople = getAllPeople().map((person) => ({
+  person,
+  normalizedText: normalize(`${person.name} ${person.arabic} ${person.role} ${person.introduction} ${person.narrative.map((stage) => `${stage.title} ${stage.summary}`).join(' ')}`),
 }));
 const searchableVerses = getAllSurahs().flatMap((surah) => {
   const meanings = getEnglishTranslationForSurah(surah.number);
@@ -105,6 +110,12 @@ export function searchQuran(rawQuery: string, limit = 12): QuranSearchResult[] {
   if (normalizedQuery.length < 2) return [];
 
   const results: QuranSearchResult[] = [];
+
+  for (const { person, normalizedText } of searchablePeople) {
+    if (!normalizedText.includes(normalizedQuery)) continue;
+    results.push({ type: 'Person', title: person.name, description: person.introduction, href: getPersonHref(person), language: 'en' });
+    if (results.length >= limit) return results;
+  }
 
   for (const { concept, normalizedText } of searchableConcepts) {
     if (!normalizedText.includes(normalizedQuery)) continue;

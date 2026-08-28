@@ -3,7 +3,7 @@
 import { FormEvent, useEffect, useState } from 'react';
 
 interface SearchResult {
-  type: 'Verse' | 'Surah' | 'Hadith' | 'Concept';
+  type: 'Verse' | 'Surah' | 'Hadith' | 'Concept' | 'Person';
   title: string;
   description: string;
   href: string;
@@ -66,7 +66,7 @@ export function SearchExplorer() {
               setStatus('idle');
             }
           }}
-          placeholder="Search surah, verse, translation, hadith, concept or h:1751…"
+          placeholder="Search a person, surah, verse, hadith, concept, or h:1751…"
           autoComplete="off"
         />
         <button type="submit" disabled={query.trim().length < 2 || !results.length}>Search <span aria-hidden="true">→</span></button>
