@@ -6,10 +6,12 @@ import type { KnowledgeGraphBranch, KnowledgeGraphNode } from '@/lib/knowledge-g
 import type { Locale } from '@/lib/locale';
 
 export function KnowledgeGraphExplorer({ initialBranch, locale }: { initialBranch: KnowledgeGraphBranch; locale: Locale }) {
+  const pageSize = 48;
   const [branch, setBranch] = useState(initialBranch);
   const [history, setHistory] = useState<KnowledgeGraphBranch[]>([]);
   const [forward, setForward] = useState<KnowledgeGraphBranch[]>([]);
   const [loading, setLoading] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(pageSize);
   const requestRef = useRef<AbortController | null>(null);
   const tr = locale === 'tr';
 
@@ -32,6 +34,7 @@ export function KnowledgeGraphExplorer({ initialBranch, locale }: { initialBranc
         setHistory((items) => [...items, branch]);
         setForward([]);
       }
+      setVisibleCount(pageSize);
       setBranch(next);
     } finally {
       if (!controller.signal.aborted) setLoading(false);
@@ -43,6 +46,7 @@ export function KnowledgeGraphExplorer({ initialBranch, locale }: { initialBranc
     if (previous) {
       setForward((items) => [branch, ...items]);
       setHistory((items) => items.slice(0, -1));
+      setVisibleCount(pageSize);
       setBranch(previous);
       return;
     }
@@ -54,6 +58,7 @@ export function KnowledgeGraphExplorer({ initialBranch, locale }: { initialBranc
     if (!next) return;
     setHistory((items) => [...items, branch]);
     setForward((items) => items.slice(1));
+    setVisibleCount(pageSize);
     setBranch(next);
   }
 
@@ -63,6 +68,7 @@ export function KnowledgeGraphExplorer({ initialBranch, locale }: { initialBranc
     if (root) {
       setForward((items) => [branch, ...items]);
       setHistory([]);
+      setVisibleCount(pageSize);
       setBranch(root);
       return;
     }
@@ -76,6 +82,7 @@ export function KnowledgeGraphExplorer({ initialBranch, locale }: { initialBranc
         if (index === items.length - 1) return;
         setForward(items.slice(index + 1));
         setHistory(items.slice(0, index));
+        setVisibleCount(pageSize);
         setBranch(item);
       }}>{item.node.label}</button>)}
     </div>
@@ -85,9 +92,12 @@ export function KnowledgeGraphExplorer({ initialBranch, locale }: { initialBranc
         {branch.node.href ? <Link href={branch.node.href} aria-label={tr ? 'Makaleyi aç' : 'Open article'}>↗</Link> : null}
       </div>
       {branch.children.length ? <><span className="atlas-stem" aria-hidden="true" /><div className={`atlas-children${branch.children.length > 24 ? ' atlas-many' : ''}`}>
-        {branch.children.map((node) => <button type="button" onClick={() => void loadNode(node)} key={node.id} className={node.childCount ? '' : 'atlas-leaf'}>
+        {branch.children.slice(0, visibleCount).map((node) => <button type="button" onClick={() => void loadNode(node)} key={node.id} className={node.childCount ? '' : 'atlas-leaf'}>
           <small>{node.eyebrow}</small><strong>{node.label}</strong><span>{node.childCount ? node.childCount.toLocaleString(locale === 'tr' ? 'tr-TR' : 'en-US') : '↗'}</span>
         </button>)}
+        {visibleCount < branch.children.length ? <button type="button" className="atlas-more" onClick={() => setVisibleCount((count) => count + pageSize)}>
+          <small>{tr ? 'Aynı katman' : 'Same level'}</small><strong>{tr ? 'Daha fazla düğüm göster' : 'Show more nodes'}</strong><span>+{Math.min(pageSize, branch.children.length - visibleCount)}</span>
+        </button> : null}
       </div></> : <p className="atlas-empty">{tr ? 'Bu düğüm doğrudan kaynak makalesine açılır.' : 'This node opens its source article directly.'}</p>}
     </div>
     <div className="atlas-controls" aria-label={tr ? 'Grafik kontrolleri' : 'Graph controls'}>

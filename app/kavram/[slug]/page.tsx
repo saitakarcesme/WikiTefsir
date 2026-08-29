@@ -15,7 +15,10 @@ export function generateStaticParams() {
   return getAllConcepts().map((concept) => ({ slug: concept.slug }));
 }
 
-type ConceptPageProps = { params: Promise<{ slug: string }> };
+type ConceptPageProps = {
+  params: Promise<{ slug: string }>;
+  searchParams?: Promise<{ verses?: string; hadiths?: string }>;
+};
 
 export async function generateMetadata({ params }: ConceptPageProps): Promise<Metadata> {
   const { slug } = await params;
@@ -29,18 +32,27 @@ export async function generateMetadata({ params }: ConceptPageProps): Promise<Me
   };
 }
 
-export default async function ConceptPage({ params }: ConceptPageProps) {
+export default async function ConceptPage({ params, searchParams }: ConceptPageProps) {
   const locale = await getLocale();
   const tr = locale === 'tr';
   const { slug } = await params;
+  const query = await searchParams;
   const concept = getConceptBySlug(slug);
   if (!concept) notFound();
   const related = concept.related.flatMap((relatedSlug) => {
     const record = getConceptBySlug(relatedSlug);
     return record ? [record] : [];
   });
-  const displayedVerseRefs = concept.verseRefs.slice(0, 200);
-  const people = [...new Map(displayedVerseRefs.flatMap((reference) => getPeopleForVerse(reference.surah, reference.ayah)).map((person) => [person.slug, person])).values()];
+  const versePageSize = 40;
+  const hadithPageSize = 30;
+  const versePageCount = Math.max(1, Math.ceil(concept.verseRefs.length / versePageSize));
+  const hadithPageCount = Math.max(1, Math.ceil(concept.hadithIds.length / hadithPageSize));
+  const versePage = Math.min(versePageCount, Math.max(1, Number.parseInt(query?.verses ?? '1', 10) || 1));
+  const hadithPage = Math.min(hadithPageCount, Math.max(1, Number.parseInt(query?.hadiths ?? '1', 10) || 1));
+  const displayedVerseRefs = concept.verseRefs.slice((versePage - 1) * versePageSize, versePage * versePageSize);
+  const displayedHadithIds = concept.hadithIds.slice((hadithPage - 1) * hadithPageSize, hadithPage * hadithPageSize);
+  const people = [...new Map(concept.verseRefs.flatMap((reference) => getPeopleForVerse(reference.surah, reference.ayah)).map((person) => [person.slug, person])).values()];
+  const pageHref = (verses: number, hadiths: number, anchor: string) => `/concept/${concept.slug}?verses=${verses}&hadiths=${hadiths}#${anchor}`;
 
   return (
     <main>
@@ -62,7 +74,7 @@ export default async function ConceptPage({ params }: ConceptPageProps) {
           </section>
           <section className="concept-verse-list" id="verses" aria-labelledby="concept-verses-title">
             <h2 id="concept-verses-title">{tr ? 'Kur’an’daki ilgili kayıtlar' : 'Related records in the Quran'}</h2>
-            {concept.verseRefs.length > displayedVerseRefs.length ? <p className="concept-result-note">{tr ? `${concept.verseRefs.length.toLocaleString('tr-TR')} eşleşmenin ilk ${displayedVerseRefs.length} kaydı gösteriliyor.` : `Showing the first ${displayedVerseRefs.length} of ${concept.verseRefs.length.toLocaleString('en-US')} matches.`}</p> : null}
+            {versePageCount > 1 ? <p className="concept-result-note">{tr ? `${concept.verseRefs.length.toLocaleString('tr-TR')} eşleşme · ${versePage}/${versePageCount}. sayfa` : `${concept.verseRefs.length.toLocaleString('en-US')} matches · page ${versePage} of ${versePageCount}`}</p> : null}
             {displayedVerseRefs.map((reference) => {
               const surah = getSurahByNumber(reference.surah);
               const verse = getVerse(reference.surah, reference.ayah);
@@ -79,8 +91,12 @@ export default async function ConceptPage({ params }: ConceptPageProps) {
                 </article>
               );
             })}
+            {versePageCount > 1 ? <nav className="concept-pagination" aria-label={tr ? 'Ayet kayıt sayfaları' : 'Verse record pages'}>
+              {versePage > 1 ? <Link href={pageHref(versePage - 1, hadithPage, 'verses')}>← {tr ? 'Önceki ayetler' : 'Previous verses'}</Link> : <span />}
+              {versePage < versePageCount ? <Link href={pageHref(versePage + 1, hadithPage, 'verses')}>{tr ? 'Sonraki ayetler' : 'Next verses'} →</Link> : null}
+            </nav> : null}
           </section>
-          {concept.hadithIds.length > 0 ? <section className="concept-related-records" id="hadiths" aria-labelledby="concept-hadiths-title"><h2 id="concept-hadiths-title">{tr ? 'İlgili sahih hadisler' : 'Related authentic hadiths'}</h2><div>{concept.hadithIds.slice(0, 100).flatMap((id) => { const record = getHadithByIdForLocale(id, locale); return record ? [<article key={id}><small>HadeethEnc #{id}</small><h3><Link href={`/hadith/${id}`}>{record.title}</Link></h3></article>] : []; })}</div>{concept.hadithIds.length > 100 ? <p>{tr ? `${concept.hadithIds.length.toLocaleString('tr-TR')} kaydın ilk 100 tanesi gösteriliyor.` : `Showing the first 100 of ${concept.hadithIds.length.toLocaleString('en-US')} records.`}</p> : null}</section> : null}
+          {concept.hadithIds.length > 0 ? <section className="concept-related-records" id="hadiths" aria-labelledby="concept-hadiths-title"><h2 id="concept-hadiths-title">{tr ? 'İlgili sahih hadisler' : 'Related authentic hadiths'}</h2><div>{displayedHadithIds.flatMap((id) => { const record = getHadithByIdForLocale(id, locale); return record ? [<article key={id}><small>HadeethEnc #{id}</small><h3><Link href={`/hadith/${id}`}>{record.title}</Link></h3></article>] : []; })}</div>{hadithPageCount > 1 ? <><p>{tr ? `${concept.hadithIds.length.toLocaleString('tr-TR')} kayıt · ${hadithPage}/${hadithPageCount}. sayfa` : `${concept.hadithIds.length.toLocaleString('en-US')} records · page ${hadithPage} of ${hadithPageCount}`}</p><nav className="concept-pagination" aria-label={tr ? 'Hadis kayıt sayfaları' : 'Hadith record pages'}>{hadithPage > 1 ? <Link href={pageHref(versePage, hadithPage - 1, 'hadiths')}>← {tr ? 'Önceki hadisler' : 'Previous hadiths'}</Link> : <span />}{hadithPage < hadithPageCount ? <Link href={pageHref(versePage, hadithPage + 1, 'hadiths')}>{tr ? 'Sonraki hadisler' : 'Next hadiths'} →</Link> : null}</nav></> : null}</section> : null}
           {people.length > 0 ? <section className="concept-related" aria-labelledby="people-title"><h2 id="people-title">{tr ? 'Bu kavramla bağlantılı kişiler' : 'People connected to this concept'}</h2><p>{people.map((person, index) => <span key={person.slug}>{index > 0 ? ' · ' : ''}<Link href={getPersonHref(person)}>{person.name}</Link></span>)}</p></section> : null}
           <section className="concept-related" id="related" aria-labelledby="related-title">
             <h2 id="related-title">{tr ? 'İlgili kavramlar' : 'Related concepts'}</h2>

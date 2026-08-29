@@ -5,7 +5,11 @@ import { useEffect, useState } from 'react';
 export function SplashScreen() {
   const [visible, setVisible] = useState(true);
   useEffect(() => {
-    const timer = window.setTimeout(() => setVisible(false), 1450);
+    const seen = window.sessionStorage.getItem('wikitafsir-splash-seen') === '1';
+    const timer = window.setTimeout(() => {
+      window.sessionStorage.setItem('wikitafsir-splash-seen', '1');
+      setVisible(false);
+    }, seen ? 0 : 850);
     return () => window.clearTimeout(timer);
   }, []);
   return visible ? <div className="splash-screen" aria-hidden="true"><span>الله</span></div> : null;

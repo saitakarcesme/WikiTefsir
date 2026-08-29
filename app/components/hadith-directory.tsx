@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { FormEvent, useMemo, useState } from 'react';
+import { FormEvent, useDeferredValue, useMemo, useState } from 'react';
 import type { Locale } from '@/lib/locale';
 
 export interface HadithDirectoryRecord {
@@ -29,17 +29,18 @@ export function HadithDirectory({ records, themes, locale }: { records: HadithDi
   const tr = locale === 'tr';
   const router = useRouter();
   const [query, setQuery] = useState('');
+  const deferredQuery = useDeferredValue(query);
   const [visibleCount, setVisibleCount] = useState(pageSize);
   const allLabel = tr ? 'Tümü' : 'All';
   const [activeTheme, setActiveTheme] = useState(allLabel);
   const filtered = useMemo(() => {
-    const term = normalize(query);
+    const term = normalize(deferredQuery);
     return records.filter((record) => {
       if (activeTheme !== allLabel && !record.themes.includes(activeTheme)) return false;
       if (term.length < 2) return true;
       return normalize(`${record.id} ${record.title} ${record.attribution} ${record.grade} ${record.categories} ${record.themes.join(' ')}`).includes(term);
     });
-  }, [activeTheme, allLabel, query, records]);
+  }, [activeTheme, allLabel, deferredQuery, records]);
   const visible = filtered.slice(0, visibleCount);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {

@@ -1,21 +1,24 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { galleryImageById } from '@/lib/gallery-images';
 import type { GalleryScene } from '@/lib/gallery-scenes';
 import type { Locale } from '@/lib/locale';
 
 export function GalleryGrid({ scenes, locale }: { scenes: GalleryScene[]; locale: Locale }) {
+  const pageSize = 24;
   const tr = locale === 'tr';
   const [filter, setFilter] = useState<'All' | GalleryScene['kind']>('All');
   const [flipped, setFlipped] = useState<number | null>(null);
-  const visible = filter === 'All' ? scenes : scenes.filter((scene) => scene.kind === filter);
+  const [visibleCount, setVisibleCount] = useState(pageSize);
+  const filtered = useMemo(() => filter === 'All' ? scenes : scenes.filter((scene) => scene.kind === filter), [filter, scenes]);
+  const visible = filtered.slice(0, visibleCount);
 
   return <>
     <div className="gallery-controls" aria-label={tr ? 'Eserleri filtrele' : 'Filter artworks'}>
-      {(['All', 'Quran', 'Hadith'] as const).map((value) => <button className={filter === value ? 'active' : ''} type="button" onClick={() => setFilter(value)} aria-pressed={filter === value} key={value}>{tr ? ({ All: 'Tümü', Quran: 'Kur’an', Hadith: 'Hadis' } as const)[value] : value}</button>)}
-      <span>{visible.length} {tr ? 'kaynak temelli sahne' : 'source-based scenes'}</span>
+      {(['All', 'Quran', 'Hadith'] as const).map((value) => <button className={filter === value ? 'active' : ''} type="button" onClick={() => { setFilter(value); setVisibleCount(pageSize); setFlipped(null); }} aria-pressed={filter === value} key={value}>{tr ? ({ All: 'Tümü', Quran: 'Kur’an', Hadith: 'Hadis' } as const)[value] : value}</button>)}
+      <span>{filtered.length} {tr ? 'kaynak temelli sahne' : 'source-based scenes'}</span>
     </div>
     <div className="gallery-grid">
       {visible.map((scene) => {
@@ -35,5 +38,8 @@ export function GalleryGrid({ scenes, locale }: { scenes: GalleryScene[]; locale
         </article>;
       })}
     </div>
+    {visibleCount < filtered.length ? <button className="load-more gallery-load-more" type="button" onClick={() => setVisibleCount((count) => count + pageSize)}>
+      {tr ? `Sonraki eserleri göster (${filtered.length - visible.length} kaldı)` : `Show more artworks (${filtered.length - visible.length} remaining)`}
+    </button> : null}
   </>;
 }

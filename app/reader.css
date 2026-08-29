@@ -172,7 +172,7 @@ a:hover { color: var(--reader-blue-dark); }
 .article-lead { color: #374151; font-family: inherit; font-size: 17px; line-height: 1.7; }
 .article-facts span, .verified-badge { color: #4b5563; background: var(--reader-soft); border: 1px solid var(--reader-line); border-radius: 999px; }
 .verse-row { border-color: var(--reader-line); }
-.verse-arabic { color: var(--reader-ink); font-size: 27px; }
+.verse-arabic { max-width: 100%; color: var(--reader-ink); font-size: 27px; overflow-wrap: anywhere; word-break: normal; }
 .verse-meaning { color: #1f2937; background: var(--reader-soft); border-left-color: #9ca3af; }
 .verse-meaning > span { color: var(--reader-muted); }
 .verse-meaning > p { font-family: inherit; font-size: 15px; line-height: 1.75; }
@@ -448,7 +448,7 @@ body.source-panel-open .topbar { right: var(--source-panel-width); width: auto; 
 .article-header { padding: 24px 0 20px; }.article-lead { max-width: 760px; font-size: 18px; }
 .article-facts span, .verse-count-label { padding: 5px 9px; color: var(--reader-muted); background: transparent; border: 1px solid var(--reader-line); border-radius: 999px; font-size: 11px; }
 .section-title { margin: 28px 0 8px; align-items: center; }.section-title h2 { font-size: 30px; }
-.verse-row { padding: 30px 0; grid-template-columns: 38px minmax(0,1fr); gap: 18px; }
+.verse-row { padding: 30px 0; grid-template-columns: 38px minmax(0,1fr); gap: 18px; content-visibility: auto; contain-intrinsic-size: 520px; }
 .verse-arabic { font-size: clamp(29px,3vw,36px); line-height: 1.9; }.verse-meaning { margin-top: 16px; padding: 17px 19px; }.verse-meaning > span { font-size: 10px; }.verse-meaning > p { font-size: 17px; line-height: 1.72; }
 .meal-footnote { font-size: 12px; }.meal-footnote strong { font-size: 10px; }.meal-footnote p { font-size: 12px; }
 .verse-concepts { margin-top: 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 7px; font-size: 11px; }.verse-concepts a { padding: 3px 7px; background: var(--reader-soft); border: 1px solid var(--reader-line); border-radius: 6px; }
@@ -466,7 +466,7 @@ body.source-panel-open .topbar { right: var(--source-panel-width); width: auto; 
 .hadith-theme-filter button { flex: 0 0 auto; padding: 7px 10px; color: var(--reader-muted); background: var(--reader-paper); border: 1px solid var(--reader-line); border-radius: 999px; font-size: 11px; }
 .hadith-theme-filter button.active { color: #fff; background: var(--reader-ink); border-color: var(--reader-ink); }
 .library-search { width: 100%; max-width: none; margin: 0; }.library-search input { font-size: 13px; }
-.hadith-result-list { width: 100%; min-width: 0; }.hadith-result-list article { width: 100%; min-width: 0; padding: 22px 2px; overflow: hidden; }.hadith-result-list h3 { max-width: 100%; margin: 9px 0; font-size: 18px; line-height: 1.42; overflow-wrap: anywhere; word-break: normal; }.hadith-result-list article > p { font-size: 12px; overflow-wrap: anywhere; }
+.hadith-result-list { width: 100%; min-width: 0; }.hadith-result-list article { width: 100%; min-width: 0; padding: 22px 2px; overflow: hidden; content-visibility: auto; contain-intrinsic-size: 190px; }.hadith-result-list h3 { max-width: 100%; margin: 9px 0; font-size: 18px; line-height: 1.42; overflow-wrap: anywhere; word-break: normal; }.hadith-result-list article > p { font-size: 12px; overflow-wrap: anywhere; }
 .hadith-result-meta { display: flex; flex-wrap: wrap; gap: 6px; }.hadith-result-meta span { max-width: 100%; font-size: 10px; }
 
 .person-reader-layout { width: min(1120px, calc(100% - 48px)); grid-template-columns: 180px minmax(0,800px); gap: 44px; }
@@ -557,7 +557,7 @@ html[data-theme="dark"] .article-arabic { color: var(--reader-muted); }
   .topbar { height: auto; min-height: 102px; padding: 0 16px; grid-template-columns: 1fr auto; grid-template-rows: 56px 46px; gap: 0 12px; }
   .brand { grid-column: 1; grid-row: 1; }.header-actions { grid-column: 2; grid-row: 1; }.main-nav { width: calc(100vw - 32px); max-width: 100%; display: flex; grid-column: 1 / -1; grid-row: 2; justify-self: stretch; justify-content: flex-start; gap: 22px; overflow-x: auto; scrollbar-width: none; }.main-nav::-webkit-scrollbar { display: none; }.main-nav a { min-height: 46px; flex: 0 0 auto; font-size: 12px; }
   .knowledge-explorer.static { grid-template-columns: 1fr; gap: 28px; }.knowledge-explorer-copy { position: static; }.knowledge-explorer.static.compact { padding-block: 46px; }
-  .wiki-layout.quran-article-layout { grid-template-columns: 1fr; }.quran-article-layout .wiki-infobox { display: block; position: static; grid-row: 1; margin-bottom: 18px; }.quran-article-layout .wiki-article { grid-row: 2; }
+  .wiki-layout.quran-article-layout { grid-template-columns: 1fr; }.quran-article-layout .wiki-article { grid-row: 1; }.quran-article-layout .wiki-infobox { display: block; position: static; grid-row: 2; margin: 22px 0 0; }
   .profile-grid { grid-template-columns: 1fr; }.profile-facts { position: static; }.person-reader-layout { grid-template-columns: 1fr; }.reader-rail { display: none; }
 }
 
@@ -641,7 +641,7 @@ body.source-panel-open .quran-article-layout .wiki-infobox { display: none; }
 .gallery-controls button.active { color: var(--reader-paper); background: var(--reader-ink); border-color: var(--reader-ink); }
 .gallery-controls > span { margin-left: auto; color: var(--reader-muted); font-size: 12px; }
 .gallery-grid { columns: 3 260px; column-gap: 18px; }
-.gallery-work { height: 360px; margin: 0 0 18px; break-inside: avoid; perspective: 1200px; }
+.gallery-work { height: 360px; margin: 0 0 18px; break-inside: avoid; perspective: 1200px; content-visibility: auto; contain-intrinsic-size: 360px; }
 .gallery-work-1, .gallery-work-4 { height: 430px; }
 .gallery-work-3 { height: 310px; }
 .gallery-flip { width: 100%; height: 100%; padding: 0; display: block; color: inherit; background: transparent; border: 0; text-align: left; }
@@ -660,6 +660,7 @@ body.source-panel-open .quran-article-layout .wiki-infobox { display: none; }
 .gallery-card-back strong { margin: 10px 0 14px; color: var(--reader-blue); font-family: Georgia,serif; font-size: 22px; }
 .gallery-card-back p { margin: 0; color: var(--reader-ink); font-size: 14px; line-height: 1.65; }
 .gallery-card-back > span:last-child { margin-top: 22px; color: var(--reader-muted); font-size: 11px; }
+.gallery-load-more { margin: 24px auto 0; display: block; }
 
 @media (max-width: 700px) {
   .gallery-controls > span { width: 100%; margin: 4px 0 0; }
@@ -713,8 +714,8 @@ body.source-panel-open .quran-article-layout .wiki-infobox { display: none; }
 .atlas-controls button:disabled { cursor: default; opacity: .25; }
 
 /* Theme-aware first-load mark */
-.splash-screen { position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; color: #cbc8bf; background: #fbfaf7; animation: splash-away .45s ease 1s forwards; }
-.splash-screen span { font-family: Georgia,'Times New Roman',serif; font-size: clamp(82px,14vw,164px); font-weight: 400; text-shadow: 0 0 0 transparent; animation: splash-glow 1.25s ease both; }
+.splash-screen { position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; color: #cbc8bf; background: #fbfaf7; animation: splash-away .25s ease .58s forwards; }
+.splash-screen span { font-family: Georgia,'Times New Roman',serif; font-size: clamp(82px,14vw,164px); font-weight: 400; text-shadow: 0 0 0 transparent; animation: splash-glow .8s ease both; }
 [data-theme="dark"] .splash-screen { color: #3d3d42; background: #09090b; }
 @keyframes splash-glow { 0% { opacity: 0; transform: scale(.94); text-shadow: 0 0 0 transparent; } 45% { opacity: 1; text-shadow: 0 0 42px currentColor; } 100% { opacity: .9; transform: scale(1); text-shadow: 0 0 10px transparent; } }
 @keyframes splash-away { to { opacity: 0; visibility: hidden; } }
@@ -747,7 +748,7 @@ body.source-panel-open .quran-article-layout .wiki-infobox { display: none; }
 .story-prose > section > header small { width: 42px; height: 42px; display: grid; place-items: center; color: var(--reader-muted); border: 1px solid var(--reader-line); border-radius: 50%; font-size: 11px; }
 .story-prose h2 { margin: 0; font-family: Georgia,'Times New Roman',serif; font-size: 29px; font-weight: 500; }
 .story-paragraph { margin: 0 0 24px; padding: 0 0 24px; border-bottom: 1px solid var(--reader-line); }
-.story-paragraph > p:first-child { margin: 0 0 16px; font-family: Georgia,'Times New Roman',serif; font-size: 27px; line-height: 2; }
+.story-paragraph > p:first-child { max-width: 100%; margin: 0 0 16px; font-family: Georgia,'Times New Roman',serif; font-size: 27px; line-height: 2; overflow-wrap: anywhere; word-break: normal; }
 .story-paragraph > p:nth-child(2) { margin: 0; color: var(--reader-ink); font-family: Georgia,'Times New Roman',serif; font-size: 19px; line-height: 1.85; }
 .story-paragraph footer { margin-top: 18px; display: flex; align-items: center; justify-content: space-between; gap: 16px; color: var(--reader-blue); font-size: 11px; }
 
@@ -813,4 +814,7 @@ body.source-panel-open .quran-article-layout .wiki-infobox { display: none; }
 .concept-related-records article { border-top: 1px solid var(--line); padding: 1rem 1.25rem 1rem 0; }
 .concept-related-records h3 { font: 600 1rem/1.45 var(--font-geist-sans); margin: .25rem 0 0; }
 .concept-related-records small { color: var(--muted); }
+.concept-verse-list article, .concept-related-records article { content-visibility: auto; contain-intrinsic-size: 260px; }
+.concept-pagination { margin: 22px 0 12px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.concept-pagination a { min-height: 42px; padding: 10px 13px; display: inline-flex; align-items: center; color: var(--reader-blue); background: var(--reader-soft); border: 1px solid var(--reader-line); border-radius: 8px; font-size: 12px; }
 @media (max-width: 720px) { .concept-related-records > div { grid-template-columns: 1fr; } }

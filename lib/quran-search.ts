@@ -51,19 +51,22 @@ function editDistance(left: string, right: string) {
   if (left === right) return 0;
   if (!left.length) return right.length;
   if (!right.length) return left.length;
-  const previous = Array.from({ length: right.length + 1 }, (_, index) => index);
+  const matrix = Array.from({ length: left.length + 1 }, () => Array<number>(right.length + 1).fill(0));
+  for (let index = 0; index <= left.length; index += 1) matrix[index][0] = index;
+  for (let index = 0; index <= right.length; index += 1) matrix[0][index] = index;
   for (let leftIndex = 1; leftIndex <= left.length; leftIndex += 1) {
-    const current = [leftIndex];
     for (let rightIndex = 1; rightIndex <= right.length; rightIndex += 1) {
-      current[rightIndex] = Math.min(
-        current[rightIndex - 1] + 1,
-        previous[rightIndex] + 1,
-        previous[rightIndex - 1] + (left[leftIndex - 1] === right[rightIndex - 1] ? 0 : 1),
+      matrix[leftIndex][rightIndex] = Math.min(
+        matrix[leftIndex][rightIndex - 1] + 1,
+        matrix[leftIndex - 1][rightIndex] + 1,
+        matrix[leftIndex - 1][rightIndex - 1] + (left[leftIndex - 1] === right[rightIndex - 1] ? 0 : 1),
       );
+      if (leftIndex > 1 && rightIndex > 1 && left[leftIndex - 1] === right[rightIndex - 2] && left[leftIndex - 2] === right[rightIndex - 1]) {
+        matrix[leftIndex][rightIndex] = Math.min(matrix[leftIndex][rightIndex], matrix[leftIndex - 2][rightIndex - 2] + 1);
+      }
     }
-    previous.splice(0, previous.length, ...current);
   }
-  return previous[right.length];
+  return matrix[left.length][right.length];
 }
 
 function fuzzyScore(query: string, candidate: string) {
@@ -77,7 +80,7 @@ function fuzzyScore(query: string, candidate: string) {
   for (const queryToken of queryTokens) {
     let best = Number.POSITIVE_INFINITY;
     for (const candidateToken of candidateTokens) best = Math.min(best, editDistance(queryToken, candidateToken));
-    const allowance = Math.max(1, Math.floor(queryToken.length * .32));
+    const allowance = Math.max(1, Math.round(queryToken.length * .4));
     if (best > allowance) return 0;
     tokenScore += 72 - best * 13;
   }
@@ -197,7 +200,7 @@ export function searchQuran(rawQuery: string, limit = 12, locale: Locale = 'en')
   const entityResults: Array<{ score: number; result: QuranSearchResult }> = [];
 
   for (const { person, normalizedText } of searchablePeople) {
-    const score = normalizedText.includes(normalizedQuery) ? 100 : fuzzyScore(fuzzyQuery, normalizeLatin(`${person.slug} ${person.name} ${person.role}`));
+    const score = normalizedText.includes(normalizedQuery) ? 100 : fuzzyScore(fuzzyQuery, normalizeLatin(`${person.slug} ${person.name}`));
     if (!score) continue;
     entityResults.push({ score, result: { type: 'Person', title: person.name, description: person.introduction, href: getPersonHref(person), language: 'en' } });
   }
