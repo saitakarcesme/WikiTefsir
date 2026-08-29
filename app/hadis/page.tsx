@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { HadithDirectory } from '../components/hadith-directory';
 import { SiteHeader } from '../components/site-header';
-import { getAllHadithsForLocale, getHadithById, getHadithCategoriesForLocale, getHadithStatsForLocale, getThemesForHadith, hadithThemes } from '@/lib/hadith';
+import { getAllHadithsForLocale, getHadithCategoriesForLocale, getHadithStatsForLocale, getThemesForHadithLocale, hadithThemes } from '@/lib/hadith';
 import { getLocale } from '@/lib/server-locale';
 import { localeNumber } from '@/lib/locale';
 
@@ -27,14 +27,13 @@ export default async function HadithPage() {
   const categoryNames = new Map(getHadithCategoriesForLocale(locale).map((category) => [category.id, category.title]));
   const themeTranslations = new Map<string, string>([['Worship & devotion','İbadet'],['Character & manners','Ahlak ve edep'],['Family & home','Aile ve ev'],['Companions & community','Sahabe ve toplum'],['Neighbors & society','Komşuluk ve toplum'],['Knowledge & teaching','İlim ve eğitim'],['Governance & justice','Yönetim ve adalet'],['Peace & agreements','Barış ve antlaşmalar'],['War & defense','Savaş ve savunma'],['Trade & wealth','Ticaret ve mal'],['Food, health & daily life','Yeme, sağlık ve günlük hayat'],['Hereafter & spiritual life','Ahiret ve manevi hayat'],['General guidance','Genel rehberlik']]);
   const records = getAllHadithsForLocale(locale).map((record) => {
-    const sourceRecord = getHadithById(record.id) ?? record;
     return ({
     id: record.id,
     title: record.title,
     attribution: record.attribution,
     grade: record.grade,
     categories: record.categories.flatMap((id) => categoryNames.get(id) ?? []).join(' · '),
-    themes: getThemesForHadith(sourceRecord).map((theme) => tr ? (themeTranslations.get(theme) ?? theme) : theme),
+    themes: getThemesForHadithLocale(record, locale).map((theme) => tr ? (themeTranslations.get(theme) ?? theme) : theme),
   }); });
   const themes = [...hadithThemes].map((theme) => tr ? (themeTranslations.get(theme) ?? theme) : theme);
 

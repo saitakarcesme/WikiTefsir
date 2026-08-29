@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { SiteHeader } from '@/app/components/site-header';
 import { SourceDrawer } from '@/app/components/source-drawer';
-import { PersonRelationDiagram } from '@/app/components/person-relation-diagram';
 import { getAllPeople, getPersonBySlug } from '@/lib/people';
 import { getConceptBySlug, getConceptHref, getConceptTitle } from '@/lib/concepts';
 import { getTranslation, getSurahByNumber, getSurahHref, getVerse } from '@/lib/quran';
@@ -30,7 +29,6 @@ export default async function PersonPage({ params }: PersonPageProps) {
     <article className="reader-article">
       <nav className="breadcrumbs"><Link href="/">{tr ? 'Ana sayfa' : 'Home'}</Link><span>›</span><Link href="/people">{tr ? 'Kişiler' : 'People'}</Link><span>›</span>{getPersonName(person, locale)}</nav>
       <header className="reader-article-header"><span className="reader-overline">{tr ? `Kur’an’da ${getPersonKind(person, locale)}` : `${person.kind} in the Quran`}</span><h1>{getPersonName(person, locale)}</h1><p className="reader-arabic-title" lang="ar" dir="rtl">{person.arabic}</p><p className="reader-deck">{getPersonIntro(person, locale)}</p><div className="reader-metadata"><span>{getPersonKind(person, locale)}</span><span>{person.narrative.length} {tr ? 'kıssa bölümü' : 'story chapters'}</span><span>{person.keyReferences.length} {tr ? 'ana kaynak' : 'key references'}</span></div><p className="quran-naming-note">{tr ? 'Bu okuma yolu yalnızca Kur’an’da açıkça yer alan olay ve tasvirleri kullanır.' : person.quranNaming}</p></header>
-      <PersonRelationDiagram person={person} locale={locale} />
       <section className="quran-timeline person-story-flow" aria-labelledby="timeline-title"><div className="reader-section-heading"><span>{tr ? 'Sureler boyunca' : 'Across the surahs'}</span><h2 id="timeline-title">{tr ? 'Ayetler üzerinden kıssa' : 'The story through its verses'}</h2><p>{tr ? 'Kesintisiz okuyun: her pasaj açık ve anlatı sırasına göre düzenlenmiştir.' : 'Read continuously: every passage is already open and arranged in narrative order.'}</p></div>
         {person.narrative.map((stage, stageIndex) => <article id={stage.id} key={stage.id} className="timeline-stage">
           <div className="timeline-marker"><span>{String(stageIndex + 1).padStart(2, '0')}</span></div>

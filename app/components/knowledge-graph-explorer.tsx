@@ -1,72 +1,99 @@
+'use client';
+
 import Link from 'next/link';
+import { useEffect, useRef, useState } from 'react';
+import type { KnowledgeGraphBranch, KnowledgeGraphNode } from '@/lib/knowledge-graph';
 import type { Locale } from '@/lib/locale';
 
-type GraphNode = { label: string; kind: string; href: string };
-type GraphCluster = { title: string; description: string; hub: GraphNode; nodes: GraphNode[] };
+export function KnowledgeGraphExplorer({ initialBranch, locale }: { initialBranch: KnowledgeGraphBranch; locale: Locale }) {
+  const [branch, setBranch] = useState(initialBranch);
+  const [history, setHistory] = useState<KnowledgeGraphBranch[]>([]);
+  const [forward, setForward] = useState<KnowledgeGraphBranch[]>([]);
+  const [loading, setLoading] = useState(false);
+  const requestRef = useRef<AbortController | null>(null);
+  const tr = locale === 'tr';
 
-const clusters: GraphCluster[] = [
-  {
-    title: 'The story of Moses',
-    description: 'A person article joined to the surahs, concepts, and commentary that explain its stages.',
-    hub: { label: 'Moses', kind: 'Person', href: '/person/musa' },
-    nodes: [
-      { label: 'Al-Qasas', kind: 'Surah', href: '/surah/al-qasas' },
-      { label: 'Ta-Ha', kind: 'Surah', href: '/surah/ta-ha' },
-      { label: 'Prophethood', kind: 'Concept', href: '/concept/prophethood' },
-      { label: 'Guidance', kind: 'Concept', href: '/concept/guidance' },
-      { label: 'Al-Tabari', kind: 'Scholar', href: '/scholars/taberi' },
-    ],
-  },
-  {
-    title: 'The chain of revelation',
-    description: 'The revealed word connects messenger, angel, scripture, source record, and explanation.',
-    hub: { label: 'Revelation', kind: 'Concept', href: '/concept/revelation' },
-    nodes: [
-      { label: 'Muhammad', kind: 'Person', href: '/person/muhammad' },
-      { label: 'Gabriel', kind: 'Angel', href: '/person/jibril' },
-      { label: 'The Quran', kind: 'Scripture', href: '/surahs' },
-      { label: 'Al-Ahzab', kind: 'Surah', href: '/surah/al-ahzab' },
-      { label: 'Ibn Kathir', kind: 'Scholar', href: '/scholars/ibn-kesir' },
-    ],
-  },
-  {
-    title: 'Worship in practice',
-    description: 'Verses and authentic hadith connect belief with prayer, supplication, and daily conduct.',
-    hub: { label: 'Worship', kind: 'Concept', href: '/concept/worship' },
-    nodes: [
-      { label: 'Tawhid', kind: 'Concept', href: '/concept/tawhid' },
-      { label: 'Prayer', kind: 'Concept', href: '/concept/prayer' },
-      { label: 'Supplication', kind: 'Concept', href: '/concept/supplication' },
-      { label: 'Al-Fatihah', kind: 'Surah', href: '/surah/fatiha' },
-      { label: 'Authentic hadith', kind: 'Corpus', href: '/hadith' },
-    ],
-  },
-];
+  useEffect(() => () => requestRef.current?.abort(), []);
 
-const clustersTr: GraphCluster[] = [
-  { title: 'Musa kıssası', description: 'Kişi makalesini anlatının aşamalarını açıklayan surelere, kavramlara ve tefsirlere bağlar.', hub: { label: 'Musa', kind: 'Kişi', href: '/person/musa' }, nodes: [{ label: 'Kasas', kind: 'Sure', href: '/surah/al-qasas' }, { label: 'Tâhâ', kind: 'Sure', href: '/surah/ta-ha' }, { label: 'Peygamberlik', kind: 'Kavram', href: '/concept/prophethood' }, { label: 'Hidayet', kind: 'Kavram', href: '/concept/guidance' }, { label: 'Taberî', kind: 'Âlim', href: '/scholars/taberi' }] },
-  { title: 'Vahiy zinciri', description: 'Vahyedilen söz; elçiyi, meleği, kitabı, kaynak kaydını ve açıklamayı birbirine bağlar.', hub: { label: 'Vahiy', kind: 'Kavram', href: '/concept/revelation' }, nodes: [{ label: 'Muhammed', kind: 'Kişi', href: '/person/muhammad' }, { label: 'Cebrail', kind: 'Melek', href: '/person/jibril' }, { label: 'Kur’an', kind: 'Kitap', href: '/surahs' }, { label: 'Ahzâb', kind: 'Sure', href: '/surah/al-ahzab' }, { label: 'İbn Kesîr', kind: 'Âlim', href: '/scholars/ibn-kesir' }] },
-  { title: 'Hayatta ibadet', description: 'Ayetler ve sahih hadisler imanı namaz, dua ve günlük davranışlarla bağlar.', hub: { label: 'İbadet', kind: 'Kavram', href: '/concept/worship' }, nodes: [{ label: 'Tevhid', kind: 'Kavram', href: '/concept/tawhid' }, { label: 'Namaz', kind: 'Kavram', href: '/concept/prayer' }, { label: 'Dua', kind: 'Kavram', href: '/concept/supplication' }, { label: 'Fâtiha', kind: 'Sure', href: '/surah/fatiha' }, { label: 'Sahih hadis', kind: 'Külliyat', href: '/hadith' }] },
-];
+  async function loadNode(node: KnowledgeGraphNode, direction: 'down' | 'up' = 'down') {
+    if (!node.childCount) {
+      if (node.href) window.location.assign(node.href);
+      return;
+    }
+    requestRef.current?.abort();
+    const controller = new AbortController();
+    requestRef.current = controller;
+    setLoading(true);
+    try {
+      const response = await fetch(`/api/graph?id=${encodeURIComponent(node.id)}&locale=${locale}`, { signal: controller.signal });
+      if (!response.ok) throw new Error(`Graph request failed: ${response.status}`);
+      const next = await response.json() as KnowledgeGraphBranch;
+      if (direction === 'down') {
+        setHistory((items) => [...items, branch]);
+        setForward([]);
+      }
+      setBranch(next);
+    } finally {
+      if (!controller.signal.aborted) setLoading(false);
+    }
+  }
 
-function Cluster({ cluster }: { cluster: GraphCluster }) {
-  return <article className="graph-cluster">
-    <header><h3>{cluster.title}</h3><p>{cluster.description}</p></header>
-    <div className="graph-cluster-map">
-      <Link className="graph-hub" href={cluster.hub.href}><small>{cluster.hub.kind}</small><strong>{cluster.hub.label}</strong></Link>
-      <span className="graph-trunk" aria-hidden="true" />
-      <div className="graph-branches">
-        {cluster.nodes.map((node) => <Link href={node.href} key={`${cluster.title}-${node.label}`}><small>{node.kind}</small><strong>{node.label}</strong></Link>)}
-      </div>
+  async function zoomOut() {
+    const previous = history.at(-1);
+    if (previous) {
+      setForward((items) => [branch, ...items]);
+      setHistory((items) => items.slice(0, -1));
+      setBranch(previous);
+      return;
+    }
+    if (branch.parentId) await loadNode({ id: branch.parentId, label: '', eyebrow: '', childCount: 1 }, 'up');
+  }
+
+  function zoomIn() {
+    const next = forward[0];
+    if (!next) return;
+    setHistory((items) => [...items, branch]);
+    setForward((items) => items.slice(1));
+    setBranch(next);
+  }
+
+  function goHome() {
+    if (branch.node.id === 'allah') return;
+    const root = history.find((item) => item.node.id === 'allah');
+    if (root) {
+      setForward((items) => [branch, ...items]);
+      setHistory([]);
+      setBranch(root);
+      return;
+    }
+    void loadNode({ id: 'allah', label: 'الله', eyebrow: '', childCount: 1 }, 'up');
+    setHistory([]);
+  }
+
+  return <section className={`atlas-stage${loading ? ' is-loading' : ''}`} aria-label={tr ? 'Etkileşimli bilgi grafiği' : 'Interactive knowledge graph'}>
+    <div className="atlas-path" aria-label={tr ? 'Grafik yolu' : 'Graph path'}>
+      {[...history, branch].map((item, index, items) => <button type="button" key={`${item.node.id}-${index}`} onClick={() => {
+        if (index === items.length - 1) return;
+        setForward(items.slice(index + 1));
+        setHistory(items.slice(0, index));
+        setBranch(item);
+      }}>{item.node.label}</button>)}
     </div>
-  </article>;
-}
-
-export function KnowledgeGraphExplorer({ compact = false, locale = 'en' }: { compact?: boolean; locale?: Locale }) {
-  const sourceClusters = locale === 'tr' ? clustersTr : clusters;
-  const visibleClusters = compact ? sourceClusters.slice(0, 1) : sourceClusters;
-  return <section className={`knowledge-explorer static${compact ? ' compact' : ''}`} aria-labelledby="knowledge-explorer-title">
-    <div className="knowledge-explorer-copy"><span className="reader-overline">{locale === 'tr' ? 'Bilgi grafiği' : 'Knowledge graph'}</span><h2 id="knowledge-explorer-title">{locale === 'tr' ? 'Kaynağı kaybetmeden bağlantıları izleyin.' : 'Follow the links without losing the source.'}</h2><p>{locale === 'tr' ? 'Her harita sabit, okunaklı ve duyarlıdır. Her kutu bağlantının temsil ettiği makaleyi açar.' : 'Each map is fixed, readable, and responsive. Every box opens the article represented by that connection.'}</p>{compact ? <Link href="/graph">{locale === 'tr' ? 'Tam grafiği aç' : 'Open the complete graph'} <span aria-hidden="true">→</span></Link> : null}</div>
-    <div className="graph-cluster-list">{visibleClusters.map((cluster) => <Cluster cluster={cluster} key={cluster.title} />)}</div>
+    <div className="atlas-tree" aria-live="polite">
+      <div className={`atlas-parent${branch.node.id === 'allah' ? ' atlas-allah' : ''}`}>
+        <small>{branch.node.eyebrow}</small><strong>{branch.node.label}</strong>
+        {branch.node.href ? <Link href={branch.node.href} aria-label={tr ? 'Makaleyi aç' : 'Open article'}>↗</Link> : null}
+      </div>
+      {branch.children.length ? <><span className="atlas-stem" aria-hidden="true" /><div className={`atlas-children${branch.children.length > 24 ? ' atlas-many' : ''}`}>
+        {branch.children.map((node) => <button type="button" onClick={() => void loadNode(node)} key={node.id} className={node.childCount ? '' : 'atlas-leaf'}>
+          <small>{node.eyebrow}</small><strong>{node.label}</strong><span>{node.childCount ? node.childCount.toLocaleString(locale === 'tr' ? 'tr-TR' : 'en-US') : '↗'}</span>
+        </button>)}
+      </div></> : <p className="atlas-empty">{tr ? 'Bu düğüm doğrudan kaynak makalesine açılır.' : 'This node opens its source article directly.'}</p>}
+    </div>
+    <div className="atlas-controls" aria-label={tr ? 'Grafik kontrolleri' : 'Graph controls'}>
+      <button type="button" onClick={zoomOut} disabled={branch.node.id === 'allah'} aria-label={tr ? 'Bir üst katmana çık' : 'Move up one level'}>−</button>
+      <button type="button" onClick={zoomIn} disabled={!forward.length} aria-label={tr ? 'Alt katmana dön' : 'Return to child level'}>+</button>
+      <button type="button" onClick={goHome} disabled={branch.node.id === 'allah'} aria-label={tr ? 'Allah düğümüne dön' : 'Return to Allah node'}>⌂</button>
+    </div>
   </section>;
 }

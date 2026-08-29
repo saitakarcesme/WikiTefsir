@@ -85,6 +85,21 @@ const themePatterns: Array<[HadithTheme, RegExp]> = [
   ['Hereafter & spiritual life', /death|grave|resurrection|paradise|hell|day of judgment|faith|belief|creed|destiny|angel/iu],
 ];
 
+const themePatternsTr: Array<[HadithTheme, RegExp]> = [
+  ['Worship & devotion', /namaz|salât|oruç|ramazan|zekât|sadaka|hac|umre|abdest|dua|zikir|mescid|ibadet/iu],
+  ['Character & manners', /ahlak|edep|doğru|yalan|öfke|tevazu|merhamet|iyilik|selam|gülümse|sabır|aff/iu],
+  ['Family & home', /evlilik|eş|hanım|koca|çocuk|anne|baba|akraba|aile|boşan/iu],
+  ['Companions & community', /sahabe|ensar|muhacir|kardeş|cemaat|toplum|heyet/iu],
+  ['Neighbors & society', /komşu|misafir|yetim|fakir|muhtaç|haklar|toplum|yol|hasta|cenaze/iu],
+  ['Knowledge & teaching', /ilim|bilgi|öğren|öğret|âlim|alim|talebe|kur.?an|hadis|kıraat|fetva/iu],
+  ['Governance & justice', /yönet|hükümdar|lider|hâkim|hakim|hüküm|adalet|otorite|itaat|halife/iu],
+  ['Peace & agreements', /barış|sulh|antlaşma|anlaşma|ahit|eman|uzlaş/iu],
+  ['War & defense', /savaş|cihad|ordu|asker|şehit|silah|sefer|düşman|müdafaa|savunma/iu],
+  ['Trade & wealth', /ticaret|satış|alış|mal|para|borç|faiz|miras|mülk|pazar|ücret/iu],
+  ['Food, health & daily life', /yemek|yiyecek|içmek|ilaç|hastalık|sağlık|uyku|elbise|temiz|yıka|yolculuk|hayvan/iu],
+  ['Hereafter & spiritual life', /ölüm|kabir|diriliş|cennet|cehennem|kıyamet|iman|inanç|kader|melek|ahiret/iu],
+];
+
 export const hadithTerms = catalog.terms;
 export const hadithVersion = catalog.version;
 
@@ -138,6 +153,14 @@ export function getThemesForHadith(record: HadithRecord): HadithTheme[] {
   const categoryTitles = getCategoriesForHadith(record).map((category) => category.title).join(' ');
   const text = `${record.title} ${record.attribution} ${categoryTitles}`;
   const matches = themePatterns.flatMap(([theme, pattern]) => pattern.test(text) ? [theme] : []);
+  return matches.length ? matches.slice(0, 3) : ['General guidance'];
+}
+
+export function getThemesForHadithLocale(record: HadithRecord, locale: Locale): HadithTheme[] {
+  const categoryTitles = getCategoriesForHadithLocale(record, locale).map((category) => category.title).join(' ');
+  const text = `${record.title} ${record.attribution} ${categoryTitles}`;
+  const patterns = locale === 'tr' ? themePatternsTr : themePatterns;
+  const matches = patterns.flatMap(([theme, pattern]) => pattern.test(text) ? [theme] : []);
   return matches.length ? matches.slice(0, 3) : ['General guidance'];
 }
 

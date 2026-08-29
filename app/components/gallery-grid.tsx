@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
+import { galleryImageById } from '@/lib/gallery-images';
 import type { GalleryScene } from '@/lib/gallery-scenes';
 import type { Locale } from '@/lib/locale';
 
@@ -19,15 +20,15 @@ export function GalleryGrid({ scenes, locale }: { scenes: GalleryScene[]; locale
     <div className="gallery-grid">
       {visible.map((scene) => {
         const isFlipped = flipped === scene.id;
+        const image = scene.image ?? galleryImageById[scene.id];
         return <article className={`gallery-work gallery-work-${(scene.id % 5) + 1}${isFlipped ? ' flipped' : ''}`} key={scene.id}>
           <button type="button" className="gallery-flip" onClick={() => setFlipped(isFlipped ? null : scene.id)} aria-pressed={isFlipped} aria-label={`${isFlipped ? (tr ? 'Eseri göster' : 'Show artwork') : (tr ? 'Kaynağı göster' : 'Show source')}: ${scene.title}`}>
             <span className="gallery-card-inner">
               <span className="gallery-card-face gallery-card-front">
-                {scene.image ? <Image src={scene.image} alt="" fill sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw" /> : <span className="gallery-awaiting"><span>{String(scene.id).padStart(3, '0')}</span><small>{tr ? 'Eser üretim bekliyor' : 'Artwork awaiting generation'}</small></span>}
-                <span className="gallery-caption"><small>{tr ? (scene.kind === 'Quran' ? 'Kur’an sahnesi' : 'Hadis sahnesi') : `${scene.kind} scene`} {scene.id}</small><strong>{tr ? `Kaynak temelli sahne ${scene.id}` : scene.title}</strong></span>
+                {image ? <Image src={image} alt="" fill loading={[1, 35, 69].includes(scene.id) ? 'eager' : 'lazy'} sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw" /> : <span className="gallery-awaiting"><span>{String(scene.id).padStart(3, '0')}</span><small>{tr ? 'Eser üretim bekliyor' : 'Artwork awaiting generation'}</small></span>}
               </span>
               <span className="gallery-card-face gallery-card-back">
-                <small>{tr ? 'Kaynak kaydı' : 'Source record'}</small><strong>{scene.source}</strong><p>{tr ? 'Bu sahne, belirtilen kaynak kaydına dayalı yüz göstermeyen sanatsal bir yorumdur.' : scene.brief}</p><span>{tr ? 'Geri çevir' : 'Turn back'} ↺</span>
+                <small>{tr ? 'Kaynak kaydı' : 'Source record'}</small><strong>{scene.source}</strong><p>{tr ? 'Bu sahne, belirtilen Türkçe kaynak kaydının işaret ettiği olaya dayalı yüz göstermeyen sanatsal bir yorumdur.' : scene.brief}</p><span>{tr ? 'Geri çevir' : 'Turn back'} ↺</span>
               </span>
             </span>
           </button>

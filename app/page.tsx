@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { KnowledgeGraphExplorer } from './components/knowledge-graph-explorer';
 import { SearchExplorer } from './components/search-explorer';
 import { SiteHeader } from './components/site-header';
 import { SourceDrawer } from './components/source-drawer';
@@ -43,8 +42,6 @@ export default async function Home() {
         <div className="featured-reading-copy"><span className="reader-overline">{tr ? 'İki dakikalık kaynak yolu' : 'A two-minute source trail'}</span><h2 id="featured-reading-title">{tr ? '“Şüphesiz ben Allah’ım.”' : '“Indeed, I am Allah.”'}</h2><p>{tr ? 'Kur’an’daki Musa anlatısı farklı surelere yayılır. WikiTefsir bu ayetleri kronolojik bir okuma yoluna dönüştürür ve her cümleyi asıl ayetine bağlı tutar.' : 'The Quran’s account of Moses is spread across multiple surahs. WikiTefsir turns those passages into a chronological reading path while keeping every statement attached to its verse.'}</p><div><Link href="/person/musa">{tr ? 'Musa kıssasını oku →' : 'Read the story of Moses →'}</Link><SourceDrawer title="Ta-Ha 20:14" description={tr ? `Rowwad Türkçe meal ${translationMetadata.version} kaynak kaydı.` : `Rowwad English translation ${translationMetadata.version}, aligned to the exact page in QuranEnc's official mushaf PDF.`} pdfUrl={source?.pdfUrl} page={source?.page} sourceUrl="https://quranenc.com" sourceLabel="QuranEnc" /></div></div>
         <blockquote><p lang="ar" dir="rtl">{verse.text}</p><p>“{meaning.text}”</p><footer><Link href="/surah/ta-ha#verse-14">Ta-Ha 20:14</Link><span>QuranEnc Rowwad {translationMetadata.version}</span></footer></blockquote>
       </article>
-
-      <KnowledgeGraphExplorer compact locale={locale} />
 
     </div>
     <footer className="reader-footer"><span>WikiTefsir</span><p>{tr ? 'Bağımsız ve kaynak öncelikli bir bilgi projesi.' : 'An independent source-first knowledge project.'}</p><nav><Link href="/surahs">{tr ? 'Kur’an' : 'Quran'}</Link><Link href="/hadith">{tr ? 'Hadis' : 'Hadith'}</Link><Link href="/people">{tr ? 'Kişiler' : 'People'}</Link><Link href="/graph">{tr ? 'Grafik' : 'Graph'}</Link></nav></footer>

@@ -69,7 +69,7 @@ export function QuranSurahArticle({ surah, verses, translation, previous, next, 
               const keywords = getKeywordsForVerse(verse.surah, verse.ayah, locale, 6);
               const pdfSource = getQuranPdfSource(surah.startOffset + index);
               if (!meaning || meaning.surah !== verse.surah || meaning.ayah !== verse.ayah) {
-                throw new Error(`English translation record mismatch at ${verse.surah}:${verse.ayah}`);
+                throw new Error(`${locale} translation record mismatch at ${verse.surah}:${verse.ayah}`);
               }
 
               return <article className="verse-row corpus-verse" id={`verse-${verse.ayah}`} key={verse.ayah}>
@@ -99,7 +99,7 @@ export function QuranSurahArticle({ surah, verses, translation, previous, next, 
                       description={tr ? `Rowwad Türkçe meal ${translationMetadata.version}; QuranEnc’in resmi kaydıyla bağlantılıdır.` : `Rowwad English translation ${translationMetadata.version}, aligned to the exact page in QuranEnc's official mushaf PDF.`}
                       pdfUrl={pdfSource?.pdfUrl}
                       page={pdfSource?.page}
-                      sourceUrl="https://quranenc.com/en/browse/english_rwwad"
+                      sourceUrl={tr ? 'https://quranenc.com/tr/browse/turkish_rwwad' : 'https://quranenc.com/en/browse/english_rwwad'}
                       sourceLabel="QuranEnc"
                     />
                     <a href={`#verse-${verse.ayah}`}>{tr ? 'Ayet bağlantısı' : 'Verse link'}</a>
@@ -130,7 +130,7 @@ export function QuranSurahArticle({ surah, verses, translation, previous, next, 
             <p>{quranLicense.name}</p>
             <a href="https://tanzil.net" rel="noreferrer" target="_blank">{tr ? 'Kaynağı aç ↗' : 'Open source ↗'}</a>
             <strong className="secondary-source">{tr ? 'Türkçe meal · QuranEnc' : 'English translation · QuranEnc'}</strong>
-            <p>Rowwad Translation Center · {englishTranslationMetadata.version}</p>
+            <p>Rowwad Translation Center · {translationMetadata.version}</p>
             <a href="https://quranenc.com" rel="noreferrer" target="_blank">{tr ? 'Meal kaynağını aç ↗' : 'Open translation source ↗'}</a>
           </div>
         </aside>

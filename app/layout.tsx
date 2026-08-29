@@ -4,6 +4,7 @@ import './globals.css';
 import './reader.css';
 import { getLocale } from '@/lib/server-locale';
 import { LocaleProvider } from '@/app/components/locale-provider';
+import { SplashScreen } from '@/app/components/splash-screen';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -58,7 +59,7 @@ export default async function RootLayout({
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <LocaleProvider locale={locale}>{children}</LocaleProvider>
+        <LocaleProvider locale={locale}><SplashScreen />{children}</LocaleProvider>
       </body>
     </html>
   );
