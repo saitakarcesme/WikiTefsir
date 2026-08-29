@@ -9,8 +9,15 @@ interface GeneratedSemanticConcept {
 interface GeneratedKeywordConcept {
   slug: string; kind: 'keyword'; locale: Locale; label: string; verseRefs: string[]; hadithIds: string[];
 }
+interface GeneratedFrom {
+  quranArabicRecords: number;
+  quranEnglishRecords: number;
+  quranTurkishRecords: number;
+  hadithEnglishRecords: number;
+  hadithTurkishRecords: number;
+}
 interface ConceptIndex {
-  schemaVersion: number; generatedFrom: Record<string, number>; method: string;
+  schemaVersion: number; generatedFrom: GeneratedFrom; method: string;
   concepts: GeneratedSemanticConcept[]; keywords: GeneratedKeywordConcept[];
 }
 
