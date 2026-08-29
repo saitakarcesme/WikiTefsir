@@ -6,9 +6,10 @@ import {
   getAllSurahs,
   getSurahBySlug,
   getSurahSlug,
-  getEnglishTranslationForSurah,
+  getTranslationForSurah,
   getVersesForSurah,
 } from '@/lib/quran';
+import { getLocale } from '@/lib/server-locale';
 
 export const dynamicParams = false;
 
@@ -34,13 +35,14 @@ export async function generateMetadata({ params }: SurahPageProps): Promise<Meta
 }
 
 export default async function SurahPage({ params }: SurahPageProps) {
+  const locale = await getLocale();
   const { slug } = await params;
   const surah = getSurahBySlug(slug);
   if (!surah) notFound();
 
   const verses = getVersesForSurah(surah.number);
-  const translation = getEnglishTranslationForSurah(surah.number);
+  const translation = getTranslationForSurah(surah.number, locale);
   const adjacent = getAdjacentSurahs(surah.number);
 
-  return <QuranSurahArticle surah={surah} verses={verses} translation={translation} {...adjacent} />;
+  return <QuranSurahArticle surah={surah} verses={verses} translation={translation} locale={locale} {...adjacent} />;
 }

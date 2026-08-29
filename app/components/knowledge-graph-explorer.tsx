@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import type { Locale } from '@/lib/locale';
 
 type GraphNode = { label: string; kind: string; href: string };
 type GraphCluster = { title: string; description: string; hub: GraphNode; nodes: GraphNode[] };
@@ -42,11 +43,18 @@ const clusters: GraphCluster[] = [
   },
 ];
 
+const clustersTr: GraphCluster[] = [
+  { title: 'Musa kıssası', description: 'Kişi makalesini anlatının aşamalarını açıklayan surelere, kavramlara ve tefsirlere bağlar.', hub: { label: 'Musa', kind: 'Kişi', href: '/person/musa' }, nodes: [{ label: 'Kasas', kind: 'Sure', href: '/surah/al-qasas' }, { label: 'Tâhâ', kind: 'Sure', href: '/surah/ta-ha' }, { label: 'Peygamberlik', kind: 'Kavram', href: '/concept/prophethood' }, { label: 'Hidayet', kind: 'Kavram', href: '/concept/guidance' }, { label: 'Taberî', kind: 'Âlim', href: '/scholars/taberi' }] },
+  { title: 'Vahiy zinciri', description: 'Vahyedilen söz; elçiyi, meleği, kitabı, kaynak kaydını ve açıklamayı birbirine bağlar.', hub: { label: 'Vahiy', kind: 'Kavram', href: '/concept/revelation' }, nodes: [{ label: 'Muhammed', kind: 'Kişi', href: '/person/muhammad' }, { label: 'Cebrail', kind: 'Melek', href: '/person/jibril' }, { label: 'Kur’an', kind: 'Kitap', href: '/surahs' }, { label: 'Ahzâb', kind: 'Sure', href: '/surah/al-ahzab' }, { label: 'İbn Kesîr', kind: 'Âlim', href: '/scholars/ibn-kesir' }] },
+  { title: 'Hayatta ibadet', description: 'Ayetler ve sahih hadisler imanı namaz, dua ve günlük davranışlarla bağlar.', hub: { label: 'İbadet', kind: 'Kavram', href: '/concept/worship' }, nodes: [{ label: 'Tevhid', kind: 'Kavram', href: '/concept/tawhid' }, { label: 'Namaz', kind: 'Kavram', href: '/concept/prayer' }, { label: 'Dua', kind: 'Kavram', href: '/concept/supplication' }, { label: 'Fâtiha', kind: 'Sure', href: '/surah/fatiha' }, { label: 'Sahih hadis', kind: 'Külliyat', href: '/hadith' }] },
+];
+
 function Cluster({ cluster }: { cluster: GraphCluster }) {
   return <article className="graph-cluster">
     <header><h3>{cluster.title}</h3><p>{cluster.description}</p></header>
     <div className="graph-cluster-map">
       <Link className="graph-hub" href={cluster.hub.href}><small>{cluster.hub.kind}</small><strong>{cluster.hub.label}</strong></Link>
+      <span className="graph-trunk" aria-hidden="true" />
       <div className="graph-branches">
         {cluster.nodes.map((node) => <Link href={node.href} key={`${cluster.title}-${node.label}`}><small>{node.kind}</small><strong>{node.label}</strong></Link>)}
       </div>
@@ -54,10 +62,11 @@ function Cluster({ cluster }: { cluster: GraphCluster }) {
   </article>;
 }
 
-export function KnowledgeGraphExplorer({ compact = false }: { compact?: boolean }) {
-  const visibleClusters = compact ? clusters.slice(0, 1) : clusters;
+export function KnowledgeGraphExplorer({ compact = false, locale = 'en' }: { compact?: boolean; locale?: Locale }) {
+  const sourceClusters = locale === 'tr' ? clustersTr : clusters;
+  const visibleClusters = compact ? sourceClusters.slice(0, 1) : sourceClusters;
   return <section className={`knowledge-explorer static${compact ? ' compact' : ''}`} aria-labelledby="knowledge-explorer-title">
-    <div className="knowledge-explorer-copy"><span className="reader-overline">Knowledge graph</span><h2 id="knowledge-explorer-title">Follow the links without losing the source.</h2><p>Each map is fixed, readable, and responsive. Every box opens the article represented by that connection.</p>{compact ? <Link href="/graph">Open the complete graph <span aria-hidden="true">→</span></Link> : null}</div>
+    <div className="knowledge-explorer-copy"><span className="reader-overline">{locale === 'tr' ? 'Bilgi grafiği' : 'Knowledge graph'}</span><h2 id="knowledge-explorer-title">{locale === 'tr' ? 'Kaynağı kaybetmeden bağlantıları izleyin.' : 'Follow the links without losing the source.'}</h2><p>{locale === 'tr' ? 'Her harita sabit, okunaklı ve duyarlıdır. Her kutu bağlantının temsil ettiği makaleyi açar.' : 'Each map is fixed, readable, and responsive. Every box opens the article represented by that connection.'}</p>{compact ? <Link href="/graph">{locale === 'tr' ? 'Tam grafiği aç' : 'Open the complete graph'} <span aria-hidden="true">→</span></Link> : null}</div>
     <div className="graph-cluster-list">{visibleClusters.map((cluster) => <Cluster cluster={cluster} key={cluster.title} />)}</div>
   </section>;
 }

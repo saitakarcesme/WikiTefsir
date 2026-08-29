@@ -1,6 +1,8 @@
 'use client';
 
-import { PointerEvent as ReactPointerEvent, useEffect, useId, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { useLocale } from '@/app/components/locale-provider';
 
 interface SourceDrawerProps {
   label?: string;
@@ -16,8 +18,9 @@ interface SourceDrawerProps {
 const defaultPanelWidth = 640;
 
 export function SourceDrawer({
-  label = 'Source', title, description = '', pdfUrl, page, viewerUrl, sourceUrl, sourceLabel,
+  label, title, description = '', pdfUrl, page, viewerUrl, sourceUrl, sourceLabel,
 }: SourceDrawerProps) {
+  const turkish = useLocale() === 'tr';
   const [open, setOpen] = useState(false);
   const [panelWidth, setPanelWidth] = useState(defaultPanelWidth);
   const titleId = useId();
@@ -49,12 +52,29 @@ export function SourceDrawer({
     if (open) document.documentElement.style.setProperty('--source-panel-width', `${panelWidth}px`);
   }, [open, panelWidth]);
 
-  function resizePanel(event: ReactPointerEvent<HTMLButtonElement>) {
-    if (!resizingRef.current || window.innerWidth <= 760) return;
-    const minimum = Math.min(420, window.innerWidth);
-    const maximum = Math.max(minimum, window.innerWidth - 340);
-    setPanelWidth(Math.max(minimum, Math.min(maximum, window.innerWidth - event.clientX)));
-  }
+  useEffect(() => {
+    if (!open) return;
+    function resizePanel(event: PointerEvent) {
+      if (!resizingRef.current || window.innerWidth <= 760) return;
+      const minimum = Math.min(390, window.innerWidth);
+      const maximum = Math.max(minimum, window.innerWidth - 360);
+      setPanelWidth(Math.max(minimum, Math.min(maximum, window.innerWidth - event.clientX)));
+    }
+    function finishResize() {
+      if (!resizingRef.current) return;
+      resizingRef.current = false;
+      document.body.classList.remove('source-panel-resizing');
+    }
+    window.addEventListener('pointermove', resizePanel);
+    window.addEventListener('pointerup', finishResize);
+    window.addEventListener('pointercancel', finishResize);
+    return () => {
+      window.removeEventListener('pointermove', resizePanel);
+      window.removeEventListener('pointerup', finishResize);
+      window.removeEventListener('pointercancel', finishResize);
+      document.body.classList.remove('source-panel-resizing');
+    };
+  }, [open]);
 
   function openPanel() {
     const initialWidth = window.innerWidth <= 760 ? window.innerWidth : Math.min(defaultPanelWidth, Math.max(420, window.innerWidth - 360));
@@ -63,19 +83,28 @@ export function SourceDrawer({
   }
 
   return <>
-    <button ref={triggerRef} className="source-trigger" type="button" onClick={openPanel}><span aria-hidden="true">↗</span>{label}</button>
-    {open ? <aside className="source-drawer" style={{ width: panelWidth }} role="complementary" aria-labelledby={titleId} aria-describedby={description ? descriptionId : undefined}>
-      <button className="source-resize-handle" type="button" aria-label="Resize source panel" title="Drag to resize"
-        onPointerDown={(event) => { resizingRef.current = true; event.currentTarget.setPointerCapture(event.pointerId); }}
-        onPointerMove={resizePanel}
-        onPointerUp={(event) => { resizingRef.current = false; event.currentTarget.releasePointerCapture(event.pointerId); }}
-        onPointerCancel={() => { resizingRef.current = false; }} />
+    <button ref={triggerRef} className="source-trigger" type="button" onClick={openPanel}><span aria-hidden="true">↗</span>{label ?? (turkish ? 'Kaynak' : 'Source')}</button>
+    {open ? createPortal(<aside className="source-drawer" style={{ width: panelWidth }} role="complementary" aria-labelledby={titleId} aria-describedby={description ? descriptionId : undefined}>
+      <button className="source-resize-handle" type="button" aria-label={turkish ? 'Kaynak panelini boyutlandır' : 'Resize source panel'} title={turkish ? 'Boyutlandırmak için sürükleyin' : 'Drag to resize'}
+        onKeyDown={(event) => {
+          if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+          event.preventDefault();
+          const minimum = Math.min(390, window.innerWidth);
+          const maximum = Math.max(minimum, window.innerWidth - 360);
+          const step = event.shiftKey ? 64 : 24;
+          setPanelWidth((width) => Math.max(minimum, Math.min(maximum, width + (event.key === 'ArrowLeft' ? step : -step))));
+        }}
+        onPointerDown={(event) => {
+          event.preventDefault();
+          resizingRef.current = true;
+          document.body.classList.add('source-panel-resizing');
+        }} />
       <h2 className="sr-only" id={titleId}>{title}</h2>
       {description ? <p className="sr-only" id={descriptionId}>{description}</p> : null}
-      <button ref={closeRef} className="source-close" type="button" aria-label="Close source panel" title="Close source panel" onClick={() => setOpen(false)}>×</button>
+      <button ref={closeRef} className="source-close" type="button" aria-label={turkish ? 'Kaynak panelini kapat' : 'Close source panel'} title={turkish ? 'Kaynak panelini kapat' : 'Close source panel'} onClick={() => setOpen(false)}>×</button>
       {embeddedTarget
         ? <iframe className="source-document" src={embeddedTarget} title={`${title}${page ? `, page ${page}` : ''}`} />
-        : <div className="source-unavailable"><strong>The verified digital source is available in a new tab.</strong><a href={sourceUrl} target="_blank" rel="noreferrer">Open {sourceLabel} ↗</a></div>}
-    </aside> : null}
+        : <div className="source-unavailable"><strong>{turkish ? 'Doğrulanmış dijital kaynak yeni sekmede kullanılabilir.' : 'The verified digital source is available in a new tab.'}</strong><a href={sourceUrl} target="_blank" rel="noreferrer">{turkish ? `${sourceLabel} kaynağını aç` : `Open ${sourceLabel}`} ↗</a></div>}
+    </aside>, document.body) : null}
   </>;
 }

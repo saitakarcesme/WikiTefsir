@@ -1,4 +1,6 @@
 import hadithCatalogJson from '@/data/hadith/hadeethenc-en.json';
+import turkishHadithCatalogJson from '@/data/hadith/hadeethenc-tr.json';
+import type { Locale } from '@/lib/locale';
 
 export interface HadithCategory {
   id: string;
@@ -54,8 +56,11 @@ interface HadithCatalog {
 }
 
 const catalog = hadithCatalogJson as HadithCatalog;
+const turkishCatalog = turkishHadithCatalogJson as HadithCatalog;
 const recordsById = new Map(catalog.records.map((record) => [record.id, record]));
+const turkishRecordsById = new Map(turkishCatalog.records.map((record) => [record.id, record]));
 const categoriesById = new Map(catalog.categories.map((category) => [category.id, category]));
+const turkishCategoriesById = new Map(turkishCatalog.categories.map((category) => [category.id, category]));
 
 export const hadithThemes = [
   'Worship & devotion', 'Character & manners', 'Family & home', 'Companions & community',
@@ -87,6 +92,17 @@ export function getAllHadiths() {
   return catalog.records;
 }
 
+export function getAllHadithsForLocale(locale: Locale) { return locale === 'tr' ? turkishCatalog.records : catalog.records; }
+export function getHadithByIdForLocale(id: string, locale: Locale) {
+  if (!/^\d+$/u.test(id)) return undefined;
+  return locale === 'tr' ? turkishRecordsById.get(id) : recordsById.get(id);
+}
+export function getHadithCategoriesForLocale(locale: Locale) { return locale === 'tr' ? turkishCatalog.categories : catalog.categories; }
+export function getHadithStatsForLocale(locale: Locale) {
+  const source = locale === 'tr' ? turkishCatalog : catalog;
+  return { recordCount: source.records.length, sourceRecordCount: source.publicationFilter.sourceRecordCount, excludedRecordCount: source.publicationFilter.excludedRecordCount, categoryCount: source.categories.length, version: source.version, source: source.source };
+}
+
 export function getHadithById(id: string) {
   return /^\d+$/u.test(id) ? recordsById.get(id) : undefined;
 }
@@ -106,6 +122,14 @@ export function getRootHadithCategories() {
 export function getCategoriesForHadith(record: HadithRecord) {
   return record.categories.flatMap((id) => {
     const category = categoriesById.get(id);
+    return category ? [category] : [];
+  });
+}
+
+export function getCategoriesForHadithLocale(record: HadithRecord, locale: Locale) {
+  const source = locale === 'tr' ? turkishCategoriesById : categoriesById;
+  return record.categories.flatMap((id) => {
+    const category = source.get(id);
     return category ? [category] : [];
   });
 }

@@ -3,20 +3,23 @@ import {
   getSurahByNumber,
   getSurahHref,
   getEnglishTranslationForSurah,
+  getTurkishTranslationForSurah,
+  getTranslation,
   getVerse,
   getVersesForSurah,
 } from '@/lib/quran';
-import { getAllHadiths, getHadithById, getHadithHref } from '@/lib/hadith';
-import { getAllConcepts, getConceptHref } from '@/lib/concepts';
+import { getAllHadiths, getAllHadithsForLocale, getHadithById, getHadithHref } from '@/lib/hadith';
+import { getAllConcepts, getAllKeywordConcepts, getConceptHref } from '@/lib/concepts';
 import { getAllPeople, getPersonHref } from '@/lib/people';
 import { getAllScholars, getScholarHref } from '@/lib/scholars';
+import type { Locale } from '@/lib/locale';
 
 export interface QuranSearchResult {
   type: 'Verse' | 'Surah' | 'Hadith' | 'Concept' | 'Person' | 'Scholar';
   title: string;
   description: string;
   href: string;
-  language?: 'ar' | 'en';
+  language?: 'ar' | 'en' | 'tr';
 }
 
 function normalize(value: string) {
@@ -91,8 +94,9 @@ const searchableSurahs = getAllSurahs().map((surah) => ({
 }));
 const searchableConcepts = getAllConcepts().map((concept) => ({
   concept,
-  normalizedText: normalize(`${concept.slug} ${concept.title} ${concept.arabic} ${concept.scope}`),
+  normalizedText: normalize(`${concept.slug} ${concept.title} ${concept.titleTr} ${concept.arabic} ${concept.scope} ${concept.scopeTr}`),
 }));
+const searchableKeywords = getAllKeywordConcepts();
 const searchablePeople = getAllPeople().map((person) => ({
   person,
   normalizedText: normalize(`${person.slug} ${person.name} ${person.arabic} ${person.role} ${person.introduction} ${person.narrative.map((stage) => `${stage.title} ${stage.summary}`).join(' ')}`),
@@ -103,6 +107,7 @@ const searchableScholars = getAllScholars().map((scholar) => ({
 }));
 const searchableVerses = getAllSurahs().flatMap((surah) => {
   const meanings = getEnglishTranslationForSurah(surah.number);
+  const turkishMeanings = getTurkishTranslationForSurah(surah.number);
   return getVersesForSurah(surah.number).map((verse, index) => {
     const meaning = meanings[index];
     if (!meaning || meaning.surah !== verse.surah || meaning.ayah !== verse.ayah) {
@@ -113,36 +118,44 @@ const searchableVerses = getAllSurahs().flatMap((surah) => {
       surah,
       verse,
       meaning,
+      turkishMeaning: turkishMeanings[index],
       normalizedArabic: normalize(verse.text),
       normalizedEnglish: normalize(`${meaning.text} ${meaning.footnotes}`),
+      normalizedTurkish: normalize(`${turkishMeanings[index]?.text ?? ''} ${turkishMeanings[index]?.footnotes ?? ''}`),
     };
   });
 });
-const searchableHadiths = getAllHadiths().map((record) => ({
-  record,
-  normalizedArabic: normalize(`${record.hadeeth_ar} ${record.explanation_ar}`),
-  normalizedEnglish: normalize(`${record.title} ${record.hadeeth} ${record.explanation} ${record.hints.join(' ')} ${record.attribution}`),
-}));
+const turkishHadithById = new Map(getAllHadithsForLocale('tr').map((record) => [record.id, record]));
+const searchableHadiths = getAllHadiths().map((record) => {
+  const turkish = turkishHadithById.get(record.id);
+  return {
+    record,
+    turkish,
+    normalizedArabic: normalize(`${record.hadeeth_ar} ${record.explanation_ar}`),
+    normalizedEnglish: normalize(`${record.title} ${record.hadeeth} ${record.explanation} ${record.hints.join(' ')} ${record.attribution}`),
+    normalizedTurkish: turkish ? normalize(`${turkish.title} ${turkish.hadeeth} ${turkish.explanation} ${turkish.hints.join(' ')} ${turkish.attribution}`) : '',
+  };
+});
 
 function describeSurah(number: number, ayahCount: number, revelationType: 'Meccan' | 'Medinan') {
   return `Surah ${number} · ${ayahCount} verses · ${revelationType}`;
 }
 
-function verseResult(surahNumber: number, ayahNumber: number): QuranSearchResult | undefined {
+function verseResult(surahNumber: number, ayahNumber: number, locale: Locale): QuranSearchResult | undefined {
   const surah = getSurahByNumber(surahNumber);
   const verse = getVerse(surahNumber, ayahNumber);
   if (!surah || !verse) return undefined;
 
   return {
     type: 'Verse',
-    title: `${surah.nameTransliterated}, verse ${ayahNumber}`,
-    description: verse.text,
+    title: locale === 'tr' ? `${surah.nameTransliterated}, ${ayahNumber}. ayet` : `${surah.nameTransliterated}, verse ${ayahNumber}`,
+    description: locale === 'tr' ? (getTranslation(surahNumber, ayahNumber, 'tr')?.text ?? verse.text) : verse.text,
     href: `${getSurahHref(surah)}#verse-${ayahNumber}`,
-    language: 'ar',
+    language: locale === 'tr' ? 'tr' : 'ar',
   };
 }
 
-export function searchQuran(rawQuery: string, limit = 12): QuranSearchResult[] {
+export function searchQuran(rawQuery: string, limit = 12, locale: Locale = 'en'): QuranSearchResult[] {
   const query = rawQuery.trim().slice(0, 160);
   const hadithReference = query.match(hadithReferencePattern);
   if (hadithReference) {
@@ -158,7 +171,7 @@ export function searchQuran(rawQuery: string, limit = 12): QuranSearchResult[] {
   const reference = query.match(referencePattern);
 
   if (reference) {
-    const result = verseResult(Number(reference[1]), Number(reference[2]));
+    const result = verseResult(Number(reference[1]), Number(reference[2]), locale);
     return result ? [result] : [];
   }
 
@@ -170,7 +183,7 @@ export function searchQuran(rawQuery: string, limit = 12): QuranSearchResult[] {
       .filter(({ score }) => score > 0)
       .sort((left, right) => right.score - left.score)[0]?.surah;
     if (rankedSurah) {
-      const result = verseResult(rankedSurah.number, Number(namedReference[2]));
+      const result = verseResult(rankedSurah.number, Number(namedReference[2]), locale);
       if (result) return [result];
     }
   }
@@ -192,7 +205,15 @@ export function searchQuran(rawQuery: string, limit = 12): QuranSearchResult[] {
   for (const { concept, normalizedText } of searchableConcepts) {
     const score = normalizedText.includes(normalizedQuery) ? 98 : fuzzyScore(fuzzyQuery, normalizeLatin(`${concept.slug} ${concept.title}`));
     if (!score) continue;
-    entityResults.push({ score, result: { type: 'Concept', title: concept.title, description: concept.scope, href: getConceptHref(concept), language: 'en' } });
+    const turkishMatch = normalize(`${concept.titleTr} ${concept.scopeTr}`).includes(normalizedQuery);
+    entityResults.push({ score, result: { type: 'Concept', title: turkishMatch ? concept.titleTr : concept.title, description: turkishMatch ? concept.scopeTr : concept.scope, href: getConceptHref(concept), language: turkishMatch ? 'tr' : 'en' } });
+  }
+
+  for (const concept of searchableKeywords) {
+    const label = normalize(concept.title);
+    if (label !== normalizedQuery && !label.startsWith(normalizedQuery)) continue;
+    entityResults.push({ score: label === normalizedQuery ? 97 : 76, result: { type: 'Concept', title: concept.title, description: `${concept.verseRefs.length} Quran · ${concept.hadithIds.length} hadith records`, href: getConceptHref(concept), language: concept.locale } });
+    if (entityResults.length > limit * 4) break;
   }
 
   for (const { surah, normalizedText, fuzzyText } of searchableSurahs) {
@@ -211,30 +232,32 @@ export function searchQuran(rawQuery: string, limit = 12): QuranSearchResult[] {
   if (results.length >= limit) return results;
 
   const hadithResults: QuranSearchResult[] = [];
-  for (const { record, normalizedArabic, normalizedEnglish } of searchableHadiths) {
+  for (const { record, turkish, normalizedArabic, normalizedEnglish, normalizedTurkish } of searchableHadiths) {
     const matchesArabic = normalizedArabic.includes(normalizedQuery);
     const matchesEnglish = normalizedEnglish.includes(normalizedQuery);
-    if (!matchesArabic && !matchesEnglish) continue;
+    const matchesTurkish = normalizedTurkish.includes(normalizedQuery);
+    if (!matchesArabic && !matchesEnglish && !matchesTurkish) continue;
     hadithResults.push({
       type: 'Hadith',
       title: `Authentic Hadith #${record.id}`,
-      description: matchesArabic ? record.hadeeth_ar : record.title,
+      description: matchesArabic ? record.hadeeth_ar : matchesTurkish && turkish ? turkish.title : record.title,
       href: getHadithHref(record),
-      language: matchesArabic ? 'ar' : 'en',
+      language: matchesArabic ? 'ar' : matchesTurkish ? 'tr' : 'en',
     });
   }
   results.push(...hadithResults.slice(0, Math.min(6, limit - results.length)));
 
-  for (const { surah, verse, meaning, normalizedArabic, normalizedEnglish } of searchableVerses) {
+  for (const { surah, verse, meaning, turkishMeaning, normalizedArabic, normalizedEnglish, normalizedTurkish } of searchableVerses) {
     const matchesArabic = normalizedArabic.includes(normalizedQuery);
     const matchesEnglish = normalizedEnglish.includes(normalizedQuery);
-    if (!matchesArabic && !matchesEnglish) continue;
+    const matchesTurkish = normalizedTurkish.includes(normalizedQuery);
+    if (!matchesArabic && !matchesEnglish && !matchesTurkish) continue;
     results.push({
       type: 'Verse',
       title: `${surah.nameTransliterated}, verse ${verse.ayah}`,
-      description: matchesArabic ? verse.text : meaning.text,
+      description: matchesArabic ? verse.text : matchesTurkish && turkishMeaning ? turkishMeaning.text : meaning.text,
       href: `${getSurahHref(surah)}#verse-${verse.ayah}`,
-      language: matchesArabic ? 'ar' : 'en',
+      language: matchesArabic ? 'ar' : matchesTurkish ? 'tr' : 'en',
     });
     if (results.length >= limit) return results;
   }

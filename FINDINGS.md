@@ -115,3 +115,13 @@
 - A source-coordinate list of 100 face-free Quran and authentic-hadith visual scenes is recorded in `GALLERY_SCENE_PROMPTS.md`; the public gallery remains intentionally empty.
 - Desktop and iPhone 15 Pro Max visual checks found and fixed a hidden mobile menu, system-dark-theme white cards, low-contrast explanatory copy and concatenated index tabs.
 - ESLint, TypeScript and the 389-page Next.js production build passed. Search and tafsir APIs were also checked locally, including English Ibn Kathir plus all three Arabic records for Al-Ikhlas 112:1.
+
+## 2026-08-29 — Source-first art gallery and full reader QA
+
+- All 100 Quran and authentic-hadith scene briefs now have original 4:5 gallery artwork. Revered figures remain rear-view, distant, obscured or represented through the environment; angels and unseen matters are not literalized.
+- The Gallery uses a responsive art-wall flow with Quran/Hadith filters. Every card turns in place to show its exact Quran coordinate or HadeethEnc record and the source-bounded visual brief.
+- Knowledge maps now read vertically from a hub into stable linked branches. Every Quranic person article receives the same responsive relationship map, not only the Moses article.
+- The source PDF is a true right-side split: opening it reflows the article, its divider supports pointer and keyboard resizing, and the viewer keeps only one close control.
+- A synchronous theme bootstrap prevents an initial system-dark flash when a saved light theme is active. Thirteen representative routes returned identical light and dark surface values with zero horizontal overflow.
+- Desktop Chrome checks covered the 100-card gallery, card flip, vertical graph, Jesus relationship map and exact HadeethEnc page 380. Mobile checks at 390 × 844 covered the same 13 routes with zero page overflow.
+- ESLint and the Sites production build passed in a clean dependency environment. A four-sheet visual review covered all 100 generated works.

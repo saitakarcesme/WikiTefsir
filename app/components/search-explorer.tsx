@@ -1,16 +1,18 @@
 'use client';
 
 import { FormEvent, useEffect, useState } from 'react';
+import type { Locale } from '@/lib/locale';
 
 interface SearchResult {
   type: 'Verse' | 'Surah' | 'Hadith' | 'Concept' | 'Person' | 'Scholar';
   title: string;
   description: string;
   href: string;
-  language?: 'ar' | 'en';
+  language?: 'ar' | 'en' | 'tr';
 }
 
-export function SearchExplorer() {
+export function SearchExplorer({ locale }: { locale: Locale }) {
+  const tr = locale === 'tr';
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);
   const [status, setStatus] = useState<'idle' | 'loading' | 'ready' | 'error'>('idle');
@@ -23,7 +25,7 @@ export function SearchExplorer() {
     const timer = window.setTimeout(async () => {
       setStatus('loading');
       try {
-        const response = await fetch(`/api/search?q=${encodeURIComponent(trimmed)}`, {
+        const response = await fetch(`/api/search?q=${encodeURIComponent(trimmed)}&lang=${locale}`, {
           signal: controller.signal,
         });
         if (!response.ok) throw new Error('Search request failed');
@@ -41,7 +43,7 @@ export function SearchExplorer() {
       window.clearTimeout(timer);
       controller.abort();
     };
-  }, [query]);
+  }, [locale, query]);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -53,7 +55,7 @@ export function SearchExplorer() {
     <div className="search-area">
       <form className="search-box" onSubmit={handleSubmit} role="search">
         <span className="search-icon" aria-hidden="true">⌕</span>
-        <label className="sr-only" htmlFor="main-search">Search the Quran and hadith corpus</label>
+        <label className="sr-only" htmlFor="main-search">{tr ? 'Kur’an ve hadis külliyatında ara' : 'Search the Quran and hadith corpus'}</label>
         <input
           id="main-search"
           name="q"
@@ -66,10 +68,10 @@ export function SearchExplorer() {
               setStatus('idle');
             }
           }}
-          placeholder="Try ‘Bakara 50’, ‘2:255’, ‘Moses’, or a misspelled name…"
+          placeholder={tr ? '“Bakara 50”, “2:255”, “Musa” veya hatalı yazılmış bir ad deneyin…' : 'Try ‘Bakara 50’, ‘2:255’, ‘Moses’, or a misspelled name…'}
           autoComplete="off"
         />
-        <button type="submit" disabled={query.trim().length < 2 || !results.length}>Search <span aria-hidden="true">→</span></button>
+        <button type="submit" disabled={query.trim().length < 2 || !results.length}>{tr ? 'Ara' : 'Search'} <span aria-hidden="true">→</span></button>
       </form>
 
       {query.trim().length >= 2 && (
@@ -77,7 +79,7 @@ export function SearchExplorer() {
           {results.length ? (
             results.map((record) => (
               <a key={`${record.type}-${record.href}`} href={record.href} onClick={() => setQuery('')}>
-                <span className="result-type">{record.type}</span>
+                <span className="result-type">{tr ? ({ Verse: 'Ayet', Surah: 'Sure', Hadith: 'Hadis', Concept: 'Kavram', Person: 'Kişi', Scholar: 'Âlim' } as const)[record.type] : record.type}</span>
                 <span>
                   <strong>{record.title}</strong>
                   <small lang={record.language} dir={record.language === 'ar' ? 'rtl' : undefined}>{record.description}</small>
@@ -86,7 +88,7 @@ export function SearchExplorer() {
               </a>
             ))
           ) : (
-            <p>{status === 'loading' ? 'Searching the Quran and authentic hadith corpus…' : status === 'error' ? 'Search is temporarily unavailable.' : 'No matching verified record was found.'}</p>
+            <p>{status === 'loading' ? (tr ? 'Kur’an ve sahih hadis külliyatı aranıyor…' : 'Searching the Quran and authentic hadith corpus…') : status === 'error' ? (tr ? 'Arama geçici olarak kullanılamıyor.' : 'Search is temporarily unavailable.') : (tr ? 'Eşleşen doğrulanmış kayıt bulunamadı.' : 'No matching verified record was found.')}</p>
           )}
         </div>
       )}

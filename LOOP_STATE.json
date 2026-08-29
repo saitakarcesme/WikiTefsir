@@ -1,7 +1,7 @@
 {
   "project": "WikiTefsir",
-  "phase": "responsive_reader_ready_to_deploy",
-  "updated_at": "2026-08-29T01:45:00+02:00",
+  "phase": "gallery_and_reader_qa_complete_ready_to_deploy",
+  "updated_at": "2026-08-29T13:30:00+02:00",
   "production_url": "https://wikitafsir.vercel.app",
   "repository_url": "https://github.com/saitakarcesme/WikiTefsir",
   "completed": [
@@ -89,7 +89,13 @@
     "static_responsive_knowledge_maps",
     "resizable_split_source_viewer",
     "gallery_scene_prompt_list_100",
-    "responsive_reader_local_build_and_browser_qa"
+    "responsive_reader_local_build_and_browser_qa",
+    "synchronous_theme_first_paint",
+    "vertical_knowledge_and_person_maps",
+    "pointer_and_keyboard_resizable_split_source_viewer",
+    "generated_gallery_artworks_100",
+    "source_backed_gallery_flip_cards",
+    "desktop_mobile_dual_theme_browser_qa"
   ],
   "next": [
     "select_licensed_kutub_al_sittah_editions",

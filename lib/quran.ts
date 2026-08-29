@@ -1,6 +1,8 @@
 import surahCatalogJson from '@/data/quran/surahs.json';
 import verseCatalogJson from '@/data/quran/verses.json';
 import englishTranslationCatalogJson from '@/data/quran/translation-en.json';
+import turkishTranslationCatalogJson from '@/data/quran/meal-tr.json';
+import type { Locale } from '@/lib/locale';
 
 export type RevelationType = 'Meccan' | 'Medinan';
 
@@ -80,11 +82,14 @@ interface EnglishTranslationCatalog {
 const surahCatalog = surahCatalogJson as SurahCatalog;
 const verseCatalog = verseCatalogJson as VerseCatalog;
 const englishTranslationCatalog = englishTranslationCatalogJson as EnglishTranslationCatalog;
+const turkishTranslationCatalog = turkishTranslationCatalogJson as EnglishTranslationCatalog;
 
 export const quranLicense = verseCatalog.license;
 export const quranCopyrightNotice = verseCatalog.copyrightNotice;
 export const englishTranslationMetadata = englishTranslationCatalog.translation;
 export const englishTranslationTerms = englishTranslationCatalog.republishingTerms;
+export const turkishTranslationMetadata = turkishTranslationCatalog.translation;
+export const turkishTranslationTerms = turkishTranslationCatalog.republishingTerms;
 
 function normalizeSlug(value: string) {
   return value
@@ -141,6 +146,30 @@ export function getEnglishTranslation(surahNumber: number, ayahNumber: number) {
   const surah = getSurahByNumber(surahNumber);
   if (!surah || ayahNumber < 1 || ayahNumber > surah.ayahCount) return undefined;
   return englishTranslationCatalog.records[surah.startOffset + ayahNumber - 1];
+}
+
+export function getTurkishTranslationForSurah(surahNumber: number) {
+  const surah = getSurahByNumber(surahNumber);
+  if (!surah) return [];
+  return turkishTranslationCatalog.records.slice(surah.startOffset, surah.startOffset + surah.ayahCount);
+}
+
+export function getTurkishTranslation(surahNumber: number, ayahNumber: number) {
+  const surah = getSurahByNumber(surahNumber);
+  if (!surah || ayahNumber < 1 || ayahNumber > surah.ayahCount) return undefined;
+  return turkishTranslationCatalog.records[surah.startOffset + ayahNumber - 1];
+}
+
+export function getTranslationForSurah(surahNumber: number, locale: Locale) {
+  return locale === 'tr' ? getTurkishTranslationForSurah(surahNumber) : getEnglishTranslationForSurah(surahNumber);
+}
+
+export function getTranslation(surahNumber: number, ayahNumber: number, locale: Locale) {
+  return locale === 'tr' ? getTurkishTranslation(surahNumber, ayahNumber) : getEnglishTranslation(surahNumber, ayahNumber);
+}
+
+export function getTranslationMetadata(locale: Locale) {
+  return locale === 'tr' ? turkishTranslationMetadata : englishTranslationMetadata;
 }
 
 export function getAdjacentSurahs(surahNumber: number) {

@@ -2,13 +2,14 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { SiteHeader } from '../../components/site-header';
-import { getAllConcepts, getConceptBySlug, getConceptHref } from '@/lib/concepts';
-import { getSurahByNumber, getSurahHref, getEnglishTranslation, getVerse } from '@/lib/quran';
+import { getAllConcepts, getConceptBySlug, getConceptHref, getConceptScope, getConceptTitle } from '@/lib/concepts';
+import { getSurahByNumber, getSurahHref, getTranslation, getVerse } from '@/lib/quran';
 import { SourceDrawer } from '@/app/components/source-drawer';
 import { getPeopleForVerse, getPersonHref } from '@/lib/people';
 import { getQuranPdfSource } from '@/lib/sources';
-
-export const dynamicParams = false;
+import { getLocale } from '@/lib/server-locale';
+import { localeNumber } from '@/lib/locale';
+import { getHadithByIdForLocale } from '@/lib/hadith';
 
 export function generateStaticParams() {
   return getAllConcepts().map((concept) => ({ slug: concept.slug }));
@@ -29,6 +30,8 @@ export async function generateMetadata({ params }: ConceptPageProps): Promise<Me
 }
 
 export default async function ConceptPage({ params }: ConceptPageProps) {
+  const locale = await getLocale();
+  const tr = locale === 'tr';
   const { slug } = await params;
   const concept = getConceptBySlug(slug);
   if (!concept) notFound();
@@ -36,32 +39,34 @@ export default async function ConceptPage({ params }: ConceptPageProps) {
     const record = getConceptBySlug(relatedSlug);
     return record ? [record] : [];
   });
-  const people = [...new Map(concept.verseRefs.flatMap((reference) => getPeopleForVerse(reference.surah, reference.ayah)).map((person) => [person.slug, person])).values()];
+  const displayedVerseRefs = concept.verseRefs.slice(0, 200);
+  const people = [...new Map(displayedVerseRefs.flatMap((reference) => getPeopleForVerse(reference.surah, reference.ayah)).map((person) => [person.slug, person])).values()];
 
   return (
     <main>
       <SiteHeader />
       <div className="wiki-layout concept-article-layout">
-        <aside className="wiki-toc" aria-label="Page contents"><span>Contents</span><a className="active" href="#introduction">Introduction</a><a href="#verses">Related verses</a><a href="#related">Related concepts</a></aside>
+        <aside className="wiki-toc" aria-label="Page contents"><span>{tr ? 'İçindekiler' : 'Contents'}</span><a className="active" href="#introduction">{tr ? 'Giriş' : 'Introduction'}</a><a href="#verses">{tr ? 'İlgili ayetler' : 'Related verses'}</a><a href="#hadiths">{tr ? 'İlgili hadisler' : 'Related hadiths'}</a><a href="#related">{tr ? 'İlgili kavramlar' : 'Related concepts'}</a></aside>
         <article className="wiki-article">
-          <nav className="breadcrumbs" aria-label="Breadcrumb"><Link href="/">Main page</Link><span>›</span><Link href="/concepts">Concepts</Link><span>›</span>{concept.title}</nav>
+          <nav className="breadcrumbs" aria-label="Breadcrumb"><Link href="/">{tr ? 'Ana sayfa' : 'Main page'}</Link><span>›</span><Link href="/concepts">{tr ? 'Kavramlar' : 'Concepts'}</Link><span>›</span>{getConceptTitle(concept, locale)}</nav>
           <header className="article-header" id="introduction">
-            <h1>{concept.title}</h1>
+            <h1>{getConceptTitle(concept, locale)}</h1>
             <p className="article-arabic-title" lang="ar" dir="rtl">{concept.arabic}</p>
-            <p className="article-lead">This article provides unified access to verified Quran records concerning {concept.title.toLocaleLowerCase('en-US')} and to related WikiTefsir articles.</p>
+            <p className="article-lead">{tr ? `Bu sayfa ${getConceptTitle(concept, locale).toLocaleLowerCase('tr-TR')} ile ilgili otomatik etiketlenmiş Kur’an ve sahih hadis kayıtlarını bir araya getirir.` : `This article provides unified access to automatically tagged Quran and authentic hadith records concerning ${concept.title.toLocaleLowerCase('en-US')}.`}</p>
           </header>
           <section className="concept-at-a-glance" aria-labelledby="glance-title">
-            <span className="reader-overline">At a glance</span>
-            <h2 id="glance-title">A source trail for {concept.title.toLocaleLowerCase('en-US')}</h2>
-            <p>{concept.scope}. This page groups a small, editorially selected set of Quran records so readers can move from the concept to the original verse, its translation, and the classical tafsir layer.</p>
-            <dl><div><dt>Quran records</dt><dd>{concept.verseRefs.length}</dd></div><div><dt>Related concepts</dt><dd>{related.length}</dd></div><div><dt>Connected people</dt><dd>{people.length}</dd></div></dl>
+            <span className="reader-overline">{tr ? 'Bir bakışta' : 'At a glance'}</span>
+            <h2 id="glance-title">{tr ? 'Kaynak bağlantıları' : `A source trail for ${concept.title.toLocaleLowerCase('en-US')}`}</h2>
+            <p>{getConceptScope(concept, locale)}. {tr ? 'Kayıtlar, çok dilli kaynak metinlerinde bütün kelime ve ifade eşleşmeleri taranarak üretilir; ayet numaraları elle seçilmez.' : 'Records are generated by whole-word and phrase matching across the multilingual source corpora; verse IDs are not selected by hand.'}</p>
+            <dl><div><dt>{tr ? 'Kur’an kayıtları' : 'Quran records'}</dt><dd>{concept.verseRefs.length.toLocaleString(localeNumber(locale))}</dd></div><div><dt>{tr ? 'Sahih hadisler' : 'Authentic hadiths'}</dt><dd>{concept.hadithIds.length.toLocaleString(localeNumber(locale))}</dd></div><div><dt>{tr ? 'Bağlı kişiler' : 'Connected people'}</dt><dd>{people.length}</dd></div></dl>
           </section>
           <section className="concept-verse-list" id="verses" aria-labelledby="concept-verses-title">
-            <h2 id="concept-verses-title">Related records in the Quran</h2>
-            {concept.verseRefs.map((reference) => {
+            <h2 id="concept-verses-title">{tr ? 'Kur’an’daki ilgili kayıtlar' : 'Related records in the Quran'}</h2>
+            {concept.verseRefs.length > displayedVerseRefs.length ? <p className="concept-result-note">{tr ? `${concept.verseRefs.length.toLocaleString('tr-TR')} eşleşmenin ilk ${displayedVerseRefs.length} kaydı gösteriliyor.` : `Showing the first ${displayedVerseRefs.length} of ${concept.verseRefs.length.toLocaleString('en-US')} matches.`}</p> : null}
+            {displayedVerseRefs.map((reference) => {
               const surah = getSurahByNumber(reference.surah);
               const verse = getVerse(reference.surah, reference.ayah);
-              const meaning = getEnglishTranslation(reference.surah, reference.ayah);
+              const meaning = getTranslation(reference.surah, reference.ayah, locale);
               if (!surah || !verse || !meaning) throw new Error(`Concept reference is missing: ${reference.surah}:${reference.ayah}`);
               const source = getQuranPdfSource(surah.startOffset + reference.ayah - 1);
               return (
@@ -70,21 +75,22 @@ export default async function ConceptPage({ params }: ConceptPageProps) {
                   <p className="concept-verse-arabic" lang="ar" dir="rtl">{verse.text}</p>
                   <p>{meaning.text}</p>
                   {meaning.footnotes ? <small>{meaning.footnotes}</small> : null}
-                  <div className="concept-source-actions"><SourceDrawer label="View exact source" title={`${surah.nameTransliterated} ${reference.surah}:${reference.ayah}`} description="Exact page in the official QuranEnc Rowwad mushaf PDF." pdfUrl={source?.pdfUrl} page={source?.page} sourceUrl="https://quranenc.com/en/browse/english_rwwad" sourceLabel="QuranEnc" /><Link href={`${getSurahHref(surah)}#verse-${reference.ayah}`}>Open full verse article</Link></div>
+                  <div className="concept-source-actions"><SourceDrawer label={tr ? 'Kaynağı aç' : 'View exact source'} title={`${surah.nameTransliterated} ${reference.surah}:${reference.ayah}`} description={tr ? 'QuranEnc Rowwad kaynağındaki doğrulanmış meal kaydı.' : 'Exact page in the official QuranEnc Rowwad mushaf PDF.'} pdfUrl={source?.pdfUrl} page={source?.page} sourceUrl="https://quranenc.com" sourceLabel="QuranEnc" /><Link href={`${getSurahHref(surah)}#verse-${reference.ayah}`}>{tr ? 'Tam ayet makalesini aç' : 'Open full verse article'}</Link></div>
                 </article>
               );
             })}
           </section>
-          {people.length > 0 ? <section className="concept-related" aria-labelledby="people-title"><h2 id="people-title">People connected to this concept</h2><p>{people.map((person, index) => <span key={person.slug}>{index > 0 ? ' · ' : ''}<Link href={getPersonHref(person)}>{person.name}</Link></span>)}</p></section> : null}
+          {concept.hadithIds.length > 0 ? <section className="concept-related-records" id="hadiths" aria-labelledby="concept-hadiths-title"><h2 id="concept-hadiths-title">{tr ? 'İlgili sahih hadisler' : 'Related authentic hadiths'}</h2><div>{concept.hadithIds.slice(0, 100).flatMap((id) => { const record = getHadithByIdForLocale(id, locale); return record ? [<article key={id}><small>HadeethEnc #{id}</small><h3><Link href={`/hadith/${id}`}>{record.title}</Link></h3></article>] : []; })}</div>{concept.hadithIds.length > 100 ? <p>{tr ? `${concept.hadithIds.length.toLocaleString('tr-TR')} kaydın ilk 100 tanesi gösteriliyor.` : `Showing the first 100 of ${concept.hadithIds.length.toLocaleString('en-US')} records.`}</p> : null}</section> : null}
+          {people.length > 0 ? <section className="concept-related" aria-labelledby="people-title"><h2 id="people-title">{tr ? 'Bu kavramla bağlantılı kişiler' : 'People connected to this concept'}</h2><p>{people.map((person, index) => <span key={person.slug}>{index > 0 ? ' · ' : ''}<Link href={getPersonHref(person)}>{person.name}</Link></span>)}</p></section> : null}
           <section className="concept-related" id="related" aria-labelledby="related-title">
-            <h2 id="related-title">Related concepts</h2>
-            <p>{related.map((record, index) => <span key={record.slug}>{index > 0 ? ' · ' : ''}<Link href={getConceptHref(record)}>{record.title}</Link></span>)}</p>
+            <h2 id="related-title">{tr ? 'İlgili kavramlar' : 'Related concepts'}</h2>
+            <p>{related.map((record, index) => <span key={record.slug}>{index > 0 ? ' · ' : ''}<Link href={getConceptHref(record)}>{getConceptTitle(record, locale)}</Link></span>)}</p>
           </section>
         </article>
         <aside className="wiki-infobox concept-infobox">
-          <h2>{concept.title}</h2><p lang="ar" dir="rtl">{concept.arabic}</p>
-          <dl><div><dt>Article type</dt><dd>Concept</dd></div><div><dt>Verse records</dt><dd>{concept.verseRefs.length}</dd></div><div><dt>Related articles</dt><dd>{related.length}</dd></div></dl>
-          <Link href="/concepts">Return to concept index</Link>
+          <h2>{getConceptTitle(concept, locale)}</h2>{concept.arabic ? <p lang="ar" dir="rtl">{concept.arabic}</p> : null}
+          <dl><div><dt>{tr ? 'Makale türü' : 'Article type'}</dt><dd>{concept.kind === 'keyword' ? (tr ? 'Külliyat etiketi' : 'Corpus tag') : (tr ? 'Kavram' : 'Concept')}</dd></div><div><dt>{tr ? 'Ayet kayıtları' : 'Verse records'}</dt><dd>{concept.verseRefs.length}</dd></div><div><dt>{tr ? 'Hadis kayıtları' : 'Hadith records'}</dt><dd>{concept.hadithIds.length}</dd></div></dl>
+          <Link href="/concepts">{tr ? 'Kavram dizinine dön' : 'Return to concept index'}</Link>
         </aside>
       </div>
     </main>

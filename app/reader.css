@@ -562,7 +562,7 @@ html[data-theme="dark"] .article-arabic { color: var(--reader-muted); }
 }
 
 @media (max-width: 760px) {
-  body.source-panel-open { padding-right: 0; overflow: hidden; }.source-drawer { width: 100vw !important; max-width: 100vw; }.source-resize-handle { display: none; }
+  body.source-panel-open { padding-right: 0; overflow: hidden; }.source-drawer { width: 100vw !important; max-width: 100vw; right: 0; }.source-resize-handle { display: none; }
   .library-page, .surahs-page, .profile-page, .hadith-article-page, .encyclopedia-index-page, .reader-index-page, .graph-page, .reader-home { width: calc(100% - 28px); }
   .reader-hero { padding: 52px 0 44px; }.reader-hero h1 { font-size: 44px; }.reader-hero > p { font-size: 17px; }.reader-hero .search-box { height: auto; min-height: 54px; flex-wrap: wrap; }.reader-hero .search-box button { width: 100%; }.reader-hero-examples { flex-wrap: wrap; }
   .featured-reading { padding: 44px 0; gap: 28px; }.featured-reading blockquote { padding: 20px; }
@@ -574,6 +574,129 @@ html[data-theme="dark"] .article-arabic { color: var(--reader-muted); }
   .person-reader-layout { width: calc(100% - 28px); padding-top: 20px; }.person-diagram-stage { min-height: 0; }.timeline-stage { grid-template-columns: 32px minmax(0,1fr); gap: 10px; }.timeline-content { padding-bottom: 38px; }.story-verse .timeline-verse { padding: 15px; }.story-verse .timeline-verse > p:first-child { font-size: 25px; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  body, .source-drawer { transition: none; animation: none; }
+/* Unified surfaces, vertical relationship maps, and split-pane reflow */
+.library-hero, .surahs-hero, .profile-hero, .profile-main section,
+.hadith-explanation, .hadith-benefits, .hadith-topics, .hadith-text-card,
+.directory-toolbar, .surah-directory-card, .surah-index, .directory-filters button,
+.load-more, .concept-at-a-glance dl div, .tafsir-records details > p,
+.surah-pagination a { color: var(--reader-ink); background: var(--reader-paper); border-color: var(--reader-line); }
+.hadith-result-list article { color: var(--reader-ink); background: transparent; }
+
+body.source-panel-resizing { cursor: col-resize; user-select: none; }
+body.source-panel-resizing iframe { pointer-events: none; }
+.source-resize-handle {
+  width: 14px; inset: 0 auto 0 0; background: color-mix(in srgb, var(--reader-paper) 88%, transparent);
+  border-right: 1px solid var(--reader-line);
 }
+.source-resize-handle::after { width: 3px; height: 52px; left: 5px; background: var(--reader-muted); opacity: .72; }
+
+body.source-panel-open .topbar { padding-inline: 20px; grid-template-columns: auto 1fr auto; gap: 16px; }
+body.source-panel-open .main-nav { display: none; }
+body.source-panel-open .library-page,
+body.source-panel-open .surahs-page,
+body.source-panel-open .profile-page,
+body.source-panel-open .hadith-article-page,
+body.source-panel-open .encyclopedia-index-page,
+body.source-panel-open .reader-index-page,
+body.source-panel-open .graph-page,
+body.source-panel-open .person-reader-layout { width: min(760px, calc(100% - 32px)); }
+body.source-panel-open .wiki-layout.quran-article-layout { width: calc(100% - 32px); grid-template-columns: minmax(0,1fr); }
+body.source-panel-open .quran-article-layout .wiki-toc,
+body.source-panel-open .quran-article-layout .wiki-infobox { display: none; }
+
+.graph-cluster-map { margin-top: 20px; display: grid; grid-template-columns: minmax(0,1fr); justify-items: center; gap: 0; }
+.graph-hub { width: min(260px,82%); min-height: 76px; text-align: center; }
+.graph-trunk { width: 1px; height: 34px; display: block; background: var(--reader-line); }
+.graph-branches { width: 100%; padding-top: 18px; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; border-top: 1px solid var(--reader-line); }
+.graph-branches a::before { width: 1px; height: 18px; left: 50%; top: -19px; background: var(--reader-line); }
+
+.person-diagram-stage { min-height: 0; padding: 28px; display: flex; flex-direction: column; align-items: center; }
+.person-diagram-center { width: min(280px,90%); }
+.diagram-trunk { width: 1px; height: 30px; flex: 0 0 auto; background: var(--reader-line); }
+.diagram-branch-row, .diagram-story-span { width: 100%; display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; position: relative; }
+.diagram-branch-row { padding-top: 18px; border-top: 1px solid var(--reader-line); }
+.diagram-branch-row .diagram-card { position: relative; }
+.diagram-branch-row .diagram-card::before { content: ''; width: 1px; height: 18px; position: absolute; top: -19px; left: 50%; background: var(--reader-line); }
+.diagram-story-span { grid-template-columns: repeat(2,minmax(0,1fr)); }
+.diagram-story-span a { min-width: 0; padding: 14px; display: grid; color: var(--reader-ink); background: var(--reader-paper); border: 1px solid var(--reader-line); border-radius: 9px; text-align: center; overflow-wrap: anywhere; }
+.diagram-story-span small { color: var(--reader-muted); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
+.diagram-story-span strong { margin-top: 3px; font-size: 13px; line-height: 1.35; }
+
+@media (max-width: 760px) {
+  .graph-branches { grid-template-columns: 1fr; padding-top: 0; border-top: 0; }
+  .graph-branches a::before { display: none; }
+  .person-diagram-stage { padding: 18px; }
+  .person-diagram-center { width: 100%; }
+  .diagram-branch-row { grid-template-columns: 1fr; padding-top: 0; border-top: 0; }
+  .diagram-branch-row .diagram-card { display: grid; grid-column: auto; grid-row: auto; }
+  .diagram-branch-row .diagram-card::before { display: none; }
+  .diagram-story-span { grid-template-columns: 1fr; }
+  .hadith-result-meta span, .hadith-theme-filter button { font-size: 12px; }
+  .hadith-result-list article > p, .hadith-result-list .text-link { font-size: 13px; }
+}
+
+.gallery-header { max-width: 780px; padding-bottom: 30px; }
+.gallery-controls { margin: 8px 0 28px; padding: 12px 0; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; border-top: 1px solid var(--reader-line); border-bottom: 1px solid var(--reader-line); }
+.gallery-controls button { padding: 7px 12px; color: var(--reader-muted); background: var(--reader-paper); border: 1px solid var(--reader-line); border-radius: 999px; font-size: 12px; }
+.gallery-controls button.active { color: var(--reader-paper); background: var(--reader-ink); border-color: var(--reader-ink); }
+.gallery-controls > span { margin-left: auto; color: var(--reader-muted); font-size: 12px; }
+.gallery-grid { columns: 3 260px; column-gap: 18px; }
+.gallery-work { height: 360px; margin: 0 0 18px; break-inside: avoid; perspective: 1200px; }
+.gallery-work-1, .gallery-work-4 { height: 430px; }
+.gallery-work-3 { height: 310px; }
+.gallery-flip { width: 100%; height: 100%; padding: 0; display: block; color: inherit; background: transparent; border: 0; text-align: left; }
+.gallery-card-inner { width: 100%; height: 100%; display: block; position: relative; transform-style: preserve-3d; transition: transform .55s cubic-bezier(.2,.75,.2,1); }
+.gallery-work.flipped .gallery-card-inner { transform: rotateY(180deg); }
+.gallery-card-face { position: absolute; inset: 0; overflow: hidden; background: var(--reader-soft); border: 1px solid var(--reader-line); border-radius: 10px; backface-visibility: hidden; }
+.gallery-card-front { display: flex; flex-direction: column; justify-content: flex-end; }
+.gallery-card-front img { object-fit: cover; }
+.gallery-awaiting { min-height: 0; flex: 1; display: grid; place-content: center; gap: 6px; color: var(--reader-muted); background: linear-gradient(145deg,var(--reader-soft),var(--reader-paper)); text-align: center; }
+.gallery-awaiting span { color: var(--reader-ink); font-family: Georgia,serif; font-size: 42px; }
+.gallery-awaiting small { font-size: 11px; }
+.gallery-caption { padding: 16px; display: grid; position: relative; z-index: 1; background: color-mix(in srgb,var(--reader-paper) 94%,transparent); border-top: 1px solid var(--reader-line); }
+.gallery-caption small, .gallery-card-back > small { color: var(--reader-muted); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
+.gallery-caption strong { margin-top: 4px; color: var(--reader-ink); font-size: 15px; line-height: 1.3; }
+.gallery-card-back { padding: 26px; display: flex; flex-direction: column; justify-content: center; transform: rotateY(180deg); }
+.gallery-card-back strong { margin: 10px 0 14px; color: var(--reader-blue); font-family: Georgia,serif; font-size: 22px; }
+.gallery-card-back p { margin: 0; color: var(--reader-ink); font-size: 14px; line-height: 1.65; }
+.gallery-card-back > span:last-child { margin-top: 22px; color: var(--reader-muted); font-size: 11px; }
+
+@media (max-width: 700px) {
+  .gallery-controls > span { width: 100%; margin: 4px 0 0; }
+  .gallery-grid { columns: 1; }
+  .gallery-work, .gallery-work-1, .gallery-work-3, .gallery-work-4 { height: 390px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body, .source-drawer, .gallery-card-inner { transition: none; animation: none; }
+}
+.language-toggle {
+  align-items: center;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--muted);
+  cursor: pointer;
+  display: inline-flex;
+  font: 700 .72rem/1 var(--font-geist-sans);
+  height: 2.25rem;
+  justify-content: center;
+  letter-spacing: .08em;
+  min-width: 2.8rem;
+  padding: 0 .65rem;
+}
+.language-toggle:hover { color: var(--ink); border-color: var(--ink); }
+
+.corpus-keyword-index { margin: 4rem 0; }
+.corpus-keyword-index > p { color: var(--muted); max-width: 70ch; }
+.keyword-cloud { display: flex; flex-wrap: wrap; gap: .55rem; margin-top: 1.5rem; }
+.keyword-cloud a { align-items: baseline; border: 1px solid var(--line); border-radius: 999px; display: inline-flex; gap: .45rem; padding: .55rem .8rem; text-decoration: none; }
+.keyword-cloud a:hover { border-color: var(--link); }
+.keyword-cloud small { color: var(--muted); font-size: .72rem; }
+.verse-concepts .keyword-tag { border-style: dashed; font-weight: 500; }
+.concept-result-note { background: var(--surface); border-left: 3px solid var(--line-strong); color: var(--muted); padding: .8rem 1rem; }
+.concept-related-records > div { display: grid; gap: 0; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.concept-related-records article { border-top: 1px solid var(--line); padding: 1rem 1.25rem 1rem 0; }
+.concept-related-records h3 { font: 600 1rem/1.45 var(--font-geist-sans); margin: .25rem 0 0; }
+.concept-related-records small { color: var(--muted); }
+@media (max-width: 720px) { .concept-related-records > div { grid-template-columns: 1fr; } }

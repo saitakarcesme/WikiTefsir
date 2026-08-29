@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import './reader.css';
+import { getLocale } from '@/lib/server-locale';
+import { LocaleProvider } from '@/app/components/locale-provider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -37,18 +39,26 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "(()=>{try{const saved=localStorage.getItem('wikitafsir-theme');const theme=saved==='light'||saved==='dark'?saved:(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.dataset.theme=theme;const language=localStorage.getItem('wikitafsir-language');if(language==='en'||language==='tr')document.documentElement.lang=language}catch{document.documentElement.dataset.theme='light'}})()",
+          }}
+        />
+      </head>
       <body
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <LocaleProvider locale={locale}>{children}</LocaleProvider>
       </body>
     </html>
   );
