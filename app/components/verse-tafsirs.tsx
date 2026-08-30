@@ -43,7 +43,7 @@ export function VerseTafsirs({ surah, ayah, locale }: { surah: number; ayah: num
   return (
     <div className="verse-tafsirs">
       <button type="button" onClick={loadTafsirs} disabled={status === 'loading'} aria-expanded={status === 'ready'}>
-        {status === 'loading' ? (tr ? 'İngilizce ve Arapça tefsirler yükleniyor…' : 'Loading English and Arabic tafsirs…') : status === 'ready' ? (tr ? 'Tefsirler yüklendi' : 'Tafsirs loaded') : (tr ? 'İngilizce ve Arapça tefsirleri oku' : 'Read English and Arabic tafsirs')}
+        {status === 'loading' ? (tr ? 'Tefsir yükleniyor…' : 'Loading tafsir…') : status === 'ready' ? (tr ? 'Tefsir yüklendi' : 'Tafsir loaded') : (tr ? 'Tefsiri oku' : 'Read tafsir')}
       </button>
       {status === 'error' && <p className="tafsir-error">{tr ? 'Kaynak doğrulaması tamamlanamadı. Lütfen tekrar deneyin.' : 'Source verification could not be completed. Please try again.'}</p>}
       {payload && (

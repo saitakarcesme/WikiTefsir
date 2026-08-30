@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const scholar = getScholarBySlug(slug);
   if (!scholar) return {};
-  return { title: scholar.name, description: `${scholar.name}, their works and linked WikiTefsir records.` };
+  return { title: scholar.name, description: `${scholar.name}, their works and linked IslamWiki records.` };
 }
 
 export default async function ScholarPage({ params }: { params: Promise<{ slug: string }> }) {

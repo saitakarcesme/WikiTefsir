@@ -7,7 +7,7 @@ import { localeNumber } from '@/lib/locale';
 
 export const metadata: Metadata = {
   title: 'Concepts',
-  description: 'An index of Islamic concepts linked to Quran verses and verified source records in WikiTefsir.',
+  description: 'An index of Islamic concepts linked to Quran verses and verified source records in IslamWiki.',
   openGraph: { images: [] },
   twitter: { images: [] },
 };

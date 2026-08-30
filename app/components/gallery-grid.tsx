@@ -6,7 +6,9 @@ import { galleryImageById } from '@/lib/gallery-images';
 import type { GalleryScene } from '@/lib/gallery-scenes';
 import type { Locale } from '@/lib/locale';
 
-export function GalleryGrid({ scenes, locale }: { scenes: GalleryScene[]; locale: Locale }) {
+type GalleryDisplayScene = GalleryScene & { verseArabic?: string; verseText?: string };
+
+export function GalleryGrid({ scenes, locale }: { scenes: GalleryDisplayScene[]; locale: Locale }) {
   const pageSize = 24;
   const tr = locale === 'tr';
   const [filter, setFilter] = useState<'All' | GalleryScene['kind']>('All');
@@ -31,7 +33,10 @@ export function GalleryGrid({ scenes, locale }: { scenes: GalleryScene[]; locale
                 {image ? <Image src={image} alt="" fill loading={[1, 35, 69].includes(scene.id) ? 'eager' : 'lazy'} sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw" /> : <span className="gallery-awaiting"><span>{String(scene.id).padStart(3, '0')}</span><small>{tr ? 'Eser üretim bekliyor' : 'Artwork awaiting generation'}</small></span>}
               </span>
               <span className="gallery-card-face gallery-card-back">
-                <small>{tr ? 'Kaynak kaydı' : 'Source record'}</small><strong>{scene.source}</strong><p>{tr ? 'Bu sahne, belirtilen Türkçe kaynak kaydının işaret ettiği olaya dayalı yüz göstermeyen sanatsal bir yorumdur.' : scene.brief}</p><span>{tr ? 'Geri çevir' : 'Turn back'} ↺</span>
+                <small>{tr ? 'Kaynak kaydı' : 'Source record'}</small><strong>{scene.source}</strong>
+                {scene.verseArabic ? <p className="gallery-source-arabic" lang="ar" dir="rtl">{scene.verseArabic}</p> : null}
+                <p>{scene.verseText ?? (tr ? 'Bu sahne, belirtilen sahih hadis kaydının işaret ettiği olaya dayalı yüz göstermeyen sanatsal bir yorumdur.' : scene.brief)}</p>
+                <span>{tr ? 'Geri çevir' : 'Turn back'} ↺</span>
               </span>
             </span>
           </button>

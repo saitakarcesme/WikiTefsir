@@ -30,6 +30,7 @@ export function SourceDrawer({
   const resizingRef = useRef(false);
   const pdfTarget = pdfUrl && page ? `${pdfUrl}#page=${page}&view=FitH` : undefined;
   const embeddedTarget = viewerUrl ?? pdfTarget;
+  const mobileTarget = embeddedTarget ?? sourceUrl;
 
   useEffect(() => {
     if (!open) return;
@@ -103,7 +104,7 @@ export function SourceDrawer({
       {description ? <p className="sr-only" id={descriptionId}>{description}</p> : null}
       <button ref={closeRef} className="source-close" type="button" aria-label={turkish ? 'Kaynak panelini kapat' : 'Close source panel'} title={turkish ? 'Kaynak panelini kapat' : 'Close source panel'} onClick={() => setOpen(false)}>×</button>
       {embeddedTarget
-        ? <iframe className="source-document" src={embeddedTarget} title={`${title}${page ? `, page ${page}` : ''}`} />
+        ? <><iframe className="source-document" src={embeddedTarget} title={`${title}${page ? `, page ${page}` : ''}`} /><div className="source-mobile-fallback"><small>{sourceLabel}</small><strong>{title}</strong>{description ? <p>{description}</p> : null}<a href={mobileTarget} target="_blank" rel="noreferrer">{turkish ? 'PDF kaynağını aç' : 'Open PDF source'} ↗</a></div></>
         : <div className="source-unavailable"><strong>{turkish ? 'Doğrulanmış dijital kaynak yeni sekmede kullanılabilir.' : 'The verified digital source is available in a new tab.'}</strong><a href={sourceUrl} target="_blank" rel="noreferrer">{turkish ? `${sourceLabel} kaynağını aç` : `Open ${sourceLabel}`} ↗</a></div>}
     </aside>, document.body) : null}
   </>;

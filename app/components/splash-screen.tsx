@@ -9,7 +9,7 @@ export function SplashScreen() {
     const timer = window.setTimeout(() => {
       window.sessionStorage.setItem('wikitafsir-splash-seen', '1');
       setVisible(false);
-    }, seen ? 0 : 850);
+    }, seen ? 0 : 1450);
     return () => window.clearTimeout(timer);
   }, []);
   return visible ? <div className="splash-screen" aria-hidden="true"><span>الله</span></div> : null;

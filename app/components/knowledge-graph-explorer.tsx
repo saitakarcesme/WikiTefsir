@@ -5,6 +5,31 @@ import { useEffect, useRef, useState } from 'react';
 import type { KnowledgeGraphBranch, KnowledgeGraphNode } from '@/lib/knowledge-graph';
 import type { Locale } from '@/lib/locale';
 
+const mosaicTileCount = 648;
+
+function AllahMosaic({ nodes, locale, onSelect }: { nodes: KnowledgeGraphNode[]; locale: Locale; onSelect: (node: KnowledgeGraphNode) => void }) {
+  const tr = locale === 'tr';
+  return <div className="atlas-overview" aria-label={tr ? 'IslamWiki bilgi evreninin kuş bakışı görünümü' : 'Bird’s-eye view of the IslamWiki knowledge universe'}>
+    <svg className="atlas-allah-mosaic" viewBox="0 0 1200 600" role="img" aria-label={tr ? 'Bilgi düğümlerinin oluşturduğu Allah lafzı' : 'The name of Allah formed by knowledge nodes'}>
+      <defs>
+        <mask id="atlas-allah-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1200" height="600">
+          <rect width="1200" height="600" fill="black" />
+          <text x="600" y="485" fill="white" fontFamily="Amiri, Noto Naskh Arabic, Georgia, serif" fontSize="560" textAnchor="middle" direction="rtl">الله</text>
+        </mask>
+      </defs>
+      <foreignObject x="70" y="35" width="1060" height="520" mask="url(#atlas-allah-mask)">
+        <div className="atlas-mosaic-grid">
+          {Array.from({ length: mosaicTileCount }, (_, index) => {
+            const node = nodes[index % nodes.length];
+            return <button type="button" key={`${node.id}-${index}`} title={`${node.label} · ${node.eyebrow}`} aria-label={`${node.label}: ${node.eyebrow}`} onClick={() => onSelect(node)} />;
+          })}
+        </div>
+      </foreignObject>
+    </svg>
+    <p>{tr ? 'Bir düğüme dokunarak bilgi katmanına yaklaşın.' : 'Select any tile to move into its knowledge layer.'}</p>
+  </div>;
+}
+
 export function KnowledgeGraphExplorer({ initialBranch, locale }: { initialBranch: KnowledgeGraphBranch; locale: Locale }) {
   const pageSize = 48;
   const [branch, setBranch] = useState(initialBranch);
@@ -76,8 +101,10 @@ export function KnowledgeGraphExplorer({ initialBranch, locale }: { initialBranc
     setHistory([]);
   }
 
-  return <section className={`atlas-stage${loading ? ' is-loading' : ''}`} aria-label={tr ? 'Etkileşimli bilgi grafiği' : 'Interactive knowledge graph'}>
-    <div className="atlas-path" aria-label={tr ? 'Grafik yolu' : 'Graph path'}>
+  const isOverview = branch.node.id === 'allah';
+
+  return <section className={`atlas-stage${loading ? ' is-loading' : ''}${isOverview ? ' is-overview' : ''}`} aria-label={tr ? 'Etkileşimli bilgi grafiği' : 'Interactive knowledge graph'}>
+    {!isOverview ? <div className="atlas-path" aria-label={tr ? 'Grafik yolu' : 'Graph path'}>
       {[...history, branch].map((item, index, items) => <button type="button" key={`${item.node.id}-${index}`} onClick={() => {
         if (index === items.length - 1) return;
         setForward(items.slice(index + 1));
@@ -85,8 +112,8 @@ export function KnowledgeGraphExplorer({ initialBranch, locale }: { initialBranc
         setVisibleCount(pageSize);
         setBranch(item);
       }}>{item.node.label}</button>)}
-    </div>
-    <div className="atlas-tree" aria-live="polite">
+    </div> : null}
+    {isOverview ? <AllahMosaic nodes={branch.children} locale={locale} onSelect={(node) => void loadNode(node)} /> : <div className="atlas-tree" aria-live="polite">
       <div className={`atlas-parent${branch.node.id === 'allah' ? ' atlas-allah' : ''}`}>
         <small>{branch.node.eyebrow}</small><strong>{branch.node.label}</strong>
         {branch.node.href ? <Link href={branch.node.href} aria-label={tr ? 'Makaleyi aç' : 'Open article'}>↗</Link> : null}
@@ -99,7 +126,7 @@ export function KnowledgeGraphExplorer({ initialBranch, locale }: { initialBranc
           <small>{tr ? 'Aynı katman' : 'Same level'}</small><strong>{tr ? 'Daha fazla düğüm göster' : 'Show more nodes'}</strong><span>+{Math.min(pageSize, branch.children.length - visibleCount)}</span>
         </button> : null}
       </div></> : <p className="atlas-empty">{tr ? 'Bu düğüm doğrudan kaynak makalesine açılır.' : 'This node opens its source article directly.'}</p>}
-    </div>
+    </div>}
     <div className="atlas-controls" aria-label={tr ? 'Grafik kontrolleri' : 'Graph controls'}>
       <button type="button" onClick={zoomOut} disabled={branch.node.id === 'allah'} aria-label={tr ? 'Bir üst katmana çık' : 'Move up one level'}>−</button>
       <button type="button" onClick={zoomIn} disabled={!forward.length} aria-label={tr ? 'Alt katmana dön' : 'Return to child level'}>+</button>

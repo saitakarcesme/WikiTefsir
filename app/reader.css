@@ -818,3 +818,84 @@ body.source-panel-open .quran-article-layout .wiki-infobox { display: none; }
 .concept-pagination { margin: 22px 0 12px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .concept-pagination a { min-height: 42px; padding: 10px 13px; display: inline-flex; align-items: center; color: var(--reader-blue); background: var(--reader-soft); border: 1px solid var(--reader-line); border-radius: 8px; font-size: 12px; }
 @media (max-width: 720px) { .concept-related-records > div { grid-template-columns: 1fr; } }
+
+/* IslamWiki mobile navigation */
+.mobile-menu { display: none; position: relative; }
+.mobile-menu summary { width: 42px; height: 42px; padding: 0; display: grid; place-content: center; gap: 4px; list-style: none; border: 1px solid var(--reader-line); border-radius: 50%; cursor: pointer; }
+.mobile-menu summary::-webkit-details-marker { display: none; }
+.mobile-menu summary span { width: 16px; height: 1px; display: block; background: var(--reader-ink); }
+.mobile-menu nav { width: min(320px,calc(100vw - 24px)); padding: 8px; display: grid; position: fixed; top: 64px; right: 12px; z-index: 60; background: var(--reader-paper); border: 1px solid var(--reader-line); border-radius: 14px; box-shadow: 0 18px 50px color-mix(in srgb,var(--reader-ink) 18%,transparent); }
+.mobile-menu nav a { min-height: 44px; padding: 0 12px; display: flex; align-items: center; color: var(--reader-ink); border-radius: 8px; font-size: 14px; }
+.mobile-menu nav a:hover { background: var(--reader-soft); }
+
+/* One calm control layer beneath every verse */
+.verse-tools { margin-top: 14px; border-top: 1px solid var(--reader-line); }
+.verse-tools > summary { min-height: 44px; display: flex; align-items: center; justify-content: space-between; gap: 14px; color: var(--reader-blue); cursor: pointer; font-size: 12px; list-style: none; }
+.verse-tools > summary::-webkit-details-marker { display: none; }
+.verse-tools > summary span { transition: transform .18s ease; }
+.verse-tools[open] > summary span { transform: rotate(180deg); }
+.verse-tools-body { padding: 4px 0 10px; }
+
+/* Hadith search uses one continuous theme surface */
+.library-search { overflow: hidden; background: var(--reader-soft) !important; }
+.library-search input { appearance: none; background: transparent !important; }
+.library-search button { align-self: stretch; margin: -1px; border-radius: 0 7px 7px 0; }
+
+/* Bird's-eye source atlas: many nodes form the name of Allah */
+.atlas-stage.is-overview { display: grid; place-items: center; }
+.atlas-overview { width: min(1120px,calc(100vw - 36px)); height: min(72svh,690px); display: grid; place-items: center; position: relative; }
+.atlas-allah-mosaic { width: 100%; height: 100%; overflow: visible; }
+.atlas-mosaic-grid { width: 100%; height: 100%; display: grid; grid-template-columns: repeat(36,minmax(0,1fr)); grid-template-rows: repeat(18,minmax(0,1fr)); gap: 3px; }
+.atlas-mosaic-grid button { min-width: 0; min-height: 0; padding: 0; background: var(--reader-ink); border: 0; border-radius: 3px; opacity: .9; transition: opacity .15s ease, transform .15s ease, background .15s ease; }
+.atlas-mosaic-grid button:hover, .atlas-mosaic-grid button:focus-visible { z-index: 2; background: var(--reader-blue); opacity: 1; transform: scale(1.55); outline: 0; }
+.atlas-overview > p { margin: 0; position: absolute; bottom: 8px; color: var(--reader-muted); font-size: 11px; }
+
+/* Source documents stay split-pane on desktop and become a light handoff on phones */
+.source-mobile-fallback { display: none; }
+
+/* Narrative first; exact source passages stay one tap away */
+.story-narrative { margin: 0; color: var(--reader-ink); font-family: Georgia,'Times New Roman',serif; font-size: 20px; line-height: 1.9; }
+.story-sources { margin-top: 22px; border-top: 1px solid var(--reader-line); border-bottom: 1px solid var(--reader-line); }
+.story-sources > summary { min-height: 50px; display: flex; align-items: center; justify-content: space-between; gap: 16px; color: var(--reader-blue); cursor: pointer; font-size: 12px; list-style: none; }
+.story-sources > summary::-webkit-details-marker { display: none; }
+.story-sources > summary span { transition: transform .18s ease; }
+.story-sources[open] > summary span { transform: rotate(180deg); }
+.story-sources > div { padding-top: 8px; }
+.gallery-source-arabic { max-height: 112px; margin-bottom: 12px !important; overflow: auto; font-family: 'Noto Naskh Arabic','Amiri',Georgia,serif; font-size: 21px !important; line-height: 1.8 !important; }
+
+/* The first-load mark lingers long enough to register without delaying navigation later in the session. */
+.splash-screen { animation: splash-away .34s ease 1.08s forwards; }
+.splash-screen span { animation-duration: 1.28s; }
+
+@media (max-width: 900px) {
+  .topbar { min-height: 62px; height: 62px; padding: 0 14px; grid-template-columns: 1fr auto; grid-template-rows: 62px; }
+  .brand { grid-column: 1; grid-row: 1; }
+  .main-nav { display: none; }
+  .header-actions { grid-column: 2; grid-row: 1; gap: 7px; }
+  .mobile-menu { display: block; }
+  .language-toggle { min-width: 42px; height: 42px; padding-inline: 8px; }
+  .theme-toggle { width: 42px; height: 42px; }
+  .atlas-stage { height: calc(100svh - 62px); }
+}
+
+@media (max-width: 760px) {
+  .source-drawer { height: 100dvh; display: grid; place-items: center; padding: 64px 22px 28px; }
+  .source-document { display: none; }
+  .source-mobile-fallback { width: min(420px,100%); display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+  .source-mobile-fallback small { color: var(--reader-muted); font-size: 11px; letter-spacing: .09em; text-transform: uppercase; }
+  .source-mobile-fallback strong { font-family: Georgia,'Times New Roman',serif; font-size: 28px; line-height: 1.2; }
+  .source-mobile-fallback p { margin: 0; color: var(--reader-muted); font-size: 14px; line-height: 1.7; }
+  .source-mobile-fallback a { min-height: 46px; padding: 0 16px; display: inline-flex; align-items: center; color: var(--reader-paper); background: var(--reader-ink); border-radius: 9px; font-size: 13px; }
+  .library-search { min-height: 50px; padding: 5px; flex-wrap: nowrap; }
+  .library-search button { width: auto; min-width: 76px; margin: 0; border-radius: 7px; }
+  .atlas-overview { width: calc(100vw - 16px); height: 66svh; }
+  .atlas-mosaic-grid { gap: 2px; }
+  .atlas-overview > p { width: 90%; text-align: center; }
+  .wiki-layout.quran-article-layout { padding-top: 8px; }
+  .article-header { padding-top: 14px; }
+  .article-facts { gap: 6px; }
+  .verse-row { padding-block: 24px; }
+  .verse-tools > summary { min-height: 48px; font-size: 13px; }
+  .story-reader-header > p { font-size: 25px; }
+  .story-narrative { font-size: 18px; line-height: 1.8; }
+}

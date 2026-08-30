@@ -6,7 +6,7 @@ import { getLocale } from '@/lib/server-locale';
 
 export const metadata: Metadata = {
   title: 'Scholars',
-  description: 'Sunni scholars whose sourced tafsir records are available in WikiTefsir.',
+  description: 'Sunni scholars whose sourced tafsir records are available in IslamWiki.',
   openGraph: { images: [] },
   twitter: { images: [] },
 };
@@ -22,7 +22,7 @@ export default async function ScholarsPage() {
         <nav className="breadcrumbs" aria-label="Breadcrumb"><Link href="/">{tr ? 'Ana sayfa' : 'Main page'}</Link><span>›</span>{tr ? 'Âlimler' : 'Scholars'}</nav>
         <header className="index-article-header">
           <h1>{tr ? 'Âlimler' : 'Scholars'}</h1>
-          <p>{tr ? 'Klasik ve sonraki dönem Ehl-i Sünnet müfessirleri, temel eserleri ve WikiTefsir’de bağlantılı ayet kayıtları için gelişen bir dizin.' : 'A growing index of classical and later Sunni exegetes, their principal works, and the verse records currently connected inside WikiTefsir.'}</p>
+          <p>{tr ? 'Klasik ve sonraki dönem Ehl-i Sünnet müfessirleri, temel eserleri ve IslamWiki’de bağlantılı ayet kayıtları için gelişen bir dizin.' : 'A growing index of classical and later Sunni exegetes, their principal works, and the verse records currently connected inside IslamWiki.'}</p>
           <div className="index-summary"><span><strong>{scholarRecords.length}</strong> {tr ? 'âlim' : 'scholars'}</span><span><strong>{scholarRecords.filter((scholar) => scholar.linkedCorpus).length}</strong> {tr ? 'bağlı külliyat' : 'linked corpora'}</span><span><strong>{scholarRecords.length}</strong> {tr ? 'temel eser' : 'major works'}</span></div>
         </header>
         <nav className="page-tabs compact" aria-label="Scholar index tools"><span className="active">{tr ? 'Âlim dizini' : 'Scholar index'}</span><Link href="/surahs">{tr ? 'Sureler' : 'Surahs'}</Link><Link href="/concepts">{tr ? 'Kavramlar' : 'Concepts'}</Link></nav>

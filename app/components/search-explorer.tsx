@@ -68,7 +68,7 @@ export function SearchExplorer({ locale }: { locale: Locale }) {
               setStatus('idle');
             }
           }}
-          placeholder={tr ? '“Bakara 50”, “2:255”, “Musa” veya hatalı yazılmış bir ad deneyin…' : 'Try ‘Bakara 50’, ‘2:255’, ‘Moses’, or a misspelled name…'}
+          placeholder={tr ? 'Allah’ın sizi yönelttiği ayeti, kişiyi veya kavramı arayın…' : 'Search whatever Allah guides you to…'}
           autoComplete="off"
         />
         <button type="submit" disabled={query.trim().length < 2 || !results.length}>{tr ? 'Ara' : 'Search'} <span aria-hidden="true">→</span></button>

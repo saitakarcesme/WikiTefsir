@@ -4,7 +4,7 @@ import { KnowledgeGraphExplorer } from '@/app/components/knowledge-graph-explore
 import { getKnowledgeGraphBranch } from '@/lib/knowledge-graph';
 import { getLocale } from '@/lib/server-locale';
 
-export const metadata: Metadata = { title: 'Knowledge graph', description: 'Explore the complete WikiTefsir knowledge hierarchy.', openGraph: { images: [] }, twitter: { images: [] } };
+export const metadata: Metadata = { title: 'Knowledge graph', description: 'Explore the complete IslamWiki knowledge hierarchy.', openGraph: { images: [] }, twitter: { images: [] } };
 
 export default async function GraphPage() {
   const locale = await getLocale();
