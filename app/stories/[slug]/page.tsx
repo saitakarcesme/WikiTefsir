@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { SiteHeader } from '@/app/components/site-header';
 import { SourceDrawer } from '@/app/components/source-drawer';
-import { getAllPeople, getPersonBySlug, type PersonRecord } from '@/lib/people';
+import { getAllPeople, getPersonBySlug } from '@/lib/people';
 import { getPersonKind, getPersonName } from '@/lib/person-locale';
 import { getSurahByNumber, getSurahHref, getTranslation, getTranslationMetadata, getVerse } from '@/lib/quran';
 import { getLocale } from '@/lib/server-locale';
@@ -12,26 +12,6 @@ import { getQuranPdfSource } from '@/lib/sources';
 export const dynamicParams = false;
 export function generateStaticParams() { return getAllPeople().filter((person) => person.narrative.length > 1).map((person) => ({ slug: person.slug })); }
 type StoryPageProps = { params: Promise<{ slug: string }> };
-
-function buildEnglishStory(person: PersonRecord) {
-  const transitions = ['First,', 'As the story continues,', 'Later,', 'Then,', 'At the next decisive moment,', 'Afterward,', 'In the events that follow,', 'Finally,'];
-  const sentences = person.narrative.map((stage, index) => {
-    const summary = `${stage.summary.charAt(0).toLocaleLowerCase('en-US')}${stage.summary.slice(1)}`;
-    return `${transitions[Math.min(index, transitions.length - 1)]} ${summary}`;
-  });
-  const paragraphs: string[] = [];
-  for (let index = 0; index < sentences.length; index += 2) paragraphs.push(sentences.slice(index, index + 2).join(' '));
-  return [person.introduction, ...paragraphs, person.closingNote];
-}
-
-function buildTurkishStory(person: PersonRecord, name: string) {
-  const chapterCount = person.narrative.length;
-  return [
-    `${name} kıssası, Kur’an’ın farklı surelerde anlattığı ${chapterCount} safha bir araya getirilerek kronolojik bir okuma hâline getirilmiştir.`,
-    `Anlatı, Kur’an’ın açıkça bildirdiği olayların dışına çıkmaz. Her geçişin altında ilgili Türkçe kaynak ayetleri bulunur; böylece hikâye kesintisiz okunurken dayandığı metin de doğrudan görülebilir.`,
-    `Kur’an’ın ayrıntı vermediği hayat dönemleri tamamlanmış gibi gösterilmez; kıssa, vahyin bıraktığı yerde sona erer.`,
-  ];
-}
 
 export async function generateMetadata({ params }: StoryPageProps): Promise<Metadata> {
   const person = getPersonBySlug((await params).slug);
@@ -44,32 +24,34 @@ export default async function StoryPage({ params }: StoryPageProps) {
   const person = getPersonBySlug((await params).slug);
   if (!person || person.narrative.length < 2) notFound();
   const translation = getTranslationMetadata(locale);
-  const personName = getPersonName(person, locale);
-  const storyParagraphs = tr ? buildTurkishStory(person, personName) : buildEnglishStory(person);
+  const readingMinutes = Math.max(4, Math.round(person.narrative.flatMap((stage) => stage.references).length * .42 + person.narrative.length * .45));
   return <main><SiteHeader /><article className="story-reader">
-    <nav className="breadcrumbs"><Link href="/">{tr ? 'Ana sayfa' : 'Home'}</Link><span>›</span><Link href="/stories">{tr ? 'Kıssalar' : 'Stories'}</Link><span>›</span>{personName}</nav>
-    <header className="story-reader-header"><span className="reader-overline">{getPersonKind(person, locale)} · {person.narrative.length} {tr ? 'bölüm' : 'chapters'}</span><h1>{personName}</h1><p lang="ar" dir="rtl">{person.arabic}</p><div>{tr ? `Kaynak ayetler QuranEnc Türkçe Rowwad ${translation.version} neşrinden değiştirilmeden gösterilir.` : `Source verses are preserved verbatim from QuranEnc English Rowwad ${translation.version}.`}</div></header>
-    <section className="story-continuous" aria-labelledby="story-reading-title">
-      <span className="reader-overline">{tr ? 'KESİNTİSİZ ANLATI' : 'CONTINUOUS NARRATIVE'}</span>
-      <h2 id="story-reading-title">{tr ? 'Hikâyenin tamamı' : 'The story in one reading'}</h2>
-      {storyParagraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
-    </section>
-    <div className="story-source-heading"><span className="reader-overline">{tr ? 'KAYNAK METİNLER' : 'SOURCE TEXTS'}</span><h2>{tr ? 'Bölümlere göre ayetler' : 'Verses by chapter'}</h2></div>
+    <nav className="breadcrumbs"><Link href="/">{tr ? 'Ana sayfa' : 'Home'}</Link><span>›</span><Link href="/stories">{tr ? 'Kıssalar' : 'Stories'}</Link><span>›</span>{getPersonName(person, locale)}</nav>
+    <header className="story-reader-header"><span className="reader-overline">{getPersonKind(person, locale)} · {readingMinutes} {tr ? 'dakikalık okuma' : 'minute read'}</span><h1>{getPersonName(person, locale)}</h1><p lang="ar" dir="rtl">{person.arabic}</p><div>{tr ? `${getPersonName(person, locale)} kıssası, farklı surelerdeki pasajlar anlatı sırasına getirilerek kesintisiz bir okuma hâline getirildi. Ayetler QuranEnc Türkçe Rowwad ${translation.version} kaynağından aynen aktarılır.` : `${getPersonName(person, locale)}’s account is presented as one continuous narrative assembled from passages across the surahs. Verses are reproduced verbatim from QuranEnc English Rowwad ${translation.version}.`}</div></header>
+    <p className="story-opening">{tr ? `${getPersonName(person, locale)} hakkında Kur’an’ın anlattıkları tek bir surede başlayıp bitmez. Aşağıdaki anlatı, olayları sure sırasına göre değil kıssanın kendi akışına göre bir araya getirir; anlatının her dönüm noktası hemen altındaki ayetlerle görülebilir.` : `${person.introduction} The Quran does not always tell this account in one uninterrupted passage. The reading below follows the events themselves rather than surah order, while keeping every turning point beside the verses on which it rests.`}</p>
     <div className="story-prose">
-      {person.narrative.map((stage, index) => <section id={stage.id} key={stage.id}>
-        <header><small>{String(index + 1).padStart(2, '0')}</small><h2>{tr ? `${index + 1}. bölüm` : stage.title}</h2></header>
-        <p className="story-narrative">{tr ? `${stage.references.length} ayetlik kaynak dizisi.` : stage.summary}</p>
-        <details className="story-sources">
-          <summary>{tr ? `${stage.references.length} kaynak ayeti oku` : `Read ${stage.references.length} source ${stage.references.length === 1 ? 'verse' : 'verses'}`} <span aria-hidden="true">↓</span></summary>
-          <div>{stage.references.map((reference) => {
+      {person.narrative.map((stage, index) => {
+        const passages = stage.references.map((reference) => {
           const surah = getSurahByNumber(reference.surah);
           const verse = getVerse(reference.surah, reference.ayah);
           const meaning = getTranslation(reference.surah, reference.ayah, locale);
           if (!surah || !verse || !meaning) throw new Error(`Missing story source ${reference.surah}:${reference.ayah}`);
-          const source = getQuranPdfSource(surah.startOffset + reference.ayah - 1);
-          return <div className="story-paragraph" key={`${reference.surah}:${reference.ayah}`}><p lang="ar" dir="rtl">{verse.text}</p><p>{meaning.text}</p><footer><Link href={`${getSurahHref(surah)}#verse-${reference.ayah}`}>{surah.nameTransliterated} {reference.surah}:{reference.ayah}</Link><SourceDrawer label={tr ? 'Kaynak' : 'Source'} title={`${surah.nameTransliterated} ${reference.surah}:${reference.ayah}`} pdfUrl={source?.pdfUrl} page={source?.page} sourceUrl="https://quranenc.com" sourceLabel={`QuranEnc Rowwad ${translation.version}`} /></footer></div>;
-        })}</div></details>
-      </section>)}
+          return { reference, surah, verse, meaning, source: getQuranPdfSource(surah.startOffset + reference.ayah - 1) };
+        });
+        const first = passages[0]; const last = passages.at(-1);
+        return <section id={stage.id} key={stage.id}>
+          <header><small>{String(index + 1).padStart(2, '0')}</small><h2>{tr ? `${getPersonName(person, locale)} · ${index + 1}. bölüm` : stage.title}</h2></header>
+          <div className="story-narrative-copy">
+            <p>{tr ? `Kıssanın bu bölümünde anlatı ${first.surah.nameTransliterated} suresindeki ${first.reference.surah}:${first.reference.ayah} ayetiyle açılır. Burada olay yalnızca bir bilgi olarak verilmez; ${getPersonName(person, locale)}’in önündeki yeni safhayı hazırlayan bir dönüm noktası kurulur.` : stage.summary}</p>
+            <p>{tr ? `Pasajlar birlikte okunduğunda sahne adım adım ilerler. İlk ayetin kurduğu durum, aynı bölümde seçilen diğer ayetlerle tamamlanır; böylece farklı surelerdeki ifadeler tek bir olayın parçaları olarak okunabilir.` : `Read together, these passages turn that statement into a scene: the opening verse establishes the moment, and the following references carry it toward its consequence. The order here is narrative, not the order of revelation.`}</p>
+            {last && last.reference !== first.reference ? <p>{tr ? `Bölüm ${last.surah.nameTransliterated} ${last.reference.surah}:${last.reference.ayah} ile kapanırken kıssa bir sonraki aşamaya geçer. Aşağıdaki ayet kartları anlatının dayandığı Arapça metni ve Türkçe kaynak mealini eksiksiz gösterir.` : `By ${last.surah.nameTransliterated} ${last.reference.surah}:${last.reference.ayah}, the episode has reached its next turning point. The source passages below preserve the Arabic text and the independent English source translation in full.`}</p> : null}
+          </div>
+          <div className="story-source-passages">
+            {passages.map(({ reference, surah, verse, meaning, source }) => <div className="story-paragraph" key={`${reference.surah}:${reference.ayah}`}><p lang="ar" dir="rtl">{verse.text}</p><p>{meaning.text}</p><footer><Link href={`${getSurahHref(surah)}#verse-${reference.ayah}`}>{surah.nameTransliterated} {reference.surah}:{reference.ayah}</Link><SourceDrawer label={tr ? 'Kaynak' : 'Source'} title={`${surah.nameTransliterated} ${reference.surah}:${reference.ayah}`} pdfUrl={source?.pdfUrl} page={source?.page} sourceUrl={tr ? 'https://quranenc.com/tr/browse/turkish_rwwad' : 'https://quranenc.com/en/browse/english_rwwad'} sourceLabel={`QuranEnc Rowwad ${translation.version}`} /></footer></div>)}
+          </div>
+        </section>;
+      })}
     </div>
+    <footer className="story-closing">{tr ? 'Anlatı, Kur’an’ın açıkça bildirdiği olay ve tasvirlerin sınırında tutulmuştur; kaynakta bulunmayan biyografik ayrıntılar eklenmemiştir.' : person.closingNote}</footer>
   </article></main>;
 }

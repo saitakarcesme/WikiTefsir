@@ -20,6 +20,29 @@ export interface KnowledgeGraphBranch {
   children: KnowledgeGraphNode[];
 }
 
+export type KnowledgeGraphKind = 'root' | 'collection' | 'surah' | 'verse' | 'hadith' | 'person' | 'concept' | 'scholar' | 'story';
+
+export interface KnowledgeGraphNetworkNode {
+  id: string;
+  label: string;
+  kind: KnowledgeGraphKind;
+  href?: string;
+  weight: number;
+}
+
+export interface KnowledgeGraphNetworkEdge {
+  source: string;
+  target: string;
+  relation: 'contains' | 'mentions' | 'explains' | 'relates' | 'reads';
+}
+
+export interface KnowledgeGraphNetwork {
+  nodes: KnowledgeGraphNetworkNode[];
+  edges: KnowledgeGraphNetworkEdge[];
+}
+
+const networkCache = new Map<Locale, KnowledgeGraphNetwork>();
+
 const t = (locale: Locale, en: string, tr: string) => locale === 'tr' ? tr : en;
 const personKinds = ['Prophet', 'Person', 'Ruler', 'Adversary', 'Angel', 'Group', 'Unnamed figure'] as const;
 
@@ -178,4 +201,80 @@ export function getKnowledgeGraphBranch(id: string, locale: Locale): KnowledgeGr
   if (id === 'scholars') return scholarsBranch(locale);
   if (id === 'stories') return storiesBranch(locale);
   return undefined;
+}
+
+export function getKnowledgeGraphNetwork(locale: Locale): KnowledgeGraphNetwork {
+  const cached = networkCache.get(locale);
+  if (cached) return cached;
+  const nodes = new Map<string, KnowledgeGraphNetworkNode>();
+  const edges: KnowledgeGraphNetworkEdge[] = [];
+  const addNode = (node: KnowledgeGraphNetworkNode) => { if (!nodes.has(node.id)) nodes.set(node.id, node); };
+  const addEdge = (source: string, target: string, relation: KnowledgeGraphNetworkEdge['relation']) => edges.push({ source, target, relation });
+  const collections: Array<[string, string, string]> = [
+    ['quran', t(locale, 'Quran', 'Kur’an'), '/surahs'],
+    ['hadith', t(locale, 'Authentic hadith', 'Sahih hadis'), '/hadith'],
+    ['people', t(locale, 'People', 'Kişiler'), '/people'],
+    ['concepts', t(locale, 'Concepts', 'Kavramlar'), '/concepts'],
+    ['scholars', t(locale, 'Scholars', 'Âlimler'), '/scholars'],
+    ['stories', t(locale, 'Stories', 'Kıssalar'), '/stories'],
+  ];
+
+  addNode({ id: 'islamwiki', label: 'IslamWiki', kind: 'root', href: '/', weight: 18 });
+  for (const [id, label, href] of collections) {
+    addNode({ id, label, kind: 'collection', href, weight: 12 });
+    addEdge('islamwiki', id, 'contains');
+  }
+
+  for (const surah of getAllSurahs()) {
+    const surahId = `surah:${surah.number}`;
+    addNode({ id: surahId, label: `${surah.number}. ${surah.nameTransliterated}`, kind: 'surah', href: getSurahHref(surah), weight: Math.max(5, Math.sqrt(surah.ayahCount)) });
+    addEdge('quran', surahId, 'contains');
+    for (let ayah = 1; ayah <= surah.ayahCount; ayah += 1) {
+      const verseId = `ayah:${surah.number}:${ayah}`;
+      addNode({ id: verseId, label: `${surah.number}:${ayah}`, kind: 'verse', href: `${getSurahHref(surah)}#verse-${ayah}`, weight: 1.5 });
+      addEdge(surahId, verseId, 'contains');
+    }
+  }
+
+  const hadiths = getAllHadithsForLocale(locale);
+  const hadithIds = new Set(hadiths.map((record) => record.id));
+  for (const record of hadiths) {
+    const id = `hadith:${record.id}`;
+    addNode({ id, label: record.title, kind: 'hadith', href: getHadithHref(record), weight: 2 });
+    addEdge('hadith', id, 'contains');
+  }
+
+  for (const concept of getAllConcepts()) {
+    const conceptId = `concept:${concept.slug}`;
+    addNode({ id: conceptId, label: getConceptTitle(concept, locale), kind: 'concept', href: getConceptHref(concept), weight: Math.max(3, Math.log2(concept.verseRefs.length + concept.hadithIds.length + 2)) });
+    addEdge('concepts', conceptId, 'contains');
+    for (const reference of concept.verseRefs) addEdge(conceptId, `ayah:${reference.surah}:${reference.ayah}`, 'relates');
+    for (const recordId of concept.hadithIds) if (hadithIds.has(recordId)) addEdge(conceptId, `hadith:${recordId}`, 'relates');
+  }
+
+  for (const person of getAllPeople()) {
+    const personId = `person:${person.slug}`;
+    addNode({ id: personId, label: getPersonName(person, locale), kind: 'person', href: getPersonHref(person), weight: Math.max(4, Math.sqrt(person.keyReferences.length + person.narrative.length)) });
+    addEdge('people', personId, 'contains');
+    const references = new Set([...person.keyReferences, ...person.narrative.flatMap((stage) => stage.references)].map((reference) => `${reference.surah}:${reference.ayah}`));
+    for (const reference of references) addEdge(personId, `ayah:${reference}`, 'mentions');
+    for (const slug of person.concepts) if (nodes.has(`concept:${slug}`)) addEdge(personId, `concept:${slug}`, 'relates');
+    if (person.narrative.length > 1) {
+      const storyId = `story:${person.slug}`;
+      addNode({ id: storyId, label: getPersonName(person, locale), kind: 'story', href: `/stories/${person.slug}`, weight: Math.max(3, Math.sqrt(person.narrative.length)) });
+      addEdge('stories', storyId, 'contains');
+      addEdge(storyId, personId, 'reads');
+    }
+  }
+
+  for (const scholar of getAllScholars()) {
+    const scholarId = `scholar:${scholar.slug}`;
+    addNode({ id: scholarId, label: scholar.name, kind: 'scholar', href: getScholarHref(scholar.slug), weight: 4 });
+    addEdge('scholars', scholarId, 'contains');
+    addEdge(scholarId, 'quran', 'explains');
+  }
+
+  const network = { nodes: [...nodes.values()], edges };
+  networkCache.set(locale, network);
+  return network;
 }

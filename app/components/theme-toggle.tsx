@@ -6,15 +6,15 @@ type Theme = 'light' | 'dark';
 
 export function ThemeToggle() {
   useEffect(() => {
-    const savedTheme = window.localStorage.getItem('wikitafsir-theme');
+    const savedTheme = window.localStorage.getItem('islamwiki-theme');
     if (savedTheme === 'light' || savedTheme === 'dark') {
       document.documentElement.dataset.theme = savedTheme;
-      window.dispatchEvent(new Event('wikitafsir-theme'));
+      window.dispatchEvent(new Event('islamwiki-theme'));
     }
   }, []);
 
   const theme = useSyncExternalStore(
-    (notify) => { window.addEventListener('wikitafsir-theme', notify); return () => window.removeEventListener('wikitafsir-theme', notify); },
+    (notify) => { window.addEventListener('islamwiki-theme', notify); return () => window.removeEventListener('islamwiki-theme', notify); },
     () => document.documentElement.dataset.theme === 'dark' || (!document.documentElement.dataset.theme && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light',
     () => 'light' as Theme,
   );
@@ -22,8 +22,8 @@ export function ThemeToggle() {
   function toggleTheme() {
     const next = theme === 'light' ? 'dark' : 'light';
     document.documentElement.dataset.theme = next;
-    window.localStorage.setItem('wikitafsir-theme', next);
-    window.dispatchEvent(new Event('wikitafsir-theme'));
+    window.localStorage.setItem('islamwiki-theme', next);
+    window.dispatchEvent(new Event('islamwiki-theme'));
   }
 
   return <button className="theme-toggle" type="button" onClick={toggleTheme} aria-label={`Use ${theme === 'light' ? 'dark' : 'light'} theme`} title={`Use ${theme === 'light' ? 'dark' : 'light'} theme`}>

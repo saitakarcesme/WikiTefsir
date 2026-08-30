@@ -59,6 +59,9 @@ const catalog = hadithCatalogJson as HadithCatalog;
 const turkishCatalog = turkishHadithCatalogJson as HadithCatalog;
 const recordsById = new Map(catalog.records.map((record) => [record.id, record]));
 const turkishRecordsById = new Map(turkishCatalog.records.map((record) => [record.id, record]));
+const sharedRecordIds = new Set(catalog.records.flatMap((record) => turkishRecordsById.has(record.id) ? [record.id] : []));
+const sharedEnglishRecords = catalog.records.filter((record) => sharedRecordIds.has(record.id));
+const sharedTurkishRecords = turkishCatalog.records.filter((record) => sharedRecordIds.has(record.id));
 const categoriesById = new Map(catalog.categories.map((category) => [category.id, category]));
 const turkishCategoriesById = new Map(turkishCatalog.categories.map((category) => [category.id, category]));
 
@@ -107,15 +110,19 @@ export function getAllHadiths() {
   return catalog.records;
 }
 
-export function getAllHadithsForLocale(locale: Locale) { return locale === 'tr' ? turkishCatalog.records : catalog.records; }
+// The bilingual directory intentionally exposes the intersection of the two
+// independently published HadeethEnc corpora. This keeps record counts and
+// stable IDs aligned without translating either source ourselves.
+export function getAllHadithsForLocale(locale: Locale) { return locale === 'tr' ? sharedTurkishRecords : sharedEnglishRecords; }
 export function getHadithByIdForLocale(id: string, locale: Locale) {
   if (!/^\d+$/u.test(id)) return undefined;
+  if (!sharedRecordIds.has(id)) return undefined;
   return locale === 'tr' ? turkishRecordsById.get(id) : recordsById.get(id);
 }
 export function getHadithCategoriesForLocale(locale: Locale) { return locale === 'tr' ? turkishCatalog.categories : catalog.categories; }
 export function getHadithStatsForLocale(locale: Locale) {
   const source = locale === 'tr' ? turkishCatalog : catalog;
-  return { recordCount: source.records.length, sourceRecordCount: source.publicationFilter.sourceRecordCount, excludedRecordCount: source.publicationFilter.excludedRecordCount, categoryCount: source.categories.length, version: source.version, source: source.source };
+  return { recordCount: sharedRecordIds.size, sourceRecordCount: source.publicationFilter.sourceRecordCount, excludedRecordCount: source.records.length - sharedRecordIds.size, categoryCount: source.categories.length, version: source.version, source: source.source };
 }
 
 export function getHadithById(id: string) {

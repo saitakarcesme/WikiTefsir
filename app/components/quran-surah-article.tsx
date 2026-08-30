@@ -81,31 +81,19 @@ export function QuranSurahArticle({ surah, verses, translation, previous, next, 
                     <p>{meaning.text}</p>
                   </div>
                   {meaning.footnotes && <aside className="meal-footnote"><strong>{tr ? 'Meal dipnotu' : 'Translation footnote'}</strong><p>{meaning.footnotes}</p></aside>}
-                  <details className="verse-tools">
-                    <summary>{tr ? 'Kavramlar, tefsir ve kaynak' : 'Connections, tafsir and source'} <span aria-hidden="true">↓</span></summary>
-                    <div className="verse-tools-body">
-                      {concepts.length > 0 ? (
-                        <div className="verse-concepts" aria-label={`Concepts related to ${surah.nameTransliterated} ${verse.ayah}`}>
-                          <span>{tr ? 'İlgili kavramlar:' : 'Related concepts:'}</span>
-                          {concepts.map((concept) => <Link href={getConceptHref(concept)} key={concept.slug}>{getConceptTitle(concept, locale)}</Link>)}
-                          {keywords.map((concept) => <Link className="keyword-tag" href={getConceptHref(concept)} key={concept.slug}>{concept.title}</Link>)}
-                        </div>
-                      ) : null}
+                  <details className="verse-resources">
+                    <summary>{tr ? 'Bağlantılar, tefsir ve kaynak' : 'Connections, tafsir and source'}</summary>
+                    <div>
+                      {concepts.length > 0 ? <div className="verse-concepts" aria-label={`Concepts related to ${surah.nameTransliterated} ${verse.ayah}`}>
+                        <span>{tr ? 'Kavramlar' : 'Concepts'}</span>
+                        {concepts.map((concept) => <Link href={getConceptHref(concept)} key={concept.slug}>{getConceptTitle(concept, locale)}</Link>)}
+                        {keywords.map((concept) => <Link className="keyword-tag" href={getConceptHref(concept)} key={concept.slug}>{concept.title}</Link>)}
+                      </div> : null}
                       <VerseTafsirs surah={verse.surah} ayah={verse.ayah} locale={locale} />
-                      <div className="corpus-verse-meta">
-                        <span>{surah.number}:{verse.ayah}</span>
-                        <span>QuranEnc Rowwad {translationMetadata.version}</span>
-                      </div>
                       <div className="corpus-verse-actions">
-                        <SourceDrawer
-                          title={`${surah.nameTransliterated} ${verse.surah}:${verse.ayah}`}
-                          description={tr ? `Rowwad Türkçe meal ${translationMetadata.version}; QuranEnc’in resmi kaydıyla bağlantılıdır.` : `Rowwad English translation ${translationMetadata.version}, aligned to the exact page in QuranEnc's official mushaf PDF.`}
-                          pdfUrl={pdfSource?.pdfUrl}
-                          page={pdfSource?.page}
-                          sourceUrl={tr ? 'https://quranenc.com/tr/browse/turkish_rwwad' : 'https://quranenc.com/en/browse/english_rwwad'}
-                          sourceLabel="QuranEnc"
-                        />
-                        <a href={`#verse-${verse.ayah}`}>{tr ? 'Ayet bağlantısı' : 'Verse link'}</a>
+                        <SourceDrawer title={`${surah.nameTransliterated} ${verse.surah}:${verse.ayah}`} description={tr ? `Rowwad Türkçe meal ${translationMetadata.version}; QuranEnc’in resmi kaydıyla bağlantılıdır.` : `Rowwad English translation ${translationMetadata.version}, aligned to the exact page in QuranEnc's official mushaf PDF.`} pdfUrl={pdfSource?.pdfUrl} page={pdfSource?.page} sourceUrl={tr ? 'https://quranenc.com/tr/browse/turkish_rwwad' : 'https://quranenc.com/en/browse/english_rwwad'} sourceLabel="QuranEnc" />
+                        <a href={`#verse-${verse.ayah}`}>{surah.number}:{verse.ayah}</a>
+                        <span>QuranEnc Rowwad {translationMetadata.version}</span>
                       </div>
                     </div>
                   </details>

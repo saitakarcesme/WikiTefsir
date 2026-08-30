@@ -51,7 +51,7 @@ export default async function RootLayout({
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: "(()=>{try{const saved=localStorage.getItem('wikitafsir-theme');const theme=saved==='light'||saved==='dark'?saved:(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.dataset.theme=theme;const language=localStorage.getItem('wikitafsir-language');if(language==='en'||language==='tr')document.documentElement.lang=language}catch{document.documentElement.dataset.theme='light'}})()",
+            __html: "(()=>{try{const saved=localStorage.getItem('islamwiki-theme');const theme=saved==='light'||saved==='dark'?saved:(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.dataset.theme=theme;const language=localStorage.getItem('islamwiki-language');if(language==='en'||language==='tr')document.documentElement.lang=language}catch{document.documentElement.dataset.theme='light'}})()",
           }}
         />
       </head>
