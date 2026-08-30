@@ -91,6 +91,7 @@ export function KnowledgeGraphExplorer({ locale }: { locale: Locale }) {
   const tr = locale === 'tr';
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const frameRef = useRef(0);
+  const dirtyRef = useRef(true);
   const positionsRef = useRef(new Map<string, Point>());
   const globalPositionsRef = useRef(new Map<string, Point>());
   const cameraRef = useRef<Camera>({ x: 0, y: 0, zoom: .28 });
@@ -143,11 +144,15 @@ export function KnowledgeGraphExplorer({ locale }: { locale: Locale }) {
       const rect = parent.getBoundingClientRect();
       width = Math.max(1, rect.width); height = Math.max(1, rect.height); dpr = Math.min(2, window.devicePixelRatio || 1);
       canvas.width = Math.round(width * dpr); canvas.height = Math.round(height * dpr); canvas.style.width = `${width}px`; canvas.style.height = `${height}px`;
+      dirtyRef.current = true;
     };
     resize();
     const observer = new ResizeObserver(resize); observer.observe(parent);
     const draw = () => {
       const camera = cameraRef.current; const targetCamera = targetCameraRef.current;
+      const moving = Math.abs(targetCamera.x - camera.x) > .04 || Math.abs(targetCamera.y - camera.y) > .04 || Math.abs(targetCamera.zoom - camera.zoom) > .0004;
+      if (!dirtyRef.current && !moving) { frameRef.current = requestAnimationFrame(draw); return; }
+      dirtyRef.current = false;
       camera.x += (targetCamera.x - camera.x) * .13; camera.y += (targetCamera.y - camera.y) * .13; camera.zoom += (targetCamera.zoom - camera.zoom) * .13;
       context.setTransform(dpr, 0, 0, dpr, 0, 0);
       const styles = getComputedStyle(document.documentElement);
@@ -240,10 +245,10 @@ export function KnowledgeGraphExplorer({ locale }: { locale: Locale }) {
     const localZoom = (canvasRef.current?.clientWidth ?? 1000) < 600 ? .56 : .82;
     targetCameraRef.current = { x: center.x, y: center.y, zoom: localZoom };
   }
-  function handlePointerDown(event: ReactPointerEvent<HTMLCanvasElement>) { const id = nodeAt(event.clientX, event.clientY); event.currentTarget.setPointerCapture(event.pointerId); dragRef.current = { pointerId: event.pointerId, startX: event.clientX, startY: event.clientY, cameraX: targetCameraRef.current.x, cameraY: targetCameraRef.current.y, nodeId: id }; }
-  function handlePointerMove(event: ReactPointerEvent<HTMLCanvasElement>) { const drag = dragRef.current; if (drag?.pointerId === event.pointerId) { const dx = event.clientX - drag.startX; const dy = event.clientY - drag.startY; if (drag.nodeId && Math.hypot(dx, dy) > 3) positionsRef.current.set(drag.nodeId, screenToWorld(event.clientX, event.clientY)); else if (!drag.nodeId) targetCameraRef.current = { ...targetCameraRef.current, x: drag.cameraX - dx / cameraRef.current.zoom, y: drag.cameraY - dy / cameraRef.current.zoom }; return; } setHoveredId(nodeAt(event.clientX, event.clientY)); }
+  function handlePointerDown(event: ReactPointerEvent<HTMLCanvasElement>) { const id = nodeAt(event.clientX, event.clientY); dirtyRef.current = true; event.currentTarget.setPointerCapture(event.pointerId); dragRef.current = { pointerId: event.pointerId, startX: event.clientX, startY: event.clientY, cameraX: targetCameraRef.current.x, cameraY: targetCameraRef.current.y, nodeId: id }; }
+  function handlePointerMove(event: ReactPointerEvent<HTMLCanvasElement>) { const drag = dragRef.current; dirtyRef.current = true; if (drag?.pointerId === event.pointerId) { const dx = event.clientX - drag.startX; const dy = event.clientY - drag.startY; if (drag.nodeId && Math.hypot(dx, dy) > 3) positionsRef.current.set(drag.nodeId, screenToWorld(event.clientX, event.clientY)); else if (!drag.nodeId) targetCameraRef.current = { ...targetCameraRef.current, x: drag.cameraX - dx / cameraRef.current.zoom, y: drag.cameraY - dy / cameraRef.current.zoom }; return; } setHoveredId(nodeAt(event.clientX, event.clientY)); }
   function handlePointerUp(event: ReactPointerEvent<HTMLCanvasElement>) { const drag = dragRef.current; dragRef.current = undefined; if (drag && Math.hypot(event.clientX - drag.startX, event.clientY - drag.startY) < 4 && drag.nodeId) focusNode(drag.nodeId, false); }
-  function handleWheel(event: ReactWheelEvent<HTMLCanvasElement>) { event.preventDefault(); const factor = Math.exp(-event.deltaY * .0012); targetCameraRef.current = { ...targetCameraRef.current, zoom: Math.min(3.5, Math.max(.08, targetCameraRef.current.zoom * factor)) }; }
+  function handleWheel(event: ReactWheelEvent<HTMLCanvasElement>) { event.preventDefault(); dirtyRef.current = true; const factor = Math.exp(-event.deltaY * .0012); targetCameraRef.current = { ...targetCameraRef.current, zoom: Math.min(3.5, Math.max(.08, targetCameraRef.current.zoom * factor)) }; }
   function handleSearch(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!network || deferredQuery.length < 2) return;
