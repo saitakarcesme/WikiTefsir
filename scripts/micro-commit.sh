@@ -2,7 +2,7 @@
 
 set -u
 
-export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+export PATH="/Applications/ChatGPT.app/Contents/Resources:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 
 repo_dir="${0:A:h:h}"
 log_file="$repo_dir/.git/micro-commit.log"
@@ -10,6 +10,11 @@ lock_dir="$repo_dir/.git/micro-commit.lock"
 
 run_once() {
   cd "$repo_dir" || return 1
+
+  if ! command -v rg >/dev/null 2>&1; then
+    print -u2 "micro-commit blocked: rg is required for the secrets scan"
+    return 2
+  fi
 
   if ! mkdir "$lock_dir" 2>/dev/null; then
     return 0
