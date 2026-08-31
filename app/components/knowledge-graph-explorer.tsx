@@ -7,6 +7,7 @@ import type { Locale } from '@/lib/locale';
 type Point = { x: number; y: number };
 type Camera = Point & { zoom: number };
 type DragState = { pointerId: number; startX: number; startY: number; cameraX: number; cameraY: number; nodeId?: string };
+type GraphSearchResponse = { selectedId: string; network: KnowledgeGraphNetwork };
 
 const kindOrder: KnowledgeGraphKind[] = ['collection', 'surah', 'verse', 'hadith', 'person', 'concept', 'scholar', 'story'];
 const kindColors: Record<KnowledgeGraphKind, string> = { root: '#f3c969', collection: '#8ab4f8', surah: '#75d3b1', verse: '#9aa0a6', hadith: '#d9a7ff', person: '#ff9f8f', concept: '#67c7e8', scholar: '#e9bb75', story: '#f28fb3' };
@@ -76,15 +77,32 @@ function buildAdjacency(network: KnowledgeGraphNetwork) {
   return result;
 }
 
-function localIds(start: string, depth: number, adjacency: Map<string, Set<string>>) {
-  const result = new Set([start]);
-  let frontier = new Set([start]);
-  for (let level = 0; level < depth; level += 1) {
-    const next = new Set<string>();
-    for (const id of frontier) for (const neighbor of adjacency.get(id) ?? []) if (!result.has(neighbor)) { result.add(neighbor); next.add(neighbor); }
+function createLocalLayout(network: KnowledgeGraphNetwork, selectedId: string) {
+  const positions = new Map<string, Point>([[selectedId, { x: 0, y: 0 }]]);
+  const adjacency = buildAdjacency(network);
+  const distances = new Map<string, number>([[selectedId, 0]]);
+  let frontier = [selectedId];
+  for (let distance = 1; frontier.length; distance += 1) {
+    const next: string[] = [];
+    for (const current of frontier) for (const neighbor of adjacency.get(current) ?? []) {
+      if (distances.has(neighbor)) continue;
+      distances.set(neighbor, distance);
+      next.push(neighbor);
+    }
     frontier = next;
   }
-  return result;
+  for (let distance = 1; distance <= Math.max(1, ...distances.values()); distance += 1) {
+    const ring = [...distances].filter(([, value]) => value === distance).map(([id]) => id).sort();
+    const perRing = 18;
+    ring.forEach((id, index) => {
+      const band = Math.floor(index / perRing);
+      const bandLength = Math.min(perRing, ring.length - band * perRing);
+      const angle = -Math.PI / 2 + (index % perRing) / Math.max(1, bandLength) * Math.PI * 2 + distance * .16;
+      const radius = 175 + (distance - 1) * 185 + band * 100;
+      positions.set(id, { x: Math.cos(angle) * radius, y: Math.sin(angle) * radius });
+    });
+  }
+  return positions;
 }
 
 export function KnowledgeGraphExplorer({ locale }: { locale: Locale }) {
@@ -94,8 +112,10 @@ export function KnowledgeGraphExplorer({ locale }: { locale: Locale }) {
   const dirtyRef = useRef(true);
   const positionsRef = useRef(new Map<string, Point>());
   const globalPositionsRef = useRef(new Map<string, Point>());
-  const cameraRef = useRef<Camera>({ x: 0, y: 0, zoom: .28 });
-  const targetCameraRef = useRef<Camera>({ x: 0, y: 0, zoom: .28 });
+  const overviewRef = useRef<KnowledgeGraphNetwork | undefined>(undefined);
+  const requestRef = useRef(0);
+  const cameraRef = useRef<Camera>({ x: 0, y: 0, zoom: .34 });
+  const targetCameraRef = useRef<Camera>({ x: 0, y: 0, zoom: .34 });
   const dragRef = useRef<DragState | undefined>(undefined);
   const [network, setNetwork] = useState<KnowledgeGraphNetwork>();
   const [selectedId, setSelectedId] = useState('islamwiki');
@@ -110,28 +130,30 @@ export function KnowledgeGraphExplorer({ locale }: { locale: Locale }) {
   const [nodeScale, setNodeScale] = useState(1);
   const [linkScale, setLinkScale] = useState(1);
   const [hiddenKinds, setHiddenKinds] = useState<Set<KnowledgeGraphKind>>(new Set());
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const controller = new AbortController();
-    fetch(`/api/graph?mode=global&locale=${locale}`, { signal: controller.signal })
+    fetch(`/api/graph?mode=overview&locale=${locale}`, { signal: controller.signal })
       .then((response) => { if (!response.ok) throw new Error(`Graph request failed: ${response.status}`); return response.json() as Promise<KnowledgeGraphNetwork>; })
       .then((payload) => {
         const positions = createLayout(payload);
+        overviewRef.current = payload;
         globalPositionsRef.current = positions;
         positionsRef.current = new Map(positions);
         setNetwork(payload);
+        setIsLoading(false);
       })
-      .catch((error: unknown) => { if (!(error instanceof DOMException && error.name === 'AbortError')) console.error(error); });
+      .catch((error: unknown) => { if (!(error instanceof DOMException && error.name === 'AbortError')) { console.error(error); setIsLoading(false); } });
     return () => controller.abort();
   }, [locale]);
 
   const nodeById = useMemo(() => new Map(network?.nodes.map((node) => [node.id, node]) ?? []), [network]);
   const adjacency = useMemo(() => network ? buildAdjacency(network) : new Map<string, Set<string>>(), [network]);
-  const local = useMemo(() => mode === 'local' ? localIds(selectedId, depth, adjacency) : undefined, [adjacency, depth, mode, selectedId]);
   const visibleNodeIds = useMemo(() => {
     if (!network) return new Set<string>();
-    return new Set(network.nodes.flatMap((node) => node.kind !== 'root' && hiddenKinds.has(node.kind) || local && !local.has(node.id) ? [] : [node.id]));
-  }, [hiddenKinds, local, network]);
+    return new Set(network.nodes.flatMap((node) => node.kind !== 'root' && hiddenKinds.has(node.kind) ? [] : [node.id]));
+  }, [hiddenKinds, network]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -199,85 +221,85 @@ export function KnowledgeGraphExplorer({ locale }: { locale: Locale }) {
     for (const id of visibleNodeIds) { const position = positionsRef.current.get(id); const node = nodeById.get(id); if (!position || !node) continue; const distance = Math.hypot(position.x - point.x, position.y - point.y); const radius = Math.max(12 / cameraRef.current.zoom, 5 + Math.sqrt(node.weight) * 2.2); if (distance <= radius && (!best || distance < best.distance)) best = { id, distance }; }
     return best?.id;
   }
-  function arrangeLocal(id: string, level = depth) {
-    const center = positionsRef.current.get(id) ?? globalPositionsRef.current.get(id) ?? { x: 0, y: 0 };
-    const distances = new Map<string, number>([[id, 0]]);
-    let frontier = [id];
-    for (let distance = 1; distance <= level; distance += 1) {
-      const next: string[] = [];
-      for (const current of frontier) for (const neighbor of adjacency.get(current) ?? []) {
-        if (distances.has(neighbor)) continue;
-        distances.set(neighbor, distance); next.push(neighbor);
-      }
-      frontier = next;
-    }
-    positionsRef.current.set(id, center);
-    for (let distance = 1; distance <= level; distance += 1) {
-      const ring = [...distances].filter(([, value]) => value === distance).map(([nodeId]) => nodeId).sort();
-      const perRing = 16;
-      ring.forEach((nodeId, index) => {
-        const band = Math.floor(index / perRing);
-        const itemsInBand = Math.min(perRing, ring.length - band * perRing);
-        const indexInBand = index % perRing;
-        const radius = 175 + (distance - 1) * 180 + band * 105;
-        const angle = -Math.PI / 2 + (indexInBand / Math.max(1, itemsInBand)) * Math.PI * 2 + distance * .14;
-        positionsRef.current.set(nodeId, { x: center.x + Math.cos(angle) * radius, y: center.y + Math.sin(angle) * radius });
-      });
-    }
-    return center;
-  }
-  function focusNode(id: string, localMode = mode === 'local') {
-    const position = localMode ? arrangeLocal(id) : positionsRef.current.get(id);
+  function selectNode(id: string) {
+    const position = positionsRef.current.get(id);
     if (!position) return;
     setSelectedId(id);
-    if (localMode) setMode('local');
-    const localZoom = (canvasRef.current?.clientWidth ?? 1000) < 600 ? .56 : .82;
-    targetCameraRef.current = { x: position.x, y: position.y, zoom: Math.max(targetCameraRef.current.zoom, localMode ? localZoom : .62) };
+    targetCameraRef.current = { ...targetCameraRef.current, x: position.x, y: position.y };
+  }
+  async function loadFocus(id: string, level = depth) {
+    const requestId = ++requestRef.current;
+    setIsLoading(true);
+    try {
+      const response = await fetch(`/api/graph?mode=focus&locale=${locale}&id=${encodeURIComponent(id)}&depth=${level}`);
+      if (!response.ok) throw new Error(`Graph request failed: ${response.status}`);
+      const payload = await response.json() as KnowledgeGraphNetwork;
+      if (requestId !== requestRef.current) return;
+      positionsRef.current = createLocalLayout(payload, id);
+      setNetwork(payload);
+      setSelectedId(id);
+      setMode('local');
+      const localZoom = (canvasRef.current?.clientWidth ?? 1000) < 600 ? .56 : .82;
+      cameraRef.current = { x: 0, y: 0, zoom: localZoom * .72 };
+      targetCameraRef.current = { x: 0, y: 0, zoom: localZoom };
+      dirtyRef.current = true;
+    } catch (error) {
+      console.error(error);
+    } finally {
+      if (requestId === requestRef.current) setIsLoading(false);
+    }
   }
   function activateGlobal() {
+    const overview = overviewRef.current;
+    if (!overview) return;
+    requestRef.current += 1;
+    setNetwork(overview);
     positionsRef.current = new Map(globalPositionsRef.current);
     setMode('global');
-    targetCameraRef.current = { x: 0, y: 0, zoom: .28 };
-  }
-  function activateLocal(level = depth) {
-    const center = arrangeLocal(selectedId, level);
-    setMode('local');
-    const localZoom = (canvasRef.current?.clientWidth ?? 1000) < 600 ? .56 : .82;
-    targetCameraRef.current = { x: center.x, y: center.y, zoom: localZoom };
+    setIsLoading(false);
+    targetCameraRef.current = { x: 0, y: 0, zoom: .34 };
   }
   function handlePointerDown(event: ReactPointerEvent<HTMLCanvasElement>) { const id = nodeAt(event.clientX, event.clientY); dirtyRef.current = true; event.currentTarget.setPointerCapture(event.pointerId); dragRef.current = { pointerId: event.pointerId, startX: event.clientX, startY: event.clientY, cameraX: targetCameraRef.current.x, cameraY: targetCameraRef.current.y, nodeId: id }; }
   function handlePointerMove(event: ReactPointerEvent<HTMLCanvasElement>) { const drag = dragRef.current; dirtyRef.current = true; if (drag?.pointerId === event.pointerId) { const dx = event.clientX - drag.startX; const dy = event.clientY - drag.startY; if (drag.nodeId && Math.hypot(dx, dy) > 3) positionsRef.current.set(drag.nodeId, screenToWorld(event.clientX, event.clientY)); else if (!drag.nodeId) targetCameraRef.current = { ...targetCameraRef.current, x: drag.cameraX - dx / cameraRef.current.zoom, y: drag.cameraY - dy / cameraRef.current.zoom }; return; } setHoveredId(nodeAt(event.clientX, event.clientY)); }
-  function handlePointerUp(event: ReactPointerEvent<HTMLCanvasElement>) { const drag = dragRef.current; dragRef.current = undefined; if (drag && Math.hypot(event.clientX - drag.startX, event.clientY - drag.startY) < 4 && drag.nodeId) focusNode(drag.nodeId, false); }
+  function handlePointerUp(event: ReactPointerEvent<HTMLCanvasElement>) { const drag = dragRef.current; dragRef.current = undefined; if (drag && Math.hypot(event.clientX - drag.startX, event.clientY - drag.startY) < 4 && drag.nodeId) selectNode(drag.nodeId); }
   function handleWheel(event: ReactWheelEvent<HTMLCanvasElement>) { event.preventDefault(); dirtyRef.current = true; const factor = Math.exp(-event.deltaY * .0012); targetCameraRef.current = { ...targetCameraRef.current, zoom: Math.min(3.5, Math.max(.08, targetCameraRef.current.zoom * factor)) }; }
-  function handleSearch(event: FormEvent<HTMLFormElement>) {
+  async function handleSearch(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!network || deferredQuery.length < 2) return;
-    const kindPriority: Record<KnowledgeGraphKind, number> = {
-      person: 0, root: 1, collection: 2, surah: 3, concept: 4, story: 5, scholar: 6, hadith: 7, verse: 8,
-    };
-    const normalized = (value: string) => value.toLocaleLowerCase(locale === 'tr' ? 'tr-TR' : 'en-US');
-    const match = network.nodes
-      .filter((node) => normalized(node.label).includes(deferredQuery))
-      .sort((a, b) => {
-        const aLabel = normalized(a.label); const bLabel = normalized(b.label);
-        const aMatch = aLabel === deferredQuery ? 0 : aLabel.startsWith(deferredQuery) ? 1 : 2;
-        const bMatch = bLabel === deferredQuery ? 0 : bLabel.startsWith(deferredQuery) ? 1 : 2;
-        return aMatch - bMatch || kindPriority[a.kind] - kindPriority[b.kind] || aLabel.length - bLabel.length;
-      })[0];
-    if (match) focusNode(match.id, true);
+    if (deferredQuery.length < 2) return;
+    const requestId = ++requestRef.current;
+    setIsLoading(true);
+    try {
+      const response = await fetch(`/api/graph?mode=search&locale=${locale}&q=${encodeURIComponent(query.trim())}`);
+      if (!response.ok) return;
+      const payload = await response.json() as GraphSearchResponse;
+      if (requestId !== requestRef.current) return;
+      positionsRef.current = createLocalLayout(payload.network, payload.selectedId);
+      setNetwork(payload.network);
+      setSelectedId(payload.selectedId);
+      setMode('local');
+      const localZoom = (canvasRef.current?.clientWidth ?? 1000) < 600 ? .56 : .82;
+      cameraRef.current = { x: 0, y: 0, zoom: localZoom * .72 };
+      targetCameraRef.current = { x: 0, y: 0, zoom: localZoom };
+      dirtyRef.current = true;
+    } catch (error) {
+      console.error(error);
+    } finally {
+      if (requestId === requestRef.current) setIsLoading(false);
+    }
   }
 
   const selected = nodeById.get(selectedId);
   const zoomBy = (factor: number) => { targetCameraRef.current = { ...targetCameraRef.current, zoom: Math.min(3.5, Math.max(.08, targetCameraRef.current.zoom * factor)) }; };
-  const fit = () => { activateGlobal(); setSelectedId('islamwiki'); };
+  const fit = () => { if (mode === 'global') { targetCameraRef.current = { x: 0, y: 0, zoom: .34 }; setSelectedId('islamwiki'); } else { targetCameraRef.current = { x: 0, y: 0, zoom: (canvasRef.current?.clientWidth ?? 1000) < 600 ? .56 : .82 }; } };
 
-  return <section className="obsidian-graph" aria-label={tr ? 'Etkileşimli IslamWiki bilgi grafiği' : 'Interactive IslamWiki knowledge graph'}>
-    <canvas ref={canvasRef} onPointerDown={handlePointerDown} onPointerMove={handlePointerMove} onPointerUp={handlePointerUp} onPointerCancel={() => { dragRef.current = undefined; }} onDoubleClick={(event) => { const node = nodeById.get(nodeAt(event.clientX, event.clientY) ?? ''); if (node?.href) window.location.assign(node.href); }} onWheel={handleWheel} aria-label={tr ? 'Grafik tuvali' : 'Graph canvas'} />
+  return <section className="obsidian-graph" aria-label={tr ? 'Etkileşimli IslamWiki bilgi grafiği' : 'Interactive IslamWiki knowledge graph'} aria-busy={isLoading}>
+    <canvas ref={canvasRef} onPointerDown={handlePointerDown} onPointerMove={handlePointerMove} onPointerUp={handlePointerUp} onPointerCancel={() => { dragRef.current = undefined; }} onDoubleClick={(event) => { const id = nodeAt(event.clientX, event.clientY); if (id) void loadFocus(id, depth); }} onWheel={handleWheel} aria-label={tr ? 'Grafik tuvali' : 'Graph canvas'} />
     <form className="graph-search" role="search" onSubmit={handleSearch}><span aria-hidden="true">⌕</span><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder={tr ? 'Grafikte ara…' : 'Search graph…'} aria-label={tr ? 'Grafikte ara' : 'Search graph'} /><button type="submit">↵</button></form>
-    <div className="graph-mode" role="group" aria-label={tr ? 'Grafik kapsamı' : 'Graph scope'}><button className={mode === 'global' ? 'active' : ''} onClick={activateGlobal} type="button">{tr ? 'Genel' : 'Global'}</button><button className={mode === 'local' ? 'active' : ''} onClick={() => activateLocal()} type="button">{tr ? 'Yerel' : 'Local'}</button>{mode === 'local' ? <label>{tr ? 'Derinlik' : 'Depth'} <input type="range" min="1" max="3" value={depth} onChange={(event) => { const nextDepth = Number(event.target.value); setDepth(nextDepth); activateLocal(nextDepth); }} /><span>{depth}</span></label> : null}</div>
+    <div className="graph-mode" role="group" aria-label={tr ? 'Grafik kapsamı' : 'Graph scope'}><button className={mode === 'global' ? 'active' : ''} onClick={activateGlobal} type="button">{tr ? 'Genel' : 'Global'}</button><button className={mode === 'local' ? 'active' : ''} onClick={() => { void loadFocus(selectedId, depth); }} type="button">{tr ? 'Yerel' : 'Local'}</button>{mode === 'local' ? <label>{tr ? 'Derinlik' : 'Depth'} <input type="range" min="1" max="3" value={depth} onChange={(event) => { const nextDepth = Number(event.target.value); setDepth(nextDepth); void loadFocus(selectedId, nextDepth); }} /><span>{depth}</span></label> : null}</div>
     <button className="graph-settings-toggle" type="button" onClick={() => setSettingsOpen((open) => !open)} aria-expanded={settingsOpen} aria-label={tr ? 'Grafik ayarları' : 'Graph settings'}>⚙</button>
     {settingsOpen ? <aside className="graph-settings"><header><strong>{tr ? 'Grafik ayarları' : 'Graph settings'}</strong><button type="button" onClick={() => setSettingsOpen(false)}>×</button></header><fieldset><legend>{tr ? 'Filtreler' : 'Filters'}</legend>{kindOrder.map((kind) => <label key={kind}><input type="checkbox" checked={!hiddenKinds.has(kind)} onChange={() => setHiddenKinds((current) => { const next = new Set(current); if (next.has(kind)) next.delete(kind); else next.add(kind); return next; })} /><span style={{ background: kindColors[kind] }} />{kindLabels[locale][kind]}</label>)}</fieldset><fieldset><legend>{tr ? 'Görünüm' : 'Display'}</legend><label className="graph-slider">{tr ? 'Etiket eşiği' : 'Text fade'}<input type="range" min=".35" max="1.4" step=".05" value={labelThreshold} onChange={(event) => setLabelThreshold(Number(event.target.value))} /></label><label className="graph-slider">{tr ? 'Düğüm boyutu' : 'Node size'}<input type="range" min=".65" max="1.8" step=".05" value={nodeScale} onChange={(event) => setNodeScale(Number(event.target.value))} /></label><label className="graph-slider">{tr ? 'Çizgi kalınlığı' : 'Link thickness'}<input type="range" min=".5" max="2" step=".05" value={linkScale} onChange={(event) => setLinkScale(Number(event.target.value))} /></label><label><input type="checkbox" checked={showArrows} onChange={(event) => setShowArrows(event.target.checked)} />{tr ? 'Okları göster' : 'Show arrows'}</label></fieldset></aside> : null}
     <div className="graph-selection" aria-live="polite"><span style={{ background: kindColors[selected?.kind ?? 'root'] }} /><div><small>{kindLabels[locale][selected?.kind ?? 'root']}</small><strong>{selected?.label ?? (tr ? 'Grafik yükleniyor…' : 'Loading graph…')}</strong></div>{selected?.href ? <a href={selected.href}>{tr ? 'Makaleyi aç' : 'Open article'} ↗</a> : null}</div>
+    {isLoading ? <div className="graph-loading" role="status">{tr ? 'Bağlantılar açılıyor…' : 'Opening connections…'}</div> : null}
     <div className="graph-legend">{kindOrder.filter((kind) => !hiddenKinds.has(kind)).map((kind) => <span key={kind}><i style={{ background: kindColors[kind] }} />{kindLabels[locale][kind]}</span>)}</div>
     <div className="graph-controls"><button type="button" onClick={() => zoomBy(1.35)} aria-label={tr ? 'Yakınlaştır' : 'Zoom in'}>+</button><button type="button" onClick={() => zoomBy(.74)} aria-label={tr ? 'Uzaklaştır' : 'Zoom out'}>−</button><button type="button" onClick={fit} aria-label={tr ? 'Grafiği ekrana sığdır' : 'Fit graph'}>⌗</button></div>
   </section>;

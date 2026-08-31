@@ -42,6 +42,7 @@ export interface KnowledgeGraphNetwork {
 }
 
 const networkCache = new Map<Locale, KnowledgeGraphNetwork>();
+const overviewCache = new Map<Locale, KnowledgeGraphNetwork>();
 
 const t = (locale: Locale, en: string, tr: string) => locale === 'tr' ? tr : en;
 const personKinds = ['Prophet', 'Person', 'Ruler', 'Adversary', 'Angel', 'Group', 'Unnamed figure'] as const;
@@ -277,4 +278,82 @@ export function getKnowledgeGraphNetwork(locale: Locale): KnowledgeGraphNetwork 
   const network = { nodes: [...nodes.values()], edges };
   networkCache.set(locale, network);
   return network;
+}
+
+const graphKindPriority: Record<KnowledgeGraphKind, number> = {
+  person: 0,
+  root: 1,
+  collection: 2,
+  surah: 3,
+  concept: 4,
+  story: 5,
+  scholar: 6,
+  hadith: 7,
+  verse: 8,
+};
+
+export function getKnowledgeGraphOverview(locale: Locale): KnowledgeGraphNetwork {
+  const cached = overviewCache.get(locale);
+  if (cached) return cached;
+  const full = getKnowledgeGraphNetwork(locale);
+  const visible = new Set(
+    full.nodes
+      .filter((node) => node.kind !== 'verse' && node.kind !== 'hadith')
+      .map((node) => node.id),
+  );
+  const overview = {
+    nodes: full.nodes.filter((node) => visible.has(node.id)),
+    edges: full.edges.filter((edge) => visible.has(edge.source) && visible.has(edge.target)),
+  };
+  overviewCache.set(locale, overview);
+  return overview;
+}
+
+export function getKnowledgeGraphFocus(locale: Locale, startId: string, depth = 1, limit = 360): KnowledgeGraphNetwork | undefined {
+  const full = getKnowledgeGraphNetwork(locale);
+  const nodeById = new Map(full.nodes.map((node) => [node.id, node]));
+  if (!nodeById.has(startId)) return undefined;
+  const adjacency = new Map<string, Set<string>>();
+  for (const edge of full.edges) {
+    if (!adjacency.has(edge.source)) adjacency.set(edge.source, new Set());
+    if (!adjacency.has(edge.target)) adjacency.set(edge.target, new Set());
+    adjacency.get(edge.source)?.add(edge.target);
+    adjacency.get(edge.target)?.add(edge.source);
+  }
+
+  const selected = new Set([startId]);
+  let frontier = [startId];
+  for (let level = 0; level < Math.max(1, Math.min(3, depth)); level += 1) {
+    const candidates = new Set<string>();
+    for (const id of frontier) for (const neighbor of adjacency.get(id) ?? []) if (!selected.has(neighbor)) candidates.add(neighbor);
+    const next = [...candidates]
+      .sort((a, b) => {
+        const first = nodeById.get(a); const second = nodeById.get(b);
+        if (!first || !second) return 0;
+        return graphKindPriority[first.kind] - graphKindPriority[second.kind] || second.weight - first.weight || first.label.localeCompare(second.label);
+      })
+      .slice(0, Math.max(0, limit - selected.size));
+    for (const id of next) selected.add(id);
+    frontier = next;
+    if (!frontier.length || selected.size >= limit) break;
+  }
+
+  return {
+    nodes: full.nodes.filter((node) => selected.has(node.id)),
+    edges: full.edges.filter((edge) => selected.has(edge.source) && selected.has(edge.target)),
+  };
+}
+
+export function searchKnowledgeGraph(locale: Locale, query: string) {
+  const normalizedQuery = query.trim().toLocaleLowerCase(locale === 'tr' ? 'tr-TR' : 'en-US');
+  if (normalizedQuery.length < 2) return undefined;
+  const normalize = (value: string) => value.toLocaleLowerCase(locale === 'tr' ? 'tr-TR' : 'en-US');
+  return getKnowledgeGraphNetwork(locale).nodes
+    .filter((node) => normalize(node.label).includes(normalizedQuery))
+    .sort((first, second) => {
+      const firstLabel = normalize(first.label); const secondLabel = normalize(second.label);
+      const firstMatch = firstLabel === normalizedQuery ? 0 : firstLabel.startsWith(normalizedQuery) ? 1 : 2;
+      const secondMatch = secondLabel === normalizedQuery ? 0 : secondLabel.startsWith(normalizedQuery) ? 1 : 2;
+      return firstMatch - secondMatch || graphKindPriority[first.kind] - graphKindPriority[second.kind] || firstLabel.length - secondLabel.length;
+    })[0];
 }

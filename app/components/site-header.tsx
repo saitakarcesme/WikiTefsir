@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ThemeToggle } from '@/app/components/theme-toggle';
 import { LanguageToggle } from '@/app/components/language-toggle';
+import { SiteNavigation } from '@/app/components/site-navigation';
 import { navigation } from '@/lib/locale';
 import { getLocale } from '@/lib/server-locale';
 
@@ -12,9 +13,7 @@ export async function SiteHeader() {
         <span className="brand-copy"><strong>IslamWiki</strong></span>
       </Link>
 
-      <nav className="main-nav" aria-label={locale === 'tr' ? 'Ana menü' : 'Main navigation'}>
-        {navigation[locale].map(([label, href]) => <Link href={href} key={href}>{label}</Link>)}
-      </nav>
+      <SiteNavigation items={navigation[locale]} locale={locale} />
 
       <div className="header-actions">
         <LanguageToggle locale={locale} />
