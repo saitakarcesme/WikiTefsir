@@ -99,4 +99,7 @@ export const galleryImageById: Partial<Record<number, string>> = {
   98: '/gallery/098-the-food-gathered-during-the-famine-of-tabuk.webp',
   99: '/gallery/099-usamah-after-the-declaration-of-faith.webp',
   100: '/gallery/100-ka-b-ibn-malik-tells-the-truth-after-tabuk.webp',
+  101: '/gallery/101-idris-raised-to-high-station.webp',
+  102: '/gallery/102-dhul-kifl-among-the-patient.webp',
+  103: '/gallery/103-luqman-counsels-his-son.webp',
 };

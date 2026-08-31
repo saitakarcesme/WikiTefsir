@@ -708,5 +708,26 @@ export const galleryScenes: GalleryScene[] = [
     "source": "HadeethEnc #4820",
     "brief": "A solitary man waits in an austere courtyard while the city continues around him, then dawn light enters through an open doorway; face unseen.",
     "kind": "Hadith"
+  },
+  {
+    "id": 101,
+    "title": "Idris raised to a high station",
+    "source": "Quran 19:56–57",
+    "brief": "A quiet mountain observatory beneath an ascending band of light, with an empty writing desk and reed pen; no human figure is shown.",
+    "kind": "Quran"
+  },
+  {
+    "id": 102,
+    "title": "Dhul-Kifl among the patient",
+    "source": "Quran 21:85–86",
+    "brief": "A steadfast traveler represented only by an empty cloak and staff beside a long desert path entering a merciful rain; no face or body is shown.",
+    "kind": "Quran"
+  },
+  {
+    "id": 103,
+    "title": "Luqman counsels his son",
+    "source": "Quran 31:12–19",
+    "brief": "Two back-turned silhouettes seated beneath an ancient tree at dusk, framed as a quiet lesson in gratitude, prayer, humility, and measured speech.",
+    "kind": "Quran"
   }
 ];

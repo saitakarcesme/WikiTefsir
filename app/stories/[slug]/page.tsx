@@ -3,11 +3,13 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { SiteHeader } from '@/app/components/site-header';
 import { SourceDrawer } from '@/app/components/source-drawer';
+import { StoryArtwork } from '@/app/components/story-artwork';
 import { getAllPeople, getPersonBySlug } from '@/lib/people';
 import { getPersonKind, getPersonName } from '@/lib/person-locale';
 import { getSurahByNumber, getSurahHref, getTranslation, getTranslationMetadata, getVerse } from '@/lib/quran';
 import { getLocale } from '@/lib/server-locale';
 import { getQuranPdfSource } from '@/lib/sources';
+import { getStoryArtwork } from '@/lib/story-art';
 
 export const dynamicParams = false;
 export function generateStaticParams() { return getAllPeople().filter((person) => person.narrative.length > 1).map((person) => ({ slug: person.slug })); }
@@ -39,6 +41,10 @@ export default async function StoryPage({ params }: StoryPageProps) {
           return { reference, surah, verse, meaning, source: getQuranPdfSource(surah.startOffset + reference.ayah - 1) };
         });
         const first = passages[0]; const last = passages.at(-1);
+        const artwork = getStoryArtwork(person.slug, stage.references, index);
+        const artworkSurah = artwork ? getSurahByNumber(artwork.sourceReference.surah) : undefined;
+        const artworkVerse = artwork ? getVerse(artwork.sourceReference.surah, artwork.sourceReference.ayah) : undefined;
+        const artworkMeaning = artwork ? getTranslation(artwork.sourceReference.surah, artwork.sourceReference.ayah, locale) : undefined;
         return <section id={stage.id} key={stage.id}>
           <header><small>{String(index + 1).padStart(2, '0')}</small><h2>{tr ? `${getPersonName(person, locale)} · ${index + 1}. bölüm` : stage.title}</h2></header>
           <div className="story-narrative-copy">
@@ -46,6 +52,7 @@ export default async function StoryPage({ params }: StoryPageProps) {
             <p>{tr ? `Pasajlar birlikte okunduğunda sahne adım adım ilerler. İlk ayetin kurduğu durum, aynı bölümde seçilen diğer ayetlerle tamamlanır; böylece farklı surelerdeki ifadeler tek bir olayın parçaları olarak okunabilir.` : `Read together, these passages turn that statement into a scene: the opening verse establishes the moment, and the following references carry it toward its consequence. The order here is narrative, not the order of revelation.`}</p>
             {last && last.reference !== first.reference ? <p>{tr ? `Bölüm ${last.surah.nameTransliterated} ${last.reference.surah}:${last.reference.ayah} ile kapanırken kıssa bir sonraki aşamaya geçer. Aşağıdaki ayet kartları anlatının dayandığı Arapça metni ve Türkçe kaynak mealini eksiksiz gösterir.` : `By ${last.surah.nameTransliterated} ${last.reference.surah}:${last.reference.ayah}, the episode has reached its next turning point. The source passages below preserve the Arabic text and the independent English source translation in full.`}</p> : null}
           </div>
+          {artwork && artworkSurah && artworkVerse && artworkMeaning ? <StoryArtwork image={artwork.image} title={artwork.title} source={`${artworkSurah.nameTransliterated} ${artwork.sourceReference.surah}:${artwork.sourceReference.ayah}`} arabic={artworkVerse.text} translation={artworkMeaning.text} locale={locale} /> : null}
           <div className="story-source-passages">
             {passages.map(({ reference, surah, verse, meaning, source }) => <div className="story-paragraph" key={`${reference.surah}:${reference.ayah}`}><p lang="ar" dir="rtl">{verse.text}</p><p>{meaning.text}</p><footer><Link href={`${getSurahHref(surah)}#verse-${reference.ayah}`}>{surah.nameTransliterated} {reference.surah}:{reference.ayah}</Link><SourceDrawer label={tr ? 'Kaynak' : 'Source'} title={`${surah.nameTransliterated} ${reference.surah}:${reference.ayah}`} pdfUrl={source?.pdfUrl} page={source?.page} sourceUrl={tr ? 'https://quranenc.com/tr/browse/turkish_rwwad' : 'https://quranenc.com/en/browse/english_rwwad'} sourceLabel={`QuranEnc Rowwad ${translation.version}`} /></footer></div>)}
           </div>

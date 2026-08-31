@@ -30,7 +30,7 @@ export function GalleryGrid({ scenes, locale }: { scenes: DisplayScene[]; locale
           <button type="button" className="gallery-flip" onClick={() => setFlipped(isFlipped ? null : scene.id)} aria-pressed={isFlipped} aria-label={`${isFlipped ? (tr ? 'Eseri göster' : 'Show artwork') : (tr ? 'Kaynağı göster' : 'Show source')}: ${scene.title}`}>
             <span className="gallery-card-inner">
               <span className="gallery-card-face gallery-card-front">
-                {image ? <Image src={image} alt="" fill loading={[1, 35, 69].includes(scene.id) ? 'eager' : 'lazy'} sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw" /> : <span className="gallery-awaiting"><span>{String(scene.id).padStart(3, '0')}</span><small>{tr ? 'Eser üretim bekliyor' : 'Artwork awaiting generation'}</small></span>}
+                {image ? <Image src={image} alt="" fill unoptimized loading={[1, 35, 69].includes(scene.id) ? 'eager' : 'lazy'} sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw" /> : <span className="gallery-awaiting"><span>{String(scene.id).padStart(3, '0')}</span><small>{tr ? 'Eser üretim bekliyor' : 'Artwork awaiting generation'}</small></span>}
               </span>
               <span className="gallery-card-face gallery-card-back">
                 <small>{tr ? 'Kaynak kaydı' : 'Source record'}</small><strong>{scene.source}</strong>{scene.sourceText ? <blockquote>{scene.sourceText}</blockquote> : null}<p>{tr ? 'Bu sahne, yukarıdaki Türkçe kaynak kaydında anlatılan olaya dayalı yüz göstermeyen sanatsal bir yorumdur.' : scene.brief}</p><span>{tr ? 'Geri çevir' : 'Turn back'} ↺</span>

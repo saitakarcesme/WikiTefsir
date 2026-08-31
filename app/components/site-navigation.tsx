@@ -11,8 +11,6 @@ export function SiteNavigation({ items, locale }: { items: NavigationItem[]; loc
   const pathname = usePathname();
   const containerRef = useRef<HTMLElement>(null);
   const [open, setOpen] = useState(false);
-  const primaryItems = items.slice(0, 5);
-  const secondaryItems = items.slice(5);
   const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.startsWith(href);
 
   useEffect(() => {
@@ -34,18 +32,15 @@ export function SiteNavigation({ items, locale }: { items: NavigationItem[]; loc
   return (
     <nav ref={containerRef} className={`main-nav${open ? ' menu-open' : ''}`} aria-label={locale === 'tr' ? 'Ana menü' : 'Main navigation'}>
       <div className="nav-primary">
-        {primaryItems.map(([label, href]) => <Link href={href} key={href} aria-current={isActive(href) ? 'page' : undefined} onClick={() => setOpen(false)}>{label}</Link>)}
+        {items.map(([label, href]) => <Link href={href} key={href} aria-current={isActive(href) ? 'page' : undefined} onClick={() => setOpen(false)}>{label}</Link>)}
       </div>
       <button className="nav-menu-toggle" type="button" aria-label={locale === 'tr' ? 'Gezinme menüsü' : 'Navigation menu'} aria-expanded={open} aria-controls="site-navigation-menu" onClick={() => setOpen((current) => !current)}>
-        <span className="nav-menu-label">{locale === 'tr' ? 'Keşfet' : 'Explore'}</span>
+        <span className="nav-menu-label">{locale === 'tr' ? 'Menü' : 'Menu'}</span>
         <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 6.5h12M4 10h12M4 13.5h12" /></svg>
       </button>
       {open ? <div className="nav-menu-panel" id="site-navigation-menu">
         <div className="nav-menu-mobile-items">
           {items.map(([label, href]) => <Link href={href} key={href} aria-current={isActive(href) ? 'page' : undefined} onClick={() => setOpen(false)}>{label}</Link>)}
-        </div>
-        <div className="nav-menu-desktop-items">
-          {secondaryItems.map(([label, href]) => <Link href={href} key={href} aria-current={isActive(href) ? 'page' : undefined} onClick={() => setOpen(false)}>{label}</Link>)}
         </div>
       </div> : null}
     </nav>
