@@ -64,7 +64,7 @@ export default async function StoryPage({ params }: StoryPageProps) {
           <div className="story-narrative-copy">
             {narrativeParagraphs.map((paragraph, paragraphIndex) => <p key={paragraphIndex}>{paragraph}</p>)}
           </div>
-          {artwork && artworkSurah && artworkVerse && artworkMeaning ? <StoryArtwork image={artwork.image} title={stage.title} source={`${artworkSurah.nameTransliterated} ${artwork.sourceReference.surah}:${artwork.sourceReference.ayah}`} arabic={artworkVerse.text} translation={artworkMeaning.text} locale={locale} /> : null}
+          {artwork && artworkSurah && artworkVerse && artworkMeaning ? <StoryArtwork image={artwork.image} title={stage.title} source={`${artworkSurah.nameTransliterated} ${artwork.sourceReference.surah}:${artwork.sourceReference.ayah}`} arabic={artworkVerse.text} translation={artworkMeaning.text} locale={locale} priority={index === 0} /> : null}
           <div className="story-source-passages">
             {passages.map(({ reference, surah, verse, meaning, source }) => <div className="story-paragraph" key={`${reference.surah}:${reference.ayah}`}><p lang="ar" dir="rtl">{verse.text}</p><p>{meaning.text}</p><footer><Link href={`${getSurahHref(surah)}#verse-${reference.ayah}`}>{surah.nameTransliterated} {reference.surah}:{reference.ayah}</Link><SourceDrawer label={tr ? 'Kaynak' : 'Source'} title={`${surah.nameTransliterated} ${reference.surah}:${reference.ayah}`} pdfUrl={source?.pdfUrl} page={source?.page} sourceUrl={tr ? 'https://quranenc.com/tr/browse/turkish_rwwad' : 'https://quranenc.com/en/browse/english_rwwad'} sourceLabel={`QuranEnc Rowwad ${translation.version}`} /></footer></div>)}
           </div>
