@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { HadithDirectory } from '../components/hadith-directory';
 import { SiteHeader } from '../components/site-header';
-import { getAllHadithsForLocale, getHadithCategoriesForLocale, getHadithStatsForLocale, getThemesForHadithLocale, hadithThemes } from '@/lib/hadith';
+import { getHadithStatsForLocale, hadithThemes } from '@/lib/hadith';
+import { getHadithDirectoryRecords, getHadithThemeLabels } from '@/lib/hadith-directory-data';
 import { getLocale } from '@/lib/server-locale';
 import { localeNumber } from '@/lib/locale';
 
@@ -24,18 +25,8 @@ export default async function HadithPage() {
   const locale = await getLocale();
   const tr = locale === 'tr';
   const stats = getHadithStatsForLocale(locale);
-  const categoryNames = new Map(getHadithCategoriesForLocale(locale).map((category) => [category.id, category.title]));
-  const themeTranslations = new Map<string, string>([['Worship & devotion','İbadet'],['Character & manners','Ahlak ve edep'],['Family & home','Aile ve ev'],['Companions & community','Sahabe ve toplum'],['Neighbors & society','Komşuluk ve toplum'],['Knowledge & teaching','İlim ve eğitim'],['Governance & justice','Yönetim ve adalet'],['Peace & agreements','Barış ve antlaşmalar'],['War & defense','Savaş ve savunma'],['Trade & wealth','Ticaret ve mal'],['Food, health & daily life','Yeme, sağlık ve günlük hayat'],['Hereafter & spiritual life','Ahiret ve manevi hayat'],['General guidance','Genel rehberlik']]);
-  const records = getAllHadithsForLocale(locale).map((record) => {
-    return ({
-    id: record.id,
-    title: record.title,
-    attribution: record.attribution,
-    grade: record.grade,
-    categories: record.categories.flatMap((id) => categoryNames.get(id) ?? []).join(' · '),
-    themes: getThemesForHadithLocale(record, locale).map((theme) => tr ? (themeTranslations.get(theme) ?? theme) : theme),
-  }); });
-  const themes = [...hadithThemes].map((theme) => tr ? (themeTranslations.get(theme) ?? theme) : theme);
+  const records = getHadithDirectoryRecords(locale);
+  const themes = getHadithThemeLabels(locale, hadithThemes);
 
   return (
     <main>
@@ -53,7 +44,7 @@ export default async function HadithPage() {
           </div>
         </header>
 
-        <HadithDirectory records={records} themes={themes} locale={locale} />
+        <HadithDirectory initialRecords={records.slice(0, 30)} total={records.length} themes={themes} locale={locale} />
 
         <section aria-labelledby="collections-title">
           <div className="section-title"><div><span className="section-kicker">{tr ? 'Kaynak çalışması sürüyor' : 'Source work in progress'}</span><h2 id="collections-title">{tr ? 'Kütüb-i Sitte' : 'The Six Books'}</h2></div><span className="review-status">{tr ? 'Doğrulama sürüyor' : 'Verification in progress'}</span></div>

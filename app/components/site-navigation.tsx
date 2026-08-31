@@ -32,7 +32,7 @@ export function SiteNavigation({ items, locale }: { items: NavigationItem[]; loc
   return (
     <nav ref={containerRef} className={`main-nav${open ? ' menu-open' : ''}`} aria-label={locale === 'tr' ? 'Ana menü' : 'Main navigation'}>
       <div className="nav-primary">
-        {items.map(([label, href]) => <Link href={href} key={href} aria-current={isActive(href) ? 'page' : undefined} onClick={() => setOpen(false)}>{label}</Link>)}
+        {items.map(([label, href]) => <Link prefetch href={href} key={href} aria-current={isActive(href) ? 'page' : undefined} onClick={() => setOpen(false)}>{label}</Link>)}
       </div>
       <button className="nav-menu-toggle" type="button" aria-label={locale === 'tr' ? 'Gezinme menüsü' : 'Navigation menu'} aria-expanded={open} aria-controls="site-navigation-menu" onClick={() => setOpen((current) => !current)}>
         <span className="nav-menu-label">{locale === 'tr' ? 'Menü' : 'Menu'}</span>
@@ -40,7 +40,7 @@ export function SiteNavigation({ items, locale }: { items: NavigationItem[]; loc
       </button>
       {open ? <div className="nav-menu-panel" id="site-navigation-menu">
         <div className="nav-menu-mobile-items">
-          {items.map(([label, href]) => <Link href={href} key={href} aria-current={isActive(href) ? 'page' : undefined} onClick={() => setOpen(false)}>{label}</Link>)}
+          {items.map(([label, href]) => <Link prefetch href={href} key={href} aria-current={isActive(href) ? 'page' : undefined} onClick={() => setOpen(false)}>{label}</Link>)}
         </div>
       </div> : null}
     </nav>

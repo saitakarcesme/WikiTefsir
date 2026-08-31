@@ -1,6 +1,8 @@
 'use client';
 
-import { FormEvent, useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { FormEvent, useEffect, useState, useTransition } from 'react';
 import type { Locale } from '@/lib/locale';
 
 interface SearchResult {
@@ -13,6 +15,8 @@ interface SearchResult {
 
 export function SearchExplorer({ locale }: { locale: Locale }) {
   const tr = locale === 'tr';
+  const router = useRouter();
+  const [, startTransition] = useTransition();
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);
   const [status, setStatus] = useState<'idle' | 'loading' | 'ready' | 'error'>('idle');
@@ -48,7 +52,7 @@ export function SearchExplorer({ locale }: { locale: Locale }) {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const firstResult = results[0];
-    if (firstResult) window.location.assign(firstResult.href);
+    if (firstResult) startTransition(() => router.push(firstResult.href));
   }
 
   return (
@@ -78,14 +82,14 @@ export function SearchExplorer({ locale }: { locale: Locale }) {
         <div className="search-results" aria-live="polite" aria-busy={status === 'loading'}>
           {results.length ? (
             results.map((record) => (
-              <a key={`${record.type}-${record.href}`} href={record.href} onClick={() => setQuery('')}>
+              <Link prefetch key={`${record.type}-${record.href}`} href={record.href} onClick={() => setQuery('')}>
                 <span className="result-type">{tr ? ({ Verse: 'Ayet', Surah: 'Sure', Hadith: 'Hadis', Concept: 'Kavram', Person: 'Kişi', Scholar: 'Âlim' } as const)[record.type] : record.type}</span>
                 <span>
                   <strong>{record.title}</strong>
                   <small lang={record.language} dir={record.language === 'ar' ? 'rtl' : undefined}>{record.description}</small>
                 </span>
                 <span aria-hidden="true">→</span>
-              </a>
+              </Link>
             ))
           ) : (
             <p>{status === 'loading' ? (tr ? 'Kur’an ve sahih hadis külliyatı aranıyor…' : 'Searching the Quran and authentic hadith corpus…') : status === 'error' ? (tr ? 'Arama geçici olarak kullanılamıyor.' : 'Search is temporarily unavailable.') : (tr ? 'Eşleşen doğrulanmış kayıt bulunamadı.' : 'No matching verified record was found.')}</p>

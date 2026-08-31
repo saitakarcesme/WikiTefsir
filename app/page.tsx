@@ -6,7 +6,6 @@ import { SourceDrawer } from './components/source-drawer';
 import { getTranslation, getTranslationMetadata, getSurahByNumber, getVerse } from '@/lib/quran';
 import { getQuranPdfSource } from '@/lib/sources';
 import { getLocale } from '@/lib/server-locale';
-import { galleryImageById } from '@/lib/gallery-images';
 
 export default async function Home() {
   const locale = await getLocale(); const tr = locale === 'tr';
@@ -29,17 +28,11 @@ export default async function Home() {
   return <main><SiteHeader />
     <div className="reader-home">
       <section className="reader-hero" aria-labelledby="home-title">
-        <span className="reader-overline">{tr ? 'Kur’an · Sahih hadis · Klasik Ehl-i Sünnet tefsiri' : 'Quran · Authentic hadith · Classical Sunni tafsir'}</span>
         <h1 id="home-title">{tr ? <>Kaynağı oku.<br />Bağlantıyı izle.</> : <>Read the source.<br />Follow the connection.</>}</h1>
-        <p>{tr ? 'IslamWiki; ayetleri, hadisleri, tefsirleri, kavramları ve kişileri kaynağı görünür tutan sade bir okuma alanında birleştirir.' : 'IslamWiki brings verses, hadiths, tafsirs, concepts, and people into one calm reading space—without hiding where a statement came from.'}</p>
         <div className="reader-search-canvas">
-          <div className="reader-search-art" aria-hidden="true">
-            {[34, 65, 77].map((id) => <span key={id}>{galleryImageById[id] ? <Image src={galleryImageById[id]} alt="" fill unoptimized sizes="260px" /> : null}</span>)}
-          </div>
+          <div className="reader-search-art" aria-hidden="true"><Image src="/hero/search-art.webp" alt="" fill priority sizes="(max-width: 900px) 100vw, 820px" /></div>
           <div id="search" className="reader-search-control"><SearchExplorer locale={locale} /></div>
-          <small className="reader-search-source">28:7 · 19:17 · 54:1</small>
         </div>
-        <div className="reader-hero-examples">{tr ? 'Deneyin' : 'Try'} <Link href="/stories/musa">{tr ? 'Musa' : 'Moses'}</Link><Link href="/surah/al-baqara#verse-255">2:255</Link><Link href="/concept/revelation">{tr ? 'vahiy' : 'revelation'}</Link><Link href="/hadith/1751">h:1751</Link></div>
       </section>
 
       <section className="reader-start" aria-labelledby="start-title"><div className="reader-section-heading"><span>{tr ? 'Bir yerden başlayın' : 'Start somewhere'}</span><h2 id="start-title">{tr ? 'Bir okuma yolu seçin' : 'Choose a reading path'}</h2></div><div>

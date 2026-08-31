@@ -573,7 +573,7 @@ html[data-theme="dark"] .article-arabic { color: var(--reader-muted); }
 @media (max-width: 760px) {
   body.source-panel-open { padding-right: 0; overflow: hidden; }.source-drawer { width: 100vw !important; max-width: 100vw; right: 0; }.source-resize-handle { display: none; }
   .library-page, .surahs-page, .profile-page, .hadith-article-page, .encyclopedia-index-page, .reader-index-page, .graph-page, .reader-home { width: calc(100% - 28px); }
-  .reader-hero { padding: 52px 0 44px; }.reader-hero h1 { font-size: 44px; }.reader-hero > p { font-size: 17px; }.reader-hero .search-box { height: auto; min-height: 54px; flex-wrap: wrap; }.reader-hero .search-box button { width: 100%; }.reader-hero-examples { flex-wrap: wrap; }
+  .reader-hero { padding: 52px 0 44px; }.reader-hero h1 { max-width: 100%; font-size: 38px; line-height: 1.02; overflow-wrap: anywhere; }.reader-hero > p { font-size: 17px; }.reader-hero .search-box { height: auto; min-height: 54px; flex-wrap: wrap; }.reader-hero .search-box button { width: 100%; }.reader-hero-examples { flex-wrap: wrap; }
   .featured-reading { padding: 44px 0; gap: 28px; }.featured-reading blockquote { padding: 20px; }
   .concept-index > div, .scholar-index > div { grid-template-columns: 1fr; }.concept-index article, .scholar-index article { padding: 16px; }
   .graph-cluster { padding: 16px; }.graph-cluster-map { grid-template-columns: 1fr; }.graph-branches { grid-template-columns: repeat(2,minmax(0,1fr)); }.graph-branches a::before { display: none; }
@@ -937,7 +937,7 @@ body.source-panel-open .quran-article-layout .wiki-infobox { display: none; }
 
 /* Source-led story artwork and framed directory surfaces. */
 .reader-start > div:last-child, .surah-directory, .stories-index { border-left: 1px solid var(--reader-line); border-right: 1px solid var(--reader-line); }
-.story-artwork { width: min(860px,100%); aspect-ratio: 3 / 2; margin: 30px 0 36px; perspective: 1400px; }
+.story-artwork { width: calc(100% - 54px); aspect-ratio: 3 / 2; margin: 30px 0 36px 54px; perspective: 1400px; }
 .story-artwork > button { width: 100%; height: 100%; padding: 10px; display: block; background: color-mix(in srgb,var(--reader-paper) 92%,var(--reader-soft)); border: 1px solid var(--reader-line); box-shadow: inset 0 0 0 5px var(--reader-paper), 0 18px 48px color-mix(in srgb,var(--reader-ink) 8%,transparent); }
 .story-artwork-inner { width: 100%; height: 100%; display: block; position: relative; transform-style: preserve-3d; transition: transform .65s cubic-bezier(.2,.75,.25,1); }
 .story-artwork.flipped .story-artwork-inner { transform: rotateY(180deg); }
@@ -950,23 +950,27 @@ body.source-panel-open .quran-article-layout .wiki-infobox { display: none; }
 .story-artwork-back p { margin: 0; color: var(--reader-muted); font-size: clamp(13px,1.7vw,16px); line-height: 1.7; }
 .story-artwork-back > span { margin-top: 18px; color: var(--reader-blue); font-size: 11px; }
 
-.reader-search-canvas { min-height: 112px; margin-top: 34px; position: relative; isolation: isolate; }
-.reader-search-control { position: relative; z-index: 3; padding-top: 27px; }
+.reader-search-canvas { min-height: 104px; margin-top: 28px; position: relative; isolation: isolate; }
+.reader-search-control { position: relative; z-index: 3; padding: 24px 18px; }
 .reader-search-control .search-area { margin-top: 0; }
 .reader-search-art { position: absolute; inset: 0; z-index: -1; overflow: hidden; border: 1px solid var(--reader-line); border-radius: 12px; background: var(--reader-soft); }
-.reader-search-art::after { content: ''; position: absolute; inset: 0; background: color-mix(in srgb,var(--reader-paper) 73%,transparent); backdrop-filter: grayscale(55%); }
-.reader-search-art > span { width: 34%; height: 150%; position: absolute; top: -25%; opacity: .42; transform: rotate(-7deg); }
-.reader-search-art > span:nth-child(1) { left: -2%; }.reader-search-art > span:nth-child(2) { left: 34%; transform: rotate(5deg); }.reader-search-art > span:nth-child(3) { right: -2%; transform: rotate(-3deg); }
-.reader-search-art img { object-fit: cover; }
-.reader-search-source { position: absolute; right: 11px; bottom: 7px; z-index: 4; color: var(--reader-muted); font-size: 9px; letter-spacing: .04em; }
-.reader-search-canvas .search-box { background: color-mix(in srgb,var(--reader-paper) 91%,transparent); backdrop-filter: blur(12px); }
+.reader-search-art::after { content: ''; position: absolute; inset: 0; background: color-mix(in srgb,var(--reader-paper) 42%,transparent); backdrop-filter: saturate(78%); }
+.reader-search-art img { object-fit: cover; object-position: center; }
+.reader-search-canvas .search-box { background: color-mix(in srgb,var(--reader-paper) 88%,transparent); backdrop-filter: blur(14px); }
 
 @media (max-width: 700px) {
   .story-reader, .story-reader-header, .story-opening, .story-prose, .story-prose > section, .story-narrative-copy, .story-source-passages { min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
   .story-reader { overflow-x: clip; }
-  .story-artwork { margin-block: 22px 28px; }
+  .story-artwork { width: 100%; margin: 22px 0 28px; }
   .story-artwork-back { padding: 17px; }.story-artwork-back blockquote { margin-block: 10px 4px; font-size: 21px; line-height: 1.65; }.story-artwork-back p { display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
   .reader-search-art > span { width: 52%; }.reader-search-art > span:nth-child(2) { left: 28%; }.reader-search-art > span:nth-child(3) { right: -18%; }
 }
 
 @media (prefers-reduced-motion: reduce) { .story-artwork-inner { transition: none; } }
+
+.story-hadith-layer { margin: 64px 0 26px; padding-top: 44px; border-top: 1px solid var(--reader-line); }
+.story-hadith-layer > h2 { margin: 9px 0 12px; color: var(--reader-ink); font-family: Georgia,'Times New Roman',serif; font-size: clamp(28px,4vw,42px); }
+.story-hadith-layer > p, .story-hadith-record > p { max-width: 760px; color: var(--reader-muted); font-size: 15px; line-height: 1.75; }
+.story-hadith-record { margin-top: 34px; }
+.story-hadith-record .story-artwork { width: 100%; margin-left: 0; }
+.story-hadith-record > a { color: var(--reader-blue); font-size: 13px; font-weight: 650; }

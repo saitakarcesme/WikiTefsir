@@ -10,6 +10,7 @@ import { getSurahByNumber, getSurahHref, getTranslation, getTranslationMetadata,
 import { getLocale } from '@/lib/server-locale';
 import { getQuranPdfSource } from '@/lib/sources';
 import { getStoryArtwork } from '@/lib/story-art';
+import { getStoryHadiths } from '@/lib/story-hadith';
 
 export const dynamicParams = false;
 export function generateStaticParams() { return getAllPeople().filter((person) => person.narrative.length > 1).map((person) => ({ slug: person.slug })); }
@@ -26,6 +27,8 @@ export default async function StoryPage({ params }: StoryPageProps) {
   const person = getPersonBySlug((await params).slug);
   if (!person || person.narrative.length < 2) notFound();
   const translation = getTranslationMetadata(locale);
+  const usedSceneIds = new Set<number>();
+  const relatedHadiths = getStoryHadiths(person.slug, locale);
   const readingMinutes = Math.max(4, Math.round(person.narrative.flatMap((stage) => stage.references).length * .42 + person.narrative.length * .45));
   return <main><SiteHeader /><article className="story-reader">
     <nav className="breadcrumbs"><Link href="/">{tr ? 'Ana sayfa' : 'Home'}</Link><span>›</span><Link href="/stories">{tr ? 'Kıssalar' : 'Stories'}</Link><span>›</span>{getPersonName(person, locale)}</nav>
@@ -41,7 +44,8 @@ export default async function StoryPage({ params }: StoryPageProps) {
           return { reference, surah, verse, meaning, source: getQuranPdfSource(surah.startOffset + reference.ayah - 1) };
         });
         const first = passages[0]; const last = passages.at(-1);
-        const artwork = getStoryArtwork(person.slug, stage.references, index);
+        const artwork = getStoryArtwork(person.slug, stage.id, stage.references, index, usedSceneIds);
+        if (artwork && artwork.id > 0) usedSceneIds.add(artwork.id);
         const artworkSurah = artwork ? getSurahByNumber(artwork.sourceReference.surah) : undefined;
         const artworkVerse = artwork ? getVerse(artwork.sourceReference.surah, artwork.sourceReference.ayah) : undefined;
         const artworkMeaning = artwork ? getTranslation(artwork.sourceReference.surah, artwork.sourceReference.ayah, locale) : undefined;
@@ -52,13 +56,23 @@ export default async function StoryPage({ params }: StoryPageProps) {
             <p>{tr ? `Pasajlar birlikte okunduğunda sahne adım adım ilerler. İlk ayetin kurduğu durum, aynı bölümde seçilen diğer ayetlerle tamamlanır; böylece farklı surelerdeki ifadeler tek bir olayın parçaları olarak okunabilir.` : `Read together, these passages turn that statement into a scene: the opening verse establishes the moment, and the following references carry it toward its consequence. The order here is narrative, not the order of revelation.`}</p>
             {last && last.reference !== first.reference ? <p>{tr ? `Bölüm ${last.surah.nameTransliterated} ${last.reference.surah}:${last.reference.ayah} ile kapanırken kıssa bir sonraki aşamaya geçer. Aşağıdaki ayet kartları anlatının dayandığı Arapça metni ve Türkçe kaynak mealini eksiksiz gösterir.` : `By ${last.surah.nameTransliterated} ${last.reference.surah}:${last.reference.ayah}, the episode has reached its next turning point. The source passages below preserve the Arabic text and the independent English source translation in full.`}</p> : null}
           </div>
-          {artwork && artworkSurah && artworkVerse && artworkMeaning ? <StoryArtwork image={artwork.image} title={artwork.title} source={`${artworkSurah.nameTransliterated} ${artwork.sourceReference.surah}:${artwork.sourceReference.ayah}`} arabic={artworkVerse.text} translation={artworkMeaning.text} locale={locale} /> : null}
+          {artwork && artworkSurah && artworkVerse && artworkMeaning ? <StoryArtwork image={artwork.image} title={stage.title} source={`${artworkSurah.nameTransliterated} ${artwork.sourceReference.surah}:${artwork.sourceReference.ayah}`} arabic={artworkVerse.text} translation={artworkMeaning.text} locale={locale} /> : null}
           <div className="story-source-passages">
             {passages.map(({ reference, surah, verse, meaning, source }) => <div className="story-paragraph" key={`${reference.surah}:${reference.ayah}`}><p lang="ar" dir="rtl">{verse.text}</p><p>{meaning.text}</p><footer><Link href={`${getSurahHref(surah)}#verse-${reference.ayah}`}>{surah.nameTransliterated} {reference.surah}:{reference.ayah}</Link><SourceDrawer label={tr ? 'Kaynak' : 'Source'} title={`${surah.nameTransliterated} ${reference.surah}:${reference.ayah}`} pdfUrl={source?.pdfUrl} page={source?.page} sourceUrl={tr ? 'https://quranenc.com/tr/browse/turkish_rwwad' : 'https://quranenc.com/en/browse/english_rwwad'} sourceLabel={`QuranEnc Rowwad ${translation.version}`} /></footer></div>)}
           </div>
         </section>;
       })}
     </div>
+    {relatedHadiths.length ? <section className="story-hadith-layer" aria-labelledby="story-hadith-title">
+      <span className="reader-overline">{tr ? 'Sahih hadis katmanı' : 'Authenticated hadith layer'}</span>
+      <h2 id="story-hadith-title">{tr ? 'Kıssayla ilgili sahih rivayetler' : 'Authenticated reports related to the story'}</h2>
+      <p>{tr ? 'Bu rivayetler Kur’an’daki kronolojiye eklenmez; HadeethEnc’in bağımsız Türkçe kaydından, kıssayla ilgili tamamlayıcı bir kaynak katmanı olarak gösterilir.' : 'These reports are not inserted into the Quranic chronology. They are shown as a supplemental source layer from HadeethEnc’s independent English record.'}</p>
+      {relatedHadiths.map(({ record, image }) => <div className="story-hadith-record" key={record.id}>
+        <StoryArtwork image={image} title={record.title} source={`HadeethEnc #${record.id}`} arabic={record.hadeeth_ar} translation={record.hadeeth} locale={locale} />
+        <p>{record.explanation}</p>
+        <Link href={`/hadith/${record.id}`}>{tr ? 'Hadis kaydını aç →' : 'Open the hadith record →'}</Link>
+      </div>)}
+    </section> : null}
     <footer className="story-closing">{tr ? 'Anlatı, Kur’an’ın açıkça bildirdiği olay ve tasvirlerin sınırında tutulmuştur; kaynakta bulunmayan biyografik ayrıntılar eklenmemiştir.' : person.closingNote}</footer>
   </article></main>;
 }
