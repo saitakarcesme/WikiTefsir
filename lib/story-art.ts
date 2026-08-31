@@ -1,8 +1,11 @@
-import { galleryImageById } from '@/lib/gallery-images';
-import { galleryScenes, type GalleryScene } from '@/lib/gallery-scenes';
 import type { QuranReference } from '@/lib/people';
 
-export type StoryArtwork = GalleryScene & {
+export type StoryArtwork = {
+  id: number;
+  title: string;
+  source: string;
+  brief: string;
+  kind: 'Quran';
   image: string;
   sourceReference: QuranReference;
 };
@@ -39,42 +42,61 @@ const generatedStoryArt: Record<string, string> = {
   'yusuf:vindication': '/stories/yusuf/vindication.webp',
   'yusuf:authority': '/stories/yusuf/authority.webp',
   'yusuf:reunion': '/stories/yusuf/reunion.webp',
+  'idris:truthful': '/stories/idris/truthful.webp',
+  'hud:call': '/stories/hud/call.webp',
+  'salih:call': '/stories/salih/call.webp',
+  'lut:warning': '/stories/lut/warning.webp',
+  'ismail:house': '/stories/ismail/house.webp',
+  'ishaq:announcement': '/stories/ishaq/announcement.webp',
+  'yaqub:dream': '/stories/yaqub/dream.webp',
+  'ayyub:affliction': '/stories/ayyub/affliction.webp',
+  'shuayb:call': '/stories/shuayb/call.webp',
+  'harun:support': '/stories/harun/support.webp',
+  'dhul-kifl:patient': '/stories/dhul-kifl/patient.webp',
+  'dawud:victory': '/stories/dawud/victory.webp',
+  'sulayman:inheritance': '/stories/sulayman/inheritance.webp',
+  'ilyas:mission': '/stories/ilyas/mission.webp',
+  'al-yasa:guided': '/stories/al-yasa/guided.webp',
+  'yunus:departure': '/stories/yunus/departure.webp',
+  'zakariya:mary': '/stories/zakariya/mary.webp',
+  'yahya:announcement': '/stories/yahya/announcement.webp',
+  'isa:announcement': '/stories/isa/announcement.webp',
+  'muhammad:care': '/stories/muhammad/care.webp',
+  'imran:family': '/stories/imran/family.webp',
+  'wife-of-imran:vow': '/stories/wife-of-imran/vow.webp',
+  'adams-spouse:garden': '/stories/adams-spouse/garden.webp',
+  'iblis:refusal': '/stories/iblis/refusal.webp',
+  'pharaoh:oppression': '/stories/pharaoh/oppression.webp',
+  'qarun:wealth': '/stories/qarun/wealth.webp',
+  'haman:regime': '/stories/haman/regime.webp',
+  'samiri:trial': '/stories/samiri/trial.webp',
+  'azar:idols': '/stories/azar/idols.webp',
+  'luqman:wisdom': '/stories/luqman/wisdom.webp',
+  'dhul-qarnayn:means': '/stories/dhul-qarnayn/means.webp',
+  'talut:appointment': '/stories/talut/appointment.webp',
+  'jalut:encounter': '/stories/jalut/encounter.webp',
+  'zayd:counsel': '/stories/zayd/counsel.webp',
+  'abu-lahab:condemnation': '/stories/abu-lahab/condemnation.webp',
+  'queen-of-sheba:report': '/stories/queen-of-sheba/report.webp',
+  'wife-of-aziz:temptation': '/stories/wife-of-aziz/temptation.webp',
+  'mother-of-moses:inspiration': '/stories/mother-of-moses/inspiration.webp',
+  'sister-of-moses:watching': '/stories/sister-of-moses/watching.webp',
+  'wife-of-pharaoh:infant': '/stories/wife-of-pharaoh/infant.webp',
+  'companions-of-the-cave:faith': '/stories/companions-of-the-cave/faith.webp',
+  'learned-servant:meeting': '/stories/learned-servant/meeting.webp',
+  'sons-of-adam:offerings': '/stories/sons-of-adam/offerings.webp',
+  'brothers-of-joseph:jealousy': '/stories/brothers-of-joseph/jealousy.webp',
+  'pharaohs-magicians:summoned': '/stories/pharaohs-magicians/summoned.webp',
+  'children-of-israel:deliverance': '/stories/children-of-israel/deliverance.webp',
+  'jibril:revelation': '/stories/jibril/revelation.webp',
+  'harut-and-marut:trial': '/stories/harut-and-marut/trial.webp',
+  'people-of-the-elephant:plot': '/stories/people-of-the-elephant/plot.webp',
 };
 
-const fallbacks: Record<string, number[]> = {
-  hud: [11],
-  shuayb: [12],
-  ilyas: [13],
-  'al-yasa': [102],
-  'dhul-kifl': [102],
-  idris: [101],
-  luqman: [103],
-  maryam: [64, 65, 66],
-  jibril: [65, 81, 85],
-};
-
-function parseQuranSource(source: string) {
-  const match = source.match(/^Quran\s+(\d+):(\d+)(?:[–-](\d+))?$/i);
-  if (!match) return undefined;
-  return { surah: Number(match[1]), start: Number(match[2]), end: Number(match[3] ?? match[2]) };
-}
-
-export function getStoryArtwork(slug: string, stageId: string, references: QuranReference[], stageIndex: number, usedSceneIds: ReadonlySet<number>): StoryArtwork | undefined {
+export function getStoryArtwork(slug: string, stageId: string, references: QuranReference[], stageIndex: number): StoryArtwork | undefined {
   const generated = generatedStoryArt[`${slug}:${stageId}`];
   if (generated && references[0]) {
     return { id: -(stageIndex + 1), kind: 'Quran', image: generated, title: stageId.replaceAll('-', ' '), source: `Quran ${references[0].surah}:${references[0].ayah}`, brief: '', sourceReference: references[0] };
   }
-  const matched = galleryScenes.find((scene) => {
-    if (scene.kind !== 'Quran' || !galleryImageById[scene.id] || usedSceneIds.has(scene.id)) return false;
-    const range = parseQuranSource(scene.source);
-    return range && references.some((reference) => reference.surah === range.surah && reference.ayah >= range.start && reference.ayah <= range.end);
-  });
-  const fallbackIds = fallbacks[slug] ?? [];
-  const fallback = galleryScenes.find((scene) => scene.id === fallbackIds[stageIndex % Math.max(1, fallbackIds.length)] && !usedSceneIds.has(scene.id));
-  const scene = matched ?? fallback;
-  if (!scene) return undefined;
-  const range = parseQuranSource(scene.source);
-  const sourceReference = range ? { surah: range.surah, ayah: range.start } : references[0];
-  const image = scene.image ?? galleryImageById[scene.id];
-  return image && sourceReference ? { ...scene, image, sourceReference } : undefined;
+  return undefined;
 }

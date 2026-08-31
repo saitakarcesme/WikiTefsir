@@ -27,7 +27,6 @@ export default async function StoryPage({ params }: StoryPageProps) {
   const person = getPersonBySlug((await params).slug);
   if (!person || person.narrative.length < 2) notFound();
   const translation = getTranslationMetadata(locale);
-  const usedSceneIds = new Set<number>();
   const relatedHadiths = getStoryHadiths(person.slug, locale);
   const readingMinutes = Math.max(4, Math.round(person.narrative.flatMap((stage) => stage.references).length * .42 + person.narrative.length * .45));
   return <main><SiteHeader /><article className="story-reader">
@@ -44,8 +43,7 @@ export default async function StoryPage({ params }: StoryPageProps) {
           return { reference, surah, verse, meaning, source: getQuranPdfSource(surah.startOffset + reference.ayah - 1) };
         });
         const first = passages[0]; const last = passages.at(-1);
-        const artwork = getStoryArtwork(person.slug, stage.id, stage.references, index, usedSceneIds);
-        if (artwork && artwork.id > 0) usedSceneIds.add(artwork.id);
+        const artwork = getStoryArtwork(person.slug, stage.id, stage.references, index);
         const artworkSurah = artwork ? getSurahByNumber(artwork.sourceReference.surah) : undefined;
         const artworkVerse = artwork ? getVerse(artwork.sourceReference.surah, artwork.sourceReference.ayah) : undefined;
         const artworkMeaning = artwork ? getTranslation(artwork.sourceReference.surah, artwork.sourceReference.ayah, locale) : undefined;
