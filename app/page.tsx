@@ -1,6 +1,5 @@
 import Link from 'next/link';
-import Image from 'next/image';
-import { SearchExplorer } from './components/search-explorer';
+import { HeroSlideshow } from './components/hero-slideshow';
 import { SiteHeader } from './components/site-header';
 import { SourceDrawer } from './components/source-drawer';
 import { getTranslation, getTranslationMetadata, getSurahByNumber, getVerse } from '@/lib/quran';
@@ -27,13 +26,7 @@ export default async function Home() {
 
   return <main><SiteHeader />
     <div className="reader-home">
-      <section className="reader-hero" aria-labelledby="home-title">
-        <h1 id="home-title">{tr ? <>Kaynağı oku.<br />Bağlantıyı izle.</> : <>Read the source.<br />Follow the connection.</>}</h1>
-        <div className="reader-search-canvas">
-          <div className="reader-search-art" aria-hidden="true"><Image src="/hero/search-art.webp" alt="" fill priority sizes="(max-width: 900px) 100vw, 820px" /></div>
-          <div id="search" className="reader-search-control"><SearchExplorer locale={locale} /></div>
-        </div>
-      </section>
+      <HeroSlideshow locale={locale} />
 
       <section className="reader-start" aria-labelledby="start-title"><div className="reader-section-heading"><span>{tr ? 'Bir yerden başlayın' : 'Start somewhere'}</span><h2 id="start-title">{tr ? 'Bir okuma yolu seçin' : 'Choose a reading path'}</h2></div><div>
         {paths.map((path, index) => <Link href={path.href} key={path.href}><small>0{index + 1}</small><span><strong>{path.label}</strong><em>{path.detail}</em></span><span aria-hidden="true">→</span></Link>)}
