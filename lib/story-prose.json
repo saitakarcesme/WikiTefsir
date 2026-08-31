@@ -1,0 +1,945 @@
+{
+  "adam": {
+    "intro": {
+      "tr": "Âdem’in kıssası, insanın yaratılışı, ilimle onurlandırılması, ilk imtihanı, hatasının ardından tövbesi ve yeryüzündeki hayatının başlangıcıyla Kur’an’da insanlık tarihinin en erken safhasını anlatır.",
+      "en": "The story of Adam presents the earliest stage of human history in the Qur'an: his creation, the knowledge granted to him, his first test, his repentance after wrongdoing, and the beginning of human life on earth."
+    },
+    "stages": {
+      "creation": {
+        "tr": [
+          "Allah meleklere yeryüzünde bir halife var edeceğini bildirdi. Melekler, orada bozgunculuk yapacak ve kan dökecek birinin mi yaratılacağını sordular; kendilerinin Allah’ı hamd ile tesbih edip O’nu takdis ettiklerini söylediler. Allah ise onların bilmediklerini bildiğini bildirdi.",
+          "Allah Âdem’e isimlerin tamamını öğretti. Kur’an böylece Âdem’in yaratılışının yanında ona verilen bilgiyi de özellikle zikreder. Başka bir ayette insanın kuru bir çamurdan, şekillenmiş kara balçıktan yaratılacağı bildirilir."
+        ],
+        "en": [
+          "Allah informed the angels that He would place a successor on the earth. They asked whether one who would cause corruption and shed blood would be placed there, while they glorified and sanctified Him. Allah answered that He knew what they did not know.",
+          "Allah taught Adam all the names. The Qur'an thus places particular emphasis on the knowledge given to Adam alongside his creation. Elsewhere, Allah declares that the human being would be created from sounding clay formed from altered dark mud."
+        ],
+        "hadithSources": []
+      },
+      "garden": {
+        "tr": [
+          "Allah Âdem’e ve eşine bahçede yerleşmelerini söyledi. Orada diledikleri yerden yiyebileceklerdi.",
+          "Bununla birlikte kendilerine belirli bir ağaca yaklaşmamaları emredildi. Ağaca yaklaşmaları hâlinde zalimlerden olacakları bildirildi."
+        ],
+        "en": [
+          "Allah told Adam and his wife to dwell in the Garden. They were permitted to eat from it wherever they wished.",
+          "They were, however, commanded not to approach a particular tree. They were warned that approaching it would make them among the wrongdoers."
+        ],
+        "hadithSources": []
+      },
+      "temptation": {
+        "tr": [
+          "Şeytan, kendilerinden gizlenmiş olan mahrem yerlerini açığa çıkarmak için Âdem ile eşine vesvese verdi. Onlara Rablerinin bu ağacı ancak melek olmamaları veya ebedî kalanlardan olmamaları için yasakladığını söyledi.",
+          "Âdem’e ayrıca ebediyet ağacını ve yok olmayacak bir hükümranlığı göstereceğini söyleyerek vesvese verdi. Âdem ile eşi ağaçtan tadınca mahrem yerleri kendilerine göründü ve bahçenin yapraklarını üzerlerine örtmeye başladılar. Rableri, kendilerine o ağacı yasakladığını ve şeytanın açık bir düşman olduğunu bildirdi."
+        ],
+        "en": [
+          "Satan whispered to Adam and his wife in order to expose what had been concealed from them of their nakedness. He told them that their Lord had forbidden the tree only lest they become angels or become immortal.",
+          "He also whispered to Adam, offering to show him the tree of eternity and a dominion that would not decay. When Adam and his wife tasted from the tree, their nakedness became apparent to them, and they began covering themselves with leaves from the Garden. Their Lord reminded them that He had forbidden that tree and had warned them that Satan was a clear enemy."
+        ],
+        "hadithSources": []
+      },
+      "repentance": {
+        "tr": [
+          "Âdem ile eşi hatalarının ardından Rablerine yöneldiler: Kendilerine zulmettiklerini, bağışlanıp merhamet edilmezlerse kaybedenlerden olacaklarını söylediler. Kur’an ayrıca Âdem’in Rabbinden birtakım sözler aldığını ve Allah’ın onun tövbesini kabul ettiğini bildirir.",
+          "Allah Âdem’i seçti, tövbesini kabul etti ve ona doğru yolu gösterdi. Ardından yeryüzüne inmeleri emredildi. Allah, kendisinden bir hidayet geldiğinde ona uyanların korkuya kapılmayacağını ve üzülmeyeceğini bildirdi."
+        ],
+        "en": [
+          "After their wrongdoing, Adam and his wife turned to their Lord. They acknowledged that they had wronged themselves and that unless He forgave them and showed them mercy, they would be among the losers. The Qur'an also states that Adam received words from his Lord and that Allah accepted his repentance.",
+          "Allah chose Adam, accepted his repentance, and guided him. They were then commanded to descend. Allah declared that when guidance came from Him, those who followed that guidance would have no fear, nor would they grieve."
+        ],
+        "hadithSources": []
+      }
+    },
+    "closing": {
+      "tr": "Âdem’in Kur’an’daki kıssası, yaratılış ve ilk imtihanın ardından tövbenin kabulü ve ilahî hidayet vaadiyle yeryüzündeki insan hayatının başlangıcına ulaşır.",
+      "en": "Adam's Qur'anic story moves from creation and the first test to accepted repentance and the promise of divine guidance as human life on earth begins."
+    }
+  },
+  "idris": {
+    "intro": {
+      "tr": "Kur’an İdris hakkında az fakat açık bilgi verir. Onu doğrulukla niteler, peygamber olduğunu bildirir ve yüksek bir makama yükseltildiğini söyler.",
+      "en": "The Qur'an gives little information about Idris, but what it states is clear: he is described as a man of truth and a prophet, and Allah says that He raised him to a high station."
+    },
+    "stages": {
+      "truthful": {
+        "tr": [
+          "Meryem suresinde İdris’in anılması emredilir. Kur’an onu sıddîk, yani son derece doğru ve doğruluğu tasdik eden biri olarak niteler.",
+          "Aynı ayet İdris’in bir peygamber olduğunu açıkça bildirir. Bunun ötesinde bu ayette onun hayatı, yaşadığı yer veya tebliğinin ayrıntıları verilmez."
+        ],
+        "en": [
+          "In Surah Maryam, Idris is specifically mentioned and described as a man of truth.",
+          "The same verse explicitly identifies him as a prophet. It does not provide further details there about the circumstances of his life, his location, or the events of his mission."
+        ],
+        "hadithSources": []
+      },
+      "station": {
+        "tr": [
+          "Allah İdris’i yüksek bir makama yükselttiğini bildirir. Kur’an bu ifadenin ayrıntısını burada açıklamaz.",
+          "Başka bir yerde İdris, İsmail ve Zülkifl ile birlikte sabredenlerden sayılır. Allah onların her birini rahmetine dâhil ettiğini ve onların salihlerden olduklarını bildirir."
+        ],
+        "en": [
+          "Allah states that He raised Idris to a high station. The Qur'an does not elaborate on the nature of that statement in these verses.",
+          "Elsewhere, Idris is named together with Ishmael and Dhul-Kifl among those who were patient. Allah says that He admitted them into His mercy and that they were among the righteous."
+        ],
+        "hadithSources": []
+      }
+    },
+    "closing": {
+      "tr": "Kur’an’ın İdris hakkında kesin olarak verdiği portre bu kısa ifadelerle sınırlıdır: doğruluk sahibi bir peygamber, sabredenlerden ve salihlerden biri, Allah’ın rahmetine dâhil ettiği ve yüksek bir makama yükselttiği bir kul.",
+      "en": "The Qur'anic portrait of Idris remains concise: a truthful prophet, one of the patient and righteous, admitted into Allah's mercy and raised to a high station."
+    }
+  },
+  "nuh": {
+    "intro": {
+      "tr": "Nûh’un kıssası, uzun süren tebliği, kavminin inkârı, Allah’ın emriyle geminin hazırlanması, tufan ve iman edenlerin kurtuluşuyla Kur’an’da ayrıntılı biçimde anlatılan peygamber kıssalarındandır.",
+      "en": "The story of Noah is among the more extensively narrated prophetic accounts in the Qur'an, encompassing his persistent call, his people's rejection, the construction of the Ark by Allah's command, the Flood, and the deliverance of the believers."
+    },
+    "stages": {
+      "call": {
+        "tr": [
+          "Nûh kavmine açık bir uyarıcı olarak gönderildi. Onları Allah’tan başkasına kulluk etmemeye çağırdı ve üzerlerine gelecek acı bir günün azabından korktuğunu bildirdi.",
+          "Nûh daha sonra Rabbine, kavmini gece gündüz çağırdığını anlattı. Çağrısını hem açıkça ilan etmiş hem de onlarla gizli biçimde konuşmuştu. Kur’an’ın bu ifadeleri, onun tebliğini farklı şekillerde ve ısrarla sürdürdüğünü gösterir."
+        ],
+        "en": [
+          "Noah was sent to his people as a clear warner. He called them to worship none but Allah and warned that he feared for them the punishment of a painful day.",
+          "Noah later told his Lord that he had called his people night and day. He had proclaimed the message publicly and had also spoken to them privately, persisting in his call through different means."
+        ],
+        "hadithSources": []
+      },
+      "ark": {
+        "tr": [
+          "Allah Nûh’a, kavminden daha önce iman etmiş olanların dışında artık kimsenin iman etmeyeceğini vahyetti ve onların yaptıkları sebebiyle üzülmemesini bildirdi.",
+          "Ardından gemiyi Allah’ın gözetimi ve vahyi doğrultusunda yapması emredildi. Zulmedenler hakkında Allah’a başvurmaması bildirildi; onların boğulacağı hükme bağlanmıştı. Müminlerin kurtuluşu için hazırlanacak gemi böylece ilahî emirle inşa edildi."
+        ],
+        "en": [
+          "Allah revealed to Noah that none of his people would now believe except those who had already believed, and told him not to grieve over what they had been doing.",
+          "He was then commanded to build the Ark under Allah's watch and according to His revelation. Noah was told not to plead concerning those who had done wrong, for they were to be drowned. The vessel by which the believers would be delivered was thus prepared by divine command."
+        ],
+        "hadithSources": []
+      },
+      "flood": {
+        "tr": [
+          "Allah’ın emri gelip tandır kaynamaya başlayınca Nûh’a, hüküm verilmiş olanlar dışında ailesini, iman edenleri ve her türden birer çifti gemiye alması emredildi. Kur’an, onunla birlikte iman edenlerin sayısının az olduğunu belirtir.",
+          "Gemi, onları dağlar gibi dalgaların arasından geçirirken Nûh ayrı bir yerde bulunan oğluna seslendi ve onun da gemiye binmesini, inkârcılarla birlikte olmamasını istedi. Oğlu bir dağa sığınarak sudan korunacağını söyledi. Nûh ise o gün Allah’ın merhamet ettikleri dışında O’nun hükmünden koruyacak hiçbir şey olmadığını bildirdi.",
+          "Aralarına bir dalga girdi ve Nûh’un oğlu boğulanlardan oldu."
+        ],
+        "en": [
+          "When Allah's command came and the oven overflowed, Noah was commanded to take aboard his family except those against whom the decree had already been passed, the believers, and a pair of every kind. The Qur'an notes that only a few had believed with him.",
+          "As the Ark carried them through waves like mountains, Noah called to a son of his who stood apart, urging him to board and not remain with the disbelievers. His son said that he would seek refuge on a mountain that would protect him from the water. Noah replied that nothing could protect anyone that day from Allah's command except those upon whom He had mercy.",
+          "A wave came between them, and Noah's son was among those who drowned."
+        ],
+        "hadithSources": []
+      },
+      "landing": {
+        "tr": [
+          "Sonunda yere suyunu yutması, göğe de yağmuru tutması emredildi. Su çekildi, hüküm yerine getirildi ve gemi Cûdî üzerine oturdu. Zalim kavmin uzak olması ilan edildi.",
+          "Nûh’a gemiden Allah’ın selamı ve bereketleriyle inmesi emredildi. Tufanın ardından onun ve beraberindeki toplulukların yeryüzündeki hayatı böylece yeniden başladı."
+        ],
+        "en": [
+          "At last the earth was commanded to swallow its water and the sky to withhold its rain. The water subsided, the decree was fulfilled, and the Ark came to rest upon Judi. It was declared that the wrongdoing people were cast away.",
+          "Noah was then told to disembark with peace from Allah and blessings upon him and upon communities descended from those with him. Life on earth thus continued after the Flood under the terms announced by Allah."
+        ],
+        "hadithSources": []
+      }
+    },
+    "closing": {
+      "tr": "Nûh’un kıssasında uzun tebliğ dönemini geminin inşası, tufan ve ilahî hükmün gerçekleşmesi izler; iman edenler kurtarılırken zulümde ısrar eden kavim sona erer.",
+      "en": "Noah's long call is followed by the building of the Ark, the Flood, and the fulfillment of Allah's decree: the believers are delivered, while the people who persisted in wrongdoing are brought to an end."
+    }
+  },
+  "hud": {
+    "intro": {
+      "tr": "Hûd, Âd kavmine gönderilen peygamberdi. Kur'an onun kavmini yalnız Allah'a kulluk etmeye çağırdığını, onların itirazları karşısında tebliğini sürdürdüğünü ve sonunda Allah'ın rahmetiyle kurtarıldığını bildirir.",
+      "en": "Hud was sent to the people of 'Ad. The Qur'an recounts his call to worship Allah alone, his response to their rejection, and his eventual deliverance by Allah's mercy."
+    },
+    "stages": {
+      "call": {
+        "tr": [
+          "Hûd kavmine, “Ey kavmim, Allah'a kulluk edin; sizin O'ndan başka ilahınız yoktur” diyerek seslendi. Bu çağrının karşılığında onlardan herhangi bir ücret istemedi; mesajının merkezinde yalnız Allah'a ibadet vardı.",
+          "Kavmini Rablerinden bağışlanma dilemeye ve O'na tövbe etmeye çağırdı. Böyle yaparlarsa üzerlerine bol yağmur gönderileceğini ve mevcut güçlerine güç katılacağını bildirdi; suçlular olarak yüz çevirmemelerini istedi."
+        ],
+        "en": [
+          "Hud addressed his people with the call to worship Allah, telling them that they had no deity besides Him. He did not present himself as seeking payment from them; his message centered on worship of Allah alone.",
+          "He urged them to seek forgiveness from their Lord and turn to Him in repentance. He told them that, if they did so, Allah would send abundant rain upon them and add strength to their strength, and he warned them not to turn away as offenders."
+        ],
+        "hadithSources": []
+      },
+      "rejection": {
+        "tr": [
+          "Kavminin ileri gelen inkârcıları Hûd'u akılsızlıkla suçladı ve onu yalancılardan biri saydıklarını söyledi. Başka bir yerde ise onun kendilerine açık bir delil getirmediğini ileri sürerek, yalnız onun sözüyle ilahlarını terk etmeyeceklerini ve ona inanmayacaklarını bildirdiler.",
+          "Hûd, Allah'ı şahit tuttuğunu ve onların Allah'a ortak koştuklarından uzak olduğunu açıkladı. Ardından hepsine birlikte kendisine karşı düzen kurmalarını ve kendisine süre tanımamalarını söyledi; kendisinin de onların da Rabbi olan Allah'a tevekkül ettiğini bildirdi."
+        ],
+        "en": [
+          "The disbelieving leaders of his people accused Hud of foolishness and said that they regarded him as a liar. Elsewhere they objected that he had not brought them a clear proof and declared that they would not abandon their gods merely on his word, nor would they believe in him.",
+          "Hud called Allah to witness that he was free of what they associated with Him. He then challenged them all to scheme against him without delay and declared his reliance upon Allah, his Lord and theirs."
+        ],
+        "hadithSources": []
+      },
+      "deliverance": {
+        "tr": [
+          "Sonunda Allah'ın emri geldiğinde Hûd ve onunla beraber iman edenler Allah'ın rahmetiyle kurtarıldı. Kur'an, onların ağır bir azaptan korunduğunu bildirir.",
+          "Aynı kurtuluş, Hûd'un çağrısını yalanlayanların sonundan açıkça ayrılır: Allah Hûd'u ve beraberindekileri rahmetiyle kurtardı, ayetlerini yalanlayanların ise kökü kesildi."
+        ],
+        "en": [
+          "When Allah's command came, Hud and those who believed with him were saved by mercy from Allah. The Qur'an states that they were delivered from a severe punishment.",
+          "Their rescue is set in direct contrast to the fate of those who rejected Hud's message: Allah saved Hud and the believers with him by His mercy, while those who denied His signs were cut off."
+        ],
+        "hadithSources": []
+      }
+    },
+    "closing": {
+      "tr": "Hûd'un kıssası, kavmine yalnız Allah'a kulluğu ve tövbeyi tebliğ eden bir peygamberin, inkâra rağmen Allah'a tevekkül edişi ve iman edenlerle birlikte rahmetle kurtarılmasıyla sona erer.",
+      "en": "Hud's story closes with a prophet who called his people to worship Allah and repent, trusted in Allah despite their rejection, and was saved with those who believed."
+    }
+  },
+  "salih": {
+    "intro": {
+      "tr": "Sâlih, Semûd kavmine gönderildi. Onları yalnız Allah'a kulluğa çağırdı; Allah'ın devesi onlar için açık bir işaret olarak gösterildi, fakat kavminin bir kısmı emre karşı geldi ve bunun ardından ilahî hüküm gerçekleşti.",
+      "en": "Salih was sent to Thamud. He called them to worship Allah alone, and the she-camel of Allah was given to them as a clear sign; some of his people nevertheless defied the command, after which the divine judgment came."
+    },
+    "stages": {
+      "call": {
+        "tr": [
+          "Sâlih kavmine, “Ey kavmim, Allah'a kulluk edin; sizin O'ndan başka ilahınız yoktur” dedi. Onlara Rablerinden açık bir delil geldiğini ve Allah'ın devesinin kendileri için bir işaret olduğunu bildirdi.",
+          "Başka bir hitabında Allah'ın onları yerden meydana getirdiğini ve orada yaşamalarını sağladığını hatırlattı. Bu nedenle onlardan Allah'tan bağışlanma dilemelerini ve O'na tövbe etmelerini istedi; Rabbinin yakın ve dualara karşılık veren olduğunu söyledi."
+        ],
+        "en": [
+          "Salih told his people to worship Allah, for they had no deity besides Him. He announced that a clear proof had come to them from their Lord and identified the she-camel of Allah as a sign for them.",
+          "In another address he reminded them that Allah had brought them forth from the earth and settled them upon it. He therefore called them to seek their Lord's forgiveness and repent to Him, saying that his Lord was near and responsive."
+        ],
+        "hadithSources": []
+      },
+      "camel": {
+        "tr": [
+          "Sâlih onlara Allah'ın devesini kendi hâline bırakmalarını, Allah'ın arzında otlamasına izin vermelerini ve ona kötülükle dokunmamalarını emretti. Aksi hâlde yakın bir azabın kendilerini yakalayacağını bildirdi.",
+          "Kavmine suyun deve ile onlar arasında paylaştırıldığını da söyledi. Her tarafın belirlenmiş bir içme günü vardı; bu düzenin içinde deveye zarar vermemeleri emredildi."
+        ],
+        "en": [
+          "Salih commanded them to leave the she-camel of Allah to graze in Allah's land and not touch her with harm. He warned that, if they did, a punishment close at hand would seize them.",
+          "He also told his people that the water was to be shared between them and the she-camel. Each had an appointed day for drinking, and within that arrangement they were forbidden to harm her."
+        ],
+        "hadithSources": []
+      },
+      "defiance": {
+        "tr": [
+          "Buna rağmen deveyi kestiler ve Rablerinin emrine karşı geldiler. Ardından Sâlih'e, doğru söyleyenlerden ise kendilerini tehdit ettiği azabı getirmesini söylediler.",
+          "Sâlih onlara yurtlarında üç gün daha yaşamalarını bildirdi. Bunun yalanlanmayacak bir vaat olduğunu söyledi; verilen süre, yaklaşan hükmün açık bir haberi olarak sunuldu."
+        ],
+        "en": [
+          "Despite the command, they hamstrung the she-camel and defied the order of their Lord. They then told Salih to bring upon them what he had threatened them with, if he was truthful.",
+          "Salih told them to remain in their homes for three more days. He described this as a promise that would not prove false, giving them a definite warning of the judgment to come."
+        ],
+        "hadithSources": []
+      },
+      "deliverance": {
+        "tr": [
+          "Allah'ın emri geldiğinde Sâlih ve onunla birlikte iman edenler Allah'ın rahmetiyle kurtarıldı. O günün zilletinden de korundular; Kur'an, Rabbinin güçlü ve mutlak üstün olduğunu vurgular.",
+          "Zulmedenleri ise korkunç ses yakaladı ve sabahleyin yurtlarında cansız hâlde kaldılar. Sâlih onlardan yüz çevirdi; Rabbinin mesajını kendilerine ilettiğini ve öğüt verdiğini, fakat onların öğüt verenleri sevmediğini söyledi."
+        ],
+        "en": [
+          "When Allah's command came, Salih and those who believed with him were saved by mercy from Allah. They were also spared the disgrace of that day, and the Qur'an emphasizes that his Lord is the Strong, the Mighty.",
+          "As for those who had done wrong, the blast seized them, and by morning they lay lifeless in their homes. Salih turned away from them, saying that he had conveyed the message of his Lord and advised them, but that they did not love sincere advisers."
+        ],
+        "hadithSources": []
+      }
+    },
+    "closing": {
+      "tr": "Sâlih'in kıssası, açık bir işaret karşısında verilen emrin çiğnenmesiyle hükmün gerçekleştiğini; Sâlih ile iman edenlerin ise Allah'ın rahmetiyle kurtarıldığını bildirir.",
+      "en": "Salih's story ends with judgment following the violation of a clear command, while Salih and those who believed with him were saved by Allah's mercy."
+    }
+  },
+  "ibrahim": {
+    "intro": {
+      "tr": "İbrahim'in Kur'an'daki kıssası, şirkten uzak duruşu, kavminin putlarıyla yüzleşmesi, onlardan ayrılışı, ağır bir imtihanı teslimiyetle karşılaması ve Kâbe'nin temellerini yükseltirken yaptığı dualarla anlatılır.",
+      "en": "The Qur'anic account of Abraham presents his rejection of idolatry, his confrontation with his people's idols, his separation from them, his submission in a severe test, and his prayers while raising the foundations of the House."
+    },
+    "stages": {
+      "truth": {
+        "tr": [
+          "İbrahim, babası Âzer'e putları ilahlar edinmesini sorguladı ve onu, kavmiyle birlikte açık bir sapıklık içinde gördüğünü söyledi. Kur'an bu bağlamda İbrahim'e göklerin ve yerin hükümranlığının gösterildiğini ve bunun onun kesin inananlardan olması için gerçekleştiğini bildirir.",
+          "Gece onu örttüğünde bir yıldız gördü ve “Bu benim rabbim” dedi; fakat yıldız batınca batanları sevmediğini söyledi. Ardından yönünü gökleri ve yeri yaratana, hanîf olarak çevirdiğini ve Allah'a ortak koşanlardan olmadığını ilan etti."
+        ],
+        "en": [
+          "Abraham questioned his father Azar for taking idols as gods and said that he saw him and his people in manifest error. In this setting, the Qur'an states that Abraham was shown the dominion of the heavens and the earth so that he might be among those with certainty.",
+          "When night covered him, he saw a star and said, “This is my lord,” but when it set he said that he did not love things that set. He ultimately declared that he had turned his face, as one inclining to truth, toward the One who created the heavens and the earth, and that he was not of those who associate partners with Allah."
+        ],
+        "hadithSources": []
+      },
+      "idols": {
+        "tr": [
+          "İbrahim kavmine, kendilerini verip taptıkları bu heykellerin ne olduğunu sordu. Daha sonra putları parçaladı ve onların büyük olanını bıraktı; böylece kavminin ona dönmesi mümkün oldu.",
+          "Kavmi onun için bir ateş yakılmasını ve ilahlarına destek olunmasını istedi. Fakat Allah ateşe İbrahim için serin ve esenlik olmasını emretti; böylece ona zarar vermek için kurdukları plan sonuçsuz kaldı."
+        ],
+        "en": [
+          "Abraham asked his people what these statues were to which they remained devoted. Later he broke the idols to pieces, leaving their largest one, so that the people might turn back to it.",
+          "His people called for a fire to be kindled for him and for their gods to be defended. But Allah commanded the fire to be coolness and safety for Abraham, and the plot intended to harm him did not achieve its purpose."
+        ],
+        "hadithSources": []
+      },
+      "migration": {
+        "tr": [
+          "İbrahim, kavminin Allah'tan başka yalvardıklarından uzaklaşacağını ve Rabbine dua edeceğini söyledi. Rabbine dua etmekle bedbaht olmayacağını umduğunu ifade etti.",
+          "Onlardan ve Allah'tan başka kulluk ettiklerinden ayrılınca Allah ona İshak'ı ve Yakub'u bağışladı ve her ikisini de peygamber yaptı. Kur'an ayrıca İbrahim ve Lût'un, âlemler için bereketli kılınan bir yere kurtarılarak ulaştırıldığını bildirir."
+        ],
+        "en": [
+          "Abraham said that he would withdraw from his people and from what they invoked besides Allah, and that he would call upon his Lord. He expressed hope that he would not be disappointed in his prayer to his Lord.",
+          "When he had withdrawn from them and from what they worshiped besides Allah, Allah granted him Isaac and Jacob and made each of them a prophet. The Qur'an also states that Abraham and Lot were delivered to a land that Allah had blessed for all peoples."
+        ],
+        "hadithSources": []
+      },
+      "test": {
+        "tr": [
+          "İbrahim'in oğlu onunla birlikte çalışabilecek yaşa geldiğinde İbrahim, rüyasında onu kurban ettiğini gördüğünü söyledi ve oğluna ne düşündüğünü sordu. Oğlu, kendisine emredileni yapmasını söyledi ve Allah dilerse kendisini sabredenlerden bulacağını belirtti; bu pasajda oğlun adı verilmez.",
+          "İkisi de teslim olup İbrahim oğlunu alnı üzerine yatırınca imtihanın belirleyici anı gerçekleşti. Kur'an, Allah'ın onu büyük bir kurbanlıkla fidye ettiğini bildirir."
+        ],
+        "en": [
+          "When Abraham's son had reached the age to work alongside him, Abraham told him that he had seen in a dream that he was sacrificing him and asked what he thought. His son told him to do what he had been commanded and said that, if Allah willed, he would find him among the steadfast; the son is not named in this passage.",
+          "When both had submitted and Abraham had laid him down upon his forehead, the decisive point of the test was reached. The Qur'an states that Allah ransomed him with a great sacrifice."
+        ],
+        "hadithSources": []
+      },
+      "house": {
+        "tr": [
+          "Allah, Kâbe'yi insanlar için bir dönüş yeri ve güven yeri kıldı ve İbrahim'in makamından bir namaz yeri edinilmesini emretti. İbrahim ve İsmail'e de evi tavaf edenler, ibadete kapananlar, rükû ve secde edenler için temiz tutmaları emredildi.",
+          "İbrahim ile İsmail evin temellerini yükseltirken Rablerinden yaptıkları işi kabul etmesini istediler. Ayrıca soylarından Allah'a teslim olmuş bir ümmet çıkarmasını, ibadet yollarını göstermesini, tövbelerini kabul etmesini ve içlerinden Allah'ın ayetlerini okuyacak, kitabı ve hikmeti öğretecek ve onları arındıracak bir elçi göndermesini dilediler."
+        ],
+        "en": [
+          "Allah made the House a place of return and security for people and commanded that the standing place of Abraham be taken as a place of prayer. Abraham and Ishmael were also charged to purify the House for those who circumambulated it, devoted themselves there, bowed, and prostrated.",
+          "As Abraham and Ishmael raised the foundations of the House, they asked their Lord to accept the work from them. They also prayed for a community submissive to Allah from among their descendants, for guidance in their rites, for acceptance of their repentance, and for a messenger from among them who would recite Allah's signs, teach the Book and wisdom, and purify them."
+        ],
+        "hadithSources": []
+      }
+    },
+    "closing": {
+      "tr": "İbrahim'in bu bölümlerdeki kıssası, putperestlikten açık bir kopuş, Allah'a yöneliş, ayrılık ve imtihan karşısında teslimiyet ve İsmail ile birlikte Kâbe'nin temellerini yükseltirken gelecek nesiller için edilen dualarla tamamlanır.",
+      "en": "Across these episodes, Abraham's story is marked by a clear break with idolatry, devotion to Allah, submission through separation and testing, and prayers for future generations as he and Ishmael raised the foundations of the House."
+    }
+  },
+  "lut": {
+    "intro": {
+      "tr": "Lût, Kur'an'da adı açıkça anılan bir peygamberdir. Kavmini işledikleri çirkin fiilden sakındırdı; elçiler kendisine geldiğinde onların durumundan kaygı duydu, ardından Allah'ın emriyle ailesinden kurtarılacak olanlarla birlikte geceleyin ayrıldı.",
+      "en": "Lot is named directly in the Qur'an. He warned his people against their grave sexual wrongdoing; when the messengers came to him he was distressed on their account, and he was later instructed to leave by night with those of his household who were to be saved."
+    },
+    "stages": {
+      "warning": {
+        "tr": [
+          "Lût kavmine, kendilerinden önce âlemlerden hiç kimsenin işlemediği bir hayasızlığı mı yaptıklarını sordu. Bu sözlerle onların fiilini açıkça karşılarına koydu.",
+          "Onlara gönderilmiş güvenilir bir elçi olduğunu söyleyerek Allah'a karşı gelmekten sakınmalarını ve kendisine itaat etmelerini istedi. Ardından kadınları bırakıp erkeklere şehvetle yönelmelerini sorguladı ve onların haddi aşan bir topluluk olduğunu söyledi."
+        ],
+        "en": [
+          "Lot confronted his people by asking whether they committed an indecency that no one among the worlds had preceded them in committing. His warning directly identified the gravity of their conduct.",
+          "He told them that he was a trustworthy messenger to them and called them to fear Allah and obey him. He challenged them for approaching males with desire instead of women and described them as a people transgressing the bounds."
+        ],
+        "hadithSources": []
+      },
+      "guests": {
+        "tr": [
+          "Elçiler Lût'a geldiğinde onların gelişi onu kaygılandırdı; onlar yüzünden kendisini sıkıntıda hissetti ve bunun çetin bir gün olduğunu söyledi. Hicr suresinde de elçilerin Lût ailesine geldikleri bildirilir.",
+          "Şehir halkı ise misafirlerin gelişini öğrenerek sevinç içinde Lût'un yanına geldi. Kur'an bu aşamada onların gelişini ve Lût'un karşı karşıya kaldığı durumu aktarır."
+        ],
+        "en": [
+          "When the messengers came to Lot, their arrival troubled him. He felt constrained on their account and said that this was a distressful day; elsewhere the Qur'an identifies the visitors as messengers who came to the family of Lot.",
+          "The people of the city then came to him rejoicing at the arrival of the guests. The Qur'anic account at this point places Lot before the gathering of his townspeople as the visit became known."
+        ],
+        "hadithSources": []
+      },
+      "departure": {
+        "tr": [
+          "Elçiler Lût'a kendilerinin Rabbinin elçileri olduğunu ve kavminin ona ulaşamayacağını bildirdiler. Gecenin bir vaktinde ailesiyle yola çıkmasını, hiçbirinin arkasına dönmemesini söylediler; ancak karısının geride kalanların başına gelecek olana uğrayacağını bildirdiler.",
+          "Başka bir ayette Lût'a ailesini gecenin bir bölümünde yola çıkarması, kendisinin onların ardından gitmesi ve hiç kimsenin geri dönüp bakmaması emredildi. Kendilerine emredilen yere doğru ilerlemeleri istendi."
+        ],
+        "en": [
+          "The messengers told Lot that they were messengers of his Lord and that his people would not be able to reach him. They instructed him to depart with his family during a part of the night and told them not to look back, while stating that his wife would be struck by what struck the others.",
+          "In another account, Lot was commanded to take his family away during part of the night and follow behind them. None of them was to turn around, and they were to proceed toward the destination they had been commanded to reach."
+        ],
+        "hadithSources": []
+      },
+      "judgment": {
+        "tr": [
+          "Allah'ın emri geldiğinde şehirlerin altı üstüne getirildi ve üzerlerine pişmiş balçıktan peş peşe taşlar yağdırıldı. Böylece Lût'un kavmine bildirilen hüküm gerçekleşti.",
+          "Allah Lût'u ve ailesinin tamamını kurtardı; geride kalan yaşlı bir kadın bunun dışında tutuldu. Ardından diğerlerinin üzerine bir yağmur yağdırıldı; Kur'an, uyarılanların yağmurunun ne kötü olduğunu bildirir."
+        ],
+        "en": [
+          "When Allah's command came, the towns were turned upside down and stones of baked clay were rained upon them in succession. The judgment announced against Lot's people was thus carried out.",
+          "Allah saved Lot and all his family except an old woman who remained among those left behind. A rain was then sent upon the others, and the Qur'an declares how terrible was the rain that fell upon those who had been warned."
+        ],
+        "hadithSources": []
+      }
+    },
+    "closing": {
+      "tr": "Lût kavmini açıkça uyardı; elçiler geldikten sonra kendisine geceleyin ayrılması emredildi. O ve kurtarılması takdir edilen ailesi çıkarıldı, uyarıları reddeden kavmin üzerine ise bildirilen azap geldi.",
+      "en": "Lot warned his people plainly, and after the messengers arrived he was commanded to leave by night. He and those of his household appointed for deliverance were brought out, while the announced punishment overtook the people who had rejected the warning."
+    }
+  },
+  "ismail": {
+    "intro": {
+      "tr": "İsmail, Kur'an'da adı açıkça anılan; Kâbe ile ilgili görevde İbrahim'le birlikte yer alan, sözünde duran ve ailesine namaz ile zekâtı emreden bir peygamberdir. Kur'an onu sabreden seçkin kullar arasında da anar.",
+      "en": "Ishmael is named directly in the Qur'an. He appears beside Abraham in connection with the House, is praised as true to his promise, and is described as a messenger and prophet who instructed his family in prayer and almsgiving; he is also counted among the steadfast and chosen."
+    },
+    "stages": {
+      "house": {
+        "tr": [
+          "Allah Kâbe'yi insanlar için bir dönüş ve güven yeri kıldığında İbrahim ile İsmail'e, evi tavaf edenler, ibadete kapananlar, rükû ve secde edenler için temiz tutmalarını emretti. Böylece İsmail, İbrahim'le birlikte Beyt'e ilişkin bu görevin muhatabı oldu.",
+          "İbrahim ve İsmail Kâbe'nin temellerini yükseltirken Allah'tan yaptıklarını kabul etmesini istediler. Kendilerinin Allah'a teslim olan kullar olmasını, soylarından da O'na teslim olan bir ümmet meydana getirmesini, ibadet yollarını kendilerine göstermesini ve tövbelerini kabul etmesini dilediler."
+        ],
+        "en": [
+          "When Allah made the House a place of return and security for people, Abraham and Ishmael were charged to purify it for those who circumambulated it, devoted themselves there, bowed, and prostrated. Ishmael thus shared with Abraham the responsibility connected with the House.",
+          "As Abraham and Ishmael raised the foundations of the House, they asked Allah to accept from them. They prayed that they would remain submissive to Him, that from their descendants there would be a community submissive to Him, that He would show them their rites, and that He would accept their repentance."
+        ],
+        "hadithSources": []
+      },
+      "faithfulness": {
+        "tr": [
+          "Kur'an İsmail'in anılmasını ister ve onun sözünde duran biri olduğunu bildirir. Aynı ayette onun hem resul hem de peygamber olduğu açıkça belirtilir.",
+          "İsmail ailesine namazı ve zekâtı emrederdi. Kur'an onun Rabbi katında razı olunan biri olduğunu da bildirerek bu özelliklerini birlikte anar."
+        ],
+        "en": [
+          "The Qur'an calls for Ishmael to be remembered and describes him as true to his promise. In the same verse he is expressly identified as both a messenger and a prophet.",
+          "Ishmael used to command his family to establish prayer and give alms. The Qur'an also states that he was pleasing to his Lord, joining this description to his care for worship within his household."
+        ],
+        "hadithSources": []
+      },
+      "chosen": {
+        "tr": [
+          "Kur'an İsmail'i İdris ve Zülkifl ile birlikte anar ve onların her birinin sabredenlerden olduğunu bildirir. Allah onları rahmetine dâhil etti ve onların salihlerden olduklarını açıkladı.",
+          "Başka bir yerde İsmail, Elyesa ve Zülkifl ile birlikte yeniden anılır. Bu isimlerin her birinin seçkinlerden olduğu bildirilerek İsmail'in Kur'an'daki övgüyle anılan konumu teyit edilir."
+        ],
+        "en": [
+          "The Qur'an names Ishmael together with Idris and Dhul-Kifl and states that each of them was among the steadfast. Allah admitted them into His mercy and declared that they were among the righteous.",
+          "Elsewhere Ishmael is named again alongside Elisha and Dhul-Kifl. All of them are described as being among the outstanding, adding another explicit Qur'anic commendation of Ishmael."
+        ],
+        "hadithSources": []
+      }
+    },
+    "closing": {
+      "tr": "Kur'an'ın bu ayetlerinde İsmail; İbrahim'le Kâbe'nin temellerini yükselten, Allah'a teslimiyet için dua eden, sözünde duran, ailesini ibadete çağıran ve sabreden salih kullardan biri olarak anılır.",
+      "en": "In these verses, Ishmael is remembered as one who raised the foundations of the House with Abraham, prayed for submission to Allah, remained true to his promise, directed his family to worship, and was counted among the steadfast and righteous."
+    }
+  },
+  "ishaq": {
+    "intro": {
+      "tr": "İshak, Kur'an'da adı açıkça anılan bir peygamberdir. Doğumu İbrahim'in ailesine müjdelendi; daha sonra Kur'an onu salih bir peygamber olarak anar ve İbrahim'in soyunda hidayet üzere önderlik edenler arasında zikreder.",
+      "en": "Isaac is named directly in the Qur'an. His birth was announced to Abraham's household, and the Qur'an later describes him as a righteous prophet and places him among the descendants of Abraham who were made leaders guiding by Allah's command."
+    },
+    "stages": {
+      "announcement": {
+        "tr": [
+          "İbrahim'in ayakta duran karısı, elçilerin verdiği haber üzerine güldü; ardından ona İshak, İshak'ın ardından da Yakub müjdelendi. Böylece İshak'ın doğumu gerçekleşmeden önce adıyla verilen bir müjde olarak bildirildi.",
+          "Başka bir anlatımda elçiler İbrahim'e bilgin bir oğul müjdelediler. Bunun üzerine karısı hayret içinde öne çıktı, yüzüne vurdu ve kendisinin yaşlı, kısır bir kadın olduğunu söyledi."
+        ],
+        "en": [
+          "Abraham's wife, who was standing nearby, laughed, and she was then given the good news of Isaac and, after Isaac, of Jacob. Isaac was therefore announced by name before his birth as part of the promise given to Abraham's household.",
+          "In another account, the messengers brought Abraham good news of a knowledgeable son. His wife came forward in astonishment, struck her face, and spoke of herself as an old and barren woman."
+        ],
+        "hadithSources": []
+      },
+      "prophethood": {
+        "tr": [
+          "Kur'an, İbrahim'e salihlerden bir peygamber olmak üzere İshak'ı müjdelediğini bildirir. İshak böylece adıyla ve peygamberlik vasfıyla açıkça anılır.",
+          "Allah İbrahim'i de İshak'ı da bereketlendirdi. Bununla birlikte onların soyundan hem iyilik yapanların hem de kendisine açıkça zulmedenlerin bulunacağını bildirdi."
+        ],
+        "en": [
+          "The Qur'an states that Abraham was given the good news of Isaac, a prophet from among the righteous. Isaac is thus explicitly named and his prophethood directly affirmed.",
+          "Allah blessed both Abraham and Isaac. The same passage also states that among their descendants would be those who did good and those who clearly wronged themselves."
+        ],
+        "hadithSources": []
+      },
+      "legacy": {
+        "tr": [
+          "Allah İbrahim'e İshak'ı, ayrıca bir lütuf olarak Yakub'u verdi ve onların her birini salih kimseler kıldı. Böylece İshak, İbrahim'e verilen ve salihlikle nitelenen soy içinde anıldı.",
+          "Allah onları kendi emriyle doğru yola yönelten önderler yaptı. Onlara hayırlı işler yapmayı, namazı dosdoğru kılmayı ve zekâtı vermeyi vahyetti; onlar da yalnız Allah'a kulluk eden kimselerdi."
+        ],
+        "en": [
+          "Allah granted Abraham Isaac and, as an additional gift, Jacob, and made each of them righteous. Isaac is thus placed within the line granted to Abraham and expressly characterized by righteousness.",
+          "Allah made them leaders who guided by His command. He revealed to them the doing of good deeds, the establishment of prayer, and the giving of alms, and they were worshippers of Him."
+        ],
+        "hadithSources": []
+      }
+    },
+    "closing": {
+      "tr": "İshak'ın bu ayetlerdeki anlatımı doğumundan önce verilen müjdeyle başlar; peygamberliği ve salihliği açıkça bildirilir ve Allah'ın emriyle hidayete öncülük eden, ibadetle yükümlü kılınan peygamberler arasında yer almasıyla devam eder.",
+      "en": "Isaac's account in these verses begins with the announcement before his birth, expressly affirms his prophethood and righteousness, and continues with his place among leaders who guided by Allah's command and were devoted to worship."
+    }
+  },
+  "yaqub": {
+    "intro": {
+      "tr": "Yakub, Kur'an'da adı açıkça anılan bir peygamberdir. Yusuf'un çocukluk rüyasını dinledi, ağır ayrılık haberleri karşısında güzel bir sabırla karşılık verdi, oğullarını Allah'ın rahmetinden ümit kesmemeye çağırdı ve hayatının sonunda çocuklarına yalnız Allah'a kulluk etmelerini öğütledi.",
+      "en": "Jacob is named directly in the Qur'an. He listened to Joseph's childhood dream, met devastating reports of loss with beautiful patience, urged his sons never to despair of Allah's mercy, and near the end of his life charged his children to remain devoted to Allah alone."
+    },
+    "stages": {
+      "dream": {
+        "tr": [
+          "Yusuf babasına, rüyasında on bir yıldızla güneşi ve ayı gördüğünü, bunların kendisine secde ettiklerini anlattı. Yakub bu rüyayı kardeşlerine anlatmamasını istedi; aksi hâlde onların kendisine karşı bir tuzak kurabileceklerini söyledi ve şeytanın insan için apaçık bir düşman olduğunu hatırlattı.",
+          "Yakub, Rabbinin Yusuf'u bu şekilde seçeceğini, ona olayların yorumuna dair bilgi öğreteceğini ve daha önce İbrahim ile İshak'a tamamladığı nimetini Yakub ailesi üzerine de tamamlayacağını söyledi. Rabbini bilen ve hikmet sahibi olarak niteledi."
+        ],
+        "en": [
+          "Joseph told his father that he had seen eleven stars, the sun, and the moon in a dream, and that he saw them prostrating before him. Jacob told him not to relate the dream to his brothers, lest they devise a scheme against him, and reminded him that Satan is a clear enemy to humankind.",
+          "Jacob told Joseph that his Lord would choose him, teach him something of the interpretation of events, and complete His favor upon him and upon the family of Jacob as He had completed it before upon Abraham and Isaac. He affirmed that his Lord is Knowing and Wise."
+        ],
+        "hadithSources": []
+      },
+      "patience": {
+        "tr": [
+          "Yusuf'un kardeşleri onun gömleğine sahte bir kan sürerek geldiklerinde Yakub onların anlattıklarına teslim olmadı. Nefislerinin kendilerini bir işe sürüklediğini söyledi ve karşılığında güzel bir sabrı benimsedi; anlattıkları karşısında yardım istenecek olanın Allah olduğunu bildirdi.",
+          "Yıllar sonra bir başka oğluyla ilgili kötü haber geldiğinde yine nefislerinin kendilerini bir işe sürüklediğini söyledi ve güzel sabra sarıldı. Allah'ın hepsini kendisine geri getirmesini umdu; ardından oğullarına Yusuf'u ve kardeşini araştırmalarını, Allah'ın rahmetinden ümit kesmemelerini söyledi ve Allah'ın rahmetinden ancak inkârcı bir topluluğun ümit keseceğini belirtti."
+        ],
+        "en": [
+          "When Joseph's brothers returned with false blood upon his shirt, Jacob did not accept their account at face value. He said that their own souls had enticed them into something, and he chose beautiful patience, declaring that Allah was the One whose help was sought against what they described.",
+          "Years later, when another painful report concerning one of his sons reached him, he again said that their souls had enticed them into something and turned to beautiful patience. He hoped that Allah would bring them all back to him, then instructed his sons to search for Joseph and his brother and never despair of relief from Allah, for only a disbelieving people despair of Allah's mercy."
+        ],
+        "hadithSources": []
+      },
+      "reunion": {
+        "tr": [
+          "Yusuf kardeşlerine gömleğini vererek onu babalarının yüzüne koymalarını ve böylece onun yeniden görür hâle geleceğini söyledi; ardından bütün ailelerini kendisine getirmelerini istedi. Müjdeci geldiğinde gömleği Yakub'un yüzüne koydu ve Yakub yeniden görmeye başladı.",
+          "Aile Yusuf'un yanına vardığında Yusuf anne ve babasını yanına aldı ve Allah'ın dilemesiyle Mısır'a güven içinde girmelerini söyledi. Böylece uzun ayrılığın ardından Yakub, Yusuf'un bulunduğu yere ulaştı."
+        ],
+        "en": [
+          "Joseph gave his brothers his shirt and told them to place it over their father's face, saying that his sight would return, and he instructed them to bring the whole family to him. When the bearer of good news arrived and laid the shirt over Jacob's face, his sight was restored.",
+          "When the family entered Joseph's presence, Joseph drew his parents close and told them to enter Egypt in security, if Allah willed. Jacob thus came to Joseph after the long separation."
+        ],
+        "hadithSources": []
+      },
+      "counsel": {
+        "tr": [
+          "İbrahim'in oğullarına bıraktığı teslimiyet vasiyeti Yakub tarafından da sürdürüldü. Onlara Allah'ın kendileri için dini seçtiğini söyledi ve ancak Allah'a teslim olmuş kimseler olarak ölmelerini öğütledi.",
+          "Yakub'a ölüm yaklaşınca oğullarına kendisinden sonra kime kulluk edeceklerini sordu. Onlar Yakub'un ilahına ve ataları İbrahim, İsmail ve İshak'ın ilahına, tek olan Allah'a kulluk edeceklerini ve O'na teslim olduklarını söylediler."
+        ],
+        "en": [
+          "Jacob continued the charge that Abraham had given to his sons. He told his children that Allah had chosen the faith for them and instructed them not to die except in a state of submission to Him.",
+          "When death approached Jacob, he asked his sons what they would worship after him. They answered that they would worship his God and the God of his forefathers Abraham, Ishmael, and Isaac—the one God—and that they were submitted to Him."
+        ],
+        "hadithSources": []
+      }
+    },
+    "closing": {
+      "tr": "Yakub'un anlatısı, oğlunun rüyasına verdiği ihtiyatlı öğütten yıllar süren sabra, yeniden kavuşmaya ve çocuklarına tevhid üzere kalmaları için bıraktığı son vasiyete uzanır.",
+      "en": "Jacob's account moves from his cautious counsel after Joseph's dream through years of patient endurance, reunion with his son, and a final charge that his children remain in submission to the one God."
+    }
+  },
+  "yusuf": {
+    "intro": {
+      "tr": "Yusuf, Kur'an'da hayatının birbirine bağlı birçok safhası ayrıntılı biçimde anlatılan bir peygamberdir. Çocukken gördüğü rüyadan kuyuya bırakılmasına, iftira ve hapisle karşılaşmasından suçsuzluğunun ortaya çıkmasına, ardından yetki sahibi oluşuna ve ailesiyle yeniden buluşmasına kadar kıssası Yusuf suresinde takip edilir.",
+      "en": "Joseph is named directly in the Qur'an, where successive episodes of his life are narrated in detail. His account follows him from a childhood dream to the well, through accusation and imprisonment, then to public vindication, authority, and reunion with his family."
+    },
+    "stages": {
+      "dream": {
+        "tr": [
+          "Yusuf babasına, rüyasında on bir yıldız, güneş ve ay gördüğünü ve bunların kendisine secde ettiklerini söyledi. Rüya, çocukluk döneminde babasıyla paylaştığı dikkat çekici bir haber olarak aktarılır.",
+          "Babası ona bu rüyayı kardeşlerine anlatmamasını söyledi; onların kendisine karşı bir tuzak kurabileceklerinden sakındırdı. Bunun ardından şeytanın insan için apaçık bir düşman olduğunu hatırlattı."
+        ],
+        "en": [
+          "Joseph told his father that in a dream he had seen eleven stars, the sun, and the moon, and that he saw them prostrating before him. The dream appears at the beginning of his story as something he confided directly to his father.",
+          "His father warned him not to recount the dream to his brothers, lest they devise a scheme against him. He added that Satan is a clear enemy to humankind."
+        ],
+        "hadithSources": []
+      },
+      "well": {
+        "tr": [
+          "Kardeşleri Yusuf'u götürüp kuyunun dibine bırakmaya karar verdiklerinde bunu gerçekleştirdiler. Allah o sırada Yusuf'a, onların farkında olmadıkları bir zamanda yaptıklarını kendilerine haber vereceğini vahyetti.",
+          "Bir yolcu kafilesi su arayan adamını gönderdi; adam kovasını salınca Yusuf'u buldu ve onu bir müjde olarak karşıladı. Daha sonra Yusuf Mısır'da satın alındı; onu satın alan kişi eşine Yusuf'a iyi bakmasını, belki kendilerine fayda sağlayacağını veya onu evlat edinebileceklerini söyledi."
+        ],
+        "en": [
+          "Joseph's brothers took him away and agreed to place him at the bottom of the well. At that moment Allah revealed to Joseph that a time would come when he would tell them of this deed while they did not recognize him.",
+          "A caravan later sent its water-drawer, who lowered his bucket and discovered Joseph, greeting the find as good news. Joseph was eventually purchased in Egypt, where the man who bought him told his wife to give him an honorable place, hoping he might benefit them or perhaps be taken as a son."
+        ],
+        "hadithSources": []
+      },
+      "trial": {
+        "tr": [
+          "Yusuf'un evinde bulunduğu kadın onu kendisine çağırdı, kapıları kapattı ve yaklaşmasını istedi. Yusuf Allah'a sığındı. Daha sonra suçlama ortaya atıldığında Yusuf, kadının kendisini baştan çıkarmaya çalıştığını söyledi; kadının ailesinden bir şahit de gömleğin hangi taraftan yırtıldığına göre doğruluğun anlaşılabileceğini belirtti.",
+          "Yusuf, kadınların kendisini çağırdığı şeye düşmektense hapsi tercih ettiğini Rabbine söyledi ve onların tuzağını kendisinden uzaklaştırmasını diledi. Daha sonra, suçsuzluğuna dair işaretleri görmelerine rağmen, onu bir süre hapsetmek yetkililere uygun göründü."
+        ],
+        "en": [
+          "The woman in whose house Joseph lived sought to entice him, closed the doors, and called him toward herself. Joseph sought refuge in Allah. When accusation followed, Joseph said that she had tried to seduce him, and a witness from her household proposed that the direction in which his shirt was torn would reveal which account was truthful.",
+          "Joseph prayed that prison was preferable to what the women were calling him toward and asked his Lord to turn their scheme away from him. Later, even after those involved had seen the signs bearing on the case, they decided that he should be imprisoned for a time."
+        ],
+        "hadithSources": []
+      },
+      "vindication": {
+        "tr": [
+          "Yusuf hapisteyken yaklaşan bolluk ve kıtlık yıllarına karşı bir tedbir planı açıkladı: yedi yıl boyunca alışıldığı gibi ekim yapılmasını, hasadın yenilecek az bir kısmı dışında başaklarında bırakılmasını söyledi. Böylece daha sonraki sıkıntılı yıllar için ürün korunacaktı.",
+          "Kral Yusuf'u huzuruna çağırmak istediğinde Yusuf hemen çıkmak yerine, ellerini kesen kadınların durumunun araştırılmasını istedi. Kral kadınlara Yusuf'u baştan çıkarmaya çalıştıklarında ne olduğunu sordu; onlar Yusuf hakkında hiçbir kötülük bilmediklerini söylediler ve yöneticinin karısı da gerçeğin ortaya çıktığını, Yusuf'u kendisinin baştan çıkarmaya çalıştığını ve Yusuf'un doğru söylediğini itiraf etti."
+        ],
+        "en": [
+          "While still connected to the prison episode, Joseph set out a response to the coming years of abundance and hardship: the people were to cultivate for seven years as usual and leave the harvested grain in its ears except for the little they needed to eat. The stored produce would thus be preserved for what followed.",
+          "When the king ordered that Joseph be brought to him, Joseph did not simply leave; he asked that the case of the women who had cut their hands be investigated. The king questioned them about their attempt to entice Joseph, and they declared that they knew no evil of him. The official's wife then acknowledged that the truth had become clear, that she had sought to seduce him, and that Joseph was truthful."
+        ],
+        "hadithSources": []
+      },
+      "authority": {
+        "tr": [
+          "Kral Yusuf'un getirilmesini emretti ve onunla konuştuktan sonra Yusuf'un o gün kendi yanında yüksek bir konuma ve güvene sahip olduğunu söyledi. Böylece Yusuf, daha önce çağrıldığı sarayda güvenilir bir mevkiye getirildi.",
+          "Yusuf ülkenin hazinelerinin başına geçirilmesini istedi. Bu göreve uygunluğunu, koruyucu ve bilgili oluşuyla ifade etti."
+        ],
+        "en": [
+          "The king ordered Joseph to be brought to him, and after speaking with him declared that Joseph that day held a position of established rank and trust in his presence. Joseph was thus received into a position of confidence.",
+          "Joseph asked to be placed in charge of the storehouses of the land. He described himself as a careful guardian who possessed knowledge relevant to the responsibility."
+        ],
+        "hadithSources": []
+      },
+      "reunion": {
+        "tr": [
+          "Kardeşleri Yusuf'un gerçekten Yusuf olup olmadığını sorduklarında o, kendisinin Yusuf, yanındaki kişinin de kardeşi olduğunu söyledi ve Allah'ın kendilerine lütufta bulunduğunu belirtti. Onların geçmişte yaptıklarını kabul etmelerinin ardından Yusuf, o gün kendilerine kınama olmadığını söyledi ve Allah'tan onları bağışlamasını diledi.",
+          "Ailesi yanına geldiğinde Yusuf anne ve babasını yakınına aldı ve güven içinde Mısır'a girmelerini söyledi. Anne ve babasını tahtın üzerine çıkardı; ailesi onun önünde secdeye kapandığında Yusuf babasına çocukluk rüyasının yorumunun bu olduğunu, Rabbinin onu gerçekleştirdiğini söyledi."
+        ],
+        "en": [
+          "When his brothers asked whether he was truly Joseph, he answered that he was Joseph and that the man with him was his brother, saying that Allah had shown favor to them. After they acknowledged their wrongdoing, Joseph told them that there would be no reproach upon them that day and prayed that Allah would forgive them.",
+          "When his family arrived, Joseph drew his parents close and welcomed them into Egypt in security. He raised his parents upon the throne, and when his family fell in prostration before him, Joseph told his father that this was the fulfillment of the dream he had seen long before and that his Lord had made it come true."
+        ],
+        "hadithSources": []
+      }
+    },
+    "closing": {
+      "tr": "Yusuf'un kıssası, çocukluk rüyasının yıllar sonra gerçekleşmesiyle tamamlanır: kuyuya bırakılan ve hapsedilen Yusuf'un suçsuzluğu ortaya çıkar, kendisine güven ve yetki verilir ve sonunda ailesiyle yeniden bir araya gelir.",
+      "en": "Joseph's story culminates in the fulfillment of his childhood dream: the one who had been cast into a well and later imprisoned was vindicated, entrusted with authority, and finally reunited with his family."
+    }
+  },
+  "ayyub": {
+    "intro": {
+      "tr": "Eyyûb, Kur'an'da adı açıkça anılan ve sıkıntı içindeyken Rabbine yönelen bir kuldur. Allah onun duasına karşılık verdi, kendisine dokunan zararı giderdi ve onu sabreden, Allah'a sürekli yönelen bir kul olarak övdü.",
+      "en": "Job is named directly in the Qur'an as a servant who turned to his Lord in affliction. Allah answered him, removed the harm that had touched him, and praised him as patient and constantly returning to Him."
+    },
+    "stages": {
+      "affliction": {
+        "tr": [
+          "Eyyûb Rabbine seslenerek kendisine bir zarar dokunduğunu söyledi ve Allah'ı merhametlilerin en merhametlisi olarak andı. Duasında sıkıntısını doğrudan Rabbine arz etti.",
+          "Başka bir ayette Eyyûb, şeytanın kendisine bir yorgunluk ve azap dokundurduğunu söyledi. Kur'an burada yaşadığı sıkıntıyı onun Rabbine yaptığı bu yakarışla aktarır."
+        ],
+        "en": [
+          "Job called upon his Lord, saying that harm had touched him and addressing Allah as the most merciful of those who show mercy. He placed his affliction directly before his Lord.",
+          "In another passage, Job said that Satan had touched him with weariness and torment. The Qur'an presents his suffering through this appeal to his Lord without adding further description of its form."
+        ],
+        "hadithSources": []
+      },
+      "relief": {
+        "tr": [
+          "Allah Eyyûb'un duasına karşılık verdi ve ona dokunan zararı giderdi. Ailesini kendisine geri verdi ve onlarla birlikte bir o kadarını daha bağışladı; bunun Allah katından bir rahmet ve kulluk edenler için bir hatırlatma olduğu bildirildi.",
+          "Eyyûb'a ayağını yere vurması emredildi ve ortaya çıkan suyun yıkanmak ve içmek için serin olduğu bildirildi. Allah ona ailesini ve onlarla birlikte bir o kadarını daha verdi; bu, Allah'tan bir rahmet ve akıl sahipleri için bir hatırlatma olarak sunuldu."
+        ],
+        "en": [
+          "Allah answered Job's prayer and removed the harm that had afflicted him. His family was restored to him together with the like of them, as a mercy from Allah and a reminder for those devoted to worship.",
+          "Job was commanded to strike the ground with his foot, and he was given cool water for washing and drinking. Allah granted him his family and the like of them with them, describing this as mercy from Him and a reminder for people of understanding."
+        ],
+        "hadithSources": []
+      },
+      "patience": {
+        "tr": [
+          "Eyyûb'a eline bir demet alması, onunla vurması ve yeminini bozmaması emredildi. Kur'an bu emrin ayrıntılı arka planını burada açıklamaz.",
+          "Ardından Allah Eyyûb'u sabırlı bulduğunu bildirir ve onu ne güzel bir kul diye över. Eyyûb'un Rabbine sürekli yönelen biri olduğu özellikle belirtilir."
+        ],
+        "en": [
+          "Job was instructed to take a bundle in his hand, strike with it, and not break his oath. The verse does not provide a fuller account of the circumstances behind that command.",
+          "Allah then declares that He found Job patient and praises him as an excellent servant. He is specifically described as one who repeatedly turned back to his Lord."
+        ],
+        "hadithSources": []
+      }
+    },
+    "closing": {
+      "tr": "Eyyûb'un bu ayetlerdeki anlatısı, sıkıntı içinde Rabbine yönelmesi, duasının kabul edilerek zararının giderilmesi ve sonunda sabrı ile Allah'a sürekli dönüşünün övülmesiyle tamamlanır.",
+      "en": "Job's account in these verses closes with his turning to Allah in affliction, the removal of his suffering in response to his prayer, and divine praise for his patience and constant return to his Lord."
+    }
+  },
+  "shuayb": {
+    "intro": {
+      "tr": "Şuayb, Kur'an'da adı açıkça anılan ve Medyen halkına gönderilen bir peygamberdir. Kavmini yalnız Allah'a kulluğa, ölçü ve tartıda dürüstlüğe çağırdı; ileri gelenlerin tehdidiyle karşılaştı ve sonunda iman edenlerle birlikte Allah'ın rahmetiyle kurtarıldı.",
+      "en": "Shuayb is named directly in the Qur'an and was sent to the people of Midian. He called them to worship Allah alone and to deal honestly in measure and weight, faced threats from their leaders, and was ultimately saved with those who believed by mercy from Allah."
+    },
+    "stages": {
+      "call": {
+        "tr": [
+          "Şuayb Medyen halkına, Allah'a kulluk etmelerini ve O'ndan başka ilahları olmadığını söyledi. Rablerinden kendilerine açık bir delil geldiğini belirterek ölçüyü ve tartıyı tam yapmalarını, insanların mallarını eksiltmemelerini ve yeryüzü düzene konulduktan sonra orada bozgunculuk çıkarmamalarını istedi.",
+          "Onlara yine yalnız Allah'a kulluk etmelerini, ahiret gününü ummalarını ve yeryüzünde bozgunculuk yaparak dolaşmamalarını söyledi. Ölçüyü tam yapmalarını ve eksiltenlerden olmamalarını emretti."
+        ],
+        "en": [
+          "Shuayb told the people of Midian to worship Allah, for they had no deity besides Him. He said that a clear proof had come to them from their Lord and commanded them to give full measure and weight, not deprive people of their possessions, and not spread corruption in the land after it had been set right.",
+          "He again called them to worship Allah alone, to look to the Last Day, and not to act wickedly through the land as corrupters. He commanded them to give full measure and not be among those who cause loss."
+        ],
+        "hadithSources": []
+      },
+      "threat": {
+        "tr": [
+          "Kavminin büyüklük taslayan ileri gelenleri Şuayb'a, onu ve onunla birlikte iman edenleri şehirlerinden çıkaracaklarını ya da kendi dinlerine dönmelerini sağlayacaklarını söylediler. Şuayb, bunu istemeseler bile mi yapacaklarını sorarak bu tehdide karşı çıktı.",
+          "Kavmi ayrıca Şuayb'ın söylediklerinin çoğunu anlamadıklarını, onu aralarında zayıf gördüklerini söyledi. Ailesi olmasaydı onu taşlayacaklarını belirttiler ve onun kendileri karşısında güçlü olmadığını ileri sürdüler."
+        ],
+        "en": [
+          "The arrogant leaders among his people threatened to drive Shuayb and those who believed with him out of their town unless they returned to their religion. Shuayb answered by asking whether they would compel them even if they were unwilling.",
+          "His people also told Shuayb that they did not understand much of what he said and regarded him as weak among them. They declared that, were it not for his family, they would have stoned him, and asserted that he held no strength against them."
+        ],
+        "hadithSources": []
+      },
+      "deliverance": {
+        "tr": [
+          "Şuayb'ın kavminden zulmedenleri sarsıntı yakaladı ve sabahleyin yurtlarında yere çökmüş hâlde kaldılar. Kur'an, onu yalanlayanların sanki orada hiç yaşamamış gibi olduklarını bildirir.",
+          "Allah'ın emri geldiğinde Şuayb ve onunla birlikte iman edenler Allah'ın rahmetiyle kurtarıldı; zulmedenleri ise korkunç ses yakaladı. Medyen halkının Semûd gibi Allah'ın rahmetinden uzak olduğu ilan edildi."
+        ],
+        "en": [
+          "The earthquake seized the wrongdoers among Shuayb's people, and by morning they lay fallen in their homes. The Qur'an says that those who denied Shuayb became as though they had never lived there.",
+          "When Allah's command came, Shuayb and those who believed with him were saved by mercy from Allah, while the blast seized those who had done wrong. Midian was declared cast away, just as Thamud had been cast away."
+        ],
+        "hadithSources": []
+      }
+    },
+    "closing": {
+      "tr": "Şuayb'ın çağrısı tevhid ile dürüst alışverişi birlikte içeriyordu. Tehdit ve inkârın ardından ilahî hüküm geldiğinde Şuayb ile iman edenler rahmetle kurtarıldı, onu yalanlayanların hâkimiyeti ise sona erdi.",
+      "en": "Shuayb's call joined worship of Allah alone with honesty in people's dealings. After rejection and threats, the divine judgment came: Shuayb and the believers were saved by mercy, while those who denied him were overtaken."
+    }
+  },
+  "musa": {
+    "intro": {
+      "tr": "Musa, Kur'an'da hayatının farklı dönemleri ayrıntılı biçimde anlatılan bir peygamberdir. Bebekken korunmasından Medyen'e gidişine, peygamberlikle görevlendirilmesinden Firavun'la karşılaşmasına, İsrailoğullarının çıkarılışından Sina'daki olaylara ve ilim aradığı yolculuğa kadar birçok safhası doğrudan Kur'an'da yer alır.",
+      "en": "Moses is named directly in the Qur'an, which recounts many distinct periods of his life. These include his preservation as an infant, his departure toward Midian, his prophetic calling, his confrontation with Pharaoh, the departure of the Children of Israel, the events surrounding Sinai, and a later journey in pursuit of knowledge."
+    },
+    "stages": {
+      "infancy": {
+        "tr": [
+          "Allah Musa'nın annesine onu emzirmesini, onun için korktuğunda ise nehre bırakmasını vahyetti. Korkmamasını ve üzülmemesini söyledi; Musa'yı kendisine geri vereceğini ve onu elçilerden biri yapacağını vaat etti. Tâhâ suresinde de Musa'nın bir sandığa konulup suya bırakılması yönündeki vahiy hatırlatılır.",
+          "Sonunda Allah Musa'yı annesine geri verdi; böylece annesinin gözü aydınlandı, üzülmedi ve Allah'ın vaadinin gerçek olduğunu bildi. Kur'an insanların çoğunun bunu bilmediğini ekler."
+        ],
+        "en": [
+          "Allah inspired the mother of Moses to nurse him and, when she feared for him, to cast him into the river. She was told neither to fear nor grieve, for Allah would return him to her and make him one of the messengers. In another passage, the inspiration to place him in a chest and cast it into the river is recalled.",
+          "Allah eventually restored Moses to his mother so that her eyes might be comforted, she might cease grieving, and she might know that Allah's promise is true. The Qur'an adds that most people do not know."
+        ],
+        "hadithSources": []
+      },
+      "maturity": {
+        "tr": [
+          "Musa olgunluk çağına erişip gelişimini tamamladığında Allah ona hüküm ve ilim verdi. Kur'an, iyilik yapanların böyle ödüllendirildiğini bildirir.",
+          "Bir adamın ölümüne yol açtıktan sonra Musa bunun şeytanın işinden olduğunu söyledi ve Rabbinden kendisini bağışlamasını istedi; Allah da onu bağışladı. Bunun ardından Musa, Rabbinin kendisine verdiği nimet hakkı için suçlulara bir daha destek olmayacağını söyledi."
+        ],
+        "en": [
+          "When Moses reached full maturity and strength, Allah granted him judgment and knowledge. The Qur'an states that this is how those who do good are rewarded.",
+          "After causing the death of a man, Moses said that this was from the work of Satan and asked his Lord to forgive him; Allah forgave him. Moses then pledged, in view of the favor Allah had shown him, that he would never again be a supporter of the guilty."
+        ],
+        "hadithSources": []
+      },
+      "midian": {
+        "tr": [
+          "Şehrin uzak tarafından koşarak gelen bir adam, ileri gelenlerin Musa'yı öldürmek üzere hakkında görüşmekte olduklarını bildirdi ve ona şehirden çıkmasını öğütledi. Musa Medyen yönüne döndüğünde Rabbinin kendisini doğru yola iletmesini umdu.",
+          "Musa bir süre sonra Rabbine, kendisine indireceği her hayra muhtaç olduğunu söyledi. Daha sonra karşılaştığı iki kadından birinin babası, kızlarından birini onunla evlendirmek istediğini ve bunun karşılığında Musa'nın sekiz yıl çalışmasını teklif etti; on yılı tamamlamasının ise Musa'nın tercihine bırakıldığını söyledi."
+        ],
+        "en": [
+          "A man came running from the farthest part of the city and warned Moses that the leading men were deliberating about killing him, advising him to leave. As Moses turned toward Midian, he expressed hope that his Lord would guide him to the right way.",
+          "Moses later told his Lord that he was in need of whatever good He might send down to him. Subsequently, the father of two women whom Moses had encountered offered one of his daughters to him in marriage on the condition that Moses work for him for eight years, leaving the completion of ten to Moses's own choice."
+        ],
+        "hadithSources": []
+      },
+      "calling": {
+        "tr": [
+          "Musa belirlenen süreyi tamamlayıp ailesiyle yola çıktığında dağ tarafından bir ateş fark etti. Ailesine beklemelerini söyledi; oradan bir haber veya ısınmaları için ateşten bir kor getirebileceğini umdu. Kendisine seslenildiğinde, hitap edenin Allah olduğu ve O'ndan başka ilah bulunmadığı bildirildi.",
+          "Musa'ya Firavun'a gitmesi emredildi; çünkü Firavun azmıştı. Allah daha sonra Musa ile Harun'a ayetleriyle birlikte gitmelerini, O'nu anmakta gevşeklik göstermemelerini ve Firavun'a yönelmelerini emretti."
+        ],
+        "en": [
+          "After Moses had completed the appointed term and was traveling with his family, he perceived a fire in the direction of the mountain. He told his family to wait, hoping to bring news from it or a burning ember by which they could warm themselves. When he reached it, he was called and told that the One addressing him was Allah, besides whom there is no deity.",
+          "Moses was commanded to go to Pharaoh because Pharaoh had transgressed. Allah later instructed Moses and Aaron to go with His signs, not to slacken in remembering Him, and to proceed to Pharaoh."
+        ],
+        "hadithSources": []
+      },
+      "pharaoh": {
+        "tr": [
+          "Firavun Musa'ya ikisinin Rabbinin kim olduğunu sordu. Musa'nın karşılaşmasında ortaya konan meydan okumalar arasında sihirbazların gösterisi de vardı; Allah Musa'ya sağ elindekini atmasını, onun onların yaptıklarını yutacağını ve yaptıklarının yalnızca bir sihirbaz hilesi olduğunu bildirdi.",
+          "Bunun üzerine sihirbazlar secdeye kapandı ve Harun ile Musa'nın Rabbine iman ettiklerini söylediler. Şuarâ suresi de onların secdeye kapanarak âlemlerin Rabbine, Musa ile Harun'un Rabbine iman ettiklerini ilan ettiklerini aktarır."
+        ],
+        "en": [
+          "Pharaoh asked Moses who the Lord of the two of them was. During the confrontation that followed, the magicians displayed their craft, but Allah commanded Moses to throw what was in his right hand, telling him that it would swallow what they had made and that their work was only a magician's trick.",
+          "The magicians then fell down in prostration and declared their belief in the Lord of Aaron and Moses. Another account records them prostrating and professing faith in the Lord of the worlds, the Lord of Moses and Aaron."
+        ],
+        "hadithSources": []
+      },
+      "exodus": {
+        "tr": [
+          "Allah Musa'ya kullarını geceleyin yola çıkarmasını ve denizde onlar için kuru bir yol açmasını vahyetti; yakalanmaktan korkmaması ve endişe etmemesi söylendi. Şuarâ suresinde de Musa'ya kullarla geceleyin yola çıkması emredildi ve takip edilecekleri bildirildi.",
+          "İki topluluk birbirini gördüğünde Allah Musa'ya asasıyla denize vurmasını vahyetti. Deniz yarıldı ve her parçası büyük bir dağ gibi oldu; Musa ve beraberindekilerin tamamı kurtarıldı."
+        ],
+        "en": [
+          "Allah revealed to Moses that he should take His servants away by night and strike out for them a dry path through the sea, neither fearing pursuit nor being afraid. In another account, Moses was commanded to depart by night with the servants of Allah and was told that they would be pursued.",
+          "When the two groups came within sight of one another, Allah revealed to Moses that he should strike the sea with his staff. The sea split, each part becoming like a great mountain, and Moses and all those with him were saved."
+        ],
+        "hadithSources": []
+      },
+      "sinai": {
+        "tr": [
+          "Allah Musa ile otuz gece için sözleşti ve buna on gece daha ekledi; böylece Rabbinin belirlediği süre kırk geceye tamamlandı. Musa ayrılmadan önce kardeşi Harun'a kavmi içinde kendi yerine geçmesini, ıslah edici davranmasını ve bozguncuların yolunu izlememesini söyledi. Allah daha sonra levhalarda Musa için öğüt ve çeşitli konulara dair açıklamalar yazdı ve bunlara kuvvetle sarılmasını emretti.",
+          "Musa'nın yokluğunda Allah ona kavminin sınandığını ve Sâmirî'nin onları saptırdığını bildirdi. Musa daha sonra Sâmirî'ye yaptığının ne olduğunu sordu ve ona hayatı boyunca insanlara kendisine dokunmamalarını söyleyeceğini, ayrıca kaçamayacağı bir buluşma vaktinin bulunduğunu bildirdi; ardından onun bağlı kaldığı ilahına ne yapılacağını açıkladı."
+        ],
+        "en": [
+          "Allah appointed thirty nights for Moses and completed them with ten more, making the appointed time forty nights. Before leaving, Moses told his brother Aaron to take his place among the people, set matters right, and not follow the way of corrupters. Allah later wrote for Moses on the tablets instruction and explanation concerning all things and commanded him to hold firmly to them.",
+          "During Moses's absence, Allah informed him that his people had been tested and that the Samiri had led them astray. Moses later confronted the Samiri and told him that in this life he would say that no one should touch him, that an appointed meeting awaited him which he could not escape, and that the object of worship to which he had remained devoted would be dealt with."
+        ],
+        "hadithSources": []
+      },
+      "journey": {
+        "tr": [
+          "Musa genç yardımcısına, iki denizin birleştiği yere ulaşıncaya kadar durmayacağını, gerekirse uzun süre yoluna devam edeceğini söyledi. Yolculuğun amacı, daha sonra karşılaştığı ve Allah'ın kendisine öğrettiği bilgiden öğrenmek istediği kul ile buluşmasına uzandı.",
+          "Musa o kula, kendisine öğretilen doğru bilgiden öğrenmek üzere onu takip edip edemeyeceğini sordu. Yolculuğun sonunda kul, yaptığı işlerden birinin açıklamasında iki yetim çocuğa ait bir duvarın altında onlar için saklı bir hazine bulunduğunu, babalarının salih biri olduğunu ve Rabbinin onların büyüyüp hazinelerini çıkarmalarını dilediğini söyledi; bunları kendi iradesiyle yapmadığını belirtti."
+        ],
+        "en": [
+          "Moses told his young companion that he would not cease traveling until he reached the junction of the two seas, even if he had to continue for a long time. The journey led to his meeting with a servant from whom he sought to learn some of the sound guidance that Allah had taught him.",
+          "Moses asked that servant whether he might follow him so that he could be taught from the guidance he had received. At the journey's end, the servant explained that beneath a wall he had repaired was a treasure belonging to two orphan boys whose father had been righteous; their Lord intended that they reach maturity and recover their treasure, and he stated that he had not acted on his own command."
+        ],
+        "hadithSources": []
+      }
+    },
+    "closing": {
+      "tr": "Musa'nın bu safhaları, çocukluğunda Allah'ın korumasıyla başlayıp peygamberlik görevi, Firavun'la mücadele, denizden kurtuluş, Sina'daki sorumluluk ve kendisine verilmemiş bir bilgiyi öğrenmek için çıktığı yolculukla devam eder.",
+      "en": "These episodes of Moses's life begin with Allah's protection in infancy and continue through his prophetic commission, confrontation with Pharaoh, deliverance through the sea, responsibility at Sinai, and a journey to learn knowledge that had not been given to him."
+    }
+  },
+  "harun": {
+    "intro": {
+      "tr": "Harun, Kur'an'da adı açıkça anılan ve Musa'nın kardeşi olarak onun görevinde yanında yer alan bir peygamberdir. Musa onun desteğini Rabbinden istedi; ikisi birlikte Firavun'a gönderildi ve Musa'nın yokluğunda Harun kavmini buzağıya kulluk etmekten sakındırdı.",
+      "en": "Aaron is named directly in the Qur'an and appears as the brother of Moses who shared in his mission. Moses asked his Lord for Aaron's support; the two were sent together to Pharaoh, and during Moses's absence Aaron warned his people against worshipping the calf."
+    },
+    "stages": {
+      "support": {
+        "tr": [
+          "Musa Rabbinden kendi ailesinden bir yardımcı vermesini ve bunun kardeşi Harun olmasını istedi. Harun aracılığıyla gücünün artırılmasını diledi.",
+          "Musa, Harun'un kendisinden daha açık ve düzgün konuştuğunu belirterek onu doğrulayıcı bir yardımcı olarak kendisiyle birlikte göndermesini istedi. Kavminin kendisini yalanlamasından endişe ettiğini söyledi."
+        ],
+        "en": [
+          "Moses asked his Lord to appoint for him a helper from his own family, naming his brother Aaron. He prayed that his strength would be reinforced through him.",
+          "Moses also said that Aaron was more eloquent in speech than he was and asked that Aaron be sent with him as a supporter who would confirm him. He expressed fear that the people would deny him."
+        ],
+        "hadithSources": []
+      },
+      "mission": {
+        "tr": [
+          "Allah Musa ile Harun'a ayetleriyle birlikte gitmelerini ve O'nu anmakta gevşek davranmamalarını emretti. Firavun'a yumuşak söz söylemeleri istendi; belki öğüt alacağı veya Allah'tan sakınacağı bildirildi.",
+          "Musa ile Harun Firavun'a giderek kendilerinin âlemlerin Rabbinin elçileri olduklarını bildirmekle görevlendirildi. Ondan İsrailoğullarını kendileriyle birlikte göndermesini istemeleri emredildi."
+        ],
+        "en": [
+          "Allah commanded Moses and Aaron to go with His signs and not to slacken in remembering Him. They were instructed to speak gently to Pharaoh, so that he might take heed or become mindful of Allah.",
+          "Moses and Aaron were to go to Pharaoh and declare that they were messengers of the Lord of the worlds. They were commanded to demand that he send the Children of Israel with them."
+        ],
+        "hadithSources": []
+      },
+      "calf": {
+        "tr": [
+          "Harun, Musa dönmeden önce kavmine buzağı yüzünden sınandıklarını söyledi. Rablerinin Rahmân olduğunu hatırlatarak kendisine uymalarını ve emrine itaat etmelerini istedi.",
+          "Musa döndüğünde Harun'a, kavminin saptığını gördüğü zaman onu engelleyen şeyin ne olduğunu sordu. Harun, Musa'ya kendisini saçından ve sakalından tutmamasını söyledi; İsrailoğulları arasında ayrılık çıkardığı ve Musa'nın sözünü gözetmediği suçlamasına uğramaktan çekindiğini açıkladı."
+        ],
+        "en": [
+          "Before Moses returned, Aaron told his people that they had only been put to trial through the calf. He reminded them that the Most Merciful was their Lord and called them to follow him and obey his command.",
+          "When Moses returned, he asked Aaron what had prevented him from acting when he saw the people going astray. Aaron asked Moses not to seize him by his beard or his head and explained that he had feared being accused of causing division among the Children of Israel and failing to observe Moses's word."
+        ],
+        "hadithSources": []
+      },
+      "prayer": {
+        "tr": [
+          "Musa kavmine öfkeli ve üzgün olarak döndüğünde onların kendisinden sonra ne kötü davrandıklarını söyledi. Levhaları bıraktı ve kardeşinin başından tutup kendisine doğru çekti; Harun ise annesinin oğluna seslenir gibi Musa'ya hitap ederek kavmin kendisini güçsüz bıraktığını ve neredeyse öldüreceğini söyledi.",
+          "Harun, Musa'dan düşmanları kendisine güldürmemesini ve kendisini zalim toplulukla bir tutmamasını istedi. Bunun üzerine Musa, Rabbi'nden kendisini ve kardeşini bağışlamasını, ikisini rahmetine dâhil etmesini diledi ve Allah'ın merhametlilerin en merhametlisi olduğunu söyledi."
+        ],
+        "en": [
+          "When Moses returned to his people angry and grieved, he condemned how badly they had acted in his absence. He put down the tablets and seized his brother by the head, pulling him toward himself; Aaron addressed him as his mother's son and said that the people had overpowered him and had nearly killed him.",
+          "Aaron asked Moses not to let the enemies rejoice over him and not to count him among the wrongdoing people. Moses then prayed that his Lord forgive him and his brother, admit them into His mercy, and affirmed that Allah is the most merciful of those who show mercy."
+        ],
+        "hadithSources": []
+      }
+    },
+    "closing": {
+      "tr": "Harun, Musa'nın duasıyla onun yanında destekçi olarak görevlendirildi, onunla birlikte Firavun'a gönderildi ve Musa'nın yokluğunda kavmini buzağıya kulluktan döndürmeye çalıştı. Musa döndüğünde yaşanan sert karşılaşma, iki kardeş için bağışlanma ve rahmet duasıyla sonuçlandı.",
+      "en": "Aaron was appointed as support for Moses in answer to his prayer, sent with him to Pharaoh, and during Moses's absence tried to turn the people away from worshipping the calf. The tense encounter after Moses returned ended with a prayer for forgiveness and mercy for both brothers."
+    }
+  },
+  "dhul-kifl": {
+    "intro": {
+      "tr": "Zülkifl, Kur'an'da adı doğrudan anılan fakat hayatı hakkında çok az ayrıntı verilen bir şahsiyettir. Kur'an onu sabır ve salihlik bağlamında anar; bunun ötesinde hayatına dair ayrıntılı bir kıssa anlatmaz.",
+      "en": "Dhul-Kifl is named directly in the Quran, but very little detail is given about his life. He is remembered in connection with patience and righteousness, while the Quran does not present a detailed account of his life beyond these descriptions."
+    },
+    "stages": {
+      "patient": {
+        "tr": [
+          "Kur'an, İsmail, İdris ve Zülkifl'i birlikte anar ve onların her birinin sabredenlerden olduğunu bildirir. Zülkifl hakkında bu noktada herhangi bir olay veya sınavın ayrıntısı verilmez; kesin olarak söylenen, onun sabır gösterenler arasında sayıldığıdır.",
+          "Ardından Allah, onları rahmetine dahil ettiğini ve onların salihlerden olduklarını bildirir. Böylece Zülkifl'in Kur'an'daki kısa fakat açık tasviri iki temel nitelik üzerinde durur: sabır ve salihlik."
+        ],
+        "en": [
+          "The Quran names Ishmael, Idris, and Dhul-Kifl together and states that each of them was among the patient. It does not identify a particular trial or incident involving Dhul-Kifl here; what is stated with certainty is that he belonged among those characterized by patience.",
+          "Allah then says that He admitted them into His mercy and that they were among the righteous. Dhul-Kifl's brief but explicit Quranic portrait therefore centers on two qualities: patience and righteousness."
+        ],
+        "hadithSources": []
+      },
+      "chosen": {
+        "tr": [
+          "Zülkifl, Kur'an'ın başka bir yerinde İsmail ve Elyesa ile birlikte yeniden anılır. Üçü de \"hayırlılardan\" olarak nitelendirilir. Ayet, Zülkifl'in hayatından yeni bir olay anlatmaz; onun Allah tarafından övgüyle anılan kişiler arasındaki yerini teyit eder.",
+          "Kur'an'ın Zülkifl hakkında verdiği bilgi bu ifadelerle sınırlıdır. Sabredenlerden, salihlerden ve hayırlılardan olduğu açıkça bildirilirken, görevi veya hayatındaki belirli hadiseler hakkında bu ayetlerde başka ayrıntı verilmez."
+        ],
+        "en": [
+          "Dhul-Kifl is mentioned again alongside Ishmael and Elisha. All three are described as being among the outstandingly good. The verse does not add another episode from Dhul-Kifl's life; it confirms his place among those whom the Quran commends.",
+          "The Quranic information about Dhul-Kifl remains limited to these clear descriptions. He is counted among the patient, the righteous, and the good, while these verses provide no further details about a particular office or events in his life."
+        ],
+        "hadithSources": []
+      }
+    },
+    "closing": {
+      "tr": "Kur'an'ın Zülkifl hakkında anlattıkları kısa ve ölçülüdür. Onun hayatının bilinmeyen ayrıntıları yerine, açıkça bildirilen vasıfları öne çıkar: sabır göstermiş, salihlerden olmuş, Allah'ın rahmetine dahil edilmiş ve hayırlılar arasında anılmıştır.",
+      "en": "The Quran speaks of Dhul-Kifl briefly and with restraint. Rather than supplying details about his life that are not revealed, it emphasizes what is explicit: he was patient, righteous, admitted into Allah's mercy, and counted among the good."
+    }
+  },
+  "dawud": {
+    "intro": {
+      "tr": "Dâvûd, Kur'an'da hükümdarlık, hikmet, vahiy, ibadet, zanaat ve adaletle birlikte anılır. Allah ona mülk ve hikmet vermiş, Zebur'u ihsan etmiş, demiri onun için yumuşatmış ve insanlar arasında hak ile hükmetmesini emretmiştir.",
+      "en": "David is presented in the Quran in connection with kingship, wisdom, revelation, worship, craftsmanship, and justice. Allah gave him kingship and wisdom, granted him the Psalms, made iron pliable for him, and commanded him to judge between people in truth."
+    },
+    "stages": {
+      "victory": {
+        "tr": [
+          "Tâlût'un ordusu Câlût ve askerleriyle karşılaştığında müminler Allah'ın izniyle onları bozguna uğrattılar. Bu çatışmada Dâvûd Câlût'u öldürdü. Kur'an bu zaferi yalnızca askerî bir sonuç olarak bırakmaz; hemen ardından Dâvûd'a verilen ilahî nimetleri bildirir.",
+          "Allah Dâvûd'a mülk ve hikmet verdi ve ona dilediği şeylerden öğretti. Ayet ayrıca Allah'ın insanların bir kısmını diğerleriyle savması olmasaydı yeryüzünün bozulacağını, fakat Allah'ın âlemlere karşı lütuf sahibi olduğunu bildirir."
+        ],
+        "en": [
+          "When Saul's forces met Goliath and his troops, they defeated them by Allah's permission, and David killed Goliath. The Quran does not leave the account at the battlefield victory; it immediately turns to what Allah subsequently granted David.",
+          "Allah gave David kingship and wisdom and taught him from what He willed. The verse then places the event within a broader principle: were Allah not to repel some people by means of others, the earth would become corrupted, but Allah is full of bounty toward all worlds."
+        ],
+        "hadithSources": []
+      },
+      "psalms": {
+        "tr": [
+          "Allah, Nûh'a ve ondan sonraki peygamberlere vahyettiği gibi Muhammed'e de vahyettiğini bildirirken vahiy verilen peygamberler arasında Dâvûd'u da anar ve ona Zebur'un verildiğini açıkça söyler. Başka bir ayette de yine Dâvûd'a Zebur verildiği belirtilir.",
+          "Dâvûd'a verilen nimetler vahiy ile sınırlı değildi. Allah dağlara onunla birlikte tesbih etmelerini emretti; kuşlar da buna dahil edildi. Aynı bağlamda demirin onun için yumuşatıldığı bildirilir. Böylece Kur'an, Dâvûd'u hem kendisine kitap verilen bir kul hem de yaratılmışların kendisiyle birlikte Allah'ı tesbih ettiği bir kişi olarak anar."
+        ],
+        "en": [
+          "When Allah states that revelation was given to Muhammad just as it had been given to Noah and the prophets after him, David is included among those recipients of revelation, and the Quran explicitly says that David was given the Psalms. Elsewhere, the gift of the Psalms to David is stated again.",
+          "The favors granted to David were not limited to scripture. Allah commanded the mountains to glorify Him with David, and the birds were included as well. In the same context, iron was made pliable for him. David is thus presented as a servant given revelation and as one with whom parts of creation joined in glorifying Allah."
+        ],
+        "hadithSources": []
+      },
+      "craft": {
+        "tr": [
+          "Allah, Dâvûd'a insanların savaşın şiddetinden korunmaları için zırh yapma sanatını öğretti. Kur'an bu bilgiyi doğrudan Allah'ın ona verdiği bir öğretim olarak sunar ve ardından insanlara bu nimete karşı şükredip şükretmeyeceklerini sorar.",
+          "Başka bir ayette Dâvûd'a zırhlar yapması ve halkalarını ölçülü biçimde düzenlemesi emredilir. Emir, salih amel çağrısıyla tamamlanır; Allah onların yaptıklarını gördüğünü bildirir. Böylece Dâvûd'a verilen demir işleme nimeti, faydalı üretim ve salih amel bağlamında anlatılır."
+        ],
+        "en": [
+          "Allah taught David the making of armor so that it could protect people from the violence of battle. The Quran presents this craft directly as knowledge taught to him by Allah and follows it by asking whether people will therefore be grateful.",
+          "Elsewhere David is commanded to make full coats of armor and to measure their links properly. The instruction is joined to a command to do righteousness, with Allah declaring that He sees what they do. The gift of working iron is therefore presented in the context of useful craftsmanship and righteous action."
+        ],
+        "hadithSources": []
+      },
+      "judgment": {
+        "tr": [
+          "Kur'an, Dâvûd'un ibadet yerinin duvarını aşarak yanına giren iki davacının haberini anlatır. Dâvûd onların ani gelişinden çekindi; onlar ise korkmamasını söylediler ve aralarında anlaşmazlık bulunan iki taraf olduklarını belirterek ondan hak ile hükmetmesini, haksızlık etmemesini ve kendilerini doğru yola yöneltmesini istediler. Davacılardan biri, kardeşinin doksan dokuz koyunu bulunduğunu, kendisinin ise tek koyunu olduğunu; buna rağmen kardeşinin o tek koyunu da kendisine vermesini istediğini ve konuşmada kendisine üstün geldiğini söyledi.",
+          "Dâvûd, onun diğerinin koyunlarına katmak üzere tek koyunu istemekle haksızlık ettiğini söyledi ve ortakların çoğunun birbirlerine haksızlık ettiğini, iman edip salih amel işleyenlerin ise bunun dışında olduğunu belirtti; bunların da az olduğunu söyledi. Ardından Dâvûd bunun kendisi için bir sınama olduğunu anladı, Rabbinden bağışlanma diledi, eğilerek yöneldi ve tevbe etti. Allah da onu bağışladığını, onun Allah'a yakınlığı ve güzel bir dönüş yeri bulunduğunu bildirdi."
+        ],
+        "en": [
+          "The Quran recounts the account of two disputants who climbed over the wall into David's place of worship. David was alarmed by their sudden entrance, but they told him not to fear. They described themselves as two parties in a dispute and asked him to judge between them in truth, without injustice, and to guide them to the right way. One said that his brother had ninety-nine ewes while he had only one, yet the brother demanded that single ewe as well and prevailed over him in speech.",
+          "David said that the man had wronged him by asking for his ewe in addition to his own, and observed that many partners wrong one another except those who believe and do righteous deeds—and how few they are. David then realized that this was a trial for him, sought his Lord's forgiveness, bowed down in devotion, and turned in repentance. Allah states that He forgave him and that David had nearness to Him and an excellent place of return."
+        ],
+        "hadithSources": []
+      },
+      "justice": {
+        "tr": [
+          "Allah Dâvûd'a yeryüzünde bir halife kılındığını bildirerek insanlar arasında hak ile hükmetmesini emretti. Hükmün ölçüsü kişisel arzu değil hak olmalıydı. Bu nedenle ona hevâya uymaması emredildi; çünkü hevâ insanı Allah'ın yolundan saptırır.",
+          "Ayet, Allah'ın yolundan sapanlar için hesap gününü unutmaları sebebiyle şiddetli bir azap bulunduğunu bildirir. Dâvûd'a verilen yönetim böylece yalnızca bir yetki olarak değil, hakka bağlı kalmayı ve arzunun hükme yön vermesine izin vermemeyi gerektiren bir sorumluluk olarak ortaya konur."
+        ],
+        "en": [
+          "Allah tells David that He has made him a successor upon the earth and commands him to judge between people in truth. Personal desire was not to be the standard of judgment. He was therefore warned not to follow desire, because it leads away from the path of Allah.",
+          "The verse warns that those who stray from Allah's path face severe punishment for forgetting the Day of Account. David's authority is therefore presented not merely as power, but as a responsibility requiring judgment by truth and resistance to desire as a guide in deciding between people."
+        ],
+        "hadithSources": []
+      }
+    },
+    "closing": {
+      "tr": "Dâvûd'un Kur'an'daki anlatımı, zaferden sonra kendisine mülk ve hikmet verilen, Zebur ile vahye mazhar olan, Allah'ı tesbih eden, kendisine demirin yumuşatıldığı ve faydalı bir zanaat öğretilen bir kulun anlatımıdır. Aynı zamanda hüküm ve yönetimin ağır sorumluluğu onun kıssasında açıkça görünür: Allah ona insanlar arasında hak ile hükmetmesini ve hevâya uymamasını emretmiştir.",
+      "en": "The Quranic account of David presents a servant who, after victory, was granted kingship and wisdom, received the Psalms, glorified Allah, was given pliable iron, and was taught a beneficial craft. His account also makes the responsibility of judgment and authority unmistakable: Allah commanded him to judge people in truth and not to follow desire."
+    }
+  }
+}
