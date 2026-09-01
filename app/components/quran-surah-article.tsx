@@ -31,7 +31,7 @@ export function QuranSurahArticle({ surah, verses, translation, previous, next, 
     <main>
       <SiteHeader />
       <div className="wiki-layout quran-article-layout">
-        <aside className="wiki-toc" aria-label="Page contents">
+        <aside className="wiki-toc" aria-label={tr ? 'Sayfa içindekileri' : 'Page contents'}>
           <span>{tr ? 'İçindekiler' : 'Contents'}</span>
           <a className="active" href="#overview">{tr ? 'Genel bakış' : 'Overview'}</a>
           <a href="#verses">{tr ? 'Ayetler' : 'Verses'}</a>
@@ -48,7 +48,7 @@ export function QuranSurahArticle({ surah, verses, translation, previous, next, 
             <span className="section-kicker">{tr ? `${surah.number}. sure` : `Surah ${surah.number}`}</span>
             <h1>{surah.nameTransliterated}</h1>
             <p className="article-arabic-title" lang="ar" dir="rtl" translate="no">{surah.nameArabic}</p>
-            <p className="article-lead">{tr ? `Kur’an’ın ${surah.number}. suresi. Arapça metin Tanzil Uthmani 1.1’den, Türkçe meal QuranEnc Rowwad ${translationMetadata.version} kaynağından aynen gösterilir.` : `The ${surah.number}th surah of the Quran. The Arabic text is shown verbatim from Tanzil Uthmani 1.1 and the English translation from QuranEnc Rowwad ${englishTranslationMetadata.version}.`}</p>
+            <p className="article-lead">{tr ? `Kur’an’ın ${surah.number}. suresi. Arapça metin Tanzil Uthmani 1.1’den, Türkçe meal QuranEnc Rowwad ${translationMetadata.version} kaynağından aynen gösterilir.` : `Surah ${surah.number} of the Quran. The Arabic text is shown verbatim from Tanzil Uthmani 1.1 and the English translation from QuranEnc Rowwad ${englishTranslationMetadata.version}.`}</p>
             <div className="article-facts">
               <span>{tr ? (revelationLabel === 'Meccan' ? 'Mekki' : 'Medeni') : revelationLabel}</span>
               <span>{surah.ayahCount} {tr ? 'ayet' : 'verses'}</span>
@@ -73,7 +73,7 @@ export function QuranSurahArticle({ surah, verses, translation, previous, next, 
               }
 
               return <article className="verse-row corpus-verse" id={`verse-${verse.ayah}`} key={verse.ayah}>
-                <a className="round-number" href={`#verse-${verse.ayah}`} aria-label={`Surah ${surah.number}, verse ${verse.ayah}`}>{verse.ayah}</a>
+                <a className="round-number" href={`#verse-${verse.ayah}`} aria-label={tr ? `${surah.number}. sure, ${verse.ayah}. ayet` : `Surah ${surah.number}, verse ${verse.ayah}`}>{verse.ayah}</a>
                 <div>
                   <p className="verse-arabic" lang="ar" dir="rtl" translate="no">{verse.text}</p>
                   <div className="verse-meaning">
@@ -102,7 +102,7 @@ export function QuranSurahArticle({ surah, verses, translation, previous, next, 
             })}
           </section>
 
-          <nav className="surah-pagination" aria-label="Navigate between surahs">
+          <nav className="surah-pagination" aria-label={tr ? 'Sureler arasında gezin' : 'Navigate between surahs'}>
             {previous ? <Link href={getSurahHref(previous)}><small>← {tr ? 'Önceki sure' : 'Previous surah'}</small><strong>{previous.nameTransliterated}</strong></Link> : <span />}
             {next ? <Link href={getSurahHref(next)}><small>{tr ? 'Sonraki sure' : 'Next surah'} →</small><strong>{next.nameTransliterated}</strong></Link> : <span />}
           </nav>

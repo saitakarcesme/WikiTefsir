@@ -6,6 +6,7 @@ import { getAllConcepts, getConceptBySlug, getConceptHref, getConceptScope, getC
 import { getSurahByNumber, getSurahHref, getTranslation, getVerse } from '@/lib/quran';
 import { SourceDrawer } from '@/app/components/source-drawer';
 import { getPeopleForVerse, getPersonHref } from '@/lib/people';
+import { getPersonName } from '@/lib/person-locale';
 import { getQuranPdfSource } from '@/lib/sources';
 import { getLocale } from '@/lib/server-locale';
 import { localeNumber } from '@/lib/locale';
@@ -58,7 +59,7 @@ export default async function ConceptPage({ params, searchParams }: ConceptPageP
     <main>
       <SiteHeader />
       <div className="wiki-layout concept-article-layout">
-        <aside className="wiki-toc" aria-label="Page contents"><span>{tr ? 'İçindekiler' : 'Contents'}</span><a className="active" href="#introduction">{tr ? 'Giriş' : 'Introduction'}</a><a href="#verses">{tr ? 'İlgili ayetler' : 'Related verses'}</a><a href="#hadiths">{tr ? 'İlgili hadisler' : 'Related hadiths'}</a><a href="#related">{tr ? 'İlgili kavramlar' : 'Related concepts'}</a></aside>
+        <aside className="wiki-toc" aria-label={tr ? 'Sayfa içindekileri' : 'Page contents'}><span>{tr ? 'İçindekiler' : 'Contents'}</span><a className="active" href="#introduction">{tr ? 'Giriş' : 'Introduction'}</a><a href="#verses">{tr ? 'İlgili ayetler' : 'Related verses'}</a><a href="#hadiths">{tr ? 'İlgili hadisler' : 'Related hadiths'}</a><a href="#related">{tr ? 'İlgili kavramlar' : 'Related concepts'}</a></aside>
         <article className="wiki-article">
           <nav className="breadcrumbs" aria-label="Breadcrumb"><Link href="/">{tr ? 'Ana sayfa' : 'Main page'}</Link><span>›</span><Link href="/concepts">{tr ? 'Kavramlar' : 'Concepts'}</Link><span>›</span>{getConceptTitle(concept, locale)}</nav>
           <header className="article-header" id="introduction">
@@ -97,7 +98,7 @@ export default async function ConceptPage({ params, searchParams }: ConceptPageP
             </nav> : null}
           </section>
           {concept.hadithIds.length > 0 ? <section className="concept-related-records" id="hadiths" aria-labelledby="concept-hadiths-title"><h2 id="concept-hadiths-title">{tr ? 'İlgili sahih hadisler' : 'Related authentic hadiths'}</h2><div>{displayedHadithIds.flatMap((id) => { const record = getHadithByIdForLocale(id, locale); return record ? [<article key={id}><small>HadeethEnc #{id}</small><h3><Link href={`/hadith/${id}`}>{record.title}</Link></h3></article>] : []; })}</div>{hadithPageCount > 1 ? <><p>{tr ? `${concept.hadithIds.length.toLocaleString('tr-TR')} kayıt · ${hadithPage}/${hadithPageCount}. sayfa` : `${concept.hadithIds.length.toLocaleString('en-US')} records · page ${hadithPage} of ${hadithPageCount}`}</p><nav className="concept-pagination" aria-label={tr ? 'Hadis kayıt sayfaları' : 'Hadith record pages'}>{hadithPage > 1 ? <Link href={pageHref(versePage, hadithPage - 1, 'hadiths')}>← {tr ? 'Önceki hadisler' : 'Previous hadiths'}</Link> : <span />}{hadithPage < hadithPageCount ? <Link href={pageHref(versePage, hadithPage + 1, 'hadiths')}>{tr ? 'Sonraki hadisler' : 'Next hadiths'} →</Link> : null}</nav></> : null}</section> : null}
-          {people.length > 0 ? <section className="concept-related" aria-labelledby="people-title"><h2 id="people-title">{tr ? 'Bu kavramla bağlantılı kişiler' : 'People connected to this concept'}</h2><p>{people.map((person, index) => <span key={person.slug}>{index > 0 ? ' · ' : ''}<Link href={getPersonHref(person)}>{person.name}</Link></span>)}</p></section> : null}
+          {people.length > 0 ? <section className="concept-related" aria-labelledby="people-title"><h2 id="people-title">{tr ? 'Bu kavramla bağlantılı kişiler' : 'People connected to this concept'}</h2><p>{people.map((person, index) => <span key={person.slug}>{index > 0 ? ' · ' : ''}<Link href={getPersonHref(person)}>{getPersonName(person, locale)}</Link></span>)}</p></section> : null}
           <section className="concept-related" id="related" aria-labelledby="related-title">
             <h2 id="related-title">{tr ? 'İlgili kavramlar' : 'Related concepts'}</h2>
             <p>{related.map((record, index) => <span key={record.slug}>{index > 0 ? ' · ' : ''}<Link href={getConceptHref(record)}>{getConceptTitle(record, locale)}</Link></span>)}</p>

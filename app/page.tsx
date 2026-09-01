@@ -10,7 +10,7 @@ export default async function Home() {
   const locale = await getLocale(); const tr = locale === 'tr';
   const paths = tr ? [
     { label: 'Kur’an’ı oku', detail: '114 sure, Türkçe meal ve üç klasik tefsir', href: '/surahs' },
-    { label: 'Bir Kur’an kıssasını izle', detail: 'Musa’nın kaynak bağlantılı sekiz anlatı aşaması', href: '/stories/musa' },
+    { label: 'Bir Kur’an kıssası oku', detail: 'Musa kıssasını kaynak bağlantılı sekiz anlatı aşamasında okuyun', href: '/stories/musa' },
     { label: 'Sahih hadisleri incele', detail: 'Türkçe tercümesi doğrulanmış sahih hadis külliyatı', href: '/hadith' },
     { label: 'Kavramları keşfet', detail: 'Ayetlere, hadislere ve kişilere otomatik bağlanan kavramlar', href: '/concepts' },
   ] : [
@@ -33,7 +33,7 @@ export default async function Home() {
       </div></section>
 
       <article className="featured-reading" aria-labelledby="featured-reading-title">
-        <div className="featured-reading-copy"><span className="reader-overline">{tr ? 'İki dakikalık kaynak yolu' : 'A two-minute source trail'}</span><h2 id="featured-reading-title">{tr ? '“Şüphesiz ben Allah’ım.”' : '“Indeed, I am Allah.”'}</h2><p>{tr ? 'Kur’an’daki Musa anlatısı farklı surelere yayılır. IslamWiki bu ayetleri kronolojik bir okuma yoluna dönüştürür ve her cümleyi asıl ayetine bağlı tutar.' : 'The Quran’s account of Moses is spread across multiple surahs. IslamWiki turns those passages into a chronological reading path while keeping every statement attached to its verse.'}</p><div><Link href="/person/musa">{tr ? 'Musa kıssasını oku →' : 'Read the story of Moses →'}</Link><SourceDrawer title="Ta-Ha 20:14" description={tr ? `Rowwad Türkçe meal ${translationMetadata.version} kaynak kaydı.` : `Rowwad English translation ${translationMetadata.version}, aligned to the exact page in QuranEnc's official mushaf PDF.`} pdfUrl={source?.pdfUrl} page={source?.page} sourceUrl="https://quranenc.com" sourceLabel="QuranEnc" /></div></div>
+        <div className="featured-reading-copy"><span className="reader-overline">{tr ? 'İki dakikalık kaynak yolu' : 'A two-minute source trail'}</span><h2 id="featured-reading-title">{tr ? '“Şüphesiz ben Allah’ım.”' : '“Indeed, I am Allah.”'}</h2><p>{tr ? 'Kur’an’daki Musa anlatısı farklı surelere yayılır. IslamWiki bu ayetleri kronolojik bir okuma yoluna dönüştürür ve her cümleyi asıl ayetine bağlı tutar.' : 'The Quran’s account of Moses is spread across multiple surahs. IslamWiki turns those passages into a chronological reading path while keeping every statement attached to its verse.'}</p><div><Link href="/stories/musa">{tr ? 'Musa kıssasını oku →' : 'Read the story of Moses →'}</Link><SourceDrawer title="Ta-Ha 20:14" description={tr ? `Rowwad Türkçe meal ${translationMetadata.version} kaynak kaydı.` : `Rowwad English translation ${translationMetadata.version}, aligned to the exact page in QuranEnc's official mushaf PDF.`} pdfUrl={source?.pdfUrl} page={source?.page} sourceUrl={tr ? 'https://quranenc.com/tr/browse/turkish_rwwad' : 'https://quranenc.com/en/browse/english_rwwad'} sourceLabel="QuranEnc" /></div></div>
         <blockquote><p lang="ar" dir="rtl">{verse.text}</p><p>“{meaning.text}”</p><footer><Link href="/surah/ta-ha#verse-14">Ta-Ha 20:14</Link><span>QuranEnc Rowwad {translationMetadata.version}</span></footer></blockquote>
       </article>
 

@@ -207,13 +207,14 @@ a:hover { color: var(--reader-blue-dark); }
 .reader-overline { display: block; color: var(--reader-muted); font-size: 10px; font-weight: 650; letter-spacing: .1em; text-transform: uppercase; }
 .reader-hero { min-height: 570px; margin-top: 30px; padding: clamp(52px,8vw,92px); position: relative; display: flex; align-items: center; overflow: hidden; isolation: isolate; box-sizing: border-box; border: 1px solid var(--reader-line); border-radius: 18px; background: #111827; }
 .reader-hero * { box-sizing: border-box; }
-.reader-hero-scenes, .reader-hero-shade { position: absolute; inset: 0; z-index: -2; }
+.reader-hero-scenes, .reader-hero-shade { position: absolute; inset: 0; }
+.reader-hero-scenes { z-index: 0; }
 .reader-hero-scenes img { object-fit: cover; object-position: center; opacity: 0; transform: scale(1.025); transition: opacity 1.4s ease, transform 8s ease; }
 .reader-hero-scenes img.is-active { opacity: 1; transform: scale(1); }
-.reader-hero-shade { z-index: -1; background: linear-gradient(90deg,rgba(6,9,14,.88) 0%,rgba(6,9,14,.69) 48%,rgba(6,9,14,.22) 100%),linear-gradient(0deg,rgba(6,9,14,.56),transparent 48%); }
-.reader-hero-content { width: min(780px,100%); min-width: 0; }
+.reader-hero-shade { z-index: 1; background: linear-gradient(90deg,rgba(6,9,14,.88) 0%,rgba(6,9,14,.69) 48%,rgba(6,9,14,.22) 100%),linear-gradient(0deg,rgba(6,9,14,.56),transparent 48%); }
+.reader-hero-content { width: min(780px,100%); min-width: 0; position: relative; z-index: 2; }
 .reader-hero h1 { margin: 0 0 40px; color: #fff; font-size: clamp(50px, 7.4vw, 82px); font-weight: 590; letter-spacing: -.065em; line-height: .99; text-shadow: 0 2px 28px rgba(0,0,0,.32); }
-.reader-hero-reference { margin: 0; position: absolute; right: 24px; bottom: 19px; color: rgba(255,255,255,.78); font-size: 12px; font-weight: 600; letter-spacing: .02em; text-shadow: 0 1px 8px rgba(0,0,0,.7); }
+.reader-hero-reference { margin: 0; position: absolute; right: 24px; bottom: 19px; z-index: 2; color: rgba(255,255,255,.78); font-size: 12px; font-weight: 600; letter-spacing: .02em; text-shadow: 0 1px 8px rgba(0,0,0,.7); }
 .reader-hero > p { max-width: 690px; margin: 0; color: #4b5563; font-size: clamp(17px, 2vw, 20px); line-height: 1.65; }
 .reader-hero .search-area { width: 100%; margin-top: 0; }
 .reader-hero .search-box { height: 62px; margin: 0; padding: 5px; gap: 8px; border-color: rgba(255,255,255,.28); border-radius: 11px; background: rgba(8,12,18,.74); box-shadow: 0 12px 36px rgba(0,0,0,.24); backdrop-filter: blur(14px); }

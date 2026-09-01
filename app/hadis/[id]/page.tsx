@@ -44,7 +44,7 @@ export default async function HadithDetailPage({ params }: HadithPageProps) {
     <main>
       <SiteHeader />
       <div className="hadith-article-page">
-        <nav className="breadcrumbs" aria-label="Breadcrumb"><Link href="/">{tr ? 'Ana sayfa' : 'Main page'}</Link><span>›</span><Link href="/hadith">{tr ? 'Hadisler' : 'Hadiths'}</Link><span>›</span>#{record.id}</nav>
+        <nav className="breadcrumbs" aria-label={tr ? 'Sayfa yolu' : 'Breadcrumb'}><Link href="/">{tr ? 'Ana sayfa' : 'Main page'}</Link><span>›</span><Link href="/hadith">{tr ? 'Hadisler' : 'Hadith'}</Link><span>›</span>#{record.id}</nav>
         <header className="hadith-article-header">
           <span className="section-kicker">{tr ? 'Sahih hadis makalesi' : 'Authentic hadith article'}</span>
           <h1>{record.title}</h1>
@@ -78,12 +78,12 @@ export default async function HadithDetailPage({ params }: HadithPageProps) {
             </dl>
             <SourceDrawer
               label={pdfSource ? (tr ? 'PDF kaynağını aç' : 'View exact PDF source') : (tr ? 'Kaynak kaydını aç' : 'View source record')}
-              title={`Authentic Hadith #${record.id}`}
-              description={pdfSource ? `Exact title-aligned location in HadeethEnc English PDF, part ${pdfSource.part}.` : 'This record is verified in the current HadeethEnc dataset, but its wording is not aligned with enough certainty to the older PDF edition.'}
+              title={tr ? `Sahih Hadis #${record.id}` : `Authentic Hadith #${record.id}`}
+              description={pdfSource ? (tr ? `HadeethEnc İngilizce PDF’sinin ${pdfSource.part}. bölümünde, başlıkla eşleştirilmiş tam konum.` : `Exact title-aligned location in HadeethEnc English PDF, part ${pdfSource.part}.`) : (tr ? 'Bu kayıt güncel HadeethEnc veri kümesinde doğrulanmıştır; ancak metni eski PDF baskısıyla yeterli kesinlikte eşleştirilememiştir.' : 'This record is verified in the current HadeethEnc dataset, but its wording is not aligned with enough certainty to the older PDF edition.')}
               pdfUrl={pdfSource?.pdfUrl}
               page={pdfSource?.page}
-              sourceUrl={`https://hadeethenc.com/en/browse/hadith/${record.id}`}
-              sourceLabel="HadeethEnc record"
+              sourceUrl={`https://hadeethenc.com/${tr ? 'tr' : 'en'}/browse/hadith/${record.id}`}
+              sourceLabel={tr ? 'HadeethEnc kaydı' : 'HadeethEnc record'}
             />
           </aside>
         </div>

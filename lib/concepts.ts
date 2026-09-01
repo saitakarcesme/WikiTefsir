@@ -67,7 +67,7 @@ export function getAllKeywordConcepts(locale?: Locale) { return locale ? keyword
 export function getConceptBySlug(slug: string) { return conceptsBySlug.get(slug); }
 export function getConceptHref(concept: Pick<ConceptRecord, 'slug'>) { return `/concept/${concept.slug}`; }
 export function getConceptTitle(concept: ConceptRecord, locale: Locale) { return locale === 'tr' ? concept.titleTr : concept.title; }
-export function getConceptScope(concept: ConceptRecord, locale: Locale) { return locale === 'tr' ? concept.scopeTr : concept.scope; }
+export function getConceptScope(concept: ConceptRecord, locale: Locale) { return locale === 'tr' ? concept.scopeTr.replaceAll("'", '’') : concept.scope; }
 export function getConceptsForVerse(surah: number, ayah: number) { return verseSemantic.get(`${surah}:${ayah}`) ?? []; }
 export function getKeywordsForVerse(surah: number, ayah: number, locale: Locale, limit = 8) {
   return (verseKeywords.get(`${surah}:${ayah}`) ?? []).filter((item) => item.locale === locale).slice(0, limit);

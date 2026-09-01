@@ -57,7 +57,7 @@ export function HadithDirectory({ initialRecords, total, themes, locale }: { ini
         <div><span className="section-kicker">{tr ? 'Doğrulanmış külliyat' : 'Verified corpus'}</span><h2 id="hadith-directory-title">{tr ? 'Sahih hadisler' : 'Authentic hadiths'}</h2></div>
         <span className="review-status">{resultCount.toLocaleString(tr ? 'tr-TR' : 'en-US')} {tr ? 'kayıt' : 'records'}</span>
       </div>
-      <div className="hadith-theme-filter" aria-label="Filter hadiths by life situation">
+      <div className="hadith-theme-filter" aria-label={tr ? 'Hadisleri hayat alanına göre filtrele' : 'Filter hadiths by life situation'}>
         {[allLabel, ...themes].map((theme) => <button className={activeTheme === theme ? 'active' : ''} type="button" aria-pressed={activeTheme === theme} key={theme} onClick={() => setActiveTheme(theme)}>{theme}</button>)}
       </div>
       <form className="library-search" role="search" onSubmit={handleSubmit}>

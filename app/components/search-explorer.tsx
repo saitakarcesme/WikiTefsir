@@ -72,7 +72,7 @@ export function SearchExplorer({ locale }: { locale: Locale }) {
               setStatus('idle');
             }
           }}
-          placeholder={tr ? 'Allah’ın sizi yönelttiği şeyi arayın…' : 'Search whatever Allah guides you to…'}
+          placeholder={tr ? 'Allah’ın sizi yönelttiği şeyi arayın…' : 'Search for whatever Allah guides you to…'}
           autoComplete="off"
         />
         <button type="submit" disabled={query.trim().length < 2 || !results.length}>{tr ? 'Ara' : 'Search'} <span aria-hidden="true">→</span></button>

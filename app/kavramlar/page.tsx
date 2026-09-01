@@ -29,7 +29,7 @@ export default async function ConceptsPage() {
           <p>{tr ? 'Kavram bağlantıları elle seçilmiş birkaç ayetten değil; İngilizce ve Türkçe Kur’an mealleriyle sahih hadis külliyatının sürümlenmiş JSON indeksinden üretilir.' : 'Concept links are generated from a versioned JSON index of the English and Turkish Quran translations and the authentic hadith corpus—not from a few manually selected verses.'}</p>
           <div className="index-summary"><span><strong>{concepts.length}</strong> {tr ? 'anlam kümesi' : 'semantic concepts'}</span><span><strong>{stats.keywordCount.toLocaleString(localeNumber(locale))}</strong> {tr ? 'külliyat etiketi' : 'corpus tags'}</span><span><strong>{stats.quranEnglishRecords.toLocaleString(localeNumber(locale))}</strong> {tr ? 'taranan ayet' : 'indexed verses'}</span></div>
         </header>
-        <nav className="page-tabs compact" aria-label="Concept index tools"><span className="active">{tr ? 'Kavram dizini' : 'Article index'}</span><Link href="/surahs">{tr ? 'Sureler' : 'Surahs'}</Link><Link href="/hadith">{tr ? 'Hadisler' : 'Hadiths'}</Link></nav>
+        <nav className="page-tabs compact" aria-label={tr ? 'Kavram dizini araçları' : 'Concept index tools'}><span className="active">{tr ? 'Kavram dizini' : 'Article index'}</span><Link href="/surahs">{tr ? 'Sureler' : 'Surahs'}</Link><Link href="/hadith">{tr ? 'Hadisler' : 'Hadith'}</Link></nav>
         <section className="concept-index" aria-labelledby="concept-index-title">
           <h2 id="concept-index-title">{tr ? 'Anlam kavramları' : 'Semantic concepts'}</h2>
           <div>

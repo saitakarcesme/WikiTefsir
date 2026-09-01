@@ -9,7 +9,7 @@ export async function SiteHeader() {
   const locale = await getLocale();
   return (
     <header className="topbar">
-      <Link className="brand" href="/" aria-label="IslamWiki home page">
+      <Link className="brand" href="/" aria-label={locale === 'tr' ? 'IslamWiki ana sayfası' : 'IslamWiki home page'}>
         <span className="brand-copy"><strong>IslamWiki</strong></span>
       </Link>
 

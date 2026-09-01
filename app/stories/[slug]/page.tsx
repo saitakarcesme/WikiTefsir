@@ -38,7 +38,7 @@ export default async function StoryPage({ params }: StoryPageProps) {
   const readingMinutes = Math.max(4, Math.round(person.narrative.flatMap((stage) => stage.references).length * .42 + person.narrative.length * .45));
   return <main><SiteHeader /><article className="story-reader">
     <nav className="breadcrumbs"><Link href="/">{tr ? 'Ana sayfa' : 'Home'}</Link><span>›</span><Link href="/stories">{tr ? 'Kıssalar' : 'Stories'}</Link><span>›</span>{getPersonName(person, locale)}</nav>
-    <header className="story-reader-header"><span className="reader-overline">{getPersonKind(person, locale)} · {readingMinutes} {tr ? 'dakikalık okuma' : 'minute read'}</span><h1>{getPersonName(person, locale)}</h1><p lang="ar" dir="rtl">{person.arabic}</p><div>{authoredStory?.intro[locale] ?? (tr ? `${getPersonName(person, locale)} hakkındaki anlatı, Kur’an’da açıkça bildirilen olay ve tasvirlerle sınırlıdır.` : person.introduction)}</div></header>
+    <header className="story-reader-header"><span className="reader-overline">{getPersonKind(person, locale)} · {readingMinutes}{tr ? ' dakikalık okuma' : '-minute read'}</span><h1>{getPersonName(person, locale)}</h1><p lang="ar" dir="rtl">{person.arabic}</p><div>{authoredStory?.intro[locale] ?? (tr ? `${getPersonName(person, locale)} hakkındaki anlatı, Kur’an’da açıkça bildirilen olay ve tasvirlerle sınırlıdır.` : person.introduction)}</div></header>
     <div className="story-prose">
       {person.narrative.map((stage, index) => {
         const passages = stage.references.map((reference) => {
@@ -72,8 +72,8 @@ export default async function StoryPage({ params }: StoryPageProps) {
       })}
     </div>
     {relatedHadiths.length ? <section className="story-hadith-layer" aria-labelledby="story-hadith-title">
-      <span className="reader-overline">{tr ? 'Sahih hadis katmanı' : 'Authenticated hadith layer'}</span>
-      <h2 id="story-hadith-title">{tr ? 'Kıssayla ilgili sahih rivayetler' : 'Authenticated reports related to the story'}</h2>
+      <span className="reader-overline">{tr ? 'Sahih hadis katmanı' : 'Authentic hadith layer'}</span>
+      <h2 id="story-hadith-title">{tr ? 'Kıssayla ilgili sahih rivayetler' : 'Authentic reports related to the story'}</h2>
       <p>{tr ? 'Bu rivayetler Kur’an’daki kronolojiye eklenmez; HadeethEnc’in bağımsız Türkçe kaydından, kıssayla ilgili tamamlayıcı bir kaynak katmanı olarak gösterilir.' : 'These reports are not inserted into the Quranic chronology. They are shown as a supplemental source layer from HadeethEnc’s independent English record.'}</p>
       {relatedHadiths.map(({ record, image }) => <div className="story-hadith-record" key={record.id}>
         <StoryArtwork image={image} title={record.title} source={`HadeethEnc #${record.id}`} arabic={record.hadeeth_ar} translation={record.hadeeth} locale={locale} />

@@ -32,7 +32,7 @@ export default async function HadithPage() {
     <main>
       <SiteHeader />
       <div className="library-page">
-        <nav className="breadcrumbs" aria-label="Breadcrumb"><Link href="/">{tr ? 'Ana sayfa' : 'Main page'}</Link><span>›</span>{tr ? 'Hadisler' : 'Hadiths'}</nav>
+        <nav className="breadcrumbs" aria-label={tr ? 'Sayfa yolu' : 'Breadcrumb'}><Link href="/">{tr ? 'Ana sayfa' : 'Main page'}</Link><span>›</span>{tr ? 'Hadisler' : 'Hadith'}</nav>
         <header className="library-hero">
           <span className="section-kicker">{tr ? 'Hadis kütüphanesi' : 'Hadith library'}</span>
           <h1>{stats.recordCount.toLocaleString(localeNumber(locale))} {tr ? 'sahih hadis' : 'authentic hadiths'}</h1>

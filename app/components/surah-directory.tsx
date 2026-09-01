@@ -41,7 +41,7 @@ export function SurahDirectory({ items, locale }: { items: SurahDirectoryItem[];
             placeholder={locale === 'tr' ? 'Sure adı veya numarası…' : 'Surah name or number…'}
           />
         </div>
-        <div className="directory-filters" aria-label="Revelation place filter">
+        <div className="directory-filters" aria-label={locale === 'tr' ? 'Nüzul yerine göre filtrele' : 'Filter by place of revelation'}>
           {[
             ['all', locale === 'tr' ? 'Tümü' : 'All'],
             ['Meccan', locale === 'tr' ? 'Mekki' : 'Meccan'],
