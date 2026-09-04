@@ -6,7 +6,7 @@ import { galleryImageById } from '@/lib/gallery-images';
 import type { GalleryScene } from '@/lib/gallery-scenes';
 import type { Locale } from '@/lib/locale';
 
-type DisplayScene = GalleryScene & { sourceText?: string };
+type DisplayScene = GalleryScene & { sourceArabic?: string; sourceText?: string };
 
 export function GalleryGrid({ scenes, locale }: { scenes: DisplayScene[]; locale: Locale }) {
   const pageSize = 24;
@@ -33,7 +33,7 @@ export function GalleryGrid({ scenes, locale }: { scenes: DisplayScene[]; locale
                 {image ? <Image src={image} alt="" fill unoptimized loading={[1, 35, 69].includes(scene.id) ? 'eager' : 'lazy'} sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw" /> : <span className="gallery-awaiting"><span>{String(scene.id).padStart(3, '0')}</span><small>{tr ? 'Eser üretim bekliyor' : 'Artwork awaiting generation'}</small></span>}
               </span>
               <span className="gallery-card-face gallery-card-back">
-                <small>{tr ? 'Kaynak kaydı' : 'Source record'}</small><strong>{scene.source}</strong>{scene.sourceText ? <blockquote>{scene.sourceText}</blockquote> : null}<p>{tr ? 'Bu sahne, yukarıdaki Türkçe kaynak kaydında anlatılan olaya dayalı yüz göstermeyen sanatsal bir yorumdur.' : scene.brief}</p><span>{tr ? 'Geri çevir' : 'Turn back'} ↺</span>
+                <span className="gallery-source-scroll"><strong>{scene.source}</strong>{scene.sourceArabic ? <blockquote lang="ar" dir="rtl">{scene.sourceArabic}</blockquote> : null}{scene.sourceText ? <p>{scene.sourceText}</p> : null}</span><span className="gallery-turn-icon" aria-hidden="true">↺</span>
               </span>
             </span>
           </button>

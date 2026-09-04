@@ -659,9 +659,9 @@ body.source-panel-open .quran-article-layout .wiki-infobox { display: none; }
 .gallery-controls button.active { color: var(--reader-paper); background: var(--reader-ink); border-color: var(--reader-ink); }
 .gallery-controls > span { margin-left: auto; color: var(--reader-muted); font-size: 12px; }
 .gallery-grid { columns: 3 260px; column-gap: 18px; }
-.gallery-work { height: 360px; margin: 0 0 18px; break-inside: avoid; perspective: 1200px; content-visibility: auto; contain-intrinsic-size: 360px; }
-.gallery-work-1, .gallery-work-4 { height: 430px; }
-.gallery-work-3 { height: 310px; }
+.gallery-work { height: 500px; margin: 0 0 18px; break-inside: avoid; perspective: 1200px; content-visibility: auto; contain-intrinsic-size: 500px; }
+.gallery-work-1, .gallery-work-4 { height: 560px; }
+.gallery-work-3 { height: 500px; }
 .gallery-flip { width: 100%; height: 100%; padding: 0; display: block; color: inherit; background: transparent; border: 0; text-align: left; }
 .gallery-card-inner { width: 100%; height: 100%; display: block; position: relative; transform-style: preserve-3d; transition: transform .55s cubic-bezier(.2,.75,.2,1); }
 .gallery-work.flipped .gallery-card-inner { transform: rotateY(180deg); }
@@ -684,7 +684,7 @@ body.source-panel-open .quran-article-layout .wiki-infobox { display: none; }
 @media (max-width: 700px) {
   .gallery-controls > span { width: 100%; margin: 4px 0 0; }
   .gallery-grid { columns: 1; }
-  .gallery-work, .gallery-work-1, .gallery-work-3, .gallery-work-4 { height: 390px; }
+  .gallery-work, .gallery-work-1, .gallery-work-3, .gallery-work-4 { height: min(540px, 132vw); min-height: 460px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -976,3 +976,71 @@ body.source-panel-open .quran-article-layout .wiki-infobox { display: none; }
 .story-hadith-record { margin-top: 34px; }
 .story-hadith-record .story-artwork { width: 100%; margin-left: 0; }
 .story-hadith-record > a { color: var(--reader-blue); font-size: 13px; font-weight: 650; }
+
+/* Full-viewport home artwork with a constrained reading column beneath it. */
+.reader-home { width: 100%; margin: 0; }
+.reader-hero {
+  width: 100%; min-height: calc(100svh - 66px); margin: 0; padding-inline: max(24px, calc((100vw - 1080px) / 2));
+  border-inline: 0; border-radius: 0;
+}
+.reader-hero-scenes img { object-position: center; }
+.reader-hero-scenes img, .reader-hero-shade { min-height: 100%; }
+.reader-start, .featured-reading { width: min(1080px, calc(100% - 40px)); margin-inline: auto; }
+
+/* Every reading-path cell uses the same inset from all four borders. */
+.reader-start > div:last-child > a,
+.reader-start > div:last-child > a:nth-child(odd),
+.reader-start > div:last-child > a:nth-child(even) {
+  min-height: 132px; padding: 28px; grid-template-columns: 34px minmax(0,1fr) 18px; gap: 16px;
+}
+.reader-start > div:last-child > a:nth-child(odd) { border-right: 1px solid var(--reader-line); }
+.reader-start > div:last-child > a > span:last-child { justify-self: end; }
+
+/* Site-owned PDF reading surface. */
+.pdf-reader { height: 100%; display: grid; grid-template-rows: auto minmax(0,1fr); background: var(--reader-soft); }
+.pdf-reader-toolbar { min-height: 58px; padding: 8px 58px 8px 14px; display: grid; grid-template-columns: minmax(100px,1fr) auto auto; gap: 14px; align-items: center; color: var(--reader-ink); background: color-mix(in srgb,var(--reader-paper) 94%,transparent); border-bottom: 1px solid var(--reader-line); backdrop-filter: blur(12px); }
+.pdf-reader-identity { min-width: 0; display: grid; gap: 2px; }
+.pdf-reader-identity small { overflow: hidden; color: var(--reader-muted); font-size: 9px; letter-spacing: .08em; text-overflow: ellipsis; text-transform: uppercase; white-space: nowrap; }
+.pdf-reader-identity strong { overflow: hidden; font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
+.pdf-reader-controls { display: flex; align-items: center; gap: 4px; }
+.pdf-reader-controls button { width: 31px; height: 31px; display: grid; place-items: center; color: var(--reader-ink); background: transparent; border: 1px solid transparent; border-radius: 7px; font-size: 15px; }
+.pdf-reader-controls button:hover:not(:disabled) { background: var(--reader-soft); border-color: var(--reader-line); }
+.pdf-reader-controls button:disabled { opacity: .3; }
+.pdf-reader-controls label { display: flex; align-items: center; gap: 5px; color: var(--reader-muted); font-size: 10px; white-space: nowrap; }
+.pdf-reader-controls input { width: 45px; height: 30px; color: var(--reader-ink); background: var(--reader-paper); border: 1px solid var(--reader-line); border-radius: 6px; text-align: center; }
+.pdf-reader-controls output { min-width: 39px; color: var(--reader-muted); font-size: 10px; text-align: center; }
+.pdf-reader-divider { width: 1px; height: 22px; margin-inline: 4px; background: var(--reader-line); }
+.pdf-reader-toolbar > a { color: var(--reader-blue); font-size: 10px; white-space: nowrap; }
+.pdf-reader-viewport { min-height: 0; padding: 16px; position: relative; overflow: auto; overscroll-behavior: contain; background: color-mix(in srgb,var(--reader-ink) 7%,var(--reader-soft)); }
+.pdf-reader-viewport canvas { margin: 0 auto; display: block; max-width: none; background: #fff; box-shadow: 0 12px 35px rgba(17,24,39,.16); }
+.pdf-reader-state { min-height: 180px; display: grid; place-content: center; gap: 12px; color: var(--reader-muted); font-size: 13px; text-align: center; }
+
+/* Gallery backs show the complete source record, without repeated editorial copy. */
+.gallery-card-back { padding: 0; justify-content: stretch; }
+.gallery-source-scroll { height: 100%; padding: clamp(20px,3vw,30px); display: flex; flex-direction: column; justify-content: center; overflow: auto; overscroll-behavior: contain; scrollbar-gutter: stable; scrollbar-width: thin; }
+.gallery-source-scroll > strong { margin: 0 0 14px; color: var(--reader-blue); font-family: Georgia,serif; font-size: clamp(17px,2.2vw,22px); }
+.gallery-source-scroll > blockquote { max-height: none; margin: 0 0 14px; padding: 0; overflow: visible; color: var(--reader-ink); background: transparent; border: 0; font-family: 'Noto Naskh Arabic','Amiri',Georgia,serif; font-size: clamp(19px,2.4vw,27px); line-height: 1.8; overflow-wrap: anywhere; }
+.gallery-source-scroll > p { margin: 0; color: var(--reader-ink); font-family: Georgia,'Times New Roman',serif; font-size: clamp(12px,1.5vw,15px); line-height: 1.65; overflow-wrap: anywhere; }
+.gallery-turn-icon { position: absolute; right: 12px; bottom: 10px; color: var(--reader-muted); font-size: 16px; }
+
+.story-lesson { margin-top: 30px; padding: clamp(28px,5vw,48px); color: var(--reader-ink); background: var(--reader-soft); border: 1px solid var(--reader-line); border-radius: 12px; }
+.story-lesson h2 { margin: 8px 0 13px; font-family: Georgia,'Times New Roman',serif; font-size: clamp(28px,4vw,40px); font-weight: 500; }
+.story-lesson p { margin: 0; font-family: Georgia,'Times New Roman',serif; font-size: 17px; line-height: 1.8; }
+
+@media (max-width: 760px) {
+  .reader-home { width: 100%; margin: 0; }
+  .reader-hero { min-height: calc(100svh - 56px); margin: 0; padding: 40px 18px 62px; border-radius: 0; }
+  .reader-start, .featured-reading { width: calc(100% - 28px); }
+  .reader-start > div:last-child > a,
+  .reader-start > div:last-child > a:nth-child(odd),
+  .reader-start > div:last-child > a:nth-child(even) { padding: 22px; border-right: 0; }
+  .pdf-reader-toolbar { padding: 7px 8px; grid-template-columns: minmax(0,1fr); gap: 5px; }
+  .pdf-reader-identity { padding-right: 48px; }
+  .pdf-reader-controls { grid-column: 1; justify-content: center; }
+  .pdf-reader-toolbar > a, .pdf-reader-divider, .pdf-reader-controls output, .pdf-reader-controls button:nth-of-type(4) { display: none; }
+  .pdf-reader-controls { gap: 1px; }
+  .pdf-reader-controls button { width: 28px; }
+  .pdf-reader-controls input { width: 38px; }
+  .pdf-reader-viewport { padding: 8px; }
+  .gallery-source-scroll { justify-content: flex-start; }
+}

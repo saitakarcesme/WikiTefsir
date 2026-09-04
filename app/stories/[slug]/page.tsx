@@ -81,6 +81,11 @@ export default async function StoryPage({ params }: StoryPageProps) {
         <Link href={`/hadith/${record.id}`}>{tr ? 'Hadis kaydını aç →' : 'Open the hadith record →'}</Link>
       </div>)}
     </section> : null}
-    <footer className="story-closing">{authoredStory?.closing[locale] ?? (tr ? 'Kur’an’ın açıkça bildirmediği biyografik ayrıntılar bu anlatıya eklenmemiştir.' : person.closingNote)}</footer>
+    <p className="story-closing">{tr ? 'Bu anlatı Kur’an ayetleri ve ayrıca belirtilen sahih hadis kayıtlarıyla sınırlı tutulmuştur.' : 'This narrative is limited to the cited Quran verses and separately identified authentic hadith records.'}</p>
+    <section className="story-lesson" aria-labelledby="story-lesson-title">
+      <span className="reader-overline">{tr ? 'Kıssadan hisse' : 'Lesson from the story'}</span>
+      <h2 id="story-lesson-title">{tr ? 'Hatırda kalan' : 'What remains'}</h2>
+      <p>{authoredStory?.closing[locale] ?? (tr ? 'Kur’an’ın açıkça bildirmediği biyografik ayrıntılar bu anlatıya eklenmemiştir.' : person.closingNote)}</p>
+    </section>
   </article></main>;
 }

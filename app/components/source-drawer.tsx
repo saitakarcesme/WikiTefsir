@@ -3,6 +3,7 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useLocale } from '@/app/components/locale-provider';
+import { PdfReader } from '@/app/components/pdf-reader';
 
 interface SourceDrawerProps {
   label?: string;
@@ -28,9 +29,7 @@ export function SourceDrawer({
   const triggerRef = useRef<HTMLButtonElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const resizingRef = useRef(false);
-  const pdfTarget = pdfUrl && page ? `${pdfUrl}#page=${page}&view=FitH` : undefined;
-  const embeddedTarget = viewerUrl ?? pdfTarget;
-  const mobileTarget = embeddedTarget ?? sourceUrl;
+  const proxiedPdf = pdfUrl ? `/api/source-pdf?url=${encodeURIComponent(pdfUrl)}` : undefined;
 
   useEffect(() => {
     if (!open) return;
@@ -103,8 +102,10 @@ export function SourceDrawer({
       <h2 className="sr-only" id={titleId}>{title}</h2>
       {description ? <p className="sr-only" id={descriptionId}>{description}</p> : null}
       <button ref={closeRef} className="source-close" type="button" aria-label={turkish ? 'Kaynak panelini kapat' : 'Close source panel'} title={turkish ? 'Kaynak panelini kapat' : 'Close source panel'} onClick={() => setOpen(false)}>×</button>
-      {embeddedTarget
-        ? <><iframe className="source-document" src={embeddedTarget} title={`${title}${page ? `, ${turkish ? 'sayfa' : 'page'} ${page}` : ''}`} /><div className="source-mobile-fallback"><small>{sourceLabel}</small><strong>{title}</strong>{description ? <p>{description}</p> : null}<a href={mobileTarget} target="_blank" rel="noreferrer">{turkish ? 'PDF kaynağını aç' : 'Open PDF source'} ↗</a></div></>
+      {proxiedPdf && pdfUrl
+        ? <PdfReader source={proxiedPdf} originalSource={pdfUrl} initialPage={page} title={title} sourceLabel={sourceLabel} turkish={turkish} />
+        : viewerUrl
+          ? <iframe className="source-document" src={viewerUrl} title={title} />
         : <div className="source-unavailable"><strong>{turkish ? 'Doğrulanmış dijital kaynak yeni sekmede kullanılabilir.' : 'The verified digital source is available in a new tab.'}</strong><a href={sourceUrl} target="_blank" rel="noreferrer">{turkish ? `${sourceLabel} kaynağını aç` : `Open ${sourceLabel}`} ↗</a></div>}
     </aside>, document.body) : null}
   </>;

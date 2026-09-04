@@ -4,7 +4,7 @@ import { SiteHeader } from '@/app/components/site-header';
 import { GalleryGrid } from '@/app/components/gallery-grid';
 import { galleryScenes } from '@/lib/gallery-scenes';
 import { getHadithByIdForLocale } from '@/lib/hadith';
-import { getTranslation } from '@/lib/quran';
+import { getTranslation, getVerse } from '@/lib/quran';
 import { getLocale } from '@/lib/server-locale';
 
 export const metadata: Metadata = { title: 'Gallery', description: 'A source-indexed visual archive of Quran and authentic hadith scenes.', openGraph: { images: [] }, twitter: { images: [] } };
@@ -14,8 +14,10 @@ export default async function GalleryPage() {
   const scenes = galleryScenes.map((scene) => {
     const verseMatch = scene.kind === 'Quran' ? scene.source.match(/Quran\s+(\d+):(\d+)/u) : null;
     const hadithMatch = scene.kind === 'Hadith' ? scene.source.match(/#(\d+)/u) : null;
-    const sourceText = verseMatch ? getTranslation(Number(verseMatch[1]), Number(verseMatch[2]), locale)?.text : hadithMatch ? getHadithByIdForLocale(hadithMatch[1], locale)?.hadeeth : undefined;
-    return { ...scene, sourceText };
+    const hadith = hadithMatch ? getHadithByIdForLocale(hadithMatch[1], locale) : undefined;
+    const sourceArabic = verseMatch ? getVerse(Number(verseMatch[1]), Number(verseMatch[2]))?.text : hadith?.hadeeth_ar;
+    const sourceText = verseMatch ? getTranslation(Number(verseMatch[1]), Number(verseMatch[2]), locale)?.text : hadith?.hadeeth;
+    return { ...scene, sourceArabic, sourceText };
   });
   return <main><SiteHeader /><div className="reader-index-page gallery-page">
     <nav className="breadcrumbs"><Link href="/">{tr ? 'Ana sayfa' : 'Home'}</Link><span>›</span>{tr ? 'Galeri' : 'Gallery'}</nav>
