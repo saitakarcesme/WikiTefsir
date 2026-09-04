@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
   const range = request.headers.get('range');
   const upstream = await fetch(source, {
     headers: range ? { Range: range } : undefined,
-    cache: 'force-cache',
+    cache: 'no-store',
   });
   if (!upstream.ok && upstream.status !== 206) return new Response('PDF source unavailable', { status: upstream.status });
 
